@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_10"
+        android:background="@drawable/border_layout"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_wine_dine"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/tv_wine_dine_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginTop="120dp"
+                android:background="@drawable/border_edges"
+                android:fontFamily="@font/notoseriftc_regular"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_10"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_content_wine_dine_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_margin="@dimen/dimen_10"
+            android:fontFamily="@font/notosanstc_light"
+            android:gravity="center|start|end"
+            android:justificationMode="inter_word"
+            android:textColor="#000000" />
+
+        <RelativeLayout
+            android:paddingLeft="@dimen/dimen_15"
+            android:paddingTop="@dimen/dimen_15"
+            android:paddingBottom="@dimen/dimen_15"
+            android:background="#BBAF98"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_alignParentLeft="true"
+                android:id="@+id/tv_assistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+               android:layout_centerVertical="true"
+                android:fontFamily="@font/notosanstc_light"
+                android:textColor="@color/black" />
+
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/dimen_2"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_loc_wine_dine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:drawableLeft="@drawable/icon_location"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/notosanstc_light"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_time_wine_dine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="5dp"
+                    android:layout_marginTop="@dimen/dimen_2"
+                    android:drawableLeft="@drawable/icon_clock"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/notosanstc_light"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

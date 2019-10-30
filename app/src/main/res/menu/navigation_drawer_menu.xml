@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/grp1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_unlock"
+            android:icon="@drawable/ic_unlock_door"
+            android:title="@string/door_unlock" />
+
+        <item
+            android:id="@+id/nav_services"
+            android:icon="@drawable/ic_services"
+            android:title="@string/services" />
+        <item
+            android:id="@+id/nav_sleep_well"
+            android:icon="@drawable/ic_sleep_well"
+            android:title="@string/sleep_well" />
+        <item
+            android:id="@+id/nav_wine_dine"
+            android:icon="@drawable/ic_wine_dine"
+            android:title="@string/wine_dine" />
+        <item
+            android:id="@+id/nav_room_dinning"
+            android:icon="@drawable/ic_inroom_dining"
+            android:title="@string/dinning" />
+        <item
+            android:id="@+id/nav_experiences"
+            android:icon="@drawable/ic_exclusive_experiences"
+            android:title="@string/experiences" />
+        <item
+            android:id="@+id/nav_spa_saloon"
+            android:icon="@drawable/ic_spa_salon"
+            android:title="@string/spa_saloon" />
+        <item
+            android:id="@+id/nav_recreation"
+            android:icon="@drawable/ic_recreation"
+            android:title="@string/recreation" />
+        <item
+            android:id="@+id/nav_sight_seeing"
+            android:icon="@drawable/ic_sightseeing"
+            android:title="@string/sight_seeing" />
+    </group>
+    <group
+        android:id="@+id/grp2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_notification"
+            android:icon="@drawable/icon_bell"
+            android:title="Notification" />
+    </group>
+    <group
+        android:id="@+id/grp3"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="Logout" />
+    </group>
+</menu>

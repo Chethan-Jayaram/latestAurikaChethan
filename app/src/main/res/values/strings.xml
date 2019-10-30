@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">Aurika</string>
+    <string name="login_btn">EXPLORE</string>
+    <string name="login_msg">Log in to an \n Unforgettable stay</string>
+    <string name="toolbar_title">Welcome to Aurika, Udaipur</string>
+    <string name="opt_send">CONFIRM &amp; SEND OTP</string>
+    <string name="enter_btn">Enter</string>
+    <string name="click_to_resend">Click here to resend code</string>
+    <string name="rs">`</string>
+
+    <string name="agree_terms_privacy">I agree with the &lt;a href="https://www.lemontreehotels.com/term-condition.aspx">Terms and conditions&lt;/a> and &lt;a href="https://www.lemontreehotels.com/privacy-policy.aspx">Privacy Policy&lt;/a></string>
+    <string name="terms_conditions">Click here for terms &amp; conditions</string>
+    <string name="six_digit_">Please type the 6 digit verification code</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="edittext_hint"><font size="15">Enter Email/Mobile Number</font></string>
+
+
+    <!-- Navigation Drawer menu labels -->
+    <string name="door_unlock">Unlock Your Door</string>
+    <string name="services">Services</string>
+    <string name="sleep_well">Sleep Well</string>
+    <string name="wine_dine">Wine And Dine</string>
+    <string name="dinning">In-room Dining</string>
+    <string name="experiences">Experiences</string>
+    <string name="spa_saloon">Spa and Saloon</string>
+    <string name="recreation">Recreation</string>
+    <string name="notification">Notification</string>
+    <string name="sight_seeing">Sightseeing</string>
+
+
+
+    <!-- Error messages -->
+    <string name="error_generic_error">An error occurred</string>
+    <string name="error_api_is_busy">API is busy</string>
+    <string name="error_endpoint_not_personalize">Endpoint is not personalized</string>
+    <string name="error_server_communication_failed">Server communication failed. Check internet connectivity or try again later.</string>
+    <string name="error_device_not_eligible">Device not eligible for this service. Contact key administrator.</string>
+    <string name="error_device_api_incompatible">Mobile Access SDK incompatible. Upgrade your application in the Play Store</string>
+    <string name="error_setup_failed_retry">Invalid registration code. Retype or contact key administrator.</string>
+    <string name="error_internal_error">Internal error. Retry or contact key administrator if the problem persists.</string>
+    <string name="error_device_setup_failed">Device setup failed. Contact key administrator.</string>
+    <string name="warning_location_permission_not_granted">Warning BLE requires location permission</string>
+    <string name="location_services_request">Location access is required to open locks over bluetooth</string>
+    <string name="no_lock_in_range">No lock in range</string>
+    <string name="lock_in_range">Lock in range</string>
+
+
+    <!--Snackbar action titles-->
+    <string name="action_retry">Retry</string>
+    <string name="action_dismiss">Dismiss</string>
+    <string name="action_enable">allow</string>
+
+
+    <string name="unlock_notification_title">Mobile Access is running</string>
+    <string name="notification_channel_name_informative">Running foreground scan service</string>
+
+    <string name="NETWORK_ISSUE">"Please check your internet connection and try again."</string>
+    <string name="SOCKET_ISSUE">"The request timed out."</string>
+    <string name="ERROR">"Unable to retrieve details. Please try later."</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+    <string name="terms_and_conditions">https://www.lemontreehotels.com/term-condition.aspx</string>
+    <string name="privacy_policy">https://www.lemontreehotels.com/privacy-policy.aspx</string>
+    <string name="message">I agree with the</string>
+
+</resources>

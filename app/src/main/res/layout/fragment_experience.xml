@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".fragments.sectionsfragment.WineDineFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--  app:contentScrim : The Toolbar color when the
+              collapsing toolbar is collapsed. -->
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <!-- app:layout_collapseMode : parallax means an animation effect,
+                 pin means fixed. -->
+
+            <TextView
+                android:id="@+id/tv_exp_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="#e6decc"
+                android:fontFamily="@font/notosanstc_light"
+                android:gravity="bottom"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_20"
+                android:scaleType="centerCrop"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_anchor="@+id/appBarLayout"
+                app:layout_anchorGravity="center"
+                app:layout_collapseMode="parallax" />
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+        <TextView
+            android:id="@+id/tv_experience_assistance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosanstc_light"
+            android:background="#BAAE98"
+            app:layout_collapseMode="pin"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:padding="@dimen/dimen_15"
+            android:textColor=" #000000" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/experience_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

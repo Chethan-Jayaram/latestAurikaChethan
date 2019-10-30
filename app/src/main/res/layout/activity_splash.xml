@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="@drawable/splash_screen"
+    tools:context=".activitys.SplashActivity">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:padding="@dimen/dimen_80"
+        android:src="@drawable/aurika_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+   <TextView
+       android:textColor="@color/white"
+       android:text="Beyond the Unusual"
+       android:gravity="center"
+       android:id="@+id/beyond_unusual_txt"
+       android:textSize="22sp"
+       android:fontFamily="@font/notoseriftc_regular"
+       android:textStyle="italic"
+       android:layout_below="@+id/logo"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content" />
+
+</RelativeLayout>

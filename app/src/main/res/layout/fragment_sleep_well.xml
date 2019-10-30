@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".fragments.sectionsfragment.SleepWellFragment">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_sleep_well_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#e6decc"
+                android:fontFamily="@font/notosanstc_light"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_20"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_marginRight="@dimen/dimen_20"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1"
+                android:background="@color/gray" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:paddingLeft="@dimen/dimen_20"
+                android:paddingRight="@dimen/dimen_20"
+                android:id="@+id/sleppwell_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+</RelativeLayout>

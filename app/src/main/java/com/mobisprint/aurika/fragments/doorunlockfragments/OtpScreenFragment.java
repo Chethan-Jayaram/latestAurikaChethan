@@ -59,6 +59,10 @@ import com.mobisprint.aurika.services.APIMethods;
 import com.mobisprint.aurika.services.SchedulerService;
 import com.mobisprint.aurika.unlock.MobileKeysApiFacade;
 import com.mobisprint.aurika.unlock.SnackbarFactory;
+import com.onesignal.OneSignal;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
 import java.text.SimpleDateFormat;
@@ -195,6 +199,7 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
                                 Date currentTime = Calendar.getInstance().getTime();
                                 long diff = date.getTime() - currentTime.getTime();
                                 dismissDialog();
+                                sendTags();
                                 startScheduler(Math.abs(diff));
                                 Log.d("difference", String.valueOf(Math.abs(diff)));
                                 invitation = result.getInvitationCode();
@@ -247,6 +252,19 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
         }
     }
 
+    private void sendTags() {
+        try {
+            Date currentTime = Calendar.getInstance().getTime();
+            JSONObject tags = new JSONObject();
+            tags.put("isCheckedIn", "true");
+            tags.put("timeStamp", currentTime);
+            OneSignal.sendTags(tags);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void startScheduler(long diff) {
 
 
@@ -256,6 +274,7 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
             JobInfo info =  new JobInfo.Builder(1, componentName)
                     .setRequiresDeviceIdle(false)
                     .setRequiresCharging(false)
+                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                     .setPersisted(true)
                     .setBackoffCriteria(6000, JobInfo.BACKOFF_POLICY_LINEAR)
                     .setMinimumLatency(diff)

@@ -3,11 +3,25 @@ package com.mobisprint.aurika.services;
 import android.app.job.JobParameters;
 import android.app.job.JobScheduler;
 import android.app.job.JobService;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
+import android.widget.Button;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+
+import com.mobisprint.aurika.R;
+import com.mobisprint.aurika.unlock.Aurika;
+import com.onesignal.OneSignal;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class SchedulerService extends JobService {
@@ -18,6 +32,11 @@ public class SchedulerService extends JobService {
             SharedPreferences.Editor editor = preferences.edit();
             editor.clear();
             editor.apply();
+            Collection<String> tempList = new ArrayList<String>();
+            tempList.add("isCheckedIn");
+            tempList.add("timeStamp");
+            OneSignal.deleteTags(tempList);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -28,4 +47,6 @@ public class SchedulerService extends JobService {
     public boolean onStopJob(JobParameters jobParameters) {
         return true;
     }
+
+
 }

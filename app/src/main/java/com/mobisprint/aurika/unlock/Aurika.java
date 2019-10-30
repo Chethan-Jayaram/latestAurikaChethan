@@ -18,6 +18,12 @@ import com.mobisprint.aurika.BuildConfig;
 import com.mobisprint.aurika.notification.AurikaNotificationHandler;
 import com.onesignal.OneSignal;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Calendar;
+import java.util.Date;
+
 
 /**
  * Application class handling the initialization of the Mobile Keys API
@@ -70,6 +76,19 @@ public class Aurika extends Application implements MobileKeysApiFactory
                     .unsafe_setAttemptNfcWithScreenOff(false)
                     .build())
                 .build();
+        OneSignal.sendTag("isCheckedIn", "fslse");
+
+
+        try {
+            Date currentTime = Calendar.getInstance().getTime();
+            JSONObject tags = new JSONObject();
+            tags.put("isCheckedIn", "false");
+            tags.put("timeStamp", currentTime);
+            OneSignal.sendTags(tags);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         mobileKeysFactory = MobileKeysApi.getInstance();
         mobileKeysFactory.initialize(this, apiConfiguration, scanConfiguration);
         if(mobileKeysFactory.isInitialized() == false) {

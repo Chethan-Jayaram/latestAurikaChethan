@@ -197,8 +197,6 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
                                 dismissDialog();
                                 startScheduler(Math.abs(diff));
                                 Log.d("difference", String.valueOf(Math.abs(diff)));
-
-                                
                                 invitation = result.getInvitationCode();
                                 GlobalClass.USER_NAME = guest.getSalutation() + " " +
                                         guest.getLastName();

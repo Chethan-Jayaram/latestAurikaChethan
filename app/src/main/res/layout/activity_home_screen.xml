@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="#E8E0D4"
     tools:context=".activitys.HomeScreenActivity">
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_cart"
         android:layout_width="match_parent"
@@ -15,33 +14,28 @@
         android:elevation="0dip"
         app:contentInsetLeft="0dp"
         app:contentInsetStart="0dp">
-
-
         <LinearLayout
             android:id="@+id/main_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"
             android:weightSum="100">
-
             <RelativeLayout
                 android:id="@+id/menu_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="left"
                 android:layout_weight="5">
-
                 <ImageView
+                    android:paddingStart="@dimen/dimen_10"
+                    android:paddingTop="@dimen/dimen_10"
+                    android:paddingBottom="@dimen/dimen_10"
                     android:id="@+id/naviagation_hamberger"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/dimen_10"
                     android:src="@drawable/icon_back" />
-
-
             </RelativeLayout>
-
             <TextView
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
@@ -51,24 +45,24 @@
                 android:fontFamily="@font/notoseriftc_regular"
                 android:gravity="left|center_vertical"
                 android:includeFontPadding="false"
-                android:paddingTop="@dimen/dimen_5"
-                android:paddingBottom="@dimen/dimen_10"
                 android:text="@string/toolbar_title"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <RelativeLayout
-                android:id="@+id/search_finpro"
+                android:id="@+id/lyt_notification"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="right|center"
                 android:layout_weight="10"
                 android:gravity="center">
 
+
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/toolbar_notification_icon"
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="@dimen/dimen_5"
                     android:layout_marginLeft="@dimen/dimen_5"
@@ -77,6 +71,14 @@
                     android:layout_marginRight="@dimen/dimen_5"
                     android:layout_marginBottom="@dimen/dimen_5"
                     android:src="@drawable/icon_bell" />
+
+                <ImageView
+                    android:id="@+id/imng_notification"
+                    android:layout_alignTop="@id/toolbar_notification_icon"
+                    android:layout_alignEnd="@id/toolbar_notification_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/white_dot"/>
             </RelativeLayout>
 
 
@@ -99,8 +101,6 @@
                 android:layout_centerHorizontal="true"
                 app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
         </RelativeLayout>
-
-
     </androidx.appcompat.widget.Toolbar>
 
 
@@ -120,6 +120,4 @@
         android:layout_margin="@dimen/dimen_20"
         app:backgroundTint="#E8E0D4"
         app:srcCompat="@drawable/ic_hambarger" />
-
-
 </RelativeLayout>

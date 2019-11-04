@@ -182,6 +182,6 @@ public class SplashActivity extends Activity {
         sharedPreferences = this.getSharedPreferences("aurika", 0);
         edit = sharedPreferences.edit();
         edit.putString("data", GlobalClass.APPDATA);
-        edit.commit();
+        edit.apply();
     }
 }

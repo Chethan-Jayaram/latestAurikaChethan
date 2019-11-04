@@ -28,32 +28,32 @@ import java.util.List;
 
 public class BeverageMenuFragment extends Fragment {
 
-    private TextView toolbar_title,tv_beverages_assistance,tv_beverages_timings,tv_beverage_menu_desc;
-    private ImageView backBtn;
-    private BreakfastMenuListnerAdapter adapter;
-    private RecyclerView beverages_menu_recycler;
-    Context context;
+    private TextView tv_beverages_assistance, tv_beverages_timings, tv_beverage_menu_desc;
     private List<MenuListner> mMenuList;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_beverage_menu, container, false);
-        context=view.getContext();
-        toolbar_title =  getActivity().findViewById(R.id.toolbar_title);
-        toolbar_title.setText("The Beverage List");
-        backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
-        tv_beverages_assistance=view.findViewById(R.id.tv_beverages_assistance);
-        tv_beverages_timings=view.findViewById(R.id.tv_beverages_timings);
-        beverages_menu_recycler=view.findViewById(R.id.beverages_menu_recycler);
-        tv_beverage_menu_desc=view.findViewById(R.id.tv_beverage_menu_desc);
-        backBtn.setVisibility(View.VISIBLE);
-        parsejson();
-        adapter = new BreakfastMenuListnerAdapter(mMenuList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
-        beverages_menu_recycler.setLayoutManager(mLayoutManager);
-        beverages_menu_recycler.setHasFixedSize(true);
-        beverages_menu_recycler.setAdapter(adapter);
+        try {
+            Context context = view.getContext();
+            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+            toolbar_title.setText("The Beverage List");
+            ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
+            tv_beverages_assistance = view.findViewById(R.id.tv_beverages_assistance);
+            tv_beverages_timings = view.findViewById(R.id.tv_beverages_timings);
+            RecyclerView beverages_menu_recycler = view.findViewById(R.id.beverages_menu_recycler);
+            tv_beverage_menu_desc = view.findViewById(R.id.tv_beverage_menu_desc);
+            backBtn.setVisibility(View.VISIBLE);
+            parsejson();
+            BreakfastMenuListnerAdapter adapter = new BreakfastMenuListnerAdapter(mMenuList);
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
+            beverages_menu_recycler.setLayoutManager(mLayoutManager);
+            beverages_menu_recycler.setHasFixedSize(true);
+            beverages_menu_recycler.setAdapter(adapter);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return view;
     }
 
@@ -63,26 +63,23 @@ public class BeverageMenuFragment extends Fragment {
             GsonBuilder builder = new GsonBuilder();
             builder.setPrettyPrinting();
             Gson gson = builder.create();
-            Testing generalPojo = gson.fromJson(GlobalClass.APPDATA,Testing.class);
+            Testing generalPojo = gson.fromJson(GlobalClass.APPDATA, Testing.class);
             List<AppDatum> appDatum = generalPojo.getAppData();
 
             tv_beverages_timings.setText(appDatum.get(0).getItems().get(3).getItems().get(4).getTiming());
             tv_beverages_assistance.setText(appDatum.get(0).getItems().get(3).getItems().get(4).getAssistance());
             tv_beverage_menu_desc.setText(appDatum.get(0).getItems().get(3).getItems().get(4).getMenuDescription());
-            List<Item__> item__=appDatum.get(0).getItems().get(3).getItems().get(4).getItems();
+            List<Item__> item__ = appDatum.get(0).getItems().get(3).getItems().get(4).getItems();
 
-            mMenuList= new ArrayList<>();
-            for(int i=0;i<item__.size();i++){
+            mMenuList = new ArrayList<>();
+            for (int i = 0; i < item__.size(); i++) {
                 mMenuList.add(item__.get(i));
-                for(int j=0;j<item__.get(i).getItems().size();j++){
-                    if(item__.get(i).getItems().get(j).getPriceList()==null){
+                for (int j = 0; j < item__.get(i).getItems().size(); j++) {
+                    if (item__.get(i).getItems().get(j).getPriceList() == null) {
                         mMenuList.add(item__.get(i).getItems().get(j));
-                    }
-                    else{
+                    } else {
                         mMenuList.add(item__.get(i).getItems().get(j));
-                        for(int k=0;k<item__.get(i).getItems().get(j).getPriceList().size();k++){
-                            mMenuList.add(item__.get(i).getItems().get(j).getPriceList().get(k));
-                        }
+                        mMenuList.addAll(item__.get(i).getItems().get(j).getPriceList());
 
                     }
                 }

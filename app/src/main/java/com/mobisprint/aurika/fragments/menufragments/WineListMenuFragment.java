@@ -25,40 +25,30 @@ import java.util.List;
 
 public class WineListMenuFragment  extends Fragment {
 
-    private TextView toolbar_title,tv_wine_assistance,tv_wine_timings,tv_wine_menu_desc;
-    private ImageView backBtn;
-    private BreakfastMenuListnerAdapter adapter;
-    private RecyclerView wine_menu_recycler;
-    private Context context;
+    private TextView tv_wine_assistance,tv_wine_menu_desc,tv_wine_timings;
     private List<MenuListner> mMenuList;
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wine_menu, container, false);
-        context=view.getContext();
-        toolbar_title =  getActivity().findViewById(R.id.toolbar_title);
-        toolbar_title.setText("The Wine List");
-        backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
-        tv_wine_assistance=view.findViewById(R.id.tv_wine_assistance);
-        tv_wine_timings=view.findViewById(R.id.tv_wine_timings);
-        wine_menu_recycler=view.findViewById(R.id.wine_menu_recycler);
-        tv_wine_menu_desc=view.findViewById(R.id.tv_wine_menu_desc);
-        backBtn.setVisibility(View.VISIBLE);
-        parsejson();
-
-
-        adapter = new BreakfastMenuListnerAdapter(mMenuList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
-        wine_menu_recycler.setLayoutManager(mLayoutManager);
-        wine_menu_recycler.setHasFixedSize(true);
-        wine_menu_recycler.setAdapter(adapter);
-
-
-
-
-
-
+        try {
+            Context context = view.getContext();
+            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+            toolbar_title.setText("The Wine List");
+            ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
+            tv_wine_assistance = view.findViewById(R.id.tv_wine_assistance);
+            tv_wine_timings = view.findViewById(R.id.tv_wine_timings);
+            RecyclerView wine_menu_recycler = view.findViewById(R.id.wine_menu_recycler);
+            tv_wine_menu_desc = view.findViewById(R.id.tv_wine_menu_desc);
+            backBtn.setVisibility(View.VISIBLE);
+            parsejson();
+            BreakfastMenuListnerAdapter adapter = new BreakfastMenuListnerAdapter(mMenuList);
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
+            wine_menu_recycler.setLayoutManager(mLayoutManager);
+            wine_menu_recycler.setHasFixedSize(true);
+            wine_menu_recycler.setAdapter(adapter);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return view;
     }
 
@@ -70,12 +60,10 @@ public class WineListMenuFragment  extends Fragment {
             Gson gson = builder.create();
             Testing generalPojo = gson.fromJson(GlobalClass.APPDATA,Testing.class);
             List<AppDatum> appDatum = generalPojo.getAppData();
-
             tv_wine_timings.setText(appDatum.get(0).getItems().get(3).getItems().get(3).getTiming());
             tv_wine_assistance.setText(appDatum.get(0).getItems().get(3).getItems().get(3).getAssistance());
             tv_wine_menu_desc.setText(appDatum.get(0).getItems().get(3).getItems().get(3).getMenuDescription());
             List<Item__> item__=appDatum.get(0).getItems().get(3).getItems().get(3).getItems();
-
             mMenuList= new ArrayList<>();
             for(int i=0;i<item__.size();i++){
                 mMenuList.add(item__.get(i));
@@ -85,9 +73,7 @@ public class WineListMenuFragment  extends Fragment {
                     }
                     else{
                         mMenuList.add(item__.get(i).getItems().get(j));
-                        for(int k=0;k<item__.get(i).getItems().get(j).getPriceList().size();k++){
-                            mMenuList.add(item__.get(i).getItems().get(j).getPriceList().get(k));
-                        }
+                        mMenuList.addAll(item__.get(i).getItems().get(j).getPriceList());
 
                     }
                 }

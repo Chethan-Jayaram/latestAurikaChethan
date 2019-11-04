@@ -28,38 +28,39 @@ import java.util.List;
 
 public class ChildrenMenuFragment extends Fragment {
 
-    private TextView toolbar_title,tv_children_assistance,tv_children_timings,tv_child_menu_desc;
-    private ImageView backBtn;
-    private BreakfastMenuListnerAdapter adapter;
-    private RecyclerView children_menu_recycler;
-    Context context;
+    private TextView tv_children_assistance;
+    private TextView tv_children_timings;
+    private TextView tv_child_menu_desc;
     private List<MenuListner> mMenuList;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_children_menu, container, false);
-        context=view.getContext();
-        toolbar_title =  getActivity().findViewById(R.id.toolbar_title);
-        toolbar_title.setText("The Children's Menu");
-        backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
-        tv_children_assistance=view.findViewById(R.id.tv_children_assistance);
-        tv_children_timings=view.findViewById(R.id.tv_children_timings);
-        children_menu_recycler=view.findViewById(R.id.children_menu_recycler);
-        tv_child_menu_desc=view.findViewById(R.id.tv_child_menu_desc);
-        backBtn.setVisibility(View.VISIBLE);
-        parsejson();
+        try {
+            Context context = view.getContext();
+            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+            toolbar_title.setText("The Children's Menu");
+            ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
+            tv_children_assistance = view.findViewById(R.id.tv_children_assistance);
+            tv_children_timings = view.findViewById(R.id.tv_children_timings);
+            RecyclerView children_menu_recycler = view.findViewById(R.id.children_menu_recycler);
+            tv_child_menu_desc = view.findViewById(R.id.tv_child_menu_desc);
+            backBtn.setVisibility(View.VISIBLE);
+            parsejson();
 
 
-        adapter = new BreakfastMenuListnerAdapter(mMenuList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
-        children_menu_recycler.setLayoutManager(mLayoutManager);
-        children_menu_recycler.setHasFixedSize(true);
-        children_menu_recycler.setAdapter(adapter);
+            BreakfastMenuListnerAdapter adapter = new BreakfastMenuListnerAdapter(mMenuList);
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
+            children_menu_recycler.setLayoutManager(mLayoutManager);
+            children_menu_recycler.setHasFixedSize(true);
+            children_menu_recycler.setAdapter(adapter);
 
 
 
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return view;
     }
@@ -70,28 +71,25 @@ public class ChildrenMenuFragment extends Fragment {
             GsonBuilder builder = new GsonBuilder();
             builder.setPrettyPrinting();
             Gson gson = builder.create();
-            Testing generalPojo = gson.fromJson(GlobalClass.APPDATA,Testing.class);
+            Testing generalPojo = gson.fromJson(GlobalClass.APPDATA, Testing.class);
             List<AppDatum> appDatum = generalPojo.getAppData();
-            String s1=appDatum.get(0).getItems().get(3).getItemName();
+            String s1 = appDatum.get(0).getItems().get(3).getItemName();
             tv_children_timings.setText(appDatum.get(0).getItems().get(3).getItems().get(2).getTiming());
             tv_children_assistance.setText(appDatum.get(0).getItems().get(3).getItems().get(2).getAssistance());
             tv_child_menu_desc.setText(appDatum.get(0).getItems().get(3).getItems().get(2).getMenuDescription());
-            List<Item__> item__=appDatum.get(0).getItems().get(3).getItems().get(2).getItems();
+            List<Item__> item__ = appDatum.get(0).getItems().get(3).getItems().get(2).getItems();
 
-            mMenuList= new ArrayList<>();
-            for(int i=0;i<item__.size();i++){
+            mMenuList = new ArrayList<>();
+            for (int i = 0; i < item__.size(); i++) {
                 mMenuList.add(item__.get(i));
-                for(int j=0;j<item__.get(i).getItems().size();j++){
+                for (int j = 0; j < item__.get(i).getItems().size(); j++) {
 
 
-                    if(item__.get(i).getItems().get(j).getPriceList()==null){
+                    if (item__.get(i).getItems().get(j).getPriceList() == null) {
                         mMenuList.add(item__.get(i).getItems().get(j));
-                    }
-                    else{
+                    } else {
                         mMenuList.add(item__.get(i).getItems().get(j));
-                        for(int k=0;k<item__.get(i).getItems().get(j).getPriceList().size();k++){
-                            mMenuList.add(item__.get(i).getItems().get(j).getPriceList().get(k));
-                        }
+                        mMenuList.addAll(item__.get(i).getItems().get(j).getPriceList());
 
                     }
                 }

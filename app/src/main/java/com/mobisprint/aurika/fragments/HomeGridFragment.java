@@ -30,6 +30,7 @@ import com.mobisprint.aurika.fragments.sectionsfragment.SightSeeingFragment;
 import com.mobisprint.aurika.fragments.sectionsfragment.SleepWellFragment;
 import com.mobisprint.aurika.fragments.sectionsfragment.SpaSaloonFragment;
 import com.mobisprint.aurika.fragments.sectionsfragment.WineDineFragment;
+import com.mobisprint.aurika.helper.GlobalClass;
 import com.mobisprint.aurika.helper.HomeAdapter;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.unlock.MobileKeysApiFacade;
@@ -118,46 +119,57 @@ private  Context context;
 
     private void ChangeFragment(int position) {
          Fragment fragment;
+        if(GlobalClass.previous!=position) {
+            switch (position) {
+                case 0:
+                    fragment = new SendOtpScreenFragment();// Statements
+                    GlobalClass.previous=0;
+                    break;
+                case 1:
+                    fragment = new ServicesFragment();
+                    GlobalClass.previous=1;
+                    break;
+                case 2:
+                    fragment = new SleepWellFragment();
+                    GlobalClass.previous=2;
+                    break;
+                case 3:
+                    fragment = new WineDineFragment();
+                    GlobalClass.previous=3;
+                    break;
+                case 4:
+                    fragment = new InRoomDiningFragment();
+                    GlobalClass.previous=4;
+                    break;
+                case 5:
+                    fragment = new ExperienceFragment();
+                    GlobalClass.previous=5;
+                    break;
+                case 6:
+                    fragment = new SpaSaloonFragment();
+                    GlobalClass.previous=6;
+                    break; // break is optional
+                case 7:
+                    fragment = new RecreationFragment();
+                    GlobalClass.previous=7;
 
-        switch (position) {
-            case 0:
-                fragment = new SendOtpScreenFragment();// Statements
-                break;
-            case 1:
-                fragment = new ServicesFragment();
-                break;
-            case 2:
-                fragment = new SleepWellFragment();
-                break;
-            case 3:
-                fragment = new WineDineFragment();
-                break;
-            case 4:
-                fragment = new InRoomDiningFragment();
-                break;
-            case 5:
-                fragment = new ExperienceFragment();
-                break;
-            case 6:
-                fragment = new SpaSaloonFragment();
-                break; // break is optional
-            case 7:
-                fragment = new RecreationFragment();
-                break; // break is optional
-            case 8:
-                fragment = new SightSeeingFragment();
-                break; // break is optional
-            default:
-                fragment = new HomeGridFragment();
+                    break; // break is optional
+                case 8:
+                    fragment = new SightSeeingFragment();
+                    GlobalClass.previous=8;
+                    break; // break is optional
+                default:
+                    fragment = new HomeGridFragment();
+                    GlobalClass.previous=100;
+            }
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            if (position != 0) {
+                fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+            }
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        if (position != 0) {
-            fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
-        }
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
     }
 
 
@@ -173,7 +185,6 @@ private  Context context;
      */
     @Override
     public void handleMobileKeysTransactionCompleted() {
-
         mobileKeysApiFacade.onStartUpComplete();
     }
 

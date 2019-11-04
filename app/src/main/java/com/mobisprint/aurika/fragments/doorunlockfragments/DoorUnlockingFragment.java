@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.assaabloy.mobilekeys.api.MobileKey;
 import com.assaabloy.mobilekeys.api.MobileKeysApi;
@@ -45,17 +46,11 @@ public class DoorUnlockingFragment extends Fragment
     private static final int REQUEST_LOCATION_PERMISSION = 10;
     private MobileKeysApiFacade mobileKeysApiFacade;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private FrameLayout containerView;
-    private SnackbarFactory snackbarFactory;
-    private TextView toolbar_title;
-    private ImageView backBtn;
     private TextView tv_unlock_status, registor_status, tv_search, tv_unlock_msg;
     private ClosestLockTrigger closestLockTrigger = new ClosestLockTrigger(this);
     private BluetoothAdapter mBluetoothAdapter;
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private Handler handler;
-    private List<MobileKey> data;
-    private View headerLayout;
     private NavigationView navigationView;
 
 
@@ -64,16 +59,16 @@ public class DoorUnlockingFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_door_unlocking, container, false);
         try {
 
-            containerView = view.findViewById(R.id.door_unlock_fragment);
+            FrameLayout containerView = view.findViewById(R.id.door_unlock_fragment);
             tv_unlock_status = view.findViewById(R.id.tv_unlock_status);
-            snackbarFactory = new SnackbarFactory(containerView);
             swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
             registor_status = view.findViewById(R.id.registor_status);
             tv_search = view.findViewById(R.id.tv_search);
             tv_unlock_msg = view.findViewById(R.id.tv_unlock_msg);
-            toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+             getActivity().findViewById(R.id.lyt_notification).setVisibility(View.GONE);
             navigationView = getActivity().findViewById(R.id.nav_view);
-            backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
+            ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
             backBtn.setVisibility(View.VISIBLE);
             toolbar_title.setText("");
             mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -128,7 +123,7 @@ public class DoorUnlockingFragment extends Fragment
      */
     private void loadKeys() {
         if (isVisible()) {
-            data = null;
+            List<MobileKey> data = null;
             try {
                 data = mobileKeysApiFacade.getMobileKeys().listMobileKeys();
             } catch (MobileKeysException e) {
@@ -262,29 +257,32 @@ public class DoorUnlockingFragment extends Fragment
     public void onResume() {
         super.onResume();
         //Listen to lock changes
-        loadKeys();
-        toggleOpenButton(false);
-        mobileKeysApiFacade.getScanConfiguration().getRootOpeningTrigger().add(closestLockTrigger);
-        navigationView.getMenu().getItem(10).setVisible(false);
-        headerLayout = navigationView.getHeaderView(0);
-        GlobalClass.SharedPreferences = getActivity().getSharedPreferences("aurika", 0);
-        if (GlobalClass.SharedPreferences.getBoolean("verifed_otp", false)) {
-            navigationView.getMenu().getItem(10).setVisible(true);
-            GlobalClass.user_token = GlobalClass.SharedPreferences.getString("user_token", "");
-            GlobalClass.USER_NAME = GlobalClass.SharedPreferences.getString("UserName", "");
-            TextView name = headerLayout.findViewById(R.id.tv_customer_name);
-            name.setText(GlobalClass.USER_NAME);
-            headerLayout.setVisibility(View.VISIBLE);
-        } else {
-            try {
-                mobileKeysApiFacade.getMobileKeys().unregisterEndpoint(this);
-                mobileKeysApiFacade.getMobileKeys().listMobileKeys().clear();
-            } catch (MobileKeysException e) {
-                e.printStackTrace();
+        try {
+            loadKeys();
+            toggleOpenButton(false);
+            mobileKeysApiFacade.getScanConfiguration().getRootOpeningTrigger().add(closestLockTrigger);
+            navigationView.getMenu().getItem(9).setVisible(false);
+            View headerLayout = navigationView.getHeaderView(0);
+            GlobalClass.SharedPreferences = getActivity().getSharedPreferences("aurika", 0);
+            if (GlobalClass.SharedPreferences.getBoolean("verifed_otp", false)) {
+                navigationView.getMenu().getItem(9).setVisible(true);
+                GlobalClass.user_token = GlobalClass.SharedPreferences.getString("user_token", "");
+                GlobalClass.USER_NAME = GlobalClass.SharedPreferences.getString("UserName", "");
+                TextView name = headerLayout.findViewById(R.id.tv_customer_name);
+                name.setText(GlobalClass.USER_NAME);
+                headerLayout.setVisibility(View.VISIBLE);
+            } else {
+                try {
+                    mobileKeysApiFacade.getMobileKeys().unregisterEndpoint(this);
+                    mobileKeysApiFacade.getMobileKeys().listMobileKeys().clear();
+                } catch (MobileKeysException e) {
+                    e.printStackTrace();
+                }
+                headerLayout.setVisibility(View.GONE);
             }
-            headerLayout.setVisibility(View.GONE);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
     }
 
     @Override

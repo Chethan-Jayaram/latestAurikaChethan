@@ -14,6 +14,8 @@ import com.bumptech.glide.Glide;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.pojo.testing.Item_;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class SightSeeingAdapter extends RecyclerView.Adapter<SightSeeingAdapter.MyViewHolder> {
@@ -27,6 +29,7 @@ public class SightSeeingAdapter extends RecyclerView.Adapter<SightSeeingAdapter.
         this.subtitle=subtitle;
     }
 
+    @NotNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -36,12 +39,10 @@ public class SightSeeingAdapter extends RecyclerView.Adapter<SightSeeingAdapter.
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NotNull MyViewHolder holder, int position) {
         try{
         holder.place_title.setText(item_.get(position).getItemName());
         holder.place_description.setText(item_.get(position).getItemDescription());
-
-
       Glide.with(context).load(item_.get(position).getImageUrl()).into(holder.img_sight_seeing);
     }catch (Exception e){
         e.printStackTrace();

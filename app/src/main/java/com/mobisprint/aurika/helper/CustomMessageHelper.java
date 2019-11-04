@@ -14,8 +14,8 @@ import com.mobisprint.aurika.R;
 
 public class CustomMessageHelper {
 
-    Dialog lDialogresume;
-    Context context;
+    private Dialog lDialogresume;
+    private Context context;
 
     public CustomMessageHelper(Context context) {
         this.context = context;

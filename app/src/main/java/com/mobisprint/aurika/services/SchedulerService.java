@@ -17,6 +17,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 
 import com.mobisprint.aurika.R;
+import com.mobisprint.aurika.helper.GlobalClass;
 import com.mobisprint.aurika.unlock.Aurika;
 import com.onesignal.OneSignal;
 
@@ -30,6 +31,7 @@ public class SchedulerService extends JobService {
         try {
             SharedPreferences preferences = getSharedPreferences("aurika", 0);
             SharedPreferences.Editor editor = preferences.edit();
+            GlobalClass.user_token = "";
             editor.clear();
             editor.apply();
             Collection<String> tempList = new ArrayList<String>();

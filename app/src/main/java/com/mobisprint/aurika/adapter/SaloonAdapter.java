@@ -27,7 +27,6 @@ public class SaloonAdapter extends RecyclerView.Adapter {
 
     public SaloonAdapter(List<MenuListner> mMenuList) {
         this.mMenuList = mMenuList;
-
     }
 
 

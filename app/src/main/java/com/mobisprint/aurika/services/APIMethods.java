@@ -2,6 +2,7 @@ package com.mobisprint.aurika.services;
 
 import com.mobisprint.aurika.pojo.doorunlock.OtpAutentication;
 import com.mobisprint.aurika.pojo.doorunlock.TokenAutentication;
+import com.mobisprint.aurika.pojo.notification.PushNotificationResponse;
 import com.mobisprint.aurika.pojo.testing.Testing;
 
 import java.util.Map;
@@ -33,4 +34,15 @@ public interface APIMethods {
     @Headers({"Content-Type:application/json", "organization-key:80b2f8f25c554f9705bb216c8128ba4f05bb0cfd", "location:aurika-udaipur"})
     @POST("mobile-key-generation/")
     Call<TokenAutentication> mobilekeyapi(@Body Map map);
+
+
+    @Headers({"Content-Type:application/json", "organization-key:80b2f8f25c554f9705bb216c8128ba4f05bb0cfd", "location:aurika-udaipur"})
+    @POST("guest-push-notifications/")
+    Call<PushNotificationResponse> pushNotificationApi(@Body Map map);
+
+
+
+
+
+
 }

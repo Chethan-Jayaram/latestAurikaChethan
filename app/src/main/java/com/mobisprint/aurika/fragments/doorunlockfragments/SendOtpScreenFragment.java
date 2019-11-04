@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -52,15 +53,10 @@ import retrofit2.Response;
 public class SendOtpScreenFragment extends Fragment {
 
     private Context context;
-    private TextView submitBtn;
     private ProgressDialog dialog;
-    private TextView top_title, terms_conditions_textview;
     private CheckBox chekcbox;
     private EditText tv_otp_room_no, tv_otp_ph_email;
     private Validation validation;
-    private Toolbar toolbar_cart;
-    private  TextView toolbar_title;
-    private ImageView backBtn;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor edit;
 
@@ -68,57 +64,65 @@ public class SendOtpScreenFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_send_otp_screen, container, false);
-        context = view.getContext();
-        top_title = view.findViewById(R.id.top_title);
-        terms_conditions_textview = view.findViewById(R.id.terms_conditions_textview);
-        toolbar_cart = getActivity().findViewById(R.id.toolbar_cart);
-        chekcbox = view.findViewById(R.id.chekcbox);
-        tv_otp_room_no = view.findViewById(R.id.tv_otp_room_no);
-        tv_otp_ph_email = view.findViewById(R.id.tv_otp_ph_email);
-        dialog = new ProgressDialog(context);
-        toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-        backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
-        backBtn.setVisibility(View.VISIBLE);
-        toolbar_title.setText("");
-        Spanned policy = Html.fromHtml(getString(R.string.agree_terms_privacy));
-        terms_conditions_textview.setText(policy);
-        terms_conditions_textview.setMovementMethod(LinkMovementMethod.getInstance());
-        GlobalClass.SharedPreferences = context.getSharedPreferences("aurika", 0);
-        if (GlobalClass.SharedPreferences.getBoolean("verifed_otp", false)) {
-            getActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction().replace(R.id.fragment_container,
-                    new DoorUnlockingFragment()).commit();
+        try {
+            context = view.getContext();
+            TextView terms_conditions_textview = view.findViewById(R.id.terms_conditions_textview);
+            chekcbox = view.findViewById(R.id.chekcbox);
+            tv_otp_room_no = view.findViewById(R.id.tv_otp_room_no);
+            tv_otp_ph_email = view.findViewById(R.id.tv_otp_ph_email);
+            dialog = new ProgressDialog(context);
 
-        } else {
-            if (!haveNetworkConnection()) {
-                ShowAlet("No Internet Connection", "Turn on your internet and continue");
+            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+            ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
+            backBtn.setVisibility(View.VISIBLE);
+            toolbar_title.setText("");
+            Spanned policy = Html.fromHtml(getString(R.string.agree_terms_privacy));
+            terms_conditions_textview.setText(policy);
+            terms_conditions_textview.setMovementMethod(LinkMovementMethod.getInstance());
+            GlobalClass.SharedPreferences = context.getSharedPreferences("aurika", 0);
+            if (GlobalClass.SharedPreferences.getBoolean("verifed_otp", false)) {
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction().replace(R.id.fragment_container,
+                        new DoorUnlockingFragment()).commit();
+
             }
-        }
-        SpannableString spannableString = new SpannableString("Enter Email/Mobile Number");
-        SpannableString enterRoomNumber = new SpannableString("Enter Room Number");
-        tv_otp_room_no.setHint(enterRoomNumber);
-        tv_otp_ph_email.setHint(spannableString);
-        submitBtn = view.findViewById(R.id.submit_btn);
-        submitBtn.setOnClickListener(view1 -> {
+            SpannableString spannableString = new SpannableString("Enter Email/Mobile Number");
+            SpannableString enterRoomNumber = new SpannableString("Enter Room Number");
+            tv_otp_room_no.setHint(enterRoomNumber);
+            tv_otp_ph_email.setHint(spannableString);
+            TextView submitBtn = view.findViewById(R.id.submit_btn);
+            submitBtn.setOnClickListener(view1 -> {
 
-            if (tv_otp_ph_email.getText().toString().isEmpty() || tv_otp_room_no.getText().toString().isEmpty()) {
-                CustomMessageHelper showDialog = new CustomMessageHelper(context);
-                showDialog.showCustomMessage((Activity) context, "Alert!!", "Please enter mobile number / Room Number", false, false);
-            } else {
-                if (chekcbox.isChecked()) {
-                    GlobalClass.PH_NO=tv_otp_ph_email.getText().toString();
-                            GlobalClass.ROOM_NO=tv_otp_room_no.getText().toString();
-                    LoginApiCall(GlobalClass.PH_NO,GlobalClass.ROOM_NO );
-                } else {
+                if (tv_otp_ph_email.getText().toString().isEmpty() || tv_otp_room_no.getText().toString().isEmpty()) {
                     CustomMessageHelper showDialog = new CustomMessageHelper(context);
-                    showDialog.showCustomMessage((Activity) context, "Error", "Please accept the Terms and Conditions to continue", false, false);
+                    showDialog.showCustomMessage((Activity) context, "Alert!!", "Please enter mobile number / Room Number", false, false);
+                } else {
+                    if (chekcbox.isChecked()) {
+                        GlobalClass.PH_NO = tv_otp_ph_email.getText().toString();
+                        GlobalClass.ROOM_NO = tv_otp_room_no.getText().toString();
+                        LoginApiCall(GlobalClass.PH_NO, GlobalClass.ROOM_NO);
+                    } else {
+                        CustomMessageHelper showDialog = new CustomMessageHelper(context);
+                        showDialog.showCustomMessage((Activity) context, "Error", "Please accept the Terms and Conditions to continue", false, false);
+                    }
                 }
-            }
-        });
+            });
+
+            getActivity().findViewById(R.id.lyt_notification).setVisibility(View.VISIBLE);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!haveNetworkConnection()) {
+            ShowAlet("No Internet Connection", "Turn on your internet and continue");
+        }
     }
 
     private void ShowAlet(String Title, String Message) {
@@ -239,12 +243,10 @@ public class SendOtpScreenFragment extends Fragment {
     }
 
 
-
     public void dismissDialog() {
         if (dialog.isShowing()) {
             dialog.dismiss();
         }
     }
-
 
 }

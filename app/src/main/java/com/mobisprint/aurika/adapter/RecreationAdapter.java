@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.pojo.testing.Item_;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class RecreationAdapter extends RecyclerView.Adapter<RecreationAdapter.MyViewHolder> {
@@ -28,6 +30,7 @@ public class RecreationAdapter extends RecyclerView.Adapter<RecreationAdapter.My
         this.subtitle=subtitle;
     }
 
+    @NotNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -37,11 +40,10 @@ public class RecreationAdapter extends RecyclerView.Adapter<RecreationAdapter.My
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NotNull MyViewHolder holder, int position) {
         try {
             try{
             holder.tv_recretion_description.setText(item_.get(position).getItemDescription());
-
             Glide.with(context).load(item_.get(position).getImageUrl()).into(holder.img_recreation);
             holder.tv_recretion_timing.setText(item_.get(position).getTiming());
             holder.tv_recretion_location.setText(item_.get(position).getLocation());

@@ -17,10 +17,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Client2ServiceGenerator {
 
-    public static Retrofit retrofit = null;
+    private static Retrofit retrofit = null;
 
-    public static final String ROOT_URL = "https://demo.mobisprint.com/";
-    public static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+    private static final String ROOT_URL = "https://demo.mobisprint.com/";
+    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     public static Retrofit getUrlClient() {
         OkHttpClient client = new OkHttpClient.Builder()

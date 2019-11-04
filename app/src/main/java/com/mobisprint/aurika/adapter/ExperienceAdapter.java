@@ -14,6 +14,8 @@ import com.bumptech.glide.Glide;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.pojo.testing.Item_;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.MyViewHolder> {
@@ -25,6 +27,7 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.My
         this.item_ = item_;
     }
 
+    @NotNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -34,7 +37,7 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.My
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NotNull MyViewHolder holder, int position) {
         try{
         holder.tv_experiences_descrioption.setText(item_.get(position).getItemDescription());
         holder.tv_experiences_title.setText(item_.get(position).getItemName());

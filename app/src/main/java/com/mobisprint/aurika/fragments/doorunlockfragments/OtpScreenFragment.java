@@ -3,42 +3,32 @@ package com.mobisprint.aurika.fragments.doorunlockfragments;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
-
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-
 import com.assaabloy.mobilekeys.api.EndpointSetupConfiguration;
 import com.assaabloy.mobilekeys.api.MobileKeysCallback;
 import com.assaabloy.mobilekeys.api.MobileKeysException;
-
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -60,22 +50,17 @@ import com.mobisprint.aurika.services.SchedulerService;
 import com.mobisprint.aurika.unlock.MobileKeysApiFacade;
 import com.mobisprint.aurika.unlock.SnackbarFactory;
 import com.onesignal.OneSignal;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.net.SocketTimeoutException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import static android.content.Context.JOB_SCHEDULER_SERVICE;
 
 /**
@@ -93,70 +78,70 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
     private String invitation = "";
     private SnackbarFactory snackbarFactory;
     private MobileKeysApiFacade mobileKeysApiFacade;
-    private Toolbar toolbar_cart;
     private Result result;
     private Guest guest;
     private int time = 60;
-    private TextView toolbar_title;
-    private ImageView backBtn;
     private Handler handler;
-    private SMSReceiver smsReceiver;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_otp_screen, container, false);
-        context = view.getContext();
-
-        toolbar_cart = getActivity().findViewById(R.id.toolbar_cart);
-        btn_otp = view.findViewById(R.id.btn_otp);
-        container = view.findViewById(R.id.container);
-        dialog = new ProgressDialog(context);
-        snackbarFactory = new SnackbarFactory(container);
-        btn_otp.setOnClickListener(this);
-        resend_code_text = view.findViewById(R.id.resend_code_text);
-        tv_timer_text = view.findViewById(R.id.tv_timer_text);
-        resend_code_text.setVisibility(View.GONE);
-        tv_timer_text.setVisibility(View.VISIBLE);
-        toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-        backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
-        backBtn.setVisibility(View.VISIBLE);
-        tv_one = view.findViewById(R.id.tv_one);
-        tv_two = view.findViewById(R.id.tv_two);
-        tv_three = view.findViewById(R.id.tv_three);
-        tv_four = view.findViewById(R.id.tv_four);
-        tv_five = view.findViewById(R.id.tv_five);
-        tv_six = view.findViewById(R.id.tv_six);
-        toolbar_title.setText("");
-
-        startTimer();
-        init();
-        startSMSListener();
-        resend_code_text.setOnClickListener(v -> {
+        try {
+            context = view.getContext();
+            btn_otp = view.findViewById(R.id.btn_otp);
+            container = view.findViewById(R.id.container);
+            dialog = new ProgressDialog(context);
+            snackbarFactory = new SnackbarFactory(container);
+            btn_otp.setOnClickListener(this);
+            resend_code_text = view.findViewById(R.id.resend_code_text);
+            tv_timer_text = view.findViewById(R.id.tv_timer_text);
             resend_code_text.setVisibility(View.GONE);
             tv_timer_text.setVisibility(View.VISIBLE);
-            LoginApiCall();
+            getActivity().findViewById(R.id.lyt_notification).setVisibility(View.GONE);
+            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+            ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
+            backBtn.setVisibility(View.VISIBLE);
+            tv_one = view.findViewById(R.id.tv_one);
+            tv_two = view.findViewById(R.id.tv_two);
+            tv_three = view.findViewById(R.id.tv_three);
+            tv_four = view.findViewById(R.id.tv_four);
+            tv_five = view.findViewById(R.id.tv_five);
+            tv_six = view.findViewById(R.id.tv_six);
+            toolbar_title.setText("");
             startTimer();
-        });
-
+            init();
+            startSMSListener();
+            resend_code_text.setOnClickListener(v -> {
+                resend_code_text.setVisibility(View.GONE);
+                tv_timer_text.setVisibility(View.VISIBLE);
+                LoginApiCall();
+                startTimer();
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return view;
     }
 
     private void startTimer() {
-        new CountDownTimer(60000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                tv_timer_text.setText("Resend OTP in " + millisUntilFinished / 1000 + " seconds");
-            }
+        try {
+            new CountDownTimer(60000, 1000) {
+                public void onTick(long millisUntilFinished) {
+                    tv_timer_text.setText("Resend OTP in " + millisUntilFinished / 1000 + " seconds");
+                }
 
-            public void onFinish() {
-                tv_timer_text.setVisibility(View.GONE);
-                resend_code_text.setVisibility(View.VISIBLE);
-                resend_code_text.setText("Click here to resend code");
-            }
+                public void onFinish() {
+                    tv_timer_text.setVisibility(View.GONE);
+                    resend_code_text.setVisibility(View.VISIBLE);
+                    resend_code_text.setText("Click here to resend code");
+                }
 
-        }.start();
-
+            }.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -192,9 +177,9 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
                                 guest = new Guest();
                                 result = response.body().getResult();
                                 guest = result.getGuest();
-                                ActiveBooking activeBooking=result.getActiveBooking().get(0);
-                                String ExpirDateandTime=activeBooking.getCheckoutDateTime();
-                                String expiryDate =  GlobalClass.outputdateformat.format(GlobalClass.inputdateformat.parse(ExpirDateandTime));
+                                ActiveBooking activeBooking = result.getActiveBooking().get(0);
+                                String ExpirDateandTime = activeBooking.getCheckoutDateTime();
+                                String expiryDate = GlobalClass.outputdateformat.format(GlobalClass.inputdateformat.parse(ExpirDateandTime));
                                 Date date = GlobalClass.outputdateformat.parse(expiryDate);
                                 Date currentTime = Calendar.getInstance().getTime();
                                 long diff = date.getTime() - currentTime.getTime();
@@ -267,23 +252,25 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
 
     public void startScheduler(long diff) {
 
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                JobScheduler jobScheduler = (JobScheduler) context.getApplicationContext().getSystemService(JOB_SCHEDULER_SERVICE);
+                ComponentName componentName = new ComponentName(context, SchedulerService.class);
+                JobInfo info = new JobInfo.Builder(1, componentName)
+                        .setRequiresDeviceIdle(false)
+                        .setRequiresCharging(false)
+                        .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                        .setPersisted(true)
+                        .setBackoffCriteria(6000, JobInfo.BACKOFF_POLICY_LINEAR)
+                        .setMinimumLatency(diff)
+                        .setOverrideDeadline(diff)
+                        .build();
+                jobScheduler.schedule(info);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            JobScheduler jobScheduler=(JobScheduler) context.getApplicationContext().getSystemService(JOB_SCHEDULER_SERVICE);
-            ComponentName componentName = new ComponentName(context, SchedulerService.class);
-            JobInfo info =  new JobInfo.Builder(1, componentName)
-                    .setRequiresDeviceIdle(false)
-                    .setRequiresCharging(false)
-                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                    .setPersisted(true)
-                    .setBackoffCriteria(6000, JobInfo.BACKOFF_POLICY_LINEAR)
-                    .setMinimumLatency(diff)
-                    .setOverrideDeadline(diff)
-                    .build();
-            jobScheduler.schedule(info);
-
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 
     private void init() {
@@ -474,22 +461,26 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
     }
 
     private void checkInvitionComplet() {
-        new Handler().postDelayed(() -> {
-            if (mobileKeysApiFacade.isEndpointSetUpComplete()) {
-                // mobilekeyapi();
-                dialog.dismiss();
-                sharedPreferences = context.getSharedPreferences("aurika", 0);
-                edit = sharedPreferences.edit();
-                edit.putBoolean("verifed_otp", true);
-                edit.putString("UserName", GlobalClass.USER_NAME);
-                edit.apply();
-                Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DoorUnlockingFragment()).commit();
-            } else {
-                checkInvitionComplet();
-            }
-        }, 5000);
-
+        try {
+            new Handler().postDelayed(() -> {
+                if (mobileKeysApiFacade.isEndpointSetUpComplete()) {
+                    // mobilekeyapi();
+                    dialog.dismiss();
+                    sharedPreferences = context.getSharedPreferences("aurika", 0);
+                    edit = sharedPreferences.edit();
+                    edit.putBoolean("verifed_otp", true);
+                    edit.putString("UserName", GlobalClass.USER_NAME);
+                    edit.apply();
+                    Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DoorUnlockingFragment()).commit();
+                } else {
+                    checkInvitionComplet();
+                }
+            }, 5000);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
+/*
 
     private void mobilekeyapi() {
         try {
@@ -558,6 +549,7 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
 
 
     }
+*/
 
 
     private void LoginApiCall() {
@@ -628,12 +620,11 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
 
     private void startSMSListener() {
         try {
-            smsReceiver = new SMSReceiver();
+            SMSReceiver smsReceiver = new SMSReceiver();
             smsReceiver.setOTPListener(this);
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(SmsRetriever.SMS_RETRIEVED_ACTION);
             context.registerReceiver(smsReceiver, intentFilter);
-
             SmsRetrieverClient client = SmsRetriever.getClient(context);
             Task<Void> task = client.startSmsRetriever();
             task.addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -657,12 +648,12 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
     @Override
     public void onOTPReceived(String otp) {
         try {
-            tv_one.setText(otp.charAt(1)+"");
-            tv_two.setText(otp.charAt(2)+"");
-            tv_three.setText(otp.charAt(3)+"");
-            tv_four.setText(otp.charAt(4)+"");
-            tv_five.setText(otp.charAt(5)+"");
-            tv_six.setText(otp.charAt(6)+"");
+            tv_one.setText(otp.charAt(1) + "");
+            tv_two.setText(otp.charAt(2) + "");
+            tv_three.setText(otp.charAt(3) + "");
+            tv_four.setText(otp.charAt(4) + "");
+            tv_five.setText(otp.charAt(5) + "");
+            tv_six.setText(otp.charAt(6) + "");
             handler = new Handler();
             handler.postDelayed(() -> {
                 btn_otp.performClick();

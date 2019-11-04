@@ -13,7 +13,6 @@ public class AurikaNotificationHandler implements OneSignal.NotificationOpenedHa
     public void notificationOpened(OSNotificationOpenResult result) {
         try {
             Context context = Aurika.getAppContext();
-
             Intent intent = new Intent(context, HomeScreenActivity.class);
             intent.putExtra("notification", 1);
             // intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);

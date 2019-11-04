@@ -69,6 +69,7 @@ public class ServicesFragment extends Fragment {
           service_recycler.setAdapter(adapter);
 
           backBtn.setVisibility(View.VISIBLE);
+          getActivity().findViewById(R.id.lyt_notification).setVisibility(View.VISIBLE);
       } catch (Exception e){
           e.printStackTrace();
       }

@@ -41,14 +41,14 @@
             android:icon="@drawable/ic_sightseeing"
             android:title="@string/sight_seeing" />
     </group>
-    <group
+   <!-- <group
         android:id="@+id/grp2"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_notification"
             android:icon="@drawable/icon_bell"
             android:title="Notification" />
-    </group>
+    </group>-->
     <group
         android:id="@+id/grp3"
         android:checkableBehavior="single">

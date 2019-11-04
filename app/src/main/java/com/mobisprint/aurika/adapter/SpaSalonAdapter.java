@@ -14,6 +14,8 @@ import com.mobisprint.aurika.R;
 
 import com.mobisprint.aurika.pojo.testing.Item_;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class SpaSalonAdapter extends RecyclerView.Adapter<SpaSalonAdapter.MyViewHolder> {
@@ -35,6 +37,7 @@ public class SpaSalonAdapter extends RecyclerView.Adapter<SpaSalonAdapter.MyView
 
 
 
+    @NotNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -44,7 +47,7 @@ public class SpaSalonAdapter extends RecyclerView.Adapter<SpaSalonAdapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NotNull MyViewHolder holder, int position) {
         try {
             holder.tv_salon_spa_title.setText(item_.get(position).getMenuItem());
             holder.img_spa_salon.setOnClickListener(view -> {

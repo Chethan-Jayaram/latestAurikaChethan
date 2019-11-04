@@ -33,8 +33,7 @@ import java.util.List;
 public class RecreationFragment extends Fragment {
 
  private String subtitle;
-   private ImageView backBtn;
-   private TextView toolbar_title,tv_subtitle_description;
+
    private RecyclerView recreation_recycler;
    private Context context;
     private List<Item_> item_=new ArrayList<>();
@@ -46,10 +45,9 @@ public class RecreationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recreation, container, false);
         try {
             context = view.getContext();
-            toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-            tv_subtitle_description = view.findViewById(R.id.tv_subtitle_description);
+            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
             recreation_recycler = view.findViewById(R.id.recreation_recycler);
-            backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
+            ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
             backBtn.setVisibility(View.VISIBLE);
             toolbar_title.setText("Recreational Facilities");
             parsejson();
@@ -60,15 +58,17 @@ public class RecreationFragment extends Fragment {
             recreation_recycler.setItemAnimator(new DefaultItemAnimator());
             recreation_recycler.setAdapter(adapter);
 
+/*            backBtn.setOnClickListener(v -> {
+                try {
+                    Intent startAct = new Intent(getActivity(), HomeScreenActivity.class);
+                    //startAct.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(startAct);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            });*/
 
-
-            backBtn.setOnClickListener(v -> {
-                Intent startAct = new Intent(getActivity(), HomeScreenActivity.class);
-                //startAct.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(startAct);
-            });
-
-
+            getActivity().findViewById(R.id.lyt_notification).setVisibility(View.VISIBLE);
         }catch (Exception e){
             e.printStackTrace();
         }

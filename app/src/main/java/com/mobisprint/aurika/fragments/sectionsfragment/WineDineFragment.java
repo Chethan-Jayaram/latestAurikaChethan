@@ -61,13 +61,12 @@ public class WineDineFragment extends Fragment {
             wine_dine_recycler.setAdapter(adapter);
             backBtn.setVisibility(View.VISIBLE);
             tv_wine_dine_desc.setText(subtitle);
+            getActivity().findViewById(R.id.lyt_notification).setVisibility(View.VISIBLE);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return view;
     }
-
-
     public void parsejson() {
         try {
             GsonBuilder builder = new GsonBuilder();

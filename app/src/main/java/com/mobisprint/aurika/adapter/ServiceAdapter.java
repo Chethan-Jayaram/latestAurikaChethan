@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.pojo.testing.Item_;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyViewHolder> {
@@ -21,6 +23,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyViewHo
         this.item_ = item_;
     }
 
+    @NotNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -30,7 +33,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NotNull MyViewHolder holder, int position) {
         try{
         holder.tv_serviceDescription.setText(item_.get(position).getServiceDescription());
         holder.tv_serviceTitle.setText(item_.get(position).getServiceTitle());

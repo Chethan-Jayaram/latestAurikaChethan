@@ -14,6 +14,8 @@ import com.bumptech.glide.Glide;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.pojo.testing.Item_;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class WineAndDineAdapter extends RecyclerView.Adapter<WineAndDineAdapter.MyViewHolder> {
@@ -25,16 +27,17 @@ public class WineAndDineAdapter extends RecyclerView.Adapter<WineAndDineAdapter.
         this.item_ = item_;
     }
 
+    @NotNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.wine_dine_content, parent, false);
-context=parent.getContext();
+        context = parent.getContext();
         return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NotNull MyViewHolder holder, int position) {
         try {
             holder.tv_loc_wine_dine.setText(item_.get(position).getLocation());
             holder.tv_time_wine_dine.setText(item_.get(position).getTiming());
@@ -43,7 +46,7 @@ context=parent.getContext();
             holder.tv_assistance.setText(item_.get(position).getAssistance());
 
             Glide.with(context).load(item_.get(position).getImageUrl()).into(holder.img_wine_dine);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -56,17 +59,17 @@ context=parent.getContext();
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_loc_wine_dine, tv_time_wine_dine,tv_wine_dine_title,content_wine_dine_desc,tv_assistance;
+        private TextView tv_loc_wine_dine, tv_time_wine_dine, tv_wine_dine_title, content_wine_dine_desc, tv_assistance;
         private ImageView img_wine_dine;
 
         MyViewHolder(View view) {
             super(view);
             tv_loc_wine_dine = view.findViewById(R.id.tv_loc_wine_dine);
             tv_time_wine_dine = view.findViewById(R.id.tv_time_wine_dine);
-            tv_wine_dine_title= view.findViewById(R.id.tv_wine_dine_title);
-            content_wine_dine_desc= view.findViewById(R.id.tv_content_wine_dine_desc);
-            img_wine_dine= view.findViewById(R.id.img_wine_dine);
-            tv_assistance= view.findViewById(R.id.tv_assistance);
+            tv_wine_dine_title = view.findViewById(R.id.tv_wine_dine_title);
+            content_wine_dine_desc = view.findViewById(R.id.tv_content_wine_dine_desc);
+            img_wine_dine = view.findViewById(R.id.img_wine_dine);
+            tv_assistance = view.findViewById(R.id.tv_assistance);
         }
     }
 }

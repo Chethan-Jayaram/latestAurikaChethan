@@ -59,6 +59,7 @@ public class SleepWellFragment extends Fragment {
            adapter = new SleepWellAdapter(context,item_);
            sleppwell_recycler.setAdapter(adapter);
            sleppwell_recycler.setLayoutManager(new LinearLayoutManager(context));
+           getActivity().findViewById(R.id.lyt_notification).setVisibility(View.VISIBLE);
        }catch (Exception e){
            e.printStackTrace();
        }

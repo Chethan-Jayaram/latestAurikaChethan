@@ -33,27 +33,24 @@ import java.util.List;
  */
 public class BreakFastMenuFragment extends Fragment {
 
-   private TextView toolbar_title,tv_breakfast_timings,tv_breakfast_assistance,tv_break_menu_desc;
-   private ImageView backBtn;
-   private BreakfastMenuListnerAdapter adapter;
-   private RecyclerView breakfast_menu_recycler;
-  private Context context;
+   private TextView tv_breakfast_timings,tv_breakfast_assistance,tv_break_menu_desc;
     private List<MenuListner> mMenuList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_break_fast_menu, container, false);
         try {
-            toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+            Context context = view.getContext();
+            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
             toolbar_title.setText("The Breakfast Menu");
-            backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
-            breakfast_menu_recycler = view.findViewById(R.id.breakfast_menu_recycler);
+            ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
+            RecyclerView breakfast_menu_recycler = view.findViewById(R.id.breakfast_menu_recycler);
             tv_breakfast_timings = view.findViewById(R.id.tv_breakfast_timings);
             tv_breakfast_assistance = view.findViewById(R.id.tv_breakfast_assistance);
             tv_break_menu_desc= view.findViewById(R.id.tv_break_menu_desc);
             backBtn.setVisibility(View.VISIBLE);
             parsejson();
-            adapter = new BreakfastMenuListnerAdapter(mMenuList);
+            BreakfastMenuListnerAdapter adapter = new BreakfastMenuListnerAdapter(mMenuList);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
             breakfast_menu_recycler.setLayoutManager(mLayoutManager);
             breakfast_menu_recycler.setHasFixedSize(true);
@@ -90,9 +87,7 @@ public class BreakFastMenuFragment extends Fragment {
                     }
                     else{
                         mMenuList.add(item__.get(i).getItems().get(j));
-                        for(int k=0;k<item__.get(i).getItems().get(j).getPriceList().size();k++){
-                            mMenuList.add(item__.get(i).getItems().get(j).getPriceList().get(k));
-                        }
+                        mMenuList.addAll(item__.get(i).getItems().get(j).getPriceList());
 
                     }
                 }

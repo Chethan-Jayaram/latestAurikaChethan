@@ -38,7 +38,6 @@ public class Aurika extends Application implements MobileKeysApiFactory
 
     public Aurika(){
         mInstance=this;
-
     }
 
 
@@ -91,7 +90,7 @@ public class Aurika extends Application implements MobileKeysApiFactory
 
         mobileKeysFactory = MobileKeysApi.getInstance();
         mobileKeysFactory.initialize(this, apiConfiguration, scanConfiguration);
-        if(mobileKeysFactory.isInitialized() == false) {
+        if(!mobileKeysFactory.isInitialized()) {
             throw new IllegalStateException();
         }
 

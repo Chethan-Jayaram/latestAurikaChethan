@@ -19,6 +19,7 @@ import com.mobisprint.aurika.pojo.testing.AppDatum;
 import com.mobisprint.aurika.pojo.testing.Testing;
 
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -27,85 +28,87 @@ import java.util.List;
 public class InRoomDiningFragment extends Fragment {
 
 
-    private TextView toolbar_title,top_description;
-    private ImageView backBtn;
-    private TextView break_fast_menu,dining_menu,children_menu,wine_menu,midnigt_menu,beverage_menu;
+    private TextView top_description;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_in_room_dining, container, false);
-        toolbar_title =  getActivity().findViewById(R.id.toolbar_title);
-        backBtn =  getActivity().findViewById(R.id.naviagation_hamberger);
-        dining_menu=  view.findViewById(R.id.dining_menu);
-        wine_menu=  view.findViewById(R.id.wine_menu);
-        midnigt_menu=  view.findViewById(R.id.midnigt_menu);
-        children_menu=  view.findViewById(R.id.children_menu);
-        beverage_menu=  view.findViewById(R.id.beverage_menu);
-        backBtn.setVisibility(View.VISIBLE);
-        toolbar_title.setText("In-Room Dining");
-        top_description=  view.findViewById(R.id.top_description);
-        parsejson();
+        try {
+            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+            ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
+            TextView dining_menu = view.findViewById(R.id.dining_menu);
+            TextView wine_menu = view.findViewById(R.id.wine_menu);
+            TextView midnigt_menu = view.findViewById(R.id.midnigt_menu);
+            TextView children_menu = view.findViewById(R.id.children_menu);
+            TextView beverage_menu = view.findViewById(R.id.beverage_menu);
+            backBtn.setVisibility(View.VISIBLE);
+            toolbar_title.setText("In-Room Dining");
+            top_description = view.findViewById(R.id.top_description);
+            parsejson();
+            TextView break_fast_menu = view.findViewById(R.id.break_fast_menu);
+            break_fast_menu.setOnClickListener(view1 -> {
+                ChangeFragment(0);
+            });
+            dining_menu.setOnClickListener(view1 -> {
+                ChangeFragment(1);
 
-        break_fast_menu =  view.findViewById(R.id.break_fast_menu);
-        break_fast_menu.setOnClickListener(view1 -> {
-            ChangeFragment(0);
-        });
-        dining_menu.setOnClickListener(view1 -> {
-            ChangeFragment(1);
-          
-        });
-        children_menu.setOnClickListener(view1 -> {
-            ChangeFragment(2);
-         
-        });
-        wine_menu.setOnClickListener(view1 -> {
-            ChangeFragment(3);
-           
-        });
-        midnigt_menu.setOnClickListener(view1 -> {
-            ChangeFragment(4);
-            MidNightMenuFragment aa = new MidNightMenuFragment();
-           
-        });
-        beverage_menu.setOnClickListener(view1 -> {
-            ChangeFragment(5);
-        });
+            });
+            children_menu.setOnClickListener(view1 -> {
+                ChangeFragment(2);
 
+            });
+            wine_menu.setOnClickListener(view1 -> {
+                ChangeFragment(3);
+
+            });
+            midnigt_menu.setOnClickListener(view1 -> {
+                ChangeFragment(4);
+
+            });
+            beverage_menu.setOnClickListener(view1 -> {
+                ChangeFragment(5);
+            });
+            getActivity().findViewById(R.id.lyt_notification).setVisibility(View.VISIBLE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return view;
     }
+
     private void ChangeFragment(int position) {
-        Fragment fragment;
-
-        switch (position) {
-            case 0:
-                fragment = new BreakFastMenuFragment();
-                break;
-            case 1:
-                fragment = new AllDayDiningMenuFragment();
-                break;
-            case 2:
-                fragment = new ChildrenMenuFragment();
-                break;
-            case 3:
-                fragment = new WineListMenuFragment();
-                break;
-            case 4:
-                fragment = new MidNightMenuFragment();
-                break;
-            case 5:
-                fragment = new BeverageMenuFragment();
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + position);
+        try {
+            Fragment fragment;
+            switch (position) {
+                case 0:
+                    fragment = new BreakFastMenuFragment();
+                    break;
+                case 1:
+                    fragment = new AllDayDiningMenuFragment();
+                    break;
+                case 2:
+                    fragment = new ChildrenMenuFragment();
+                    break;
+                case 3:
+                    fragment = new WineListMenuFragment();
+                    break;
+                case 4:
+                    fragment = new MidNightMenuFragment();
+                    break;
+                case 5:
+                    fragment = new BeverageMenuFragment();
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + position);
+            }
+            FragmentTransaction fragmentTransaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
     }
-
 
 
     public void parsejson() {

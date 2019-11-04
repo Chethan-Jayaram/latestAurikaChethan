@@ -27,7 +27,6 @@ public class SleepWellAdapter extends RecyclerView.Adapter<SleepWellAdapter.View
    private Context context;
    private List<Item_> titleList;
    private List<Item__> contentList;
-
    private SleepWellInternalAdapter adapter;
 
   //  Contentadapter adapter;
@@ -57,33 +56,31 @@ public class SleepWellAdapter extends RecyclerView.Adapter<SleepWellAdapter.View
             holder.img_arrow.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_right_arrow));
 
             holder.lyt_down.setOnClickListener(view -> {
-                if (titleList.get(position).getExpandcontrast()) {
-                    holder.img_arrow.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_right_arrow));
-                    titleList.get(position).setExpandcontrast(false);
-                    holder.tv_category_desc.setVisibility(View.GONE);
-                    holder.item_content_recycler.setVisibility(View.GONE);
-                }else{
-                    holder.img_arrow.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_down_arrow));
-                    titleList.get(position).setExpandcontrast(true);
-                    holder.tv_category_desc.setVisibility(View.VISIBLE);
-                    holder.item_content_recycler.setVisibility(View.VISIBLE);
+                try {
+                    if (titleList.get(position).getExpandcontrast()) {
+                        holder.img_arrow.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_right_arrow));
+                        titleList.get(position).setExpandcontrast(false);
+                        holder.tv_category_desc.setVisibility(View.GONE);
+                        holder.item_content_recycler.setVisibility(View.GONE);
+                    } else {
+                        holder.img_arrow.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_down_arrow));
+                        titleList.get(position).setExpandcontrast(true);
+                        holder.tv_category_desc.setVisibility(View.VISIBLE);
+                        holder.item_content_recycler.setVisibility(View.VISIBLE);
 
-                    contentList = titleList.get(position).getItems();
-                    adapter = new SleepWellInternalAdapter(context, contentList);
-                    holder.item_content_recycler.setHasFixedSize(true);
-                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-                    holder.item_content_recycler.setLayoutManager(layoutManager);
-                    holder.item_content_recycler.setAdapter(adapter);
+                        contentList = titleList.get(position).getItems();
+                        adapter = new SleepWellInternalAdapter(context, contentList);
+                        holder.item_content_recycler.setHasFixedSize(true);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+                        holder.item_content_recycler.setLayoutManager(layoutManager);
+                        holder.item_content_recycler.setAdapter(adapter);
 
 
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
-
-
-
             });
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }

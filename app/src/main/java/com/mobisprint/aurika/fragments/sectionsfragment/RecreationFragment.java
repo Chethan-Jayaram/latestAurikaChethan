@@ -2,7 +2,6 @@ package com.mobisprint.aurika.fragments.sectionsfragment;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mobisprint.aurika.activitys.HomeScreenActivity;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.adapter.RecreationAdapter;
 import com.mobisprint.aurika.helper.GlobalClass;

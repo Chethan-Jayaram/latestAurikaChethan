@@ -89,6 +89,7 @@ public class DoorUnlockingFragment extends Fragment
             handler = new Handler();
             handler.postDelayed(() -> {
                 try {
+                    getActivity().findViewById(R.id.lyt_notification).setVisibility(View.VISIBLE);
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeGridFragment()).commit();
                 } catch (Exception e) {
                     e.printStackTrace();

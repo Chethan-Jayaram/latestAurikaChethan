@@ -123,44 +123,33 @@ private  Context context;
             switch (position) {
                 case 0:
                     fragment = new SendOtpScreenFragment();// Statements
-                    GlobalClass.previous=0;
                     break;
                 case 1:
                     fragment = new ServicesFragment();
-                    GlobalClass.previous=1;
                     break;
                 case 2:
                     fragment = new SleepWellFragment();
-                    GlobalClass.previous=2;
                     break;
                 case 3:
                     fragment = new WineDineFragment();
-                    GlobalClass.previous=3;
                     break;
                 case 4:
                     fragment = new InRoomDiningFragment();
-                    GlobalClass.previous=4;
                     break;
                 case 5:
                     fragment = new ExperienceFragment();
-                    GlobalClass.previous=5;
                     break;
                 case 6:
                     fragment = new SpaSaloonFragment();
-                    GlobalClass.previous=6;
                     break; // break is optional
                 case 7:
                     fragment = new RecreationFragment();
-                    GlobalClass.previous=7;
-
                     break; // break is optional
                 case 8:
                     fragment = new SightSeeingFragment();
-                    GlobalClass.previous=8;
                     break; // break is optional
                 default:
                     fragment = new HomeGridFragment();
-                    GlobalClass.previous=100;
             }
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             if (position != 0) {

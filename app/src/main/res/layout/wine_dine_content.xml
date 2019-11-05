@@ -47,7 +47,7 @@
             android:textColor="#000000" />
 
         <RelativeLayout
-            android:paddingLeft="@dimen/dimen_15"
+            android:paddingLeft="@dimen/dimen_10"
             android:paddingTop="@dimen/dimen_15"
             android:paddingBottom="@dimen/dimen_15"
             android:background="#BBAF98"
@@ -59,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-               android:layout_centerVertical="true"
+                android:layout_centerVertical="true"
                 android:fontFamily="@font/notosanstc_light"
                 android:textColor="@color/black" />
 
@@ -102,6 +102,4 @@
         </RelativeLayout>
 
     </LinearLayout>
-
-
 </RelativeLayout>

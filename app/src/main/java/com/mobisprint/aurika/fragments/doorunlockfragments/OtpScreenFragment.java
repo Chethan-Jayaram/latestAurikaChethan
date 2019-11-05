@@ -35,7 +35,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.mobisprint.aurika.R;
-import com.mobisprint.aurika.activitys.HomeScreenActivity;
+import com.mobisprint.aurika.activity.HomeScreenActivity;
 import com.mobisprint.aurika.helper.CustomMessageHelper;
 import com.mobisprint.aurika.helper.GlobalClass;
 import com.mobisprint.aurika.helper.SMSReceiver;

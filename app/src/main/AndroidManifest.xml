@@ -27,10 +27,10 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.mobisprint.aurika.activitys.HomeScreenActivity"
+            android:name="com.mobisprint.aurika.activity.HomeScreenActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.mobisprint.aurika.activitys.SplashActivity"
+            android:name="com.mobisprint.aurika.activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

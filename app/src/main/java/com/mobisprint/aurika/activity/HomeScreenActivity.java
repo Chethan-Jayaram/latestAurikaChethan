@@ -1,6 +1,7 @@
 package com.mobisprint.aurika.activity;
 
 
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,6 +31,7 @@ import android.view.View;
 
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.assaabloy.mobilekeys.api.MobileKeys;
@@ -128,6 +130,7 @@ public class HomeScreenActivity extends AppCompatActivity
             vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
             setSupportActionBar(toolbar_cart);
             navigationView.setItemIconTintList(null);
+
             overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_left);
             onCreated();
             readCallBack();
@@ -140,6 +143,7 @@ public class HomeScreenActivity extends AppCompatActivity
             }
 
             clickListners();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -274,41 +278,33 @@ public class HomeScreenActivity extends AppCompatActivity
         hceConnectionCallback.unregisterReceiver();
     }
 
+  
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
 
         if (id == R.id.nav_unlock) {
             ChangeFragment(0);
-
         } else if (id == R.id.nav_services) {
             ChangeFragment(1);
-
         } else if (id == R.id.nav_sleep_well) {
             ChangeFragment(2);
-
         } else if (id == R.id.nav_wine_dine) {
             ChangeFragment(3);
-
         } else if (id == R.id.nav_room_dinning) {
             ChangeFragment(4);
-
-
         } else if (id == R.id.nav_experiences) {
             ChangeFragment(5);
-
         } else if (id == R.id.nav_spa_saloon) {
             ChangeFragment(6);
-
         } else if (id == R.id.nav_recreation) {
             ChangeFragment(7);
-
         } else if (id == R.id.nav_sight_seeing) {
             ChangeFragment(8);
         } else if (id == R.id.nav_logout) {
             ChangeFragment(9);
         }
-
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -317,56 +313,45 @@ public class HomeScreenActivity extends AppCompatActivity
     private void ChangeFragment(int position) {
         Fragment fragment;
 
-        if(GlobalClass.previous!=position){
+
             switch (position) {
                 case 0:
                     fragment = new SendOtpScreenFragment();// Statements
-                    GlobalClass.previous=0;
                     break;
                 case 1:
                     fragment = new ServicesFragment();
-                    GlobalClass.previous=1;
                     break;
                 case 2:
                     fragment = new SleepWellFragment();
-                    GlobalClass.previous=2;
                     break;
                 case 3:
                     fragment = new WineDineFragment();
-                    GlobalClass.previous=3;
                     break;
                 case 4:
                     fragment = new InRoomDiningFragment();
-                    GlobalClass.previous=4;
                     break;
                 case 5:
                     fragment = new ExperienceFragment();
-                    GlobalClass.previous=5;
                     break;
                 case 6:
                     fragment = new SpaSaloonFragment();
-                    GlobalClass.previous=6;
                     break; // break is optional
                 case 7:
                     fragment = new RecreationFragment();
-                    GlobalClass.previous=7;
                     break; // break is optional
                 case 8:
                     fragment = new SightSeeingFragment();
-                    GlobalClass.previous=8;
                     break; // break is optional
                 case 9:
                     performLogout();
                     fragment = new HomeGridFragment();
-                    GlobalClass.previous=9;
                     break; // break is optional
                 case 10:
                     fragment = new NotificationFragment();
-                    GlobalClass.previous=10;
                     break; // break is optional
                 default:
                     fragment = new HomeGridFragment();
-                    GlobalClass.previous=100;
+
             }
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             if (position != 0) {
@@ -376,7 +361,7 @@ public class HomeScreenActivity extends AppCompatActivity
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
 
-        }
+
 
     }
 

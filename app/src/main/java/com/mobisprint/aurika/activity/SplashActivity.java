@@ -1,4 +1,4 @@
-package com.mobisprint.aurika.activitys;
+package com.mobisprint.aurika.activity;
 
 import android.app.Activity;
 import android.content.Context;

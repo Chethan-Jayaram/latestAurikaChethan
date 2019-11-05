@@ -1,4 +1,4 @@
-package com.mobisprint.aurika.activitys;
+package com.mobisprint.aurika.activity;
 
 
 import android.content.Context;
@@ -70,7 +70,6 @@ import com.mobisprint.aurika.unlock.MobileKeysApiFacade;
 import com.mobisprint.aurika.unlock.MobileKeysApiFactory;
 import com.onesignal.OneSignal;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;

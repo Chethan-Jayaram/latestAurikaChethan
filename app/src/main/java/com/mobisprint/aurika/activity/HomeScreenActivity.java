@@ -27,12 +27,14 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.assaabloy.mobilekeys.api.MobileKeys;
 import com.assaabloy.mobilekeys.api.MobileKeysCallback;
@@ -247,14 +249,6 @@ public class HomeScreenActivity extends AppCompatActivity
                 name.setText(GlobalClass.USER_NAME);
                 headerLayout.setVisibility(View.VISIBLE);
             } else {
-                try {
-                    if (!mobileKeysApiFacade.getMobileKeys().listMobileKeys().isEmpty()) {
-                        mobileKeysApiFacade.getMobileKeys().listMobileKeys().clear();
-                        mobileKeysApiFacade.getMobileKeys().unregisterEndpoint(this);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
                 headerLayout.setVisibility(View.GONE);
             }
             navigationView.setNavigationItemSelectedListener(this);
@@ -382,6 +376,15 @@ public class HomeScreenActivity extends AppCompatActivity
                 tempList.add("isCheckedIn");
                 tempList.add("timeStamp");
                 OneSignal.deleteTags(tempList);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            if (!mobileKeysApiFacade.getMobileKeys().listMobileKeys().isEmpty()) {
+                mobileKeysApiFacade.getMobileKeys().listMobileKeys().clear();
+                mobileKeysApiFacade.getMobileKeys().unregisterEndpoint(this);
             }
         } catch (Exception e) {
             e.printStackTrace();

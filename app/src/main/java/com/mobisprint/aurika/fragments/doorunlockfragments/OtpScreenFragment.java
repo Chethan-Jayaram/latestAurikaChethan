@@ -556,7 +556,6 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
         try {
             Map map = new HashMap();
             map.put("token", GlobalClass.user_token);
-
             APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
             Call<TokenAutentication> call = api.resendotp(map);
             call.enqueue(new Callback<TokenAutentication>() {

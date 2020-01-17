@@ -31,7 +31,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/dimen_10"
             android:layout_marginRight="@dimen/dimen_10"
-            android:scaleType="fitXY" />
+            android:scaleType="matrix" />
 
         <TextView
             android:id="@+id/tv_notification_short_desc"

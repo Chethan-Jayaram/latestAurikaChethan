@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        maven { url 'https://plugins.gradle.org/m2/'}
+        maven { url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
         classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.12.6'
@@ -23,12 +23,12 @@ android {
         applicationId "com.mobisprint.aurika"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 6
+        versionCode 13
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         manifestPlaceholders = [
-                onesignal_app_id: 'cc328b3a-7b1f-414c-bd94-8dbee25a8bf0',
+                onesignal_app_id               : 'cc328b3a-7b1f-414c-bd94-8dbee25a8bf0',
                 // Project number pulled from dashboard, local value is ignored.
                 onesignal_google_project_number: 'REMOTE'
         ]
@@ -68,7 +68,7 @@ android {
         }
     }
 
-    packagingOptions {
+      packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE.txt'
@@ -120,19 +120,19 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-   // implementation project(path: ':mobilekeys-android-sdk-debug-7.3.0')
+    // implementation project(path: ':mobilekeys-android-sdk-debug-7.3.0')
     implementation files('docs/javadoc/mobilekeys-android-sdk-7.3.0-javadoc.jar')
     implementation 'com.google.android.material:material:1.0.0'
 
 
     //retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.0.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.4.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
 
 //auto read
     implementation 'com.google.android.gms:play-services-base:17.1.0'
@@ -152,7 +152,6 @@ dependencies {
 
     implementation 'com.android.support:multidex:1.0.3'
     implementation project(path: ':mobilekeys-android-sdk-release-7.3.0')
-
 
 }
 configurations {

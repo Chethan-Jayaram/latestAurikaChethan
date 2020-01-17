@@ -31,7 +31,6 @@ public class BreakfastMenuListnerAdapter extends RecyclerView.Adapter {
 
     public BreakfastMenuListnerAdapter(List<MenuListner> mMenuList) {
         this.mMenuList = mMenuList;
-
     }
 
 

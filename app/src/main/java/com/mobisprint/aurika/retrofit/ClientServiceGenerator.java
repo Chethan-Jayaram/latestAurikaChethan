@@ -18,8 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ClientServiceGenerator {
 
     private static Retrofit retrofit = null;
-
-    private static final String ROOT_URL = "https://dev.mobisprint.com/api/v1/";
+    private static final String ROOT_URL = "https://exoneapi.aurikahotels.com/api/v1/";
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     public static Retrofit getUrlClient() {

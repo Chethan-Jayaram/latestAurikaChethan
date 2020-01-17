@@ -75,7 +75,7 @@ public class Aurika extends Application implements MobileKeysApiFactory
                     .unsafe_setAttemptNfcWithScreenOff(false)
                     .build())
                 .build();
-        OneSignal.sendTag("isCheckedIn", "fslse");
+        OneSignal.sendTag("isCheckedIn", "false");
 
 
         try {

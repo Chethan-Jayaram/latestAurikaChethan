@@ -1,7 +1,5 @@
 package com.mobisprint.aurika.activity;
 
-
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,6 +24,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -132,7 +131,6 @@ public class HomeScreenActivity extends AppCompatActivity
             vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
             setSupportActionBar(toolbar_cart);
             navigationView.setItemIconTintList(null);
-
             overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_left);
             onCreated();
             readCallBack();
@@ -496,18 +494,22 @@ public class HomeScreenActivity extends AppCompatActivity
 
     @Override
     public void onReaderConnectionClosed(Reader reader, OpeningResult openingResult) {
-        if (Build.VERSION.SDK_INT >= 26) {
-            vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            vibrator.vibrate(200);
+        try {
+            if (Build.VERSION.SDK_INT >= 26) {
+                vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                vibrator.vibrate(200);
+            }
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            }
+            this
+                    .getSupportFragmentManager()
+                    .beginTransaction().replace(R.id.fragment_container,
+                    new HomeGridFragment()).commit();
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-        }
-        this
-                .getSupportFragmentManager()
-                .beginTransaction().replace(R.id.fragment_container,
-                new HomeGridFragment()).commit();
     }
 
 

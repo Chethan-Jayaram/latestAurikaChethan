@@ -35,6 +35,7 @@ public class ExperienceFragment extends Fragment {
 
     private List<Item_> item_ = new ArrayList<>();
     private String subtitle,assistance;
+    private  TextView toolbar_title;
 
 
     @Override
@@ -45,10 +46,9 @@ public class ExperienceFragment extends Fragment {
             Context context = view.getContext();
            // tv_exp_desc = view.findViewById(R.id.tv_exp_desc);
             RecyclerView experience_recycler = view.findViewById(R.id.experience_recycler);
-            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+            toolbar_title = getActivity().findViewById(R.id.toolbar_title);
             TextView tv_experience_assistance = view.findViewById(R.id.tv_experience_assistance);
             TextView tv_exp_desc = view.findViewById(R.id.tv_exp_desc);
-            toolbar_title.setText("Exclusive Experiences");
             parsejson();
             ExperienceAdapter adapter = new ExperienceAdapter(item_);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
@@ -79,6 +79,7 @@ public class ExperienceFragment extends Fragment {
             item_ = appDatum.get(0).getItems().get(4).getItems();
             subtitle = appDatum.get(0).getItems().get(4).getSubTitle();
             assistance=appDatum.get(0).getItems().get(4).getAssistance();
+            toolbar_title.setText(appDatum.get(0).getItems().get(4).getItemName());
         } catch (Exception e) {
             e.printStackTrace();
         }

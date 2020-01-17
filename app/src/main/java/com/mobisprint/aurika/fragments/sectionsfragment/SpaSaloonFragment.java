@@ -42,48 +42,30 @@ public class SpaSaloonFragment extends Fragment {
 
 
     private TextView toolbar_title, tv_salon_spa_desc, tv_spa_salon_assistance, tv_spa_salon_loc, tv_spa_salon_time;
-    private ImageView backBtn;
     private String subtitle, location, timing, assistance;
     private List<Item_> item_ = new ArrayList<>();
-    private SpaSalonAdapter adapter;
-    private Context context;
-    private RecyclerView spa_salon_recycler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_spa_saloon, container, false);
         try {
-            context = view.getContext();
-            toolbar_title =
-
-                    getActivity().
-
-                            findViewById(R.id.toolbar_title);
+            Context context = view.getContext();
+            toolbar_title = getActivity().findViewById(R.id.toolbar_title);
 
             tv_salon_spa_desc = view.findViewById(R.id.tv_salon_spa_desc);
-            backBtn =
-
-                    getActivity().
-
-                            findViewById(R.id.naviagation_hamberger);
-
-            spa_salon_recycler = view.findViewById(R.id.spa_salon_recycler);
+            ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
+            RecyclerView spa_salon_recycler = view.findViewById(R.id.spa_salon_recycler);
             tv_spa_salon_assistance = view.findViewById(R.id.tv_spa_salon_assistance);
             tv_spa_salon_loc = view.findViewById(R.id.tv_spa_salon_loc);
             tv_spa_salon_time = view.findViewById(R.id.tv_spa_salon_time);
-            toolbar_title.setText("Araya Spa and Saloon");
 
             parsejson();
 
 
-            adapter = new SpaSalonAdapter(item_, S1 ->
-
-                     ChangeFragment(S1));
+            SpaSalonAdapter adapter = new SpaSalonAdapter(item_, S1 -> ChangeFragment(S1));
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
             spa_salon_recycler.setLayoutManager(mLayoutManager);
-            spa_salon_recycler.setItemAnimator(new
-
-                    DefaultItemAnimator());
+            spa_salon_recycler.setItemAnimator(new DefaultItemAnimator());
             spa_salon_recycler.setAdapter(adapter);
 
 
@@ -113,6 +95,7 @@ public class SpaSaloonFragment extends Fragment {
             location = appDatum.get(0).getItems().get(5).getLocation();
             timing = appDatum.get(0).getItems().get(5).getTiming();
             assistance = appDatum.get(0).getItems().get(5).getAssistance();
+            toolbar_title.setText(appDatum.get(0).getItems().get(5).getItemName());
 
         } catch (Exception e) {
             e.printStackTrace();

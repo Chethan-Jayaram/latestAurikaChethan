@@ -32,6 +32,7 @@ public class ChildrenMenuFragment extends Fragment {
     private TextView tv_children_timings;
     private TextView tv_child_menu_desc;
     private List<MenuListner> mMenuList;
+    private TextView toolbar_title;
 
 
     @Override
@@ -39,8 +40,7 @@ public class ChildrenMenuFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_children_menu, container, false);
         try {
             Context context = view.getContext();
-            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-            toolbar_title.setText("The Children's Menu");
+             toolbar_title = getActivity().findViewById(R.id.toolbar_title);
             ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
             tv_children_assistance = view.findViewById(R.id.tv_children_assistance);
             tv_children_timings = view.findViewById(R.id.tv_children_timings);
@@ -77,6 +77,7 @@ public class ChildrenMenuFragment extends Fragment {
             tv_children_timings.setText(appDatum.get(0).getItems().get(3).getItems().get(2).getTiming());
             tv_children_assistance.setText(appDatum.get(0).getItems().get(3).getItems().get(2).getAssistance());
             tv_child_menu_desc.setText(appDatum.get(0).getItems().get(3).getItems().get(2).getMenuDescription());
+            toolbar_title.setText(appDatum.get(0).getItems().get(3).getItems().get(2).getHeaderTitle());
             List<Item__> item__ = appDatum.get(0).getItems().get(3).getItems().get(2).getItems();
 
             mMenuList = new ArrayList<>();

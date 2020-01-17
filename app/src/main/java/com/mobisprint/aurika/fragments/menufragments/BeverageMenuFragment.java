@@ -30,6 +30,7 @@ public class BeverageMenuFragment extends Fragment {
 
     private TextView tv_beverages_assistance, tv_beverages_timings, tv_beverage_menu_desc;
     private List<MenuListner> mMenuList;
+    private TextView toolbar_title;
 
 
     @Override
@@ -37,8 +38,7 @@ public class BeverageMenuFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_beverage_menu, container, false);
         try {
             Context context = view.getContext();
-            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-            toolbar_title.setText("The Beverage List");
+             toolbar_title = getActivity().findViewById(R.id.toolbar_title);
             ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
             tv_beverages_assistance = view.findViewById(R.id.tv_beverages_assistance);
             tv_beverages_timings = view.findViewById(R.id.tv_beverages_timings);
@@ -69,6 +69,7 @@ public class BeverageMenuFragment extends Fragment {
             tv_beverages_timings.setText(appDatum.get(0).getItems().get(3).getItems().get(4).getTiming());
             tv_beverages_assistance.setText(appDatum.get(0).getItems().get(3).getItems().get(4).getAssistance());
             tv_beverage_menu_desc.setText(appDatum.get(0).getItems().get(3).getItems().get(4).getMenuDescription());
+            toolbar_title.setText(appDatum.get(0).getItems().get(3).getItems().get(4).getHeaderTitle());
             List<Item__> item__ = appDatum.get(0).getItems().get(3).getItems().get(4).getItems();
 
             mMenuList = new ArrayList<>();

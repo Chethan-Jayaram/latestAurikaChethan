@@ -39,6 +39,7 @@ public class SplashActivity extends Activity {
     private SharedPreferences.Editor edit;
     private Context context;
     private Handler handler;
+    private int notification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +47,21 @@ public class SplashActivity extends Activity {
         try {
             context = this;
             setContentView(R.layout.activity_splash);
+            Intent intent = getIntent();
+            notification = intent.getIntExtra("notification", 0);
             GlobalClass.SharedPreferences = this.getSharedPreferences("aurika", 0);
             GlobalClass.APPDATA = GlobalClass.SharedPreferences.getString("data", "");
+            if(!GlobalClass.APPDATA.isEmpty()){
+                GsonBuilder builder = new GsonBuilder();
+                builder.setPrettyPrinting();
+                Gson gson = builder.create();
+                Testing testing = gson.fromJson(GlobalClass.APPDATA, Testing.class);
+                List<AppDatum> appDatum = testing.getAppData();
+                GlobalClass.homeNames=new String[appDatum.get(0).getDashboardItems().size()];
+                for(int i=0;i<appDatum.get(0).getDashboardItems().size();i++){
+                    GlobalClass.homeNames[i]=appDatum.get(0).getDashboardItems().get(i);
+                }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,6 +92,7 @@ public class SplashActivity extends Activity {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             Intent startAct = new Intent(getApplicationContext(), HomeScreenActivity.class);
+            startAct.putExtra("notification", notification);
             startActivity(startAct);
             finish();
         }, SPLASH_TIME_OUT);
@@ -142,8 +157,13 @@ public class SplashActivity extends Activity {
                         String St2 = "{" + System.getProperty("line.separator") +
                                 " \"AppData\": " + st1 + System.getProperty("line.separator") + "}";
                         GlobalClass.APPDATA = St2;
+                        GlobalClass.homeNames=new String[appDatum.get(0).getDashboardItems().size()];
+                        for(int i=0;i<appDatum.get(0).getDashboardItems().size();i++){
+                            GlobalClass.homeNames[i]=appDatum.get(0).getDashboardItems().get(i);
+                        }
                         putsharedpreference();
                         Intent startAct = new Intent(getApplicationContext(), HomeScreenActivity.class);
+                        startAct.putExtra("notification", notification);
                         startActivity(startAct);
                         if (handler != null) {
                             handler.removeCallbacksAndMessages(null);

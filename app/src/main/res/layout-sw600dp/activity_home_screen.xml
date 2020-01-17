@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E8E0D4"
+    tools:context=".activity.HomeScreenActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_cart"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/tool_new"
+        android:elevation="0dip"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+        <RelativeLayout
+            android:id="@+id/main_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:weightSum="100">
+            <RelativeLayout
+                android:id="@+id/menu_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:paddingStart="@dimen/dimen_10"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:id="@+id/naviagation_hamberger"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/icon_back" />
+            </RelativeLayout>
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/menu_layout"
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:fontFamily="@font/notoseriftc_regular"
+                android:gravity="left|center_vertical"
+                android:includeFontPadding="false"
+                android:text="@string/toolbar_title"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_margin="@dimen/dimen_10"
+                android:id="@+id/lyt_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                tools:ignore="RtlHardcoded">
+                <ImageView
+                    android:id="@+id/toolbar_notification_icon"
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/icon_bell" />
+
+                <ImageView
+                    android:id="@+id/imng_notification"
+                    android:layout_alignTop="@id/toolbar_notification_icon"
+                    android:layout_alignEnd="@id/toolbar_notification_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/white_dot"/>
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/search_directory"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center"
+            android:layout_weight="10"
+            android:clickable="true"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_cart" />
+
+    <com.mobisprint.aurika.helper.MovableFloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/dimen_20"
+        app:backgroundTint="#E8E0D4"
+        app:srcCompat="@drawable/ic_hambarger" />
+</RelativeLayout>

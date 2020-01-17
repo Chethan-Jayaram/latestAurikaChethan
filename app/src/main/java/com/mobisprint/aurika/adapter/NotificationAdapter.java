@@ -47,13 +47,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     @Override
     public void onBindViewHolder(@NotNull MyViewHolder holder, int position) {
         try{
-            Log.d("token", GlobalClass.user_token);
+
+
             holder.tv_notification_title.setText(item_.get(position).getTitle());
             holder.tv_notification_short_desc.setText(item_.get(position).getShortDescription());
           if(item_.get(position).getImage().isEmpty()) {
               holder.notification_img.setVisibility(View.GONE);
           }else{
-              Glide.with(context).load("https://aurika-app.s3.ap-south-1.amazonaws.com/Mirasa.jpg").into(holder.notification_img);
+              Glide.with(context).load(item_.get(position).getImage()).into(holder.notification_img);
           }
 
         }catch (Exception e){

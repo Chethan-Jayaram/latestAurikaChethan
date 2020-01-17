@@ -32,7 +32,7 @@
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:padding="@dimen/dimen_10"
-                android:text="All prices are subject to taxes and services charage"
+              android:text="@string/all_prices_are_subject_to_taxes_and_services_charge"
                 android:textColor="#000000"
                 android:textSize="14sp"
                 app:layout_anchor="@+id/appBarLayout"
@@ -49,6 +49,7 @@
             app:layout_collapseMode="pin">
 
             <TextView
+                android:layout_centerVertical="true"
                 android:id="@+id/tv_spa_assistance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,18 +61,19 @@
                 android:paddingTop="@dimen/dimen_15"
                 android:paddingBottom="@dimen/dimen_15"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <LinearLayout
-                android:layout_marginRight="@dimen/dimen_10"
+                android:layout_marginEnd="@dimen/dimen_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dimen_5"
                 android:orientation="vertical">
 
                 <TextView
+                    android:gravity="center_vertical"
                     android:id="@+id/tv_spa_loc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -84,6 +86,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:gravity="center_vertical"
                     android:id="@+id/tv_spa_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -109,6 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dimen_20"
         android:layout_marginRight="@dimen/dimen_20"
+        android:paddingBottom="20dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -45,22 +45,10 @@ public class HomeGridFragment extends Fragment implements MobileKeysCallback {
 
     private MobileKeysApiFacade mobileKeysApiFacade;
     private Toolbar toolbar_cart;
-
     private  GridView gridView;
     private  ImageView backBtn;
     private  TextView toolbar_title;
-    private  String[] homeNames = {
-            "Unlock Your Door",
-            "Services",
-            "Sleep Well",
-            "Wine and Dine",
-            "In-Room Dining",
-            "Experiences",
-            "Spa and Saloon",
-            "Recreation",
-            "Sightseeing"
 
-    };
     private  int[] homeImages = {
             R.drawable.ic_unlock_door,
             R.drawable.ic_services,
@@ -100,7 +88,7 @@ private  Context context;
         toolbar_title.setText(getResources().getString(R.string.toolbar_title));
         ll_conent =  view.findViewById(R.id.ll_conent);
         ll_conent.setVisibility(View.VISIBLE);
-        HomeAdapter adapter = new HomeAdapter(getActivity(), homeNames, homeImages);
+        HomeAdapter adapter = new HomeAdapter(getActivity(), GlobalClass.homeNames, homeImages);
         gridView = view.findViewById(R.id.gridview);
         gridView.setAdapter(adapter);
         toolbar_cart=getActivity().findViewById(R.id.toolbar_cart);
@@ -160,8 +148,6 @@ private  Context context;
             fragmentTransaction.commit();
         }
     }
-
-
 
     private void mobileKeysStartup() {
 

@@ -10,6 +10,7 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.HeaderMap;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
@@ -37,8 +38,8 @@ public interface APIMethods {
 
 
     @Headers({"Content-Type:application/json", "organization-key:80b2f8f25c554f9705bb216c8128ba4f05bb0cfd", "location:aurika-udaipur"})
-    @POST("guest-push-notifications/")
-    Call<PushNotificationResponse> pushNotificationApi(@Body Map map);
+    @GET("guest-push-notifications/")
+    Call<PushNotificationResponse> pushNotificationApi(@HeaderMap Map<String, String> token);
 
 
 

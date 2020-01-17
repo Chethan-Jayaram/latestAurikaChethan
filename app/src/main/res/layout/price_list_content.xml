@@ -19,9 +19,9 @@
             <ImageView
                 android:id="@+id/img_veg_nonveg"
                 android:layout_width="12dp"
+                android:layout_centerVertical="true"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="@dimen/dimen_5" />
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:id="@+id/tv_item_name"

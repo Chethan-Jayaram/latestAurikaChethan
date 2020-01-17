@@ -29,12 +29,12 @@ public class InRoomDiningFragment extends Fragment {
 
 
     private TextView top_description;
-
+    private TextView toolbar_title;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_in_room_dining, container, false);
         try {
-            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+             toolbar_title = getActivity().findViewById(R.id.toolbar_title);
             ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
             TextView dining_menu = view.findViewById(R.id.dining_menu);
             TextView wine_menu = view.findViewById(R.id.wine_menu);
@@ -42,7 +42,7 @@ public class InRoomDiningFragment extends Fragment {
             TextView children_menu = view.findViewById(R.id.children_menu);
             TextView beverage_menu = view.findViewById(R.id.beverage_menu);
             backBtn.setVisibility(View.VISIBLE);
-            toolbar_title.setText("In-Room Dining");
+            toolbar_title.setText(GlobalClass.homeNames[4]);
             top_description = view.findViewById(R.id.top_description);
             parsejson();
             TextView break_fast_menu = view.findViewById(R.id.break_fast_menu);
@@ -118,7 +118,7 @@ public class InRoomDiningFragment extends Fragment {
             Gson gson = builder.create();
             Testing generalPojo = gson.fromJson(GlobalClass.APPDATA, Testing.class);
             List<AppDatum> appDatum = generalPojo.getAppData();
-
+            toolbar_title.setText(appDatum.get(0).getItems().get(3).getItemName());
             top_description.setText(appDatum.get(0).getItems().get(3).getSubTitle());
 
         } catch (Exception e) {

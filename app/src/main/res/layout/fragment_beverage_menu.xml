@@ -42,7 +42,7 @@
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#BBAF98"
@@ -51,24 +51,27 @@
             android:paddingBottom="@dimen/dimen_10">
 
             <TextView
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
                 android:id="@+id/tv_beverages_assistance"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/dimen_10"
-                android:layout_weight="0.6"
+                android:layout_marginStart="@dimen/dimen_10"
+                android:gravity="center_vertical"
                 android:fontFamily="@font/notoseriftc_regular"
                 android:includeFontPadding="false"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <TextView
+                android:layout_alignParentEnd="true"
                 android:id="@+id/tv_beverages_timings"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="0.45"
-                android:drawableLeft="@drawable/icon_clock"
+                android:gravity="center_vertical"
+                android:drawableStart="@drawable/icon_clock"
                 android:drawablePadding="@dimen/dimen_5"
                 android:fontFamily="@font/notoseriftc__medium"
                 android:includeFontPadding="false"
@@ -76,7 +79,7 @@
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_collapseMode="pin" />
-        </LinearLayout>
+        </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -87,6 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dimen_20"
         android:layout_marginRight="@dimen/dimen_20"
+        android:paddingBottom="20dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 

@@ -33,6 +33,7 @@ public class AllDayDiningMenuFragment extends Fragment {
 
     private TextView tv_allDaydiing_assistance,tv_allDaydiing_timings,tv_dining_menu_desc;
     private List<MenuListner> mMenuList;
+    private TextView toolbar_title;
 
 
     @Override
@@ -40,8 +41,8 @@ public class AllDayDiningMenuFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_all_day_dining_menu, container, false);
         try {
             Context context = view.getContext();
-            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-            toolbar_title.setText("The All Day Dining Menu");
+            toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+
             ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
             tv_allDaydiing_assistance = view.findViewById(R.id.tv_allDaydiing_assistance);
             tv_allDaydiing_timings = view.findViewById(R.id.tv_allDaydiing_timings);
@@ -71,7 +72,7 @@ public class AllDayDiningMenuFragment extends Fragment {
             tv_allDaydiing_assistance.setText(appDatum.get(0).getItems().get(3).getItems().get(1).getAssistance());
             tv_dining_menu_desc.setText(appDatum.get(0).getItems().get(3).getItems().get(1).getMenuDescription());
             List<Item__> item__ =appDatum.get(0).getItems().get(3).getItems().get(1).getItems();
-
+            toolbar_title.setText(appDatum.get(0).getItems().get(3).getItems().get(1).getHeaderTitle());
             mMenuList= new ArrayList<>();
             for(int i=0;i<item__.size();i++){
                 mMenuList.add(item__.get(i));
@@ -82,7 +83,6 @@ public class AllDayDiningMenuFragment extends Fragment {
                     else{
                         mMenuList.add(item__.get(i).getItems().get(j));
                         mMenuList.addAll(item__.get(i).getItems().get(j).getPriceList());
-
                     }
                     }
 

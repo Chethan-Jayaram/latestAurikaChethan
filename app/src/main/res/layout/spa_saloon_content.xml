@@ -12,9 +12,10 @@
         <ImageView
             android:id="@+id/img_spa_salon"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="220dp"
             android:layout_gravity="center"
-            android:scaleType="fitXY" />
+            android:scaleType="matrix"/>
+
 
         <TextView
             android:id="@+id/tv_salon_spa_title"
@@ -23,8 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_10"
 
-            android:layout_marginTop="120dp"
-            android:background="@color/font_color_purple"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/border_edges"
             android:fontFamily="@font/notoseriftc_regular"
             android:padding="@dimen/dimen_10"
             android:textColor="@color/white" />

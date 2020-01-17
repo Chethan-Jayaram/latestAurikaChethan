@@ -34,11 +34,7 @@ import java.util.List;
 public class WineDineFragment extends Fragment {
 
 
-    private ImageView backBtn;
-    private TextView toolbar_title, tv_wine_dine_desc;
-    private Context context;
-    private WineAndDineAdapter adapter;
-    private RecyclerView wine_dine_recycler;
+    private TextView toolbar_title;
     private String subtitle;
     private List<Item_> item_ = new ArrayList<>();
 
@@ -47,14 +43,13 @@ public class WineDineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wine_dine, container, false);
         try {
-            context = view.getContext();
+            Context context = view.getContext();
             toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-            tv_wine_dine_desc = view.findViewById(R.id.tv_wine_dine_desc);
-            backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
-            wine_dine_recycler = view.findViewById(R.id.wine_dine_recycler);
-            toolbar_title.setText("Wine and Dine");
+            TextView tv_wine_dine_desc = view.findViewById(R.id.tv_wine_dine_desc);
+            ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
+            RecyclerView wine_dine_recycler = view.findViewById(R.id.wine_dine_recycler);
             parsejson();
-            adapter = new WineAndDineAdapter(item_);
+            WineAndDineAdapter adapter = new WineAndDineAdapter(item_);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
             wine_dine_recycler.setLayoutManager(mLayoutManager);
             wine_dine_recycler.setItemAnimator(new DefaultItemAnimator());
@@ -76,6 +71,7 @@ public class WineDineFragment extends Fragment {
             List<AppDatum> appDatum = wineAndDinePojo.getAppData();
             item_ = appDatum.get(0).getItems().get(2).getItems();
             subtitle = appDatum.get(0).getItems().get(2).getSubTitle();
+            toolbar_title.setText(appDatum.get(0).getItems().get(2).getItemName());
         } catch (Exception e) {
             e.printStackTrace();
         }

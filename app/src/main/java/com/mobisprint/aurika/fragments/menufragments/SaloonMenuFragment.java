@@ -33,6 +33,7 @@ public class SaloonMenuFragment extends Fragment {
 
     private TextView tv_spa_assistance,tv_spa_time,tv_spa_loc;
     private List<MenuListner> mMenuList;
+    private TextView toolbar_title;
 
 
     @Override
@@ -40,8 +41,7 @@ public class SaloonMenuFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_saloon_menu, container, false);
         try {
             Context context = view.getContext();
-            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-            toolbar_title.setText("The Salon Menu");
+             toolbar_title = getActivity().findViewById(R.id.toolbar_title);
             ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
             tv_spa_assistance = view.findViewById(R.id.tv_spa_assistance);
             tv_spa_time = view.findViewById(R.id.tv_spa_time);
@@ -72,6 +72,7 @@ public class SaloonMenuFragment extends Fragment {
             tv_spa_loc.setText(appDatum.get(0).getItems().get(5).getLocation());
             tv_spa_time.setText(appDatum.get(0).getItems().get(5).getTiming());
             tv_spa_assistance.setText(appDatum.get(0).getItems().get(5).getAssistance());
+            toolbar_title.setText(appDatum.get(0).getItems().get(5).getItems().get(1).getMenuItem());
             List<Menu> item__ = appDatum.get(0).getItems().get(5).getItems().get(1).getMenu();
             mMenuList = new ArrayList<>();
             for (int i = 0; i < item__.size(); i++) {

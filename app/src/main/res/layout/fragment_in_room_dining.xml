@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#f5efe4"
-                android:fontFamily="@font/notoseriftc_regular"
+                android:fontFamily="@font/notosanstc_light"
                 android:includeFontPadding="false"
                 android:padding="@dimen/dimen_20"
                 android:textColor="@color/black"
@@ -74,7 +74,7 @@
                         android:background="@drawable/round_shape"
                         android:fontFamily="@font/notoseriftc_regular"
                         android:gravity="center"
-                        android:text="The \nChildren's \nMenu"
+                        android:text="The\nChildren's\nMenu"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
                 </RelativeLayout>
@@ -99,7 +99,7 @@
                         android:background="@drawable/round_shape"
                         android:fontFamily="@font/notoseriftc_regular"
                         android:gravity="center"
-                        android:text="The \nWine \n List"
+                        android:text="The\nWine\nList"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 
@@ -112,7 +112,7 @@
                         android:background="@drawable/round_shape"
                         android:fontFamily="@font/notoseriftc_regular"
                         android:gravity="center"
-                        android:text="The \nBeverage \nList"
+                        android:text="The\nBeverage\nList"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 
@@ -125,7 +125,7 @@
                         android:background="@drawable/round_shape"
                         android:fontFamily="@font/notoseriftc_regular"
                         android:gravity="center"
-                        android:text="The \nMidnight \nMenu"
+                        android:text="The\nMidnight\nMenu"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
                 </RelativeLayout>

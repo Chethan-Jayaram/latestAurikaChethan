@@ -43,6 +43,7 @@ public class NotificationFragment extends Fragment {
     private RecyclerView notificationRecycler;
     private NotificationAdapter adapter;
     private List<Result> result;
+    private TextView tv_no_notification;
 
 
     @Override
@@ -52,9 +53,13 @@ public class NotificationFragment extends Fragment {
         try {
             context = view.getContext();
             TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+            tv_no_notification=view.findViewById(R.id.tv_no_notification);
+            notificationRecycler = view.findViewById(R.id.notification_recycler);
+            tv_no_notification.setVisibility(View.GONE);
+            notificationRecycler.setVisibility(View.GONE);
             RelativeLayout lyt_notification = getActivity().findViewById(R.id.lyt_notification);
             lyt_notification.setVisibility(View.GONE);
-            notificationRecycler = view.findViewById(R.id.notification_recycler);
+
             ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
             toolbar_title.setText("Notification");
             backBtn.setVisibility(View.VISIBLE);
@@ -79,11 +84,17 @@ public class NotificationFragment extends Fragment {
                             if (response.body().getStatus().equalsIgnoreCase("Success")) {
                                 result = new ArrayList<>();
                                 result = response.body().getResult();
-                                adapter = new NotificationAdapter(result);
-                                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
-                                notificationRecycler.setLayoutManager(mLayoutManager);
-                                notificationRecycler.setItemAnimator(new DefaultItemAnimator());
-                                notificationRecycler.setAdapter(adapter);
+                                if(result.isEmpty()){
+                                    tv_no_notification.setVisibility(View.VISIBLE);
+                                }else{
+                                    notificationRecycler.setVisibility(View.VISIBLE);
+                                    adapter = new NotificationAdapter(result);
+                                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
+                                    notificationRecycler.setLayoutManager(mLayoutManager);
+                                    notificationRecycler.setItemAnimator(new DefaultItemAnimator());
+                                    notificationRecycler.setAdapter(adapter);
+                                }
+
                             } else {
                                 CustomMessageHelper showDialog = new CustomMessageHelper(context);
                                 showDialog.showCustomMessage((Activity) context, "Alert!!", response.body().getError().toString(), false, false);

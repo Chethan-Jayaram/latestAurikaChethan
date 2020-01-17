@@ -17,6 +17,7 @@ public class GlobalClass {
     public static boolean flow=false;
     public static int previous=100;;
     public static String APPDATA="";
+    public  static String[] homeNames;
     public static DateFormat inputdateformat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     public static DateFormat outputdateformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 

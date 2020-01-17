@@ -32,6 +32,7 @@ public class MidNightMenuFragment  extends Fragment {
     private TextView tv_MidNight_timings;
     private TextView tv_night_menu_desc;
     private List<MenuListner> mMenuList;
+    private TextView toolbar_title;
 
 
     @Override
@@ -39,8 +40,7 @@ public class MidNightMenuFragment  extends Fragment {
         View view = inflater.inflate(R.layout.fragment_midnight_menu, container, false);
         try {
             Context context = view.getContext();
-            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-            toolbar_title.setText("The Midnight Menu");
+            toolbar_title = getActivity().findViewById(R.id.toolbar_title);
             ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
             tv_MidNight_assistance = view.findViewById(R.id.tv_MidNight_assistance);
             tv_MidNight_timings = view.findViewById(R.id.tv_MidNight_timings);
@@ -70,6 +70,7 @@ public class MidNightMenuFragment  extends Fragment {
             tv_MidNight_timings.setText(appDatum.get(0).getItems().get(3).getItems().get(5).getTiming());
             tv_MidNight_assistance.setText(appDatum.get(0).getItems().get(3).getItems().get(5).getAssistance());
             tv_night_menu_desc.setText(appDatum.get(0).getItems().get(3).getItems().get(5).getMenuDescription());
+            toolbar_title.setText(appDatum.get(0).getItems().get(3).getItems().get(5).getHeaderTitle());
             List<Item__> item__=appDatum.get(0).getItems().get(3).getItems().get(5).getItems();
 
             mMenuList= new ArrayList<>();

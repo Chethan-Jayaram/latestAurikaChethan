@@ -27,13 +27,14 @@ public class WineListMenuFragment  extends Fragment {
 
     private TextView tv_wine_assistance,tv_wine_menu_desc,tv_wine_timings;
     private List<MenuListner> mMenuList;
+    private TextView toolbar_title;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wine_menu, container, false);
         try {
             Context context = view.getContext();
-            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-            toolbar_title.setText("The Wine List");
+            toolbar_title = getActivity().findViewById(R.id.toolbar_title);
             ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
             tv_wine_assistance = view.findViewById(R.id.tv_wine_assistance);
             tv_wine_timings = view.findViewById(R.id.tv_wine_timings);
@@ -63,6 +64,7 @@ public class WineListMenuFragment  extends Fragment {
             tv_wine_timings.setText(appDatum.get(0).getItems().get(3).getItems().get(3).getTiming());
             tv_wine_assistance.setText(appDatum.get(0).getItems().get(3).getItems().get(3).getAssistance());
             tv_wine_menu_desc.setText(appDatum.get(0).getItems().get(3).getItems().get(3).getMenuDescription());
+            toolbar_title.setText(appDatum.get(0).getItems().get(3).getItems().get(3).getHeaderTitle());
             List<Item__> item__=appDatum.get(0).getItems().get(3).getItems().get(3).getItems();
             mMenuList= new ArrayList<>();
             for(int i=0;i<item__.size();i++){

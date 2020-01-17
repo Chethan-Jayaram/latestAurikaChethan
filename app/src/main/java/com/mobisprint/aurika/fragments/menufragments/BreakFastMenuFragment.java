@@ -35,14 +35,14 @@ public class BreakFastMenuFragment extends Fragment {
 
    private TextView tv_breakfast_timings,tv_breakfast_assistance,tv_break_menu_desc;
     private List<MenuListner> mMenuList;
+    private TextView toolbar_title;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_break_fast_menu, container, false);
         try {
             Context context = view.getContext();
-            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-            toolbar_title.setText("The Breakfast Menu");
+             toolbar_title = getActivity().findViewById(R.id.toolbar_title);
             ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
             RecyclerView breakfast_menu_recycler = view.findViewById(R.id.breakfast_menu_recycler);
             tv_breakfast_timings = view.findViewById(R.id.tv_breakfast_timings);
@@ -77,7 +77,8 @@ public class BreakFastMenuFragment extends Fragment {
             tv_breakfast_timings.setText(appDatum.get(0).getItems().get(3).getItems().get(0).getTiming());
             tv_breakfast_assistance.setText(appDatum.get(0).getItems().get(3).getItems().get(0).getAssistance());
             tv_break_menu_desc.setText(appDatum.get(0).getItems().get(3).getItems().get(0).getMenuDescription());
-           List<Item__> item__=appDatum.get(0).getItems().get(3).getItems().get(0).getItems();
+            toolbar_title.setText(appDatum.get(0).getItems().get(3).getItems().get(0).getHeaderTitle());
+            List<Item__> item__=appDatum.get(0).getItems().get(3).getItems().get(0).getItems();
             mMenuList= new ArrayList<>();
             for(int i=0;i<item__.size();i++){
                 mMenuList.add(item__.get(i));

@@ -23,7 +23,7 @@
     <string name="wine_dine">Wine And Dine</string>
     <string name="dinning">In-room Dining</string>
     <string name="experiences">Experiences</string>
-    <string name="spa_saloon">Spa and Saloon</string>
+    <string name="spa_saloon">Spa and Salon</string>
     <string name="recreation">Recreation</string>
     <string name="notification">Notification</string>
     <string name="sight_seeing">Sightseeing</string>
@@ -66,5 +66,6 @@
     <string name="terms_and_conditions">https://www.lemontreehotels.com/term-condition.aspx</string>
     <string name="privacy_policy">https://www.lemontreehotels.com/privacy-policy.aspx</string>
     <string name="message">I agree with the</string>
+    <string name="all_prices_are_subject_to_taxes_and_services_charge">All prices are subject to taxes and services charge</string>
 
 </resources>

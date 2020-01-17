@@ -42,11 +42,7 @@ import java.util.List;
 public class ServicesFragment extends Fragment {
 
    private TextView toolbar_title;
-   private ImageView backBtn;
-   private RecyclerView service_recycler;
-   private List<Item_> item_=new ArrayList<>();
-   private ServiceAdapter adapter;
-   private Context context;
+    private List<Item_> item_=new ArrayList<>();
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -54,15 +50,15 @@ public class ServicesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
       View view =  inflater.inflate(R.layout.fragment_services, container, false);
       try {
-          context = view.getContext();
+          Context context = view.getContext();
 
-          service_recycler = view.findViewById(R.id.service_recycler);
-          backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
+          RecyclerView service_recycler = view.findViewById(R.id.service_recycler);
+          ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
           toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-          toolbar_title.setText("Services");
+
           parsejson();
 
-          adapter = new ServiceAdapter(item_);
+          ServiceAdapter adapter = new ServiceAdapter(item_);
           RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
           service_recycler.setLayoutManager(mLayoutManager);
           service_recycler.setItemAnimator(new DefaultItemAnimator());
@@ -85,6 +81,7 @@ public class ServicesFragment extends Fragment {
             Testing services = gson.fromJson(GlobalClass.APPDATA, Testing.class);
             List<AppDatum> appDatum = services.getAppData();
             item_ = appDatum.get(0).getItems().get(0).getItems();
+            toolbar_title.setText(appDatum.get(0).getItems().get(0).getItemName());
         } catch (Exception e) {
             e.printStackTrace();
         }

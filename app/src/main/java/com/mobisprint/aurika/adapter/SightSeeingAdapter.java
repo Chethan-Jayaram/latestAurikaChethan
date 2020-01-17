@@ -43,7 +43,7 @@ public class SightSeeingAdapter extends RecyclerView.Adapter<SightSeeingAdapter.
         try{
         holder.place_title.setText(item_.get(position).getItemName());
         holder.place_description.setText(item_.get(position).getItemDescription());
-      Glide.with(context).load(item_.get(position).getImageUrl()).into(holder.img_sight_seeing);
+        Glide.with(context).load(item_.get(position).getImageUrl()).into(holder.img_sight_seeing);
     }catch (Exception e){
         e.printStackTrace();
     }

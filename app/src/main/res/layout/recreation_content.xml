@@ -29,29 +29,25 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/lyt_tv_desc"
         android:layout_margin="@dimen/dimen_15"
-
-
         android:background="@drawable/border_layout"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <ImageView
                 android:id="@+id/img_recreation"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_gravity="center"
-                android:scaleType="fitXY" />
-
+                android:layout_height="220dp"
+                android:scaleType="matrix"
+                android:layout_gravity="center"/>
             <TextView
                 android:id="@+id/tv_recretion_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_10"
-                android:layout_marginTop="120dp"
-                android:background="@color/font_color_purple"
+                android:layout_marginTop="150dp"
+                android:background="@drawable/border_edges"
                 android:fontFamily="@font/notoseriftc_regular"
                 android:includeFontPadding="false"
                 android:padding="@dimen/dimen_10"
@@ -94,7 +90,7 @@
                 android:textSize="12sp" />
             <LinearLayout
                 android:layout_marginRight="@dimen/dimen_10"
-               android:layout_alignParentRight="true"
+                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

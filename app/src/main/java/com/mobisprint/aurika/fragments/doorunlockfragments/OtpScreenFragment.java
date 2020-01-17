@@ -44,6 +44,7 @@ import com.mobisprint.aurika.pojo.doorunlock.Guest;
 import com.mobisprint.aurika.pojo.doorunlock.OtpAutentication;
 import com.mobisprint.aurika.pojo.doorunlock.Result;
 import com.mobisprint.aurika.pojo.doorunlock.TokenAutentication;
+import com.mobisprint.aurika.pojo.doorunlock.Validation;
 import com.mobisprint.aurika.retrofit.ClientServiceGenerator;
 import com.mobisprint.aurika.services.APIMethods;
 import com.mobisprint.aurika.services.SchedulerService;
@@ -82,6 +83,7 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
     private Guest guest;
     private int time = 60;
     private Handler handler;
+    private  Validation validation;
 
 
     @Override
@@ -186,12 +188,10 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
                                 dismissDialog();
                                 sendTags();
                                 startScheduler(Math.abs(diff));
-                                Log.d("difference", String.valueOf(Math.abs(diff)));
                                 invitation = result.getInvitationCode();
                                 GlobalClass.USER_NAME = guest.getSalutation() + " " +
                                         guest.getLastName();
                                 submitInvitationCode(invitation);
-
                             } else {
                                 dismissDialog();
                                 CustomMessageHelper showDialog = new CustomMessageHelper(context);
@@ -209,7 +209,6 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
                     }
 
                 }
-
                 @Override
                 public void onFailure(Call<OtpAutentication> call, Throwable t) {
                     try {
@@ -396,7 +395,6 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
             }
         });
     }
-
     public void dismissDialog() {
         if (dialog.isShowing()) {
             dialog.dismiss();
@@ -464,14 +462,7 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
         try {
             new Handler().postDelayed(() -> {
                 if (mobileKeysApiFacade.isEndpointSetUpComplete()) {
-                    // mobilekeyapi();
-                    dialog.dismiss();
-                    sharedPreferences = context.getSharedPreferences("aurika", 0);
-                    edit = sharedPreferences.edit();
-                    edit.putBoolean("verifed_otp", true);
-                    edit.putString("UserName", GlobalClass.USER_NAME);
-                    edit.apply();
-                    Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DoorUnlockingFragment()).commit();
+                     mobilekeyapi();
                 } else {
                     checkInvitionComplet();
                 }
@@ -480,7 +471,6 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
             e.printStackTrace();
         }
     }
-/*
 
     private void mobilekeyapi() {
         try {
@@ -510,7 +500,6 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
                                 showDialog.showCustomMessage((Activity) context, "Alert!!", response.body().getError(), false, false);
                             }
                         } else {
-
                             CustomMessageHelper showDialog = new CustomMessageHelper(context);
                             showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.ERROR), false, false);
                         }
@@ -546,10 +535,7 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
             e.getMessage();
             e.printStackTrace();
         }
-
-
     }
-*/
 
 
     private void LoginApiCall() {
@@ -570,8 +556,8 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
                                 getActivity()
                                         .getSupportFragmentManager()
                                         .beginTransaction().replace(R.id.fragment_container,
-                                        new OtpScreenFragment()).addToBackStack(null).commit();*/
-
+                                        new OtpScreenFragment()).addToBackStack(null).commit();
+*/
                             } else {
                                 CustomMessageHelper showDialog = new CustomMessageHelper(context);
                                 showDialog.showCustomMessage((Activity) context, "Alert!!", response.body().getError(), false, false);

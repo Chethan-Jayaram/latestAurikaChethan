@@ -32,25 +32,23 @@ public class RecreationFragment extends Fragment {
 
  private String subtitle;
 
-   private RecyclerView recreation_recycler;
-   private Context context;
     private List<Item_> item_=new ArrayList<>();
-    private RecreationAdapter adapter;
+    private TextView toolbar_title;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recreation, container, false);
         try {
-            context = view.getContext();
-            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-            recreation_recycler = view.findViewById(R.id.recreation_recycler);
+            Context context = view.getContext();
+             toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+            RecyclerView recreation_recycler = view.findViewById(R.id.recreation_recycler);
             ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
             backBtn.setVisibility(View.VISIBLE);
-            toolbar_title.setText("Recreational Facilities");
+
             parsejson();
 
-            adapter = new RecreationAdapter(item_,subtitle);
+            RecreationAdapter adapter = new RecreationAdapter(item_, subtitle);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
             recreation_recycler.setLayoutManager(mLayoutManager);
             recreation_recycler.setItemAnimator(new DefaultItemAnimator());
@@ -81,6 +79,7 @@ public class RecreationFragment extends Fragment {
             List<AppDatum> appDatum = recreational.getAppData();
             item_ = appDatum.get(0).getItems().get(6).getItems();
             subtitle=appDatum.get(0).getItems().get(6).getSubTitle();
+            toolbar_title.setText(appDatum.get(0).getItems().get(6).getItemName());
         } catch (Exception e) {
             e.printStackTrace();
         }

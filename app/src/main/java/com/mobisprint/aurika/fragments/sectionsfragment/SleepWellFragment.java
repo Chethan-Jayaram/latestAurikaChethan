@@ -38,25 +38,20 @@ public class SleepWellFragment extends Fragment {
 
 
    private TextView toolbar_title,tv_sleep_well_desc;
-   private ImageView backBtn;
     private List<Item_> item_=new ArrayList<>();
 
-     private SleepWellAdapter adapter;
-     private Context context;
-     private RecyclerView sleppwell_recycler;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
        View view = inflater.inflate(R.layout.fragment_sleep_well, container, false);
        try {
-           context = view.getContext();
-           backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
+           Context context = view.getContext();
+           ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
            toolbar_title = getActivity().findViewById(R.id.toolbar_title);
            tv_sleep_well_desc = view.findViewById(R.id.tv_sleep_well_desc);
-           sleppwell_recycler = view.findViewById(R.id.sleppwell_recycler);
-           toolbar_title.setText("Sleep Well");
+           RecyclerView sleppwell_recycler = view.findViewById(R.id.sleppwell_recycler);
            backBtn.setVisibility(View.VISIBLE);
            parsejson();
-           adapter = new SleepWellAdapter(context,item_);
+           SleepWellAdapter adapter = new SleepWellAdapter(context, item_);
            sleppwell_recycler.setAdapter(adapter);
            sleppwell_recycler.setLayoutManager(new LinearLayoutManager(context));
            getActivity().findViewById(R.id.lyt_notification).setVisibility(View.VISIBLE);
@@ -76,6 +71,7 @@ public class SleepWellFragment extends Fragment {
             List<AppDatum> appDatum = sleepWellPojo.getAppData();
             item_ = appDatum.get(0).getItems().get(1).getItems();
             tv_sleep_well_desc.setText(appDatum.get(0).getItems().get(1).getSubTitle());
+            toolbar_title.setText(appDatum.get(0).getItems().get(1).getItemName());
         } catch (Exception e) {
             e.printStackTrace();
         }

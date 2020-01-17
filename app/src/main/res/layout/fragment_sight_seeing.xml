@@ -61,6 +61,7 @@ tools:context=".fragments.sectionsfragment.SightSeeingFragment">
     android:id="@+id/sight_seeing_recycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+        android:paddingBottom="20dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 

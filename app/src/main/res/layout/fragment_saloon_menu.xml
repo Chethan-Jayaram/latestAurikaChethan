@@ -31,7 +31,7 @@
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:padding="@dimen/dimen_10"
-                android:text="All prices are subject to taxes and services charage"
+                android:text="@string/all_prices_are_subject_to_taxes_and_services_charge"
                 android:textColor="#000000"
                 android:textSize="14sp"
                 app:layout_anchor="@+id/appBarLayout"
@@ -45,7 +45,7 @@
             android:background="#f5efe4"
             app:layout_collapseMode="pin"
             android:orientation="vertical">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#BBAF98"
@@ -55,23 +55,27 @@
             android:paddingBottom="@dimen/dimen_15">
 
             <TextView
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:id="@+id/tv_spa_assistance"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.9"
                 android:fontFamily="@font/notoseriftc_regular"
                 android:includeFontPadding="false"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.63"
                 android:orientation="vertical">
 
                 <TextView
+                    android:gravity="center_vertical"
                     android:id="@+id/tv_spa_loc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -84,6 +88,8 @@
                     android:textSize="12sp" />
 
                 <TextView
+                android:gravity="center_vertical"
+                    android:layout_alignParentRight="true"
                     android:id="@+id/tv_spa_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -97,7 +103,7 @@
                     android:textSize="12sp" />
 
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -108,6 +114,7 @@
             android:id="@+id/saloom_menu_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

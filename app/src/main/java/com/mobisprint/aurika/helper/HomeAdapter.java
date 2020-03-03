@@ -45,17 +45,19 @@ public class HomeAdapter extends BaseAdapter {
         View grid;
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        if (convertView == null) {
-            grid = inflater.inflate(R.layout.home_row, null);
-            TextView textView =  grid.findViewById(R.id.grid_text);
-            ImageView imageView =grid.findViewById(R.id.grid_image);
-            textView.setText(web[position]);
-            imageView.setImageResource(Imageid[position]);
-        } else {
-            grid = (View) convertView;
+        grid = inflater.inflate(R.layout.home_row, null);
+        try {
+            if (convertView == null) {
+                TextView textView = grid.findViewById(R.id.grid_text);
+                ImageView imageView = grid.findViewById(R.id.grid_image);
+                textView.setText(web[position]);
+                imageView.setImageResource(Imageid[position]);
+            } else {
+                grid = (View) convertView;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
         return grid;
     }
 

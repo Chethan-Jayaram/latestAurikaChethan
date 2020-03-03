@@ -1,2 +1,0 @@
-configurations.maybeCreate("default")
-artifacts.add("default", file('mobilekeys-android-sdk-debug-7.3.0.aar'))

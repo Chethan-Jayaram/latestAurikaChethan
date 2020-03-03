@@ -17,33 +17,28 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Client2ServiceGenerator {
 
-    private static Retrofit retrofit = null;
-
     private static final String ROOT_URL = "https://demo.mobisprint.com/";
-    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+
+    private static HttpLoggingInterceptor logging = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+
+    private static OkHttpClient httpClient = new OkHttpClient.Builder()
+            .addInterceptor(logging).connectTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS).build();;
+
+
+    private static Retrofit builder =
+            new Retrofit.Builder()
+                    .baseUrl(ROOT_URL)
+                    .addConverterFactory(new NullOnEmptyConverterFactory())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(new ToStringConverterFactory())
+                    .client(httpClient).build();
+
+    //   private static Retrofit retrofit = builder.build();
 
     public static Retrofit getUrlClient() {
-        OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(60, TimeUnit.SECONDS)//10
-                .writeTimeout(60, TimeUnit.SECONDS)//10
-                .readTimeout(60, TimeUnit.SECONDS)
-                .build();
-        httpClient.connectTimeout(120, TimeUnit.SECONDS).writeTimeout(120, TimeUnit.SECONDS).readTimeout(120, TimeUnit.SECONDS);
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        // set your desired log level
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        // add logging as last interceptor
-        httpClient.addInterceptor(logging);  // <-- this is the important line!
-        Gson gson = new GsonBuilder().create();
-        //.addConverterFactory(new NullOnEmptyConverterFactory())
-        retrofit = new Retrofit.Builder()
-                .baseUrl(ROOT_URL)
-                .addConverterFactory(new NullOnEmptyConverterFactory())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .addConverterFactory(new ToStringConverterFactory())
-                .client(httpClient.build())
-                .build();
-        return retrofit;
+        return builder;
     }
 
     public static class NullOnEmptyConverterFactory extends Converter.Factory {
@@ -51,16 +46,11 @@ public class Client2ServiceGenerator {
         @Override
         public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
             final Converter<ResponseBody, ?> delegate = retrofit.nextResponseBodyConverter(this, type, annotations);
-            return new Converter<ResponseBody, Object>() {
-                @Override
-                public Object convert(ResponseBody body) throws IOException {
-                    // Utility.Log("VMA","Response  Body "+body.contentLength());
-                    if (body.contentLength() == 0) return null;
-                    return delegate.convert(body);
-                }
+            return (Converter<ResponseBody, Object>) body -> {
+                // Utility.Log("VMA","Response  Body "+body.contentLength());
+                if (body.contentLength() == 0) return null;
+                return delegate.convert(body);
             };
         }
     }
-
-
 }

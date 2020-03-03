@@ -45,9 +45,6 @@
                 android:layout_centerHorizontal="true"
                 android:scaleType="fitXY"/>
         </RelativeLayout>
-
-
     </LinearLayout>
-
 
 </RelativeLayout>

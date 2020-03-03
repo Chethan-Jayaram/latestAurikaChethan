@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -20,21 +19,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.assaabloy.mobilekeys.api.MobileKeys;
 import com.assaabloy.mobilekeys.api.MobileKeysCallback;
 import com.assaabloy.mobilekeys.api.MobileKeysException;
@@ -72,13 +64,11 @@ import com.mobisprint.aurika.unlock.Aurika;
 import com.mobisprint.aurika.unlock.MobileKeysApiFacade;
 import com.mobisprint.aurika.unlock.MobileKeysApiFactory;
 import com.onesignal.OneSignal;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -89,7 +79,7 @@ public class HomeScreenActivity extends AppCompatActivity
         MobileKeysApiFacade,
         ReaderConnectionListener,
         MobileKeysCallback,
-        HceConnectionListener {
+        HceConnectionListener{
     private static final String TAG = HomeScreenActivity.class.getName();
     private MobileKeys mobileKeys;
     private NavigationView navigationView;
@@ -538,7 +528,6 @@ public class HomeScreenActivity extends AppCompatActivity
         boolean isEndpointSetup = false;
         try {
             isEndpointSetup = mobileKeys.isEndpointSetupComplete();
-
         } catch (MobileKeysException e) {
             e.printStackTrace();
         }
@@ -558,7 +547,6 @@ public class HomeScreenActivity extends AppCompatActivity
 
     private void showEndpointSetupFragmentIfNotSetup() {
         try {
-
             if (mobileKeys.isEndpointSetupComplete()) {
                 onEndpointSetUpComplete();
             }

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_cart"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/tool_new"
+        android:elevation="0dip"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+        <RelativeLayout
+            android:id="@+id/main_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:weightSum="100">
+            <RelativeLayout
+                android:id="@+id/menu_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/naviagation_hamberger"
+                    android:layout_width="40dp"
+                    android:padding="@dimen/dimen_5"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/icon_back" />
+            </RelativeLayout>
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_toEndOf="@+id/menu_layout"
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:fontFamily="@font/notoseriftc_regular"
+                android:gravity="left|center_vertical"
+                android:includeFontPadding="false"
+                android:text="@string/my_stay"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_margin="@dimen/dimen_10"
+                android:id="@+id/lyt_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                tools:ignore="RtlHardcoded">
+                <ImageView
+                    android:id="@+id/toolbar_notification_icon"
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/icon_bell" />
+
+                <ImageView
+                    android:id="@+id/imng_notification"
+                    android:layout_alignTop="@id/toolbar_notification_icon"
+                    android:layout_alignEnd="@id/toolbar_notification_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/white_dot"/>
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/search_directory"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center"
+            android:layout_weight="10"
+            android:clickable="true"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <RelativeLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aurika,Udaipur"
+            android:textSize="16.7sp"
+            android:textStyle="normal"
+            android:fontFamily="@font/notoseriftc__medium"
+            android:textColor="#010101"
+            android:lineSpacingExtra="7.3sp"
+            android:layout_marginStart="23dp"/>
+
+        <LinearLayout
+            android:layout_below="@+id/heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_weight="0.5"
+                android:id="@+id/r1"
+                android:layout_below="@+id/heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/ck_in"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Check In: "
+                    android:layout_marginStart="23dp"
+                    android:textSize="13.3sp"
+                    android:fontFamily="@font/notoseriftc__medium"
+                    android:textColor="#010101"
+                    android:lineSpacingExtra="10.7sp"/>
+
+                <TextView
+                    android:id="@+id/check_in"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1st feb, 2020 "
+                    android:layout_below="@+id/ck_in"
+                    android:layout_marginStart="23dp"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/notoseriftc__medium"
+                    android:textColor="#6d6d6d"
+                    android:lineSpacingExtra="14sp"/>
+
+                <TextView
+                    android:id="@+id/num_guest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No. of guests: "
+                    android:layout_below="@+id/check_in"
+                    android:layout_marginStart="23dp"
+                    android:textSize="13.3sp"
+                    android:fontFamily="@font/notoseriftc__medium"
+                    android:textColor="#010101"
+                    android:lineSpacingExtra="10.7sp"/>
+
+                <TextView
+                    android:id="@+id/no_guest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:layout_toRightOf="@+id/num_guest"
+                    android:layout_below="@+id/check_in"
+                    android:textSize="13.3sp"
+                    android:fontFamily="@font/notoseriftc__medium"
+                    android:textColor="#6d6d6d"
+                    android:lineSpacingExtra="14sp"/>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_weight="0.5"
+                android:layout_below="@+id/heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/r1">
+
+
+                <TextView
+
+                    android:id="@+id/ck_out"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Check Out: "
+                    android:textSize="13.3sp"
+                    android:fontFamily="@font/notoseriftc__medium"
+                    android:textColor="#010101"
+                    android:lineSpacingExtra="10.7sp"/>
+
+                <LinearLayout
+                    android:id="@+id/l1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_below="@+id/ck_out">
+
+                    <TextView
+                        android:layout_weight="0.8"
+                        android:id="@+id/check_out"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="9th February, 2020"
+                        android:layout_below="@+id/ck_out"
+                        android:textSize="10sp"
+
+                        android:fontFamily="@font/notoseriftc__medium"
+                        android:textColor="#6d6d6d"
+                        android:lineSpacingExtra="14sp"/>
+
+                    <ImageView
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+
+                        android:layout_weight="0.2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/ic_down_arrow"/>
+
+                </LinearLayout>
+
+
+
+
+                <TextView
+                    android:id="@+id/num_rooms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No. of rooms: "
+                    android:layout_below="@+id/l1"
+                    android:textSize="13.3sp"
+                    android:fontFamily="@font/notoseriftc__medium"
+                    android:textColor="#010101"
+                    android:lineSpacingExtra="10.7sp"/>
+
+                <TextView
+                    android:id="@+id/no_rooms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:layout_toRightOf="@+id/num_rooms"
+                    android:layout_below="@+id/l1"
+                    android:textSize="13.3sp"
+                    android:fontFamily="@font/notoseriftc__medium"
+                    android:textColor="#6d6d6d"
+                    android:lineSpacingExtra="14sp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mystay_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_height="wrap_content"/>
+
+
+</LinearLayout>

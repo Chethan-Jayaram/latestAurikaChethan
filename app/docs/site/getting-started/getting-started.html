@@ -29,11 +29,11 @@
       
         <meta name="lang:search.pipeline.trimmer" content="True">
       
-        <meta name="lang:search.result.none" content="No matching documents">
+        <meta name="lang:search.data.none" content="No matching documents">
       
-        <meta name="lang:search.result.one" content="1 matching document">
+        <meta name="lang:search.data.one" content="1 matching document">
       
-        <meta name="lang:search.result.other" content="# matching documents">
+        <meta name="lang:search.data.other" content="# matching documents">
       
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
@@ -139,7 +139,7 @@
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result">
+        <div class="md-search-data" data-md-component="data">
           <div class="md-search-result__meta">
             Type to start searching
           </div>
@@ -806,7 +806,7 @@ Make sure that the API isn't already initialized by calling <code>.isInitialized
 </td></tr></table>
 
 <p><code>applicationStartup(...)</code>, <code>endpointUpdate(...)</code>, <code>endpointSetup(...)</code>are time consuming operations. 
-They will be executed asynchronously on a background thread and the result will be delivered to the calling application via the
+They will be executed asynchronously on a background thread and the data will be delivered to the calling application via the
 <code>com.assaabloy.mobilekeys.api.MobileKeysCallback</code> instance given as the first parameter. There is a subclass of the callback interface,
 <code>com.assaabloy.mobilekeys.api.MobileKeysProgressCallback</code>, which has an additional method sending progress events during a setup or update.
 There is no way of telling how many events will come before the setup/update is finished, so this information can't

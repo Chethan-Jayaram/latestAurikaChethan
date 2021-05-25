@@ -6,33 +6,28 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobisprint.aurika.R;
-import com.mobisprint.aurika.adapter.NotificationAdapter;
+import com.mobisprint.aurika.udaipur.adapter.NotificationAdapter;
 import com.mobisprint.aurika.helper.CustomMessageHelper;
 import com.mobisprint.aurika.helper.GlobalClass;
 
-import com.mobisprint.aurika.pojo.notification.PushNotificationResponse;
-import com.mobisprint.aurika.pojo.notification.Result;
+import com.mobisprint.aurika.udaipur.pojo.notification.PushNotificationResponse;
+import com.mobisprint.aurika.udaipur.pojo.notification.Result;
 import com.mobisprint.aurika.retrofit.ClientServiceGenerator;
-import com.mobisprint.aurika.services.APIMethods;
+import com.mobisprint.aurika.udaipur.services.APIMethods;
 
-import java.io.Serializable;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,10 +44,10 @@ public class NotificationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_notification_handler, container, false);
+        View view = inflater.inflate(R.layout.sleepwell_internal_recyclerview, container, false);
         try {
             context = view.getContext();
-            TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+          /*  TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
             tv_no_notification=view.findViewById(R.id.tv_no_notification);
             notificationRecycler = view.findViewById(R.id.notification_recycler);
             tv_no_notification.setVisibility(View.GONE);
@@ -63,7 +58,7 @@ public class NotificationFragment extends Fragment {
             ImageView backBtn = getActivity().findViewById(R.id.naviagation_hamberger);
             toolbar_title.setText("Notification");
             backBtn.setVisibility(View.VISIBLE);
-            fetchNotification();
+            fetchNotification();*/
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -74,7 +69,7 @@ public class NotificationFragment extends Fragment {
         try {
             Map map = new HashMap();
             map.put("token", GlobalClass.user_token);
-            APIMethods api = ClientServiceGenerator.getUrlClient().create(APIMethods.class);
+            APIMethods api = ClientServiceGenerator.getUrlClient(GlobalClass.UDAIPUR_DOOR_UNLOCK).create(APIMethods.class);
             Call<PushNotificationResponse> call = api.pushNotificationApi(map);
             call.enqueue(new Callback<PushNotificationResponse>() {
                 @Override

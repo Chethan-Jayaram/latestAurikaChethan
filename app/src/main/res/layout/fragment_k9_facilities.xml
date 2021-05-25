@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_k9_facilities_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#e6decc"
+        android:fontFamily="@font/notosanstc_light"
+        android:gravity="bottom"
+        android:includeFontPadding="false"
+        android:padding="@dimen/dimen_20"
+        android:scaleType="centerCrop"
+        android:textColor="#000000"
+        android:textSize="16sp"/>
+
+    <ExpandableListView
+        android:layout_below="@+id/tv_k9_facilities_desc"
+        android:divider="@null"
+        android:groupIndicator="@null"
+        android:id="@+id/expandable_list"
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dimen_20"
+        android:indicatorRight="?android:expandableListPreferredItemIndicatorRight"
+        android:paddingLeft="@dimen/dimen_10"
+        android:paddingRight="@dimen/dimen_10" />
+
+</RelativeLayout>

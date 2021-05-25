@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/login_bg"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="#99f8F1CD"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/dimen_30"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/top_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_60"
+            android:layout_marginRight="@dimen/dimen_60"
+            android:layout_marginTop="@dimen/dimen_50"
+            android:fontFamily="@font/notoseriftc__medium"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="Please enter the 6 digit verification code sent to you"
+            android:textColor="#420052"
+            android:textSize="24sp"/>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_40"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_margin="@dimen/dimen_8"
+                android:fontFamily="@font/notoseriftc__medium"
+                android:includeFontPadding="false"
+                android:textCursorDrawable="@color/black"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:id="@+id/et_one"
+                android:layout_width="0dp"
+                android:layout_height="65dp"
+                android:layout_weight="1"
+                android:background="@drawable/otp_bg"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textAlignment="center" />
+
+            <EditText
+                android:layout_margin="@dimen/dimen_8"
+                android:includeFontPadding="false"
+                android:textCursorDrawable="@color/black"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/notoseriftc__medium"
+                android:id="@+id/et_two"
+                android:layout_width="0dp"
+                android:layout_height="65dp"
+                android:layout_weight="1"
+                android:background="@drawable/otp_bg"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textAlignment="center" />
+
+            <EditText
+                android:layout_margin="@dimen/dimen_8"
+                android:includeFontPadding="false"
+                android:textCursorDrawable="@color/black"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/notoseriftc__medium"
+                android:id="@+id/et_three"
+                android:layout_width="0dp"
+                android:layout_height="65dp"
+                android:layout_weight="1"
+                android:background="@drawable/otp_bg"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textAlignment="center" />
+
+            <EditText
+                android:layout_margin="@dimen/dimen_8"
+                android:includeFontPadding="false"
+                android:textCursorDrawable="@color/black"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/notoseriftc__medium"
+                android:id="@+id/et_four"
+                android:layout_width="0dp"
+                android:layout_height="65dp"
+                android:layout_weight="1"
+                android:background="@drawable/otp_bg"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textAlignment="center" />
+
+            <EditText
+                android:layout_margin="@dimen/dimen_8"
+                android:includeFontPadding="false"
+                android:textCursorDrawable="@color/black"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/notoseriftc__medium"
+                android:id="@+id/et_five"
+                android:layout_width="0dp"
+                android:layout_height="65dp"
+                android:layout_weight="1"
+                android:background="@drawable/otp_bg"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textAlignment="center" />
+
+            <EditText
+                android:layout_margin="@dimen/dimen_8"
+                android:includeFontPadding="false"
+                android:textCursorDrawable="@color/black"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/notoseriftc__medium"
+                android:id="@+id/et_six"
+                android:layout_width="0dp"
+                android:layout_height="65dp"
+                android:layout_weight="1"
+                android:background="@drawable/otp_bg"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_40"
+            android:fontFamily="@font/notoseriftc__medium"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="Didn't recieve the verification code?"
+            android:textColor="#373737"
+            android:textStyle="bold"
+            android:textSize="22sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="@dimen/dimen_50"
+            android:fontFamily="@font/notoseriftc__medium"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:padding="@dimen/dimen_10"
+            android:text="Resend Code"
+            android:textColor="#420052"
+            android:textSize="22sp"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+
+</ScrollView>

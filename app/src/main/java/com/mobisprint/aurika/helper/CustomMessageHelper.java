@@ -23,7 +23,7 @@ public class CustomMessageHelper {
     }
 
     public void showCustomMessage(final Activity activity, String title, String msg, final Boolean bFlag, final Boolean activityfinishflag) {
-        // TODO Auto-generated method stub
+
         try {
             if (lDialogresume != null && lDialogresume.isShowing()) {
                 if (!((Activity) context).isFinishing()) {
@@ -83,7 +83,7 @@ public class CustomMessageHelper {
     }
 
     public void dismissMessage(final Activity activity, Boolean activityfinishflag) {
-        // TODO Auto-generated method stub
+
         if (activityfinishflag) {
             activity.finish();
         }

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".udaipur.fragments.sectionsfragment.SightSeeingFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--  app:contentScrim : The Toolbar color when the
+              collapsing toolbar is collapsed. -->
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <!-- app:layout_collapseMode : parallax means an animation effect,
+                 pin means fixed. -->
+
+            <TextView
+                android:id="@+id/tv_coorg_minibar_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="#e6decc"
+                android:fontFamily="@font/notosanstc_light"
+                android:gravity="bottom"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_20"
+                android:scaleType="centerCrop"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_anchor="@+id/appBarLayout"
+                app:layout_anchorGravity="center"
+                app:layout_collapseMode="parallax" />
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <TableLayout
+
+        android:id="@+id/table_layout"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appBarLayout"
+        android:paddingLeft="@dimen/dimen_10"
+        android:stretchColumns="0,1,2,"
+        android:paddingRight="@dimen/dimen_10">
+
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_width="fill_parent"
+            android:layout_margin="@dimen/dimen_1"
+            android:layout_weight="1">
+
+            <TextView
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_column="0"
+                android:layout_margin="1dp"
+                android:background="#FFFFFF"
+                android:fontFamily="@font/notoseriftc__medium"
+                android:gravity="center"
+                android:text="ITEM"
+                android:textStyle="bold" />
+
+            <TextView
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="PRE-PLACED QTY"
+                android:layout_margin="1dp"
+                android:fontFamily="@font/notoseriftc__medium"
+                android:layout_column="1"
+                android:background="#FFFFFF"
+                android:gravity="center"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="PRICE PER ITEM"
+                android:fontFamily="@font/notoseriftc__medium"
+                android:layout_margin="1dp"
+                android:background="#FFFFFF"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_column="2"
+                />
+
+        </TableRow>
+
+
+    </TableLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/table_layout"
+        android:id="@+id/mini_bar_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="20dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+</RelativeLayout>
+
+
+
+

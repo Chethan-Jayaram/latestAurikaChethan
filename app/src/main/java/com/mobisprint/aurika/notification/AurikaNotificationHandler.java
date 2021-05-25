@@ -1,8 +1,8 @@
 package com.mobisprint.aurika.notification;
 import android.content.Context;
 import android.content.Intent;
-import com.mobisprint.aurika.activity.HomeScreenActivity;
-import com.mobisprint.aurika.activity.SplashActivity;
+
+import com.mobisprint.aurika.SplashActivity;
 import com.mobisprint.aurika.unlock.Aurika;
 import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OneSignal;

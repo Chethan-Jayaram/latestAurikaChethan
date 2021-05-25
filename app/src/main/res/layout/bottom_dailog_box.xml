@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notoseriftc_regular"
+        android:includeFontPadding="false"
+        android:text="When do you need this?"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginTop="@dimen/dimen_20"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/gray"
+        android:text="Date"
+        android:layout_marginLeft="@dimen/dimen_20"/>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_layout"
+            android:fontFamily="@font/notoseriftc_regular"
+            android:includeFontPadding="false"
+            android:textAllCaps="false"
+            android:text="Today"
+            android:lineSpacingExtra="@dimen/dimen_10"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <Button
+            android:padding="@dimen/dimen_10"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_layout"
+            android:fontFamily="@font/notoseriftc_regular"
+            android:includeFontPadding="false"
+            android:textAllCaps="false"
+            android:text="Tomorrow"
+            android:lineSpacingExtra="@dimen/dimen_10"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <Button
+            android:padding="@dimen/dimen_10"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_layout"
+            android:fontFamily="@font/notoseriftc_regular"
+            android:includeFontPadding="false"
+            android:textAllCaps="false"
+            android:text="Select Date"
+            android:lineSpacingExtra="@dimen/dimen_10"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/gray"
+        android:text="Time"
+        android:layout_marginLeft="@dimen/dimen_20"/>
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/dimen_5">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_baseline_arrow_drop_up_24"/>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</LinearLayout>

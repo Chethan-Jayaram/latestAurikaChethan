@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".fragments.sectionsfragment.SleepWellFragment">
+    tools:context=".udaipur.fragments.sectionsfragment.SleepWellFragment">
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"

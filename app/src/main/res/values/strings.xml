@@ -11,11 +11,12 @@
     <string name="agree_terms_privacy">I agree with the &lt;a href="https://www.lemontreehotels.com/term-condition.aspx">Terms and conditions&lt;/a> and &lt;a href="https://www.lemontreehotels.com/privacy-policy.aspx">Privacy Policy&lt;/a></string>
     <string name="terms_conditions">Click here for terms &amp; conditions</string>
     <string name="six_digit_">Please type the 6 digit verification code</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="edittext_hint"><font size="15">Enter Email/Mobile Number</font></string>
 
-
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
     <!-- Navigation Drawer menu labels -->
     <string name="door_unlock">Unlock Your Door</string>
     <string name="services">Services</string>
@@ -27,7 +28,6 @@
     <string name="recreation">Recreation</string>
     <string name="notification">Notification</string>
     <string name="sight_seeing">Sightseeing</string>
-
 
 
     <!-- Error messages -->
@@ -66,6 +66,11 @@
     <string name="terms_and_conditions">https://www.lemontreehotels.com/term-condition.aspx</string>
     <string name="privacy_policy">https://www.lemontreehotels.com/privacy-policy.aspx</string>
     <string name="message">I agree with the</string>
+
+
+    <string name="my_stay">My Stay</string>
+
     <string name="all_prices_are_subject_to_taxes_and_services_charge">All prices are subject to taxes and services charge</string>
+
 
 </resources>

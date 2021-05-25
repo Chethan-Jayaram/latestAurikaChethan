@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--  app:contentScrim : The Toolbar color when the
+              collapsing toolbar is collapsed. -->
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <!-- app:layout_collapseMode : parallax means an animation effect,
+                 pin means fixed. -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="#e6decc"
+                android:fontFamily="@font/notosanstc_light"
+                android:gravity="bottom"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_20"
+                android:scaleType="centerCrop"
+                android:textColor="#000000"
+                android:text="The resort offers many scenic venues,including Amrithbagh, Suryabagh,Chandbagh,paheli Bagh, The Boli, the Aurum Terrace, the ekaara Countryard and the Poolside
+ where you can host private events and make your celebrations extraordianry."
+                android:textSize="16sp"
+                app:layout_anchor="@+id/appBarLayout"
+                app:layout_anchorGravity="center"
+                app:layout_collapseMode="parallax" />
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <RelativeLayout
+            android:background="#BAAE98"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/tv_experience_assistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosanstc_light"
+                app:layout_collapseMode="pin"
+                android:textSize="14sp"
+                android:text="Please call 4001 for assistance"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_15"
+                android:textColor=" #000000" />
+
+            <TextView
+                android:id="@+id/tv_tv_experience_assistance1"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosanstc_light"
+                app:layout_collapseMode="pin"
+                android:textSize="14sp"
+                android:text="24x7"
+                android:includeFontPadding="false"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="@dimen/dimen_20"
+                android:textColor=" #000000" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/time"
+                android:layout_toLeftOf="@+id/tv_tv_experience_assistance1"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dimen_20"
+        android:layout_marginRight="@dimen/dimen_20"
+        android:layout_marginLeft="@dimen/dimen_20"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

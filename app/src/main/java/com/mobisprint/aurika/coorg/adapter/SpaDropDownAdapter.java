@@ -1,0 +1,70 @@
+package com.mobisprint.aurika.coorg.adapter;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.mobisprint.aurika.R;
+import com.mobisprint.aurika.coorg.pojo.spa.Data;
+import com.mobisprint.aurika.helper.GlobalClass;
+
+import java.util.List;
+
+public class SpaDropDownAdapter extends RecyclerView.Adapter<SpaDropDownAdapter.ViewHolder> {
+
+    private Context mContext;
+    private List<Data> spaList;
+    private GlobalClass.AdapterListener mListener;
+    public SpaDropDownAdapter(Context mContext, List<Data> spaList, GlobalClass.AdapterListener mListener) {
+        this.mContext = mContext;
+        this.spaList = spaList;
+        this.mListener = mListener;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.single_item_spa_therapy_list,parent,false);
+
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        holder.spa_heading.setText(spaList.get(position).getTitle());
+        holder.spa_time.setText("("+spaList.get(position).getDuration()+")");
+        holder.spa_price.setText("₹"+" "+spaList.get(position).getPrice());
+
+        holder.lyt_select_therapy.setOnClickListener(v -> {
+            mListener.onItemClicked(position);
+        });
+
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return spaList.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        TextView spa_heading,spa_time,spa_price;
+        RelativeLayout lyt_select_therapy;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            spa_heading = itemView.findViewById(R.id.spa_heading);
+            spa_time = itemView.findViewById(R.id.spa_time);
+            spa_price = itemView.findViewById(R.id.spa_price);
+            lyt_select_therapy = itemView.findViewById(R.id.lyt_select_therapy);
+        }
+    }
+}

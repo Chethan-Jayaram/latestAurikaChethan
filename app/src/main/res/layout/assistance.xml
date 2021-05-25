@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <TextView
+        android:layout_marginTop="@dimen/dimen_10"
+        android:id="@+id/heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="We are always at your service"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/notoseriftc__medium"
+        android:textStyle="bold"
+        android:layout_marginLeft="@dimen/dimen_30"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/sub_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="Type the requirement hear"
+        android:layout_below="@+id/heading"
+        android:fontFamily="@font/notoseriftc__medium"
+        android:layout_marginLeft="@dimen/dimen_30"/>
+
+
+    <EditText
+        android:id="@+id/txt_assistance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notoseriftc__medium"
+        android:layout_below="@+id/sub_heading"
+        android:layout_marginLeft="@dimen/dimen_30"
+        android:layout_marginRight="@dimen/dimen_30"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dimen_14"/>
+
+
+    <Button
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btn_ass_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/btn_color"
+        android:fontFamily="@font/notoseriftc__medium"
+        android:paddingTop="@dimen/dimen_10"
+        android:includeFontPadding="false"
+        android:paddingBottom="@dimen/dimen_10"
+        android:text="Submit"
+        android:textAllCaps="false"
+        android:lineSpacingExtra="@dimen/dimen_11"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+        
+</RelativeLayout>

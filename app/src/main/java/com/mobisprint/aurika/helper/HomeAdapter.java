@@ -15,7 +15,7 @@ public class HomeAdapter extends BaseAdapter {
     private final String[] web;
     private final int[] Imageid;
 
-    public HomeAdapter(Context c,String[] web,int[] Imageid ) {
+    public HomeAdapter(Context c, String[] web, int[] Imageid) {
         mContext = c;
         this.Imageid = Imageid;
         this.web = web;
@@ -23,25 +23,29 @@ public class HomeAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        // TODO Auto-generated method stub
-        return web.length;
+        try {
+            return web.length;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     @Override
     public Object getItem(int position) {
-        // TODO Auto-generated method stub
+
         return null;
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
+
         View grid;
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -55,7 +59,7 @@ public class HomeAdapter extends BaseAdapter {
             } else {
                 grid = (View) convertView;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return grid;

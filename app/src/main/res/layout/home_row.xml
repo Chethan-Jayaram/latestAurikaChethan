@@ -16,7 +16,6 @@
         </de.hdodenhof.circleimageview.CircleImageView>
 
 
-
     <TextView
         android:id="@+id/grid_text"
         android:textColor="#000000"

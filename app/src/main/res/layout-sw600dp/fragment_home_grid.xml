@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.HomeGridFragment">
+    tools:context=".udaipur.fragments.HomeGridFragment">
     <LinearLayout
         android:id="@+id/ll_conent"
         android:layout_width="match_parent"

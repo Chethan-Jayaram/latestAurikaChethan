@@ -4,13 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".fragments.sectionsfragment.WineDineFragment">
+    tools:context=".udaipur.fragments.sectionsfragment.WineDineFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+
         android:id="@+id/recreation_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:paddingBottom="20dp"/>̥
+        android:paddingBottom="20dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
 
 </RelativeLayout>

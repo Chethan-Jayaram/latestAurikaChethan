@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <com.mobisprint.aurika.helper.NonScrollExpandableListView
+                android:id="@+id/order_summary_expandable_listview"
+                android:divider="@null"
+                android:groupIndicator="@null"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_below="@+id/order_summary_expandable_listview"
+                    android:visibility="gone"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/order_summary_recyclerview"
+                    android:layout_marginTop="@dimen/dimen_20"/>
+
+
+
+
+
+
+            <EditText
+                android:cursorVisible="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notoseriftc_regular"
+                android:layout_below="@+id/order_summary_recyclerview"
+                android:layout_marginLeft="@dimen/dimen_15"
+                android:layout_marginRight="@dimen/dimen_20"
+                android:id="@+id/order_summary_note"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:includeFontPadding="false"
+                android:layout_marginTop="@dimen/dimen_20"/>
+
+            <TextView
+                android:id="@+id/tv_instruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_15"
+                android:layout_marginRight="@dimen/dimen_20"
+                android:layout_below="@+id/order_summary_note"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:text="Any instructions? we promise to pass them on"
+                android:fontFamily="@font/notoseriftc_regular"
+                android:textColor="@color/black"
+                android:textSize="14sp"/>
+
+
+
+
+
+            <TextView
+                android:id="@+id/tv_bill_details"
+                android:layout_marginTop="100dp"
+                android:layout_below="@+id/tv_instruction"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bill Details"
+                android:layout_marginLeft="@dimen/dimen_15"
+                android:fontFamily="@font/notosanstc_medium"
+                android:textSize="16sp"
+                android:textColor="@color/black"/>
+
+            <RelativeLayout
+                android:layout_marginTop="@dimen/dimen_5"
+                android:id="@+id/lyt_item_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_bill_details">
+
+                <TextView
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item Total"
+                    android:layout_marginLeft="@dimen/dimen_15"
+                    android:fontFamily="@font/notosanstc_medium"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"/>
+
+
+                <TextView
+                    android:id="@+id/tv_item_total_price"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_marginRight="@dimen/dimen_20"
+                    android:fontFamily="@font/notosanstc_medium"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lyt_service_tax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lyt_item_total">
+
+                <TextView
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Service Tax"
+                    android:layout_marginLeft="@dimen/dimen_15"
+                    android:fontFamily="@font/notosanstc_medium"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"/>
+
+
+                <TextView
+                    android:id="@+id/tv_service_tax"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_marginRight="@dimen/dimen_20"
+                    android:fontFamily="@font/notosanstc_medium"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lyt_view"
+                android:layout_below="@+id/lyt_service_tax"
+                android:paddingLeft="@dimen/dimen_15"
+                android:paddingRight="@dimen/dimen_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_margin="2dp"
+                    android:background="@color/gray" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginBottom="@dimen/dimen_80"
+                android:id="@+id/lyt_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lyt_view">
+
+                <TextView
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total"
+                    android:layout_marginLeft="@dimen/dimen_15"
+                    android:fontFamily="@font/notosanstc_medium"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"/>
+
+
+                <TextView
+                    android:id="@+id/tv_total_price"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_marginRight="@dimen/dimen_20"
+                    android:fontFamily="@font/notosanstc_medium"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"/>
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+    <Button
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:id="@+id/btn_place_your_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#eee3cf"
+        android:fontFamily="@font/notoseriftc_regular"
+        android:paddingTop="@dimen/dimen_15"
+        android:includeFontPadding="false"
+        android:textAllCaps="false"
+        android:paddingBottom="@dimen/dimen_15"
+        android:text="Place your order"
+        android:lineSpacingExtra="@dimen/dimen_10"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+
+
+</RelativeLayout>

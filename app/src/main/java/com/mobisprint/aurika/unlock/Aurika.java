@@ -14,6 +14,9 @@ import com.assaabloy.mobilekeys.api.ble.ScanConfiguration;
 import com.assaabloy.mobilekeys.api.ble.ScanMode;
 import com.assaabloy.mobilekeys.api.ble.TapOpeningTrigger;
 import com.assaabloy.mobilekeys.api.hce.NfcConfiguration;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.security.ProviderInstaller;
 import com.mobisprint.aurika.BuildConfig;
 import com.mobisprint.aurika.notification.AurikaNotificationHandler;
 import com.onesignal.OneSignal;
@@ -21,8 +24,12 @@ import com.onesignal.OneSignal;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
+
+import javax.net.ssl.SSLContext;
 
 
 /**
@@ -53,6 +60,17 @@ public class Aurika extends Application implements MobileKeysApiFactory
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(true)
                 .init();
+        try {
+            // Google Play will install latest OpenSSL
+            ProviderInstaller.installIfNeeded(getApplicationContext());
+            SSLContext sslContext;
+            sslContext = SSLContext.getInstance("TLSv1.2");
+            sslContext.init(null, null, null);
+            sslContext.createSSLEngine();
+        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException
+                | NoSuchAlgorithmException | KeyManagementException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -66,6 +84,7 @@ public class Aurika extends Application implements MobileKeysApiFactory
                 .setBluetoothModeIfSupported(BluetoothMode.DUAL)
                 .setScanMode(ScanMode.OPTIMIZE_PERFORMANCE)
                 .setRssiSensitivity(RssiSensitivity.HIGH)
+                .setConnectingToReaderStopsScanning(false)
                 .build();
 
         ApiConfiguration apiConfiguration = new ApiConfiguration.Builder()

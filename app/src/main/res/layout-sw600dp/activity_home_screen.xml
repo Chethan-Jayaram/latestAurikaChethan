@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E8E0D4"
-    tools:context=".activity.HomeScreenActivity">
+    tools:context=".udaipur.activity.HomeScreenActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_cart"
         android:layout_width="match_parent"

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#f5efe4"
+    android:padding="@dimen/dimen_20"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:id="@+id/img_notification"
+        android:layout_width="@dimen/dimen_30"
+        android:layout_height="@dimen/dimen_30"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/dimen_20"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_toLeftOf="@+id/txt_time"
+        android:layout_marginRight="@dimen/dimen_30"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notoseriftc__medium"
+        android:layout_toRightOf="@+id/img_notification"
+        android:layout_centerInParent="true"
+        android:textColor="@color/black"
+        android:textSize="14sp"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/txt_time"
+        android:layout_alignParentRight="true"
+        android:layout_width="@dimen/dimen_50"
+        android:layout_height="@dimen/dimen_30"
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="100dp">
+
+        <!-- add a Image image.png in your Drawable folder -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:background="#f5e4d2"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="2m"
+            android:textColor="#777479"
+            android:textSize="10sp"
+            android:fontFamily="@font/notoseriftc__medium"
+            android:layout_gravity="center"/>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

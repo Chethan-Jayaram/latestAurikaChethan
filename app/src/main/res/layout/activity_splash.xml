@@ -6,7 +6,7 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:background="@drawable/splash_screen"
-    tools:context=".activity.SplashActivity">
+    tools:context=".SplashActivity">
 
     <ImageView
         android:id="@+id/logo"

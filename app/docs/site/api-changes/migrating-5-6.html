@@ -29,11 +29,11 @@
       
         <meta name="lang:search.pipeline.trimmer" content="True">
       
-        <meta name="lang:search.result.none" content="No matching documents">
+        <meta name="lang:search.data.none" content="No matching documents">
       
-        <meta name="lang:search.result.one" content="1 matching document">
+        <meta name="lang:search.data.one" content="1 matching document">
       
-        <meta name="lang:search.result.other" content="# matching documents">
+        <meta name="lang:search.data.other" content="# matching documents">
       
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
@@ -139,7 +139,7 @@
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result">
+        <div class="md-search-data" data-md-component="data">
           <div class="md-search-result__meta">
             Type to start searching
           </div>
@@ -1236,7 +1236,7 @@ It is now possible to subscribe to changes in the MobileKeys interface using the
 
 <h3 id="callbacks">Callbacks</h3>
 <p>Callbacks from the SDK about reader sessions over BLe is now moved into the <code>ReaderConnectionCallback</code>. The <code>ReaderConnectionCallback</code> class can only have one listener, but there is no restriction on how many <code>ReaderConnectionCallback</code> instances that can be created. </p>
-<p>The callback interface has changed so that a closed connection now reports back an opening result object containing the opening status and additional payload. The payload is an optional application specific message that was returned from the lock.</p>
+<p>The callback interface has changed so that a closed connection now reports back an opening data object containing the opening status and additional payload. The payload is an optional application specific message that was returned from the lock.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -1374,8 +1374,8 @@ The lifecycle methods are</p>
 10
 11</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="c1">//...</span>
     <span class="n">Command</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;</span> <span class="n">putCommand</span> <span class="o">=</span> <span class="n">Commands</span><span class="o">.</span><span class="na">putSeosObject</span><span class="o">(</span><span class="k">new</span> <span class="n">DataObject</span><span class="o">(</span><span class="k">new</span> <span class="n">SeosTag</span><span class="o">(</span><span class="cm">/*TAG ID*/</span><span class="o">),</span> <span class="n">data</span><span class="o">));</span>
-    <span class="n">CommandResult</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">putCommand</span><span class="o">);</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="na">status</span><span class="o">()</span> <span class="o">==</span> <span class="n">CommandResult</span><span class="o">.</span><span class="na">Status</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">)</span> 
+    <span class="n">CommandResult</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">putCommand</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">data</span><span class="o">.</span><span class="na">status</span><span class="o">()</span> <span class="o">==</span> <span class="n">CommandResult</span><span class="o">.</span><span class="na">Status</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">)</span>
     <span class="o">{</span>
      <span class="c1">// Success</span>
     <span class="o">}</span>
@@ -1403,11 +1403,11 @@ The lifecycle methods are</p>
 13</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="c1">//...</span>
     <span class="n">Command</span><span class="o">&lt;</span><span class="n">DataObject</span><span class="o">&gt;</span> <span class="n">readDataCommand</span> <span class="o">=</span> 
             <span class="n">getSeosObject</span><span class="o">(</span><span class="n">dataObject</span><span class="o">(</span><span class="cm">/*depending on what object you want*/</span><span class="o">));</span>
-    <span class="n">CommandResult</span><span class="o">&lt;</span><span class="n">DataObject</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">readDataCommand</span><span class="o">);</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="na">status</span><span class="o">()</span> <span class="o">==</span> <span class="n">CommandResult</span><span class="o">.</span><span class="na">Status</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">)</span> 
+    <span class="n">CommandResult</span><span class="o">&lt;</span><span class="n">DataObject</span><span class="o">&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">readDataCommand</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">data</span><span class="o">.</span><span class="na">status</span><span class="o">()</span> <span class="o">==</span> <span class="n">CommandResult</span><span class="o">.</span><span class="na">Status</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">)</span>
     <span class="o">{</span>
         <span class="c1">// Success</span>
-        <span class="n">DataObject</span> <span class="n">dataObject</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="na">responseData</span><span class="o">();</span>
+        <span class="n">DataObject</span> <span class="n">dataObject</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">responseData</span><span class="o">();</span>
     <span class="o">}</span>
     <span class="k">else</span> 
     <span class="o">{</span>
@@ -1434,8 +1434,8 @@ The lifecycle methods are</p>
 14</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1">//...</span>
 <span class="n">Command</span><span class="o">&lt;</span><span class="n">AuthenticationInfo</span><span class="o">&gt;</span> <span class="n">getDataCommand</span> <span class="o">=</span>           
         <span class="n">Commands</span><span class="o">.</span><span class="na">getSeosObject</span><span class="o">(</span><span class="n">SeosObjects</span><span class="o">.</span><span class="na">LAST_AUTHENTICATION_INFO</span><span class="o">);</span>
-<span class="n">CommandResult</span><span class="o">&lt;</span><span class="n">AuthenticationInfo</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">getDataCommand</span><span class="o">);</span>
-<span class="k">if</span> <span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="na">status</span><span class="o">()</span> <span class="o">==</span> <span class="n">CommandResult</span><span class="o">.</span><span class="na">Status</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">)</span> 
+<span class="n">CommandResult</span><span class="o">&lt;</span><span class="n">AuthenticationInfo</span><span class="o">&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">getDataCommand</span><span class="o">);</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">data</span><span class="o">.</span><span class="na">status</span><span class="o">()</span> <span class="o">==</span> <span class="n">CommandResult</span><span class="o">.</span><span class="na">Status</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">)</span>
 <span class="o">{</span>
     <span class="c1">// Success</span>
     <span class="n">Oid</span> <span class="n">oid</span> <span class="o">=</span> <span class="n">getDataResult</span><span class="o">.</span><span class="na">responseData</span><span class="o">().</span><span class="na">lastAuthenticatedOid</span><span class="o">();</span>

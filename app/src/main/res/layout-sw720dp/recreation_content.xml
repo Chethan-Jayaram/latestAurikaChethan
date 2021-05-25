@@ -24,13 +24,11 @@
 
     </LinearLayout>
 
+    <!--removed margin 15 dp for covid update-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lyt_tv_desc"
-        android:layout_margin="@dimen/dimen_15"
-
-
         android:background="@drawable/border_layout"
         android:orientation="vertical">
 
@@ -46,6 +44,7 @@
                 android:layout_gravity="center"/>
 
             <TextView
+
                 android:id="@+id/tv_recretion_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,6 +60,7 @@
 
 
         <TextView
+
             android:id="@+id/tv_recretion_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,6 +70,7 @@
             android:textSize="16sp"
             android:textColor="#000000" />
         <RelativeLayout
+
             android:paddingStart="@dimen/dimen_10"
             android:paddingTop="@dimen/dimen_10"
             android:paddingBottom="@dimen/dimen_10"

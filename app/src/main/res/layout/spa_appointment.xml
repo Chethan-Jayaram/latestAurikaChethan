@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_wine_dine"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_gravity="center"
+            android:scaleType="matrix" />
+
+        <TextView
+            android:id="@+id/tv_wine_dine_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/border_edges"
+            android:fontFamily="@font/notoseriftc_regular"
+            android:includeFontPadding="false"
+            android:padding="@dimen/dimen_10"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_content_wine_dine_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:layout_margin="@dimen/dimen_10"
+        android:fontFamily="@font/notosanstc_light"
+        android:gravity="center|start|end"
+        android:justificationMode="inter_word"
+        android:textColor="#000000" />
+
+
+    <RelativeLayout
+        android:layout_margin="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Number of guests"
+            android:textSize="14sp"
+            android:textColor="#010101"
+            android:fontFamily="@font/notoseriftc__medium"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"/>
+
+        <Button
+            android:layout_width="@dimen/dimen_10"
+            android:layout_height="@dimen/dimen_10"
+            android:background="@drawable/dropdown"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dimen_15"
+            android:layout_centerInParent="true"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_margin="@dimen/dimen_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prefered time"
+            android:textSize="14sp"
+            android:textColor="#010101"
+            android:fontFamily="@font/notoseriftc__medium"
+            android:layout_marginLeft="@dimen/dimen_10"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/time"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/dimen_10"/>
+
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_marginTop="@dimen/dimen_20"
+        android:id="@+id/btn_spa_req"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="90dp"
+        android:layout_marginRight="90dp"
+        android:layout_marginBottom="@dimen/dimen_20"
+        android:background="@color/btn_color"
+        android:fontFamily="@font/notoseriftc__medium"
+        android:paddingTop="@dimen/dimen_10"
+        android:includeFontPadding="false"
+        android:textAllCaps="false"
+        android:paddingBottom="@dimen/dimen_10"
+        android:text="Request appointment"
+        android:letterSpacing="0.01"
+        android:lineSpacingExtra="@dimen/dimen_11"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+
+</LinearLayout>

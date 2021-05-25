@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".fragments.sectionsfragment.WineDineFragment">
+    tools:context=".udaipur.fragments.sectionsfragment.WineDineFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -30,6 +30,7 @@
                 android:textStyle="normal" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_margin="@dimen/dimen_20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,6 +92,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_margin="@dimen/dimen_20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -148,7 +150,11 @@
                 </RelativeLayout>
 
             </LinearLayout>
-
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="420dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/dinning" />
         </LinearLayout>
 
     </ScrollView>

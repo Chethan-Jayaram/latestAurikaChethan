@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_marginTop="@dimen/dimen_20"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/img_location"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_gravity="center"
+        android:background="@drawable/aurika_coorg"
+        android:scaleType="matrix" />
+
+    <TextView
+        android:textSize="24sp"
+        android:id="@+id/tv_location_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_10"
+        android:layout_marginTop="220dp"
+        android:background="@drawable/border_edges"
+        android:fontFamily="@font/notoseriftc__medium"
+        android:includeFontPadding="false"
+        android:padding="@dimen/dimen_10"
+        android:letterSpacing="0.05"
+        android:text="Aurika, Coorg"
+        android:textColor="@color/white" />
+
+
+</RelativeLayout>

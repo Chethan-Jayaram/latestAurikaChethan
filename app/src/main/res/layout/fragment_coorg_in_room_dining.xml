@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--  app:contentScrim : The Toolbar color when the
+              collapsing toolbar is collapsed. -->
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <!-- app:layout_collapseMode : parallax means an animation effect,
+                 pin means fixed. -->
+
+            <TextView
+                android:id="@+id/tv_coorg_ird_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="#e6decc"
+                android:fontFamily="@font/notosanstc_light"
+                android:gravity="bottom"
+                android:text="The thoughtfully curated menu is available throughout the day, featuring eclectic options to suit every palate. Specialised chef’es menus can also be designed for a personalised in-room dining experience, to be enjoyed in the privacy of your own room. \n \n Please place your order from the menus below, or call in room dining at 2004 for assistance"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_20"
+                android:scaleType="centerCrop"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_anchor="@+id/appBarLayout"
+                app:layout_anchorGravity="center"
+                app:layout_collapseMode="parallax" />
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/appBarLayout"
+        android:id="@+id/coorg_ird_recycler"
+        android:layout_above="@+id/bt_sight_seeing_call_back"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/dimen_40"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_10"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

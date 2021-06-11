@@ -49,6 +49,14 @@ public  class HouseKeepingAdapter extends RecyclerView.Adapter<HouseKeepingAdapt
             mListener.onItemClicked(position);
         });
 
+        if (houseKeepingList.get(position).getPrice() ==null ||
+                houseKeepingList.get(position).getPrice().isEmpty() ||
+                houseKeepingList.get(position).getPrice().equals("0.00")){
+            holder.tv_item_price.setVisibility(View.GONE);
+        }else {
+            holder.tv_item_price.setVisibility(View.VISIBLE);
+        }
+
         holder.img_remove.setOnClickListener(v -> {
             if (houseKeepingList.get(position).getCount()>0){
                 houseKeepingList.get(position).setCount( houseKeepingList.get(position).getCount()-1);

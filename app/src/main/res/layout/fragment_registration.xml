@@ -40,14 +40,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/dimen_5"
-                android:paddingRight="@dimen/dimen_5"
                 android:layout_marginTop="@dimen/dimen_12"
                 android:layout_marginLeft="@dimen/dimen_12"
-                android:layout_marginRight="@dimen/dimen_5"
+                android:layout_marginRight="@dimen/dimen_2"
+                android:spinnerMode="dropdown"
                 android:popupBackground="@color/white"
-                android:dropDownSelector="@color/white"
                 android:background="@drawable/otp_bg"
-                android:layout_marginBottom="@dimen/dimen_12"
+                android:layout_marginBottom="@dimen/dimen_6"
                 android:textAlignment="center" />
 
             <EditText
@@ -58,7 +57,7 @@
                 android:layout_margin="@dimen/dimen_12"
                 android:layout_weight="0.8"
                 android:background="@drawable/otp_bg"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notosanstc_medium"
                 android:hint="First Name"
                 android:includeFontPadding="false"
                 android:padding="@dimen/dimen_15"
@@ -84,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/otp_bg"
                 android:hint="Last Name"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notosanstc_medium"
                 android:layout_margin="@dimen/dimen_12"/>
 
 
@@ -101,10 +100,74 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/otp_bg"
                 android:hint="Email Address"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notosanstc_medium"
                 android:layout_margin="@dimen/dimen_12"/>
 
-        <com.hbb20.CountryCodePicker
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dimen_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dimen_12"
+                android:layout_marginRight="@dimen/dimen_10"
+                >
+
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/country_code_picker"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/dimen_4"
+                    android:paddingBottom="@dimen/dimen_4"
+                    android:paddingLeft="@dimen/dimen_4"
+                    android:layout_marginBottom="@dimen/dimen_12"
+                    app:ccp_textGravity="LEFT"
+                    app:ccp_arrowColor="#000000"
+                    app:ccp_countryAutoDetectionPref="LOCALE_NETWORK"
+                    app:ccp_showFlag="false"
+                    app:ccp_showNameCode="false"
+                    app:ccpDialog_backgroundColor="@color/white"
+                    android:background="@drawable/otp_bg"
+                    app:ccp_textSize="16sp"
+                    app:ccp_arrowSize="@dimen/dimen_30"
+                    app:ccp_contentColor="@color/black"/>
+
+            </RelativeLayout>
+
+
+
+
+            <EditText
+
+                android:maxLength="10"
+                android:id="@+id/et_ph_num"
+                android:layout_marginLeft="@dimen/dimen_4"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dimen_12"
+                android:layout_marginBottom="@dimen/dimen_12"
+                android:layout_marginTop="@dimen/dimen_12"
+                android:layout_weight="0.8"
+                android:background="@drawable/otp_bg"
+                android:fontFamily="@font/notosanstc_medium"
+                android:hint="Mobile Number"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_15"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="#A3a3a3"
+                android:textCursorDrawable="@color/black"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!--<com.hbb20.CountryCodePicker
             android:id="@+id/country_code_picker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,11 +177,11 @@
             app:ccpDialog_backgroundColor="@color/white"
             android:background="@drawable/otp_bg"
             app:ccp_textSize="16sp"
-            app:ccp_contentColor="@color/black"/>
+            app:ccp_contentColor="@color/black"/>-->
 
 
 
-            <EditText
+            <!--<EditText
                 android:maxLength="10"
                 android:id="@+id/et_ph_num"
                 android:singleLine="true"
@@ -134,10 +197,33 @@
                 android:hint="Mobile Number"
                 android:textCursorDrawable="@color/black"
                 android:fontFamily="@font/notoseriftc__medium"
-                android:layout_margin="@dimen/dimen_12"/>
+                android:layout_margin="@dimen/dimen_12"/>-->
 
 
-        <LinearLayout
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:layout_alignParentLeft="true"
+                android:id="@+id/reg_check_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notoseriftc_regular"
+                android:textSize="@dimen/dimen_12"
+                android:paddingTop="@dimen/dimen_1"
+                android:textStyle="bold"
+                android:textColor="@color/custom_purple"
+                android:includeFontPadding="false"
+                android:gravity="clip_horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/dimen_10"/>
+        </RelativeLayout>
+
+
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -149,17 +235,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_10"/>
 
-            <TextView
+           &lt;!&ndash; <TextView
+                android:id="@+id/privacy_policy"
                 android:layout_marginTop="@dimen/dimen_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/notoseriftc_light"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textColor="#242424"
-                android:text="I agree with the terms and conditions and privacy policy"
+                android:text="@string/privacy_policy_reg"
                 android:includeFontPadding="false"
-                android:layout_gravity="center_vertical"/>
-        </LinearLayout>
+                android:layout_gravity="center_vertical"/>&ndash;&gt;
+        </LinearLayout>-->
 
 
         <Button

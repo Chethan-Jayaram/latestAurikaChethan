@@ -1,12 +1,15 @@
 
 package com.mobisprint.aurika.coorg.pojo.dining;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Data {
+public class Data implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -130,5 +133,15 @@ public class Data {
 
     public void setLastActivityBy(String lastActivityBy) {
         this.lastActivityBy = lastActivityBy;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

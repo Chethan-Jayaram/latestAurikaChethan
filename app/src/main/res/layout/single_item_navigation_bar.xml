@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/lyt_navigation"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/white"
     android:padding="@dimen/dimen_10"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <!--<de.hdodenhof.circleimageview.CircleImageView
         android:src="@color/colorPrimaryDark"
         android:id="@+id/navigation_bar_image"
         android:scaleType="centerCrop"
-        android:background="@drawable/circular_bg"
         android:padding="@dimen/dimen_5"
         android:layout_width="30dp"
         android:layout_height="30dp">
-    </de.hdodenhof.circleimageview.CircleImageView>
+    </de.hdodenhof.circleimageview.CircleImageView>-->
+
+
+    <ImageView
+        android:layout_width="31dp"
+        android:layout_height="31dp"
+        android:id="@+id/navigation_bar_image"/>
 
 
     <TextView
@@ -24,11 +30,11 @@
         android:textColor="#000000"
         android:layout_marginLeft="@dimen/dimen_10"
         android:layout_gravity="center"
-        android:fontFamily="@font/notoseriftc_light"
+        android:fontFamily="@font/notosanstc_light"
         android:singleLine="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp" >
+        android:textSize="16sp" >
     </TextView>
 
 </RelativeLayout>

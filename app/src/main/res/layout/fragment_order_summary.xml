@@ -15,6 +15,7 @@
             android:background="@color/white">
 
             <com.mobisprint.aurika.helper.NonScrollExpandableListView
+                android:visibility="gone"
                 android:id="@+id/order_summary_expandable_listview"
                 android:divider="@null"
                 android:groupIndicator="@null"
@@ -24,8 +25,8 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
+                android:visibility="gone"
                     android:layout_below="@+id/order_summary_expandable_listview"
-                    android:visibility="gone"
                     android:nestedScrollingEnabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -38,6 +39,7 @@
 
 
             <EditText
+                android:hint="Type your instructions here..."
                 android:cursorVisible="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

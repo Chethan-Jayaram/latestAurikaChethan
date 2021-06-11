@@ -8,17 +8,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+
+import com.google.gson.Gson;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.pojo.Services.Category_item;
 import com.mobisprint.aurika.coorg.pojo.Services.Data;
 import com.mobisprint.aurika.coorg.pojo.Services.SleepwellList;
 import com.mobisprint.aurika.helper.GlobalClass;
 
+import org.w3c.dom.Text;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class LaundryServiceAdapter extends BaseExpandableListAdapter {
 
@@ -50,7 +60,7 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return laundry_service_list.get(groupPosition).getCategory_item();
+        return laundry_service_list.get(groupPosition).getCategory_item().get(childPosition);
     }
 
     @Override
@@ -98,9 +108,8 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         try {
-            final List<Category_item> expandedListText = (List<Category_item>) getChild(groupPosition, childPosition);
-            Log.d("group position", String.valueOf(groupPosition));
-            Log.d("child position", String.valueOf(childPosition));
+            final Category_item expandedListText =(Category_item) getChild(groupPosition, childPosition);
+
 
 
             if (convertView == null) {
@@ -114,16 +123,41 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
             TextView tv_quantity = convertView.findViewById(R.id.tv_quantity);
             ImageView img_add = convertView.findViewById(R.id.img_add);
             ImageView img_remove = convertView.findViewById(R.id.img_remove);
+            CardView lyt_counter = convertView.findViewById(R.id.lyt_counter);
+            CardView lyt_add = convertView.findViewById(R.id.lyt_add);
+            TextView bt_add = convertView.findViewById(R.id.bt_add);
 
-            item_name.setText(expandedListText.get(childPosition).getName());
-            item_price.setText("₹" + " " + expandedListText.get(childPosition).getPrice());
-            tv_quantity.setText(Integer.toString(expandedListText.get(childPosition).getCount()));
+
+            if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount() == 0){
+                lyt_add.setVisibility(View.VISIBLE);
+                lyt_counter.setVisibility(View.GONE);
+            }else{
+                lyt_add.setVisibility(View.GONE);
+                lyt_counter.setVisibility(View.VISIBLE);
+            }
+
+            bt_add.setOnClickListener(v -> {
+                laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount(expandedListText.getCount() + 1);
+                tv_quantity.setText(Integer.toString(laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount()));
+                mListener.onItemClicked(laundry_service_list.get(groupPosition));
+                pushData(laundry_service_list);
+                lyt_add.setVisibility(View.GONE);
+                lyt_counter.setVisibility(View.VISIBLE);
+            });
+
+
+
+            item_name.setText(expandedListText.getName());
+            item_price.setText("₹" + " " + expandedListText.getPrice());
+            tv_quantity.setText(Integer.toString(expandedListText.getCount()));
+
 
             img_add.setOnClickListener(v -> {
                 try {
-                    laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount(expandedListText.get(childPosition).getCount() + 1);
-                    tv_quantity.setText(Integer.toString(expandedListText.get(childPosition).getCount()));
-                    mListener.onItemClicked(groupPosition, childPosition);
+                    laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount(expandedListText.getCount() + 1);
+                    tv_quantity.setText(Integer.toString(laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount()));
+                    mListener.onItemClicked(laundry_service_list.get(groupPosition));
+                    pushData(laundry_service_list);
                 }catch (Exception e){
                     e.printStackTrace();
 
@@ -131,10 +165,17 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
             });
 
             img_remove.setOnClickListener(v -> {
-                if (expandedListText.get(childPosition).getCount() > 0) {
-                    expandedListText.get(childPosition).setCount(expandedListText.get(childPosition).getCount() - 1);
-                    tv_quantity.setText(Integer.toString(expandedListText.get(childPosition).getCount()));
-                    mListener.onItemClicked(groupPosition, childPosition);
+                if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount() == 1){
+                    lyt_add.setVisibility(View.VISIBLE);
+                    lyt_counter.setVisibility(View.GONE);
+                    laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount(laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount() -1);
+                    mListener.onItemClicked(laundry_service_list.get(groupPosition));
+                    pushData(laundry_service_list);
+                }else if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount() > 0) {
+                    laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount(laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount() -1);
+                    tv_quantity.setText(Integer.toString(laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount()));
+                    mListener.onItemClicked(laundry_service_list.get(groupPosition));
+                    pushData(laundry_service_list);
                 }
             });
 
@@ -145,6 +186,18 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
 
         return convertView;
     }
+
+    private void pushData(List<Data> arrPackageData) {
+
+        Set<Data> set = new HashSet<>(arrPackageData);
+        Gson gson = new Gson();
+        String json = gson.toJson(set);
+        GlobalClass.editor.putString("Laundry", json);
+        GlobalClass.editor.commit();
+    }
+
+
+
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {

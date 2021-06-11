@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -51,7 +53,10 @@ public class Amenities extends Fragment implements ApiListner {
 
     private String order_category = "amenities" ;
 
-    private List<Data> selectedList;
+    private List<Data> arrDataPackage;
+
+    private ProgressBar progressBar;
+    private CoordinatorLayout coordinatorLayout;
 
 
 
@@ -74,6 +79,11 @@ public class Amenities extends Fragment implements ApiListner {
             img_back = getActivity().findViewById(R.id.naviagation_hamberger);
             img_back.setVisibility(View.VISIBLE);
 
+            progressBar = view.findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.GONE);
+
+            coordinatorLayout = view.findViewById(R.id.lyt);
+            coordinatorLayout.setVisibility(View.GONE);
 
 
             Bundle bundle = getArguments();
@@ -81,30 +91,28 @@ public class Amenities extends Fragment implements ApiListner {
             toolbar_title.setText(bundle.getString("title"));
 
             amenitiesController.getServices();
-/*
-            Gson gson = new Gson();
-            String json = GlobalClass.sharedPreferences.getString("selected_list", "");
-            if (!json.isEmpty()) {
-                Type type = new TypeToken<List<Data>>() {
-                }.getType();
-                selectedList = gson.fromJson(json, type);
-                Log.d("selList", selectedList.size() + "This is my size");
-            }*/
+
+            items_count=GlobalClass.sharedPreferences.getInt(GlobalClass.Amenities_count,0);
+            tv_num_of_items.setText(items_count+" " +"items");
+
+            total_price = GlobalClass.sharedPreferences.getFloat(GlobalClass.Amenities_price,0);
+            tv_total_price.setText("₹ "+(double)total_price);
+
 
             view_order.setOnClickListener(v -> {
-                if (selectedList!= null && selectedList.size() >0) {
+                if (items_count>0) {
 
-                    /*String json =gson.toJson(selectedList);
-                    editor.putString("selected_list",json);
-                    editor.commit();*/
 
                     Fragment fragment = new OrderSummary();
                     Bundle bundle1 = new Bundle();
-                    bundle1.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) selectedList);
+                   /* bundle1.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) selectedList);*/
                     bundle1.putString("category",order_category);
-                    for (int i = 0; i<selectedList.size(); i++){
-                        Log.i("slected item: ", selectedList.get(i).getTitle());
-                    }
+
+                    GlobalClass.editor.putInt(GlobalClass.Amenities_count, items_count);
+                    GlobalClass.editor.putFloat(GlobalClass.Amenities_price, (float) total_price);
+                    GlobalClass.editor.commit();
+
+
                     fragment.setArguments(bundle1);
                     getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
                 }else
@@ -130,27 +138,63 @@ public class Amenities extends Fragment implements ApiListner {
     @Override
     public void onFetchProgress() {
 
+        progressBar.setVisibility(View.VISIBLE);
+
 
 
     }
 
     @Override
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
+        progressBar.setVisibility(View.GONE);
+        coordinatorLayout.setVisibility(View.VISIBLE);
 
         try {
             if (response!=null){
                 CoorgServicesPojo servicesPojo = (CoorgServicesPojo) response.body();
                 List<Data> amenitiesList = servicesPojo.getData();
 
-               AmenitiesAdapter adapter = new AmenitiesAdapter(amenitiesList,Position -> {
+                if (arrDataPackage != null) {
+                    arrDataPackage.clear();
+                }
+
+                Gson amenitiesGson = new Gson();
+                String amenitiesJson = GlobalClass.sharedPreferences.getString("Amenities", "");
+                if (amenitiesJson.isEmpty()) {
+                    // Toast.makeText(mContext, "Something went worng", Toast.LENGTH_LONG).show();
+                } else {
+                    Type type = new TypeToken<List<Data>>() {
+                    }.getType();
+                    arrDataPackage = new ArrayList(amenitiesGson.fromJson(amenitiesJson,type));
+                }
+
+
+                try {
+
+                    if (arrDataPackage !=null){
+
+                        for (int i=0;i<amenitiesList.size();i++){
+                            for (int j=0;j<arrDataPackage.size();j++){
+                                if (amenitiesList.get(i).getId().equals(arrDataPackage.get(j).getId())){
+                                    amenitiesList.remove(i);
+                                    amenitiesList.add(i,arrDataPackage.get(j));
+                                }
+                            }
+                        }
+
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+               AmenitiesAdapter adapter = new AmenitiesAdapter(amenitiesList,data -> {
 
 
                    try {
-                       Log.i("item added: ", amenitiesList.get(Position).getTitle());
 
-
-
-                       selectedList = new ArrayList<>();
                        items_count= 0;
                        total_price = 0;
                        for (int i = 0; i<= amenitiesList.size() - 1;i++){
@@ -166,17 +210,19 @@ public class Amenities extends Fragment implements ApiListner {
                            }
 
 
-                           if (amenitiesList.get(i).getCount() != 0){
-                               selectedList.add(amenitiesList.get(i));
-                           }
-
                        }
+
+                       GlobalClass.editor.putInt(GlobalClass.Amenities_count, items_count);
+                       GlobalClass.editor.putFloat(GlobalClass.Amenities_price, (float) total_price);
+                       GlobalClass.editor.commit();
 
 
 
                    }catch (Exception e){
                        e.printStackTrace();
                    }
+
+
 
 
                });
@@ -196,6 +242,9 @@ public class Amenities extends Fragment implements ApiListner {
 
     @Override
     public void onFetchError(String error) {
+
+        progressBar.setVisibility(View.GONE);
+        GlobalClass.ShowAlert(mContext,"Alert",error);
 
     }
 }

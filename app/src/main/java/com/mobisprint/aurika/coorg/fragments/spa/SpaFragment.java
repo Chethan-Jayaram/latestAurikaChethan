@@ -3,6 +3,7 @@ package com.mobisprint.aurika.coorg.fragments.spa;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +23,7 @@ import com.mobisprint.aurika.coorg.controller.spa.SpaController;
 import com.mobisprint.aurika.coorg.pojo.spa.Data;
 import com.mobisprint.aurika.coorg.pojo.spa.Spa;
 import com.mobisprint.aurika.helper.ApiListner;
+import com.mobisprint.aurika.helper.GlobalClass;
 
 import org.w3c.dom.Text;
 
@@ -40,6 +43,8 @@ public class SpaFragment extends Fragment implements ApiListner {
     private Context mContext;
     private ImageView img_back,img_spa;
     private Button btn_spa_menu,btn_spa_appointment;
+    private ProgressBar progressBar;
+    private CoordinatorLayout coordinatorLayout;
 
 
 
@@ -56,6 +61,11 @@ public class SpaFragment extends Fragment implements ApiListner {
         btn_spa_menu = view.findViewById(R.id.btn_spa_menu);
         btn_spa_appointment = view.findViewById(R.id.btn_spa_appointment);
 
+        coordinatorLayout = view.findViewById(R.id.lyt);
+        coordinatorLayout.setVisibility(View.GONE);
+        progressBar = view.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
+
         tv_spa_menu_desc = view.findViewById(R.id.tv_spa_desc);
         toolbar_title = getActivity().findViewById(R.id.toolbar_title);
         controller = new SpaController(this);
@@ -63,12 +73,13 @@ public class SpaFragment extends Fragment implements ApiListner {
         img_back = getActivity().findViewById(R.id.naviagation_hamberger);
         img_back.setVisibility(View.VISIBLE);
 
-        controller.getSpaMenu();
+        Bundle bundle = getArguments();
+        toolbar_title.setText(bundle.getString("title"));
 
-        btn_spa_menu.setOnClickListener(v -> {
-            Fragment fragment = new CoorgSpaMenu();
-            getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
-        });
+        controller.getSpaMenu();
+        tv_coorg_assistance.setText("Please call 2001 for assistance");
+
+
 
 
 
@@ -78,17 +89,23 @@ public class SpaFragment extends Fragment implements ApiListner {
     @Override
     public void onFetchProgress() {
 
+        progressBar.setVisibility(View.VISIBLE);
+
+
     }
 
     @Override
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
 
+        progressBar.setVisibility(View.GONE);
+        coordinatorLayout.setVisibility(View.VISIBLE);
+
         if (response != null){
             Spa spa = (Spa) response.body();
             List<Data> spaList = spa.getData();
-            toolbar_title.setText(spaList.get(0).getTitle());
+
             tv_spa_title.setText(spaList.get(0).getTitle());
-            tv_spa_menu_desc.setText(spaList.get(0).getDescription());
+            /*tv_spa_menu_desc.setText(spaList.get(0).getDescription());*/
 
             Glide.with(getContext()).load(spaList.get(0).getImage()).centerCrop().into(img_spa);
 
@@ -104,6 +121,14 @@ public class SpaFragment extends Fragment implements ApiListner {
                 e.printStackTrace();
             }
 
+            btn_spa_menu.setOnClickListener(v -> {
+                Fragment fragment = new CoorgSpaMenu();
+                Bundle bundle = new Bundle();
+                bundle.putString("title",spaList.get(0).getTitle());
+                bundle.putString("image",spaList.get(0).getImage());
+                fragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
+            });
 
             btn_spa_appointment.setOnClickListener(v -> {
                 Fragment fragment = new SpaBookAnAppointment();
@@ -122,6 +147,9 @@ public class SpaFragment extends Fragment implements ApiListner {
 
     @Override
     public void onFetchError(String error) {
+
+        progressBar.setVisibility(View.GONE);
+        GlobalClass.ShowAlert(mContext,"Alert",error);
 
     }
 }

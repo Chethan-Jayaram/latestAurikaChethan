@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/lyt_select_location"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/white"
     android:layout_width="match_parent"
@@ -7,24 +8,40 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:src="@drawable/aurika_coorg"
         android:id="@+id/img_location"
         android:layout_width="match_parent"
         android:layout_height="220dp"
         android:layout_gravity="center"
-        android:scaleType="matrix" />
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/status"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:background="@drawable/border_edges"
+        android:fontFamily="@font/notoseriftc_regular"
+        android:includeFontPadding="false"
+        android:padding="@dimen/dimen_10"
+        android:letterSpacing="0.05"
+        android:text="upcoming"
+        android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/tv_location_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dimen_10"
-        android:layout_marginTop="150dp"
+        android:textSize="16sp"
+        android:layout_marginTop="160dp"
         android:background="@drawable/border_edges"
-        android:fontFamily="@font/notoseriftc__medium"
+        android:fontFamily="@font/notoseriftc_regular"
         android:includeFontPadding="false"
         android:padding="@dimen/dimen_10"
         android:letterSpacing="0.05"
-        android:text="Aurika, Coorg"
+        android:text=""
         android:textColor="@color/white" />
 
 

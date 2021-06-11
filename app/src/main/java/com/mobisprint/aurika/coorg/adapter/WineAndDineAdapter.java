@@ -46,7 +46,7 @@ public class WineAndDineAdapter extends RecyclerView.Adapter<WineAndDineAdapter.
 
         holder.tv_wine_dine_title.setText(wineAndDineList.get(position).getTitle());
         holder.tv_content_wine_dine_desc.setText(wineAndDineList.get(position).getDescription());
-        holder.tv_assistance.setText("Please call 2005 for assistance");
+        holder.tv_assistance.setText(wineAndDineList.get(position).getAvailability());
         /*holder.tv_from_time_wine_dine.setText(wineAndDineList.get(position).getFromTime());*/
        /* holder.tv_to_time_wine_dine.setText(wineAndDineList.get(position).getToTime());*/
         Glide.with(mContext).load(wineAndDineList.get(position).getImage()).into(holder.img_coorg_wine_dine);

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mobisprint.aurika.R;
@@ -34,6 +35,7 @@ public class CoorgPetFriendly extends Fragment implements ApiListner {
     private PetFriendlyController controller;
     private TextView toolbar_title;
     private ImageView img_back;
+    private ProgressBar progressBar;
 
 
 
@@ -49,6 +51,9 @@ public class CoorgPetFriendly extends Fragment implements ApiListner {
         toolbar_title = getActivity().findViewById(R.id.toolbar_title);
         img_back = getActivity().findViewById(R.id.naviagation_hamberger);
         img_back.setVisibility(View.VISIBLE);
+        progressBar = view.findViewById(R.id.progress_bar);
+        recyclerView.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
 
         Bundle bundle = getArguments();
         toolbar_title.setText(bundle.getString("title"));
@@ -60,11 +65,14 @@ public class CoorgPetFriendly extends Fragment implements ApiListner {
 
     @Override
     public void onFetchProgress() {
+        progressBar.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
+        progressBar.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
 
         if (response!=null){
 
@@ -103,6 +111,7 @@ public class CoorgPetFriendly extends Fragment implements ApiListner {
     @Override
     public void onFetchError(String error) {
 
+        progressBar.setVisibility(View.GONE);
         GlobalClass.ShowAlert(getContext(),"Alert",error);
 
     }

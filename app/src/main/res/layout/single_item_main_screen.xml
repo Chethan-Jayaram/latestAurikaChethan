@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="Facilities"
             android:textAllCaps="false"
-            android:fontFamily="@font/notoseriftc__medium"
+            android:fontFamily="@font/notoseriftc_bold"
             android:textColor="@color/white"
             android:textSize="16sp"/>
 

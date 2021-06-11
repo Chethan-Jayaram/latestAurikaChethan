@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -22,12 +22,12 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
 
     private Context mContext;
     private List<Data> navigationList;
-    /*private GlobalClass.AdapterListener mListener;*/
+    private GlobalClass.AdapterListener mListener;
 
-    public NavigationAdapter(Context mContext, List<Data> navigationList) {
+    public NavigationAdapter(Context mContext, List<Data> navigationList, GlobalClass.AdapterListener mListener) {
         this.mContext = mContext;
         this.navigationList = navigationList;
-        /*this.mListener = mListener;*/
+        this.mListener = mListener;
     }
 
     @Override
@@ -74,16 +74,22 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
         }
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.navigation_bar_image);
+        RelativeLayout lyt_navigation = convertView.findViewById(R.id.lyt_navigation);
 
         Glide.with(mContext)
-                .load(navigationList.get(groupPosition).getImage()).centerCrop()
+                .load(navigationList.get(groupPosition).getImage())
                 .into(imageView);
 
         TextView listTitleTextView = (TextView) convertView
                 .findViewById(R.id.navigation_bar_text);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
         listTitleTextView.setText(navigationList.get(groupPosition).getTitle());
-        /*mListener.onItemClicked(groupPosition);*/
+
+        lyt_navigation.setOnClickListener(v -> {
+            mListener.onItemClicked(groupPosition);
+        });
+
+
 
         return convertView;
     }

@@ -2,10 +2,11 @@
 <TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:fontFamily="@font/notoseriftc__medium"
+    android:fontFamily="@font/notosanstc_medium"
     android:textColor="@color/black"
     android:textSize="16sp"
     android:gravity="center"
+    android:drawableRight="@drawable/ccp_down_arrow"
     android:padding="@dimen/dimen_4"
     android:layout_height="wrap_content">
 

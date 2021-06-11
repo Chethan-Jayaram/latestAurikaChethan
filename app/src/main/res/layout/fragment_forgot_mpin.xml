@@ -22,12 +22,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_20"
-            android:fontFamily="@font/notoseriftc__medium"
+            android:fontFamily="@font/notoseriftc_semibold"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="Reset your M-PIN?"
             android:textColor="#420052"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <com.hbb20.CountryCodePicker
             android:id="@+id/country_code_picker"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dimen_14"
             android:background="@drawable/otp_bg"
-            android:fontFamily="@font/notoseriftc__medium"
+            android:fontFamily="@font/notosanstc_medium"
             android:hint="Enter Phone Number"
             android:includeFontPadding="false"
             android:padding="@dimen/dimen_10"
@@ -65,14 +65,13 @@
             android:padding="@dimen/dimen_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notoseriftc__medium"
+            android:fontFamily="@font/notoseriftc_semibold"
             android:gravity="center"
+            android:text="Login with E-mail"
             android:includeFontPadding="false"
-            android:text="Login with email?"
             android:textColor="#420052"
             android:textStyle="bold"
             android:textSize="16sp" />
-
 
 
 
@@ -80,7 +79,7 @@
             android:id="@+id/new_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notoseriftc__medium"
+            android:fontFamily="@font/notoseriftc_semibold"
             android:gravity="center"
             android:padding="@dimen/dimen_10"
             android:includeFontPadding="false"
@@ -89,8 +88,31 @@
             android:textStyle="bold"
             android:textSize="16sp" />
 
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <LinearLayout
+            <CheckBox
+                android:layout_alignParentLeft="true"
+                android:id="@+id/reset_mpin_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notoseriftc_regular"
+                android:textSize="@dimen/dimen_12"
+                android:textStyle="bold"
+                android:paddingTop="1dp"
+                android:textColor="@color/custom_purple"
+                android:includeFontPadding="false"
+                android:gravity="clip_horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/dimen_10"/>
+        </RelativeLayout>
+
+
+
+
+       <!-- <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -112,7 +134,7 @@
                 android:text="I agree with the terms and conditions and privacy policy"
                 android:textColor="#242424"
                 android:textSize="10sp" />
-        </LinearLayout>
+        </LinearLayout>-->
 
 
         <Button
@@ -125,8 +147,8 @@
             android:background="@drawable/btn_background"
             android:fontFamily="@font/notoseriftc__medium"
             android:paddingTop="@dimen/dimen_10"
-            android:includeFontPadding="false"
             android:textAllCaps="false"
+            android:includeFontPadding="false"
             android:paddingBottom="@dimen/dimen_10"
             android:text="Confirm and send OTP"
             android:lineSpacingExtra="@dimen/dimen_5"
@@ -142,7 +164,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_20"
             android:layout_marginBottom="@dimen/dimen_30"
-            android:fontFamily="@font/notoseriftc__medium"
+            android:fontFamily="@font/notoseriftc_semibold"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="Skip >>"

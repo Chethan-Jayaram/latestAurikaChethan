@@ -4,12 +4,14 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.controller.login.OtpController;
@@ -25,6 +27,8 @@ public class OtpFragment extends Fragment implements ApiListner {
  private EditText et_one,et_two,et_three,et_four,et_five,et_six;
  private OtpController controller;
  private String request_id;
+ private TextView tv_resend_otp,tv_resend_otp_timer;
+ private Integer counter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +44,11 @@ public class OtpFragment extends Fragment implements ApiListner {
         et_four = view.findViewById(R.id.et_four);
         et_five = view.findViewById(R.id.et_five);
         et_six = view.findViewById(R.id.et_six);
+        tv_resend_otp = view.findViewById(R.id.tv_resend_otp);
+        tv_resend_otp_timer = view.findViewById(R.id.tv_resend_otp_timer);
+        tv_resend_otp.setVisibility(View.GONE);
+
+        otpTimer();
 
         Bundle bundle = getArguments();
         if (bundle!= null){
@@ -48,7 +57,33 @@ public class OtpFragment extends Fragment implements ApiListner {
 
         init();
 
+        tv_resend_otp.setOnClickListener(v -> {
+            otpTimer();
+        });
+
+
+
         return view;
+    }
+
+    private void otpTimer() {
+        counter = 60;
+        new CountDownTimer(60000,1000){
+            @Override
+            public void onTick(long millisUntilFinished) {
+                tv_resend_otp.setVisibility(View.GONE);
+                tv_resend_otp_timer.setVisibility(View.VISIBLE);
+                tv_resend_otp_timer.setText("Resend OTP in"+" "+String.valueOf(counter)+" seconds");
+                counter--;
+            }
+
+            @Override
+            public void onFinish() {
+                tv_resend_otp_timer.setVisibility(View.GONE);
+                tv_resend_otp.setVisibility(View.VISIBLE);
+            }
+        }.start();
+
     }
 
     private void init() {

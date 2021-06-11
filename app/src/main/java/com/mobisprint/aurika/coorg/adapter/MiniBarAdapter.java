@@ -36,9 +36,7 @@ public class MiniBarAdapter extends RecyclerView.Adapter<MiniBarAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.item_name.setText(minibarList.get(position).getTitle());
-        holder.item_price.setText(minibarList.get(position).getPrice());
-        holder.item_quantity.setText(minibarList.get(position).getQuantity());
+
 
     }
 
@@ -54,9 +52,7 @@ public class MiniBarAdapter extends RecyclerView.Adapter<MiniBarAdapter.ViewHold
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            item_name = itemView.findViewById(R.id.item_name);
-            item_price = itemView.findViewById(R.id.item_price);
-            item_quantity = itemView.findViewById(R.id.item_qty);
+
         }
     }
 }

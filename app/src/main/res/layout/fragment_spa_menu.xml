@@ -32,7 +32,7 @@
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:padding="@dimen/dimen_10"
-              android:text="@string/all_prices_are_subject_to_taxes_and_services_charge"
+               android:text="@string/all_prices_are_subject_to_taxes_and_services_charge"
                 android:textColor="#000000"
                 android:textSize="14sp"
                 app:layout_anchor="@+id/appBarLayout"

@@ -25,7 +25,7 @@ public class SelectLocationController {
             @Override
             public void onResponse(Call<SelectLocation> call, Response<SelectLocation> response) {
                 if (response.isSuccessful() && response.body().getStatus()){
-                    listner.onFetchComplete(response);
+                        listner.onFetchComplete(response);
                 }else {
                     listner.onFetchError(response.body().getMessage());
                 }

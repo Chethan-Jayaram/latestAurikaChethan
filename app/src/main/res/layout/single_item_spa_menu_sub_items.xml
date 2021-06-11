@@ -1,81 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-    <TextView
-        android:layout_toLeftOf="@+id/tv_spa_menu_price"
-        android:layout_alignParentLeft="true"
-        android:layout_marginRight="@dimen/dimen_10"
-        android:layout_marginLeft="@dimen/dimen_15"
-        android:layout_below="@+id/tv_spa_menu_title"
-        android:layout_marginTop="@dimen/dimen_15"
-        android:id="@+id/tv_spa_menu_heading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/notosanstc_medium"
-        android:textColor="@color/black"
-        android:includeFontPadding="false"
-        android:text="Signature Packages"
-        android:textSize="16sp"/>
 
-    <TextView
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/dimen_20"
-        android:layout_below="@+id/tv_spa_menu_title"
-        android:layout_marginTop="@dimen/dimen_15"
-        android:id="@+id/tv_spa_menu_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/notosanstc_medium"
-        android:textColor="@color/black"
-        android:includeFontPadding="false"
-        android:text="2000"
-        android:textSize="16sp"/>
-
-    <TextView
-        android:layout_alignParentLeft="true"
-        android:layout_marginRight="@dimen/dimen_10"
-        android:layout_toLeftOf="@+id/tv_spa_menu_price"
-        android:layout_marginLeft="@dimen/dimen_15"
-        android:layout_below="@+id/tv_spa_menu_heading"
-        android:id="@+id/tv_spa_menu_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/notoseriftc_light"
-        android:textColor="@color/black"
-        android:includeFontPadding="false"
-        android:text="2000"
-        android:textSize="16sp"/>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/tv_spa_menu_desc">
-
-        <ImageView
-            android:layout_gravity="center"
-            android:id="@+id/img_time"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            app:srcCompat="@drawable/ic_baseline_access_time_24"
-            android:layout_marginLeft="@dimen/dimen_15"/>
-
+        android:background="@color/white"
+        android:layout_height="match_parent">
 
         <TextView
-            android:layout_gravity="center"
-            android:id="@+id/tv_spa_time"
+            android:id="@+id/tv_spa_menu_heading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notoseriftc_light"
-            android:textColor="#A9A9A9"
+            android:layout_below="@+id/tv_spa_menu_title"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:layout_toLeftOf="@+id/tv_spa_menu_price"
+            android:fontFamily="@font/notoseriftc_bold"
             android:includeFontPadding="false"
-            android:text=""
-            android:textSize="14sp"/>
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/tv_spa_menu_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_spa_menu_title"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:layout_marginRight="@dimen/dimen_20"
+            android:fontFamily="@font/notoseriftc_bold"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_spa_menu_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_spa_menu_heading"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/dimen_15"
+            android:layout_marginRight="@dimen/dimen_10"
+            android:layout_toLeftOf="@+id/tv_spa_menu_price"
+            android:fontFamily="@font/notoseriftc_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <RelativeLayout
+            android:id="@+id/lyt_spa_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_spa_menu_desc"
+            android:layout_marginLeft="@dimen/dimen_15">
+
+            <ImageView
+                android:id="@+id/img_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_baseline_access_time_24" />
+
+
+            <TextView
+                android:id="@+id/tv_spa_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/img_time"
+                android:fontFamily="@font/notoseriftc_light"
+                android:includeFontPadding="false"
+                android:text=""
+                android:textColor="#888888"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+</FrameLayout>

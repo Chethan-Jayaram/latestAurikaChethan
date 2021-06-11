@@ -6,12 +6,25 @@ import com.google.gson.annotations.SerializedName;
 
 public class SleepwellList {
 
+    @SerializedName("count")
+    @Expose
+    private Integer count=0;
+
     @SerializedName("id")
     @Expose
     private Integer id;
     @SerializedName("title")
     @Expose
     private String title;
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
     @SerializedName("price")
     @Expose
     private String price;

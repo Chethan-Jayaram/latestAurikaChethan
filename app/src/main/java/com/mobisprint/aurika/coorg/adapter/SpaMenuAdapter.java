@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mobisprint.aurika.R;
@@ -41,7 +42,7 @@ public class SpaMenuAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return spaList.get(groupPosition).getSpaMenuList();
+        return spaList.get(groupPosition).getSpaMenuList().get(childPosition);
     }
 
     @Override
@@ -68,6 +69,12 @@ public class SpaMenuAdapter extends BaseExpandableListAdapter {
             convertView = layoutInflater.inflate(R.layout.single_item_coorg_spa_menu, null);
         }
 
+        View lyt_view = convertView.findViewById(R.id.lyt_view);
+
+        if (groupPosition==0){
+            lyt_view.setVisibility(View.GONE);
+        }
+
         TextView tv_spa_menu_title = convertView.findViewById(R.id.tv_spa_menu_title);
 
         tv_spa_menu_title.setText(spaList.get(groupPosition).getTitle());
@@ -80,7 +87,9 @@ public class SpaMenuAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        final List<SpaMenu> expandedListText = (List<SpaMenu>) getChild(groupPosition,childPosition);
+
+     final   SpaMenu menu=spaList.get(groupPosition).getSpaMenuList().get(childPosition);
+
 
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.mContext.
@@ -92,17 +101,39 @@ public class SpaMenuAdapter extends BaseExpandableListAdapter {
         TextView tv_spa_menu_price = convertView.findViewById(R.id.tv_spa_menu_price);
         TextView tv_spa_menu_desc = convertView.findViewById(R.id.tv_spa_menu_desc);
         TextView tv_spa_time = convertView.findViewById(R.id.tv_spa_time);
+        RelativeLayout lyt_spa_time = convertView.findViewById(R.id.lyt_spa_time);
 
-       tv_spa_menu_heading.setText(expandedListText.get(childPosition).getTitle());
-       tv_spa_menu_desc.setText(expandedListText.get(childPosition).getDescription());
-       tv_spa_menu_price.setText("₹"+" "+expandedListText.get(childPosition).getPrice());
-       tv_spa_time.setText(expandedListText.get(childPosition).getDuration());
+        tv_spa_menu_heading.setText(menu.getTitle());
+        tv_spa_menu_desc.setText(menu.getDescription());
+        tv_spa_menu_price.setVisibility(View.INVISIBLE);
+
+
+        if (menu.getPrice() == null
+                || menu.getPrice().isEmpty()
+                || menu.getPrice().equals("0.00")){
+            tv_spa_menu_price.setVisibility(View.INVISIBLE);
+        }else{
+            tv_spa_menu_price.setVisibility(View.VISIBLE);
+            tv_spa_menu_price.setText("₹"+" "+menu.getPrice());
+
+        }
+
+        if (menu.getDuration() == null
+                || menu.getDuration().isEmpty()
+                || menu.getDuration().equals("0")){
+           lyt_spa_time.setVisibility(View.GONE);
+        }else{
+            lyt_spa_time.setVisibility(View.VISIBLE);
+            tv_spa_time.setText(" " +menu.getDuration() + " mins");
+
+        }
+
 
         return convertView;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return true;
+        return false;
     }
 }

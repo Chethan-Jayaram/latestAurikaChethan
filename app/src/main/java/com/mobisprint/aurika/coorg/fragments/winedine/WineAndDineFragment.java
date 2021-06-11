@@ -3,6 +3,7 @@ package com.mobisprint.aurika.coorg.fragments.winedine;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mobisprint.aurika.R;
@@ -20,6 +22,7 @@ import com.mobisprint.aurika.coorg.pojo.Services.CoorgServicesPojo;
 import com.mobisprint.aurika.coorg.pojo.winedine.Data;
 import com.mobisprint.aurika.coorg.pojo.winedine.WineAndDine;
 import com.mobisprint.aurika.helper.ApiListner;
+import com.mobisprint.aurika.helper.GlobalClass;
 
 import java.util.List;
 
@@ -33,6 +36,8 @@ public class WineAndDineFragment extends Fragment implements ApiListner {
     private Context mContext;
     private ImageView img_back;
     private TextView toolbar_title;
+    private CoordinatorLayout lyt;
+    private ProgressBar progressBar;
 
 
     @Override
@@ -47,6 +52,10 @@ public class WineAndDineFragment extends Fragment implements ApiListner {
         toolbar_title.setText(bundle.getString("title"));
         img_back = getActivity().findViewById(R.id.naviagation_hamberger);
         img_back.setVisibility(View.VISIBLE);
+        lyt = view.findViewById(R.id.lyt);
+        lyt.setVisibility(View.GONE);
+        progressBar = view.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
 
 
 
@@ -62,11 +71,14 @@ public class WineAndDineFragment extends Fragment implements ApiListner {
 
     @Override
     public void onFetchProgress() {
+        progressBar.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
+        progressBar.setVisibility(View.GONE);
+        lyt.setVisibility(View.VISIBLE);
 
         if (response!= null){
 
@@ -94,6 +106,8 @@ public class WineAndDineFragment extends Fragment implements ApiListner {
 
     @Override
     public void onFetchError(String error) {
+        progressBar.setVisibility(View.GONE);
+        GlobalClass.ShowAlert(mContext,"Alert",error);
 
     }
 }

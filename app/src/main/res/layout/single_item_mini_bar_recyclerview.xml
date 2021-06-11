@@ -7,54 +7,116 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="0,1,2,">
+        android:layout_height="wrap_content">
 
         <TableRow
-            android:layout_height="0dp"
-            android:layout_width="wrap_content"
-            android:layout_margin="@dimen/dimen_1"
-            android:layout_weight="1">
+            android:id="@+id/table_header"
+            android:gravity="center"
+            android:background="#e5e5e5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/item_name"
-                android:textColor="@color/black"
+                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="0"
-                android:layout_margin="1dp"
-                android:background="#FFFFFF"
-                android:fontFamily="@font/notoseriftc__medium"
-                android:gravity="center"
-                android:text="ITEM" />
-
-            <TextView
-                android:id="@+id/item_qty"
+                android:text="Beverages"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_10"
                 android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="PRE-PLACED QTY"
-                android:layout_margin="1dp"
-                android:fontFamily="@font/notoseriftc__medium"
-                android:layout_column="1"
-                android:background="#FFFFFF"
-                android:gravity="center"
-                />
-
-            <TextView
-                android:id="@+id/item_price"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="PRICE PER ITEM"
-                android:fontFamily="@font/notoseriftc__medium"
-                android:layout_margin="1dp"
-                android:background="#FFFFFF"
-                android:gravity="center"
-                android:layout_column="2"
-                />
+                android:textSize="16sp"
+                android:fontFamily="@font/notosanstc_bold"/>
 
         </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_column="0"
+                android:layout_weight="1"
+                android:text="Item"
+                android:fontFamily="@font/notosanstc_bold"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_5"
+                android:textSize="14sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_weight="0.8"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_column="1"
+                android:text="Pre-placed Qty"
+                android:fontFamily="@font/notosanstc_bold"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_5"
+                android:textSize="14sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_weight="0.8"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_column="2"
+                android:text="Price per item"
+                android:fontFamily="@font/notosanstc_bold"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_5"
+                android:textSize="14sp"
+                android:textColor="@color/black"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_column="0"
+                android:layout_weight="1"
+                android:text="Item"
+                android:fontFamily="@font/notosanstc_regular"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_5"
+                android:textSize="14sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_weight="0.8"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_column="1"
+                android:text="Pre-placed Qty"
+                android:fontFamily="@font/notosanstc_regular"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_5"
+                android:textSize="14sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_weight="0.8"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_column="2"
+                android:text="Price per item"
+                android:fontFamily="@font/notosanstc_regular"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_5"
+                android:textSize="14sp"
+                android:textColor="@color/black"/>
+
+        </TableRow>
+
 
     </TableLayout>
 

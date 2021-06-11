@@ -6,26 +6,37 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.pojo.Services.Data;
 import com.mobisprint.aurika.coorg.pojo.Services.SleepwellList;
+import com.mobisprint.aurika.helper.GlobalClass;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
 
     private List<Data> sleepWellList;
     private Context mContext;
+    private GlobalClass.ExpandableAdapterListener mListener;
 
-    public CoorgSleepWellAdapter(Context mContext, List<Data> sleepWellList) {
+    public CoorgSleepWellAdapter(Context mContext, List<Data> sleepWellList, GlobalClass.ExpandableAdapterListener mListener) {
         this.sleepWellList = sleepWellList;
         this.mContext = mContext;
+        this.mListener = mListener;
     }
 
 
@@ -72,6 +83,14 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
             convertView = layoutInflater.inflate(R.layout.coorg_sleep_well_title, null);
         }
 
+        ImageView img_dropdown = convertView.findViewById(R.id.img_dropdown);
+
+        if (isExpanded){
+            img_dropdown.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_down_arrow));
+        }else {
+            img_dropdown.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_right_arrow));
+        }
+
         TextView listTitleTextView = (TextView) convertView
                 .findViewById(R.id.tv_sleepwell_title);
         TextView desc = (TextView) convertView.findViewById(R.id.tv_coorg_sleepwell_desc);
@@ -100,16 +119,103 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
                 .findViewById(R.id.tv_coorg_sleep_well_item_desc);
         TextView itemPrice = (TextView) convertView
                 .findViewById(R.id.tv_coorg_sleep_well_item_price);
-        itemName.setText(expandedListText.get(childPosition).getTitle());
+        ImageView img_add = convertView.findViewById(R.id.img_add);
+        ImageView img_remove = convertView.findViewById(R.id.img_remove);
+        TextView tv_quantity = convertView.findViewById(R.id.tv_quantity);
 
-        if (expandedListText.get(childPosition).getDescription() != null){
-            itemDesc.setVisibility(View.VISIBLE);
-        itemDesc.setText(expandedListText.get(childPosition).getDescription());
+        RelativeLayout lyt_desc = convertView.findViewById(R.id.lyt_desc);
+        RelativeLayout lyt_view = convertView.findViewById(R.id.lyt_view);
+
+        CardView lyt_counter = convertView.findViewById(R.id.lyt_counter);
+        CardView lyt_add = convertView.findViewById(R.id.lyt_add);
+        TextView bt_add = convertView.findViewById(R.id.bt_add);
+
+
+        if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() == 0){
+            lyt_add.setVisibility(View.VISIBLE);
+            lyt_counter.setVisibility(View.GONE);
+        }else{
+            lyt_add.setVisibility(View.GONE);
+            lyt_counter.setVisibility(View.VISIBLE);
         }
 
-        itemPrice.setText("₹"+" "+expandedListText.get(childPosition).getPrice());
+
+
+        bt_add.setOnClickListener(v -> {
+            sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() + 1);
+            tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
+            mListener.onItemClicked(sleepWellList.get(groupPosition));
+            pushData(sleepWellList);
+            lyt_add.setVisibility(View.GONE);
+            lyt_counter.setVisibility(View.VISIBLE);
+        });
+
+
+
+            itemName.setText(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getTitle());
+
+
+            if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getDescription() != null && !sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getDescription().isEmpty() ){
+                lyt_desc.setVisibility(View.VISIBLE);
+                itemDesc.setVisibility(View.VISIBLE);
+                itemDesc.setText(expandedListText.get(childPosition).getDescription());
+            }else {
+                lyt_desc.setVisibility(View.GONE);
+            }
+
+            if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getPrice() == null || sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getPrice().equals("0.00")){
+                itemPrice.setVisibility(View.GONE);
+            }else {
+                itemPrice.setVisibility(View.VISIBLE);
+            }
+
+            itemPrice.setText("₹"+" "+sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getPrice());
+            tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
+
+            img_add.setOnClickListener(v -> {
+                try {
+                    sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() + 1);
+                    tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
+                    mListener.onItemClicked(sleepWellList.get(groupPosition));
+                    pushData(sleepWellList);
+                }catch (Exception e){
+                    e.printStackTrace();
+
+                }
+            });
+
+            img_remove.setOnClickListener(v -> {
+                if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() ==1){
+                    lyt_add.setVisibility(View.VISIBLE);
+                    lyt_counter.setVisibility(View.GONE);
+                    sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() -1);
+                    mListener.onItemClicked(sleepWellList.get(groupPosition));
+                    pushData(sleepWellList);
+                }
+                if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() > 0) {
+                    sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() -1);
+                    tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
+                    mListener.onItemClicked(sleepWellList.get(groupPosition));
+                    pushData(sleepWellList);
+                }
+            });
+
+
+
+
+
+
 
         return convertView;
+    }
+
+    private void pushData(List<Data> sleepWellList) {
+
+        Set<Data> set = new HashSet<>(sleepWellList);
+        Gson gson = new Gson();
+        String json = gson.toJson(set);
+        GlobalClass.editor.putString("SleepWell", json);
+        GlobalClass.editor.commit();
     }
 
     @Override

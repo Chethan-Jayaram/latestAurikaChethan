@@ -19,6 +19,7 @@ public class RouteName {
     public static final String guest_housekeeping_category = "guest-housekeeping-category";
     public static final String guest_directory_service = "guest-directory-service";
     public static final String guest_laundry_category = "guest-laundry-category";
+    public static final String other_assistance = "other-assistance";
 
     //Coorg Home Screen
     public  static final String assa_abloy_door_unlock = "assa-abloy-door-unlock";
@@ -70,8 +71,8 @@ public class RouteName {
                 return COORG_PATH+"fragments.services.CoorgSleepWellFragment";
             case guest_minibar:
                 return COORG_PATH+"fragments.services.MiniBar";
-
-
+            case other_assistance:
+                return COORG_PATH+"fragments.services.OtherAssistance";
             default:return "";
 
         }

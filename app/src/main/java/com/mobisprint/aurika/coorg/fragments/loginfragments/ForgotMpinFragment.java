@@ -6,8 +6,10 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Html;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +38,7 @@ public class ForgotMpinFragment extends Fragment implements ApiListner {
     private ForgotMpinController forgotMpinController;
     private TextView tv_login_with_email,tv_new_user,skip;
     private Fragment fragment;
-    private Boolean isEmailSelected = true;
+    private Boolean isEmailSelected = true,check_status;
     private String android_id;
     private Context mContext;
     private int phlength = 10;
@@ -65,6 +67,44 @@ public class ForgotMpinFragment extends Fragment implements ApiListner {
             FilterArray[0] = new InputFilter.LengthFilter(phlength);
             et_email_or_phnum.setFilters(FilterArray);
 
+
+            checkBox.setText(Html.fromHtml("<body>\n" +
+                    "        <p" +
+                    "          style=\"color:#1e0028\">  Do you agree to our  <a href=\"https://www.google.com/\" style=\"color:#1e0028\">Terms &amp; Conditions</a>\n" +
+                    "         and  <a href=\"https://www.google.com/\" style=\"color:#1e0028\">Privacy Policy?</a>\n" +
+                    "        </p>" +
+                    "    </body>"));
+
+
+
+            checkBox.setClickable(true);
+            checkBox.setMovementMethod(LinkMovementMethod.getInstance());
+
+            check_status = GlobalClass.sharedPreferences.getBoolean(String.valueOf(GlobalClass.Forgot_Mpin),true);
+
+            if (GlobalClass.Forgot_Mpin){
+                forgotMpinController.isEmailSelected(false);
+                et_email_or_phnum.setHint("Enter Phone Number");
+                et_email_or_phnum.getText().clear();
+                FilterArray[0] = new InputFilter.LengthFilter(phlength);
+                et_email_or_phnum.setFilters(FilterArray);
+                et_email_or_phnum.setInputType(InputType.TYPE_CLASS_PHONE);
+                countryCodePicker.setVisibility(View.VISIBLE);
+                tv_login_with_email.setText("Login with E-mail");
+                isEmailSelected= true;
+            }else{
+                forgotMpinController.isEmailSelected(true);
+                et_email_or_phnum.setHint("Enter Email Id");
+                et_email_or_phnum.getText().clear();
+                FilterArray[0] = new InputFilter.LengthFilter(emailLength);
+                et_email_or_phnum.setFilters(FilterArray);
+                et_email_or_phnum.setInputType(InputType.TYPE_CLASS_TEXT);
+                countryCodePicker.setVisibility(View.GONE);
+                tv_login_with_email.setText("Login with Phone number");
+                isEmailSelected = false;
+            }
+
+
             tv_new_user.setOnClickListener(v -> {
                 fragment = new RegistrationFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, fragment).addToBackStack(null).commit();
@@ -80,7 +120,7 @@ public class ForgotMpinFragment extends Fragment implements ApiListner {
             tv_login_with_email.setOnClickListener(v -> {
 
                 if (isEmailSelected){
-                    forgotMpinController.isEmailSelected();
+                    forgotMpinController.isEmailSelected(true);
                     et_email_or_phnum.setHint("Enter Email Id");
                     et_email_or_phnum.getText().clear();
                     FilterArray[0] = new InputFilter.LengthFilter(emailLength);
@@ -89,16 +129,18 @@ public class ForgotMpinFragment extends Fragment implements ApiListner {
                     countryCodePicker.setVisibility(View.GONE);
                     tv_login_with_email.setText("Login with Phone number");
                     isEmailSelected = false;
+                    GlobalClass.Forgot_Mpin = false;
                 }else{
-                    forgotMpinController.isEmailSelected();
+                    forgotMpinController.isEmailSelected(false);
                     et_email_or_phnum.setHint("Enter Phone Number");
                     et_email_or_phnum.getText().clear();
                     FilterArray[0] = new InputFilter.LengthFilter(phlength);
                     et_email_or_phnum.setFilters(FilterArray);
                     et_email_or_phnum.setInputType(InputType.TYPE_CLASS_PHONE);
                     countryCodePicker.setVisibility(View.VISIBLE);
-                    tv_login_with_email.setText("Login with Email Id");
-                    isEmailSelected = true;
+                    tv_login_with_email.setText("Login with E-mail");
+                    isEmailSelected= true;
+                    GlobalClass.Forgot_Mpin = true;
                 }
 
             });

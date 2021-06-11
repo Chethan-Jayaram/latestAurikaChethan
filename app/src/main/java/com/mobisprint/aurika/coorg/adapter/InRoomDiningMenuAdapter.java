@@ -6,18 +6,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+
+import com.google.gson.Gson;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.pojo.Services.Category_item;
 import com.mobisprint.aurika.coorg.pojo.dining.Data;
 import com.mobisprint.aurika.coorg.pojo.dining.Dining__1;
 import com.mobisprint.aurika.helper.GlobalClass;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.mobisprint.aurika.R.drawable.icon_veg;
 
@@ -25,10 +32,9 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter {
 
     private Context mContext;
     private List<Data> dataList;
-    private GlobalClass.ExpandableAdapterListener mListener;
+    private GlobalClass.ExpandableAdapterListenerIRD mListener;
 
-    public InRoomDiningMenuAdapter(Context mContext, List<Data> dataList,GlobalClass.ExpandableAdapterListener mListener) {
-        Log.d("size", String.valueOf(dataList.size()));
+    public InRoomDiningMenuAdapter(Context mContext, List<Data> dataList,GlobalClass.ExpandableAdapterListenerIRD mListener) {
         this.mContext = mContext;
         this.dataList = dataList;
         this.mListener = mListener;
@@ -36,7 +42,7 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getGroupCount() {
-        Log.d("listSize", String.valueOf(dataList.size()));
+
         return dataList.size();
     }
 
@@ -52,7 +58,7 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return dataList.get(groupPosition).getDiningList();
+        return dataList.get(groupPosition).getDiningList().get(childPosition);
     }
 
     @Override
@@ -79,6 +85,13 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter {
             convertView = layoutInflater.inflate(R.layout.dining_menu_heading, null);
         }
 
+        View lyt_view = convertView.findViewById(R.id.lyt_view);
+
+
+        if (groupPosition==0){
+            lyt_view.setVisibility(View.GONE);
+        }
+
         TextView title = convertView.findViewById(R.id.tv_dining_menu_title);
 
         title.setText(dataList.get(groupPosition).getTitle());
@@ -90,7 +103,7 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        final List<Dining__1> expandedListText = (List<Dining__1>) getChild(groupPosition,childPosition);
+        final Dining__1 expandedListText = (Dining__1) getChild(groupPosition,childPosition);
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -104,39 +117,94 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter {
         TextView tv_quantity = convertView.findViewById(R.id.tv_quantity);
         ImageView img_add = convertView.findViewById(R.id.img_add);
         ImageView img_remove = convertView.findViewById(R.id.img_remove);
-        RelativeLayout lyt_view = convertView.findViewById(R.id.lyt_view);
+        RelativeLayout lyt_desc = convertView.findViewById(R.id.lyt_desc);
+        lyt_desc.setVisibility(View.GONE);
 
-        if (expandedListText.get(childPosition).getItemType().equals("Veg")) {
+        CardView lyt_counter = convertView.findViewById(R.id.lyt_counter);
+        CardView lyt_add = convertView.findViewById(R.id.lyt_add);
+        TextView bt_add = convertView.findViewById(R.id.bt_add);
+
+
+        if (dataList.get(groupPosition).getDiningList().get(childPosition).getCount() == 0){
+            lyt_add.setVisibility(View.VISIBLE);
+            lyt_counter.setVisibility(View.GONE);
+        }else{
+            lyt_add.setVisibility(View.GONE);
+            lyt_counter.setVisibility(View.VISIBLE);
+        }
+
+        bt_add.setOnClickListener(v -> {
+            dataList.get(groupPosition).getDiningList().get(childPosition).setCount(expandedListText.getCount() + 1);
+            tv_quantity.setText(Integer.toString(dataList.get(groupPosition).getDiningList().get(childPosition).getCount()));
+            mListener.onItemClicked(dataList.get(groupPosition));
+            pushData(dataList);
+            lyt_add.setVisibility(View.GONE);
+            lyt_counter.setVisibility(View.VISIBLE);
+        });
+
+        if (dataList.get(groupPosition).getDiningList().get(childPosition).getItemType().equals("Veg")) {
             img_veg_or_nonveg.setImageDrawable(mContext.getResources().getDrawable(icon_veg));
         }else {
             img_veg_or_nonveg.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_nonveg));
         }
 
-        /*if (expandedListText.get(childPosition).getDescription().isEmpty()){
-            dining_menu_desc.setVisibility(View.GONE);
+        if (dataList.get(groupPosition).getDiningList().get(childPosition).getDescription() !=null &&  !dataList.get(groupPosition).getDiningList().get(childPosition).getDescription().isEmpty()){
+
+            lyt_desc.setVisibility(View.VISIBLE);
+            dining_menu_desc.setVisibility(View.VISIBLE);
+            dining_menu_desc.setText(dataList.get(groupPosition).getDiningList().get(childPosition).getDescription());
+
+
+
         }else {
-            dining_menu_desc.setText(expandedListText.get(childPosition).getDescription());
-        }*/
-        sub_heading.setText(expandedListText.get(childPosition).getTitle());
-        dining_menu_price.setText("₹"+" "+expandedListText.get(childPosition).getPrice());
-        dining_menu_desc.setText(expandedListText.get(childPosition).getDescription());
-        tv_quantity.setText(Integer.toString(expandedListText.get(childPosition).getCount()));
+            dining_menu_desc.setVisibility(View.GONE);
+            lyt_desc.setVisibility(View.GONE);
+        }
+
+
+
+        sub_heading.setText(dataList.get(groupPosition).getDiningList().get(childPosition).getTitle());
+        dining_menu_price.setText("₹"+" "+dataList.get(groupPosition).getDiningList().get(childPosition).getPrice());
+       /* dining_menu_desc.setText(dataList.get(groupPosition).getDiningList().get(childPosition).getDescription());*/
+        tv_quantity.setText(Integer.toString(dataList.get(groupPosition).getDiningList().get(childPosition).getCount()));
 
         img_add.setOnClickListener(v -> {
-            expandedListText.get(childPosition).setCount( expandedListText.get(childPosition).getCount()+1);
-            tv_quantity.setText(Integer.toString(expandedListText.get(childPosition).getCount()));
-            mListener.onItemClicked(groupPosition,childPosition);
+            dataList.get(groupPosition).getDiningList().get(childPosition).setCount( dataList.get(groupPosition).getDiningList().get(childPosition).getCount()+1);
+            tv_quantity.setText(Integer.toString(dataList.get(groupPosition).getDiningList().get(childPosition).getCount()));
+            pushData(dataList);
+
+           mListener.onItemClicked(dataList.get(groupPosition));
+
         });
 
         img_remove.setOnClickListener(v -> {
-            if (expandedListText.get(childPosition).getCount()>0){
-                expandedListText.get(childPosition).setCount( expandedListText.get(childPosition).getCount()-1);
-                tv_quantity.setText(Integer.toString(expandedListText.get(childPosition).getCount()));
-                mListener.onItemClicked(groupPosition,childPosition);
+            if (dataList.get(groupPosition).getDiningList().get(childPosition).getCount() == 1) {
+                lyt_add.setVisibility(View.VISIBLE);
+                lyt_counter.setVisibility(View.GONE);
+                dataList.get(groupPosition).getDiningList().get(childPosition).setCount(dataList.get(groupPosition).getDiningList().get(childPosition).getCount() - 1);
+                mListener.onItemClicked(dataList.get(groupPosition));
+                pushData(dataList);
+            }else
+            if (dataList.get(groupPosition).getDiningList().get(childPosition).getCount()>0){
+                dataList.get(groupPosition).getDiningList().get(childPosition).setCount( dataList.get(groupPosition).getDiningList().get(childPosition).getCount()-1);
+                tv_quantity.setText(Integer.toString(dataList.get(groupPosition).getDiningList().get(childPosition).getCount()));
+                pushData(dataList);
+
+                mListener.onItemClicked(dataList.get(groupPosition));
+
             }
         });
 
         return convertView;
+    }
+
+    private void pushData(List<Data> dataList) {
+
+        Set<Data> set = new HashSet<>(dataList);
+        Gson gson = new Gson();
+        String json = gson.toJson(set);
+        GlobalClass.editor.putString("Dining", json);
+        GlobalClass.editor.commit();
     }
 
     @Override

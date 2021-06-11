@@ -81,6 +81,9 @@ public class SplashActivity extends Activity {
     protected void onResume() {
         super.onResume();
         // Creates instance of the manager.
+
+
+
         if (GlobalClass.APPDATA.isEmpty()) {
             if (!haveNetworkConnection()) {
                 ShowAlet("No Internet Connection", "Turn on your internet and continue");

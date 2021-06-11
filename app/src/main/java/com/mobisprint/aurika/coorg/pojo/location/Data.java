@@ -6,9 +6,22 @@ import com.google.gson.annotations.SerializedName;
 
 public class Data {
 
+    @SerializedName("location_status")
+    @Expose
+    private String location_status;
+
     @SerializedName("id")
     @Expose
     private Integer id;
+
+    public String getLocation_status() {
+        return location_status;
+    }
+
+    public void setLocation_status(String location_status) {
+        this.location_status = location_status;
+    }
+
     @SerializedName("title")
     @Expose
     private String title;

@@ -5,6 +5,18 @@
     android:background="#f5efe4"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_centerInParent="true"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:indeterminate="true"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/ll_conent"

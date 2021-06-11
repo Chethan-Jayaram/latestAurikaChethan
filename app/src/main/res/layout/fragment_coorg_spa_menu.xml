@@ -6,12 +6,53 @@
     android:background="@color/white"
     tools:context=".coorg.fragments.spa.CoorgSpaMenu">
 
-   <ExpandableListView
-       android:layout_marginTop="@dimen/dimen_10"
-       android:divider="@null"
-       android:groupIndicator="@null"
+
+
+      <ProgressBar
+          android:visibility="gone"
+          android:id="@+id/progress_bar"
+          android:layout_centerInParent="true"
+          android:layout_width="60dp"
+          android:layout_height="60dp"
+          android:indeterminate="true"/>
+
+
+   <RelativeLayout
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:id="@+id/coorg_spa_menu_recyclerview"/>
+       android:layout_height="match_parent"
+      android:id="@+id/lyt">
+
+      <ExpandableListView
+          android:divider="@null"
+          android:groupIndicator="@null"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_above="@+id/bt_request_appointment"
+          android:id="@+id/coorg_spa_menu_recyclerview"/>
+
+      <Button
+          android:layout_marginTop="@dimen/dimen_10"
+          android:layout_alignParentBottom="true"
+          android:gravity="center"
+          android:layout_gravity="bottom"
+          android:id="@+id/bt_request_appointment"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@drawable/btn_background"
+          android:layout_marginLeft="@dimen/dimen_20"
+          android:layout_marginRight="@dimen/dimen_20"
+          android:fontFamily="@font/notoseriftc__medium"
+          android:includeFontPadding="false"
+          android:textAllCaps="false"
+          android:layout_marginBottom="@dimen/dimen_10"
+          android:text="Request appointment"
+          android:lineSpacingExtra="@dimen/dimen_11"
+          android:textColor="@color/white"
+          android:textSize="18sp" />
+
+   </RelativeLayout>
+
+
+
 
 </RelativeLayout>

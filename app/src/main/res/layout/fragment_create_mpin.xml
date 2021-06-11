@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_20"
-            android:fontFamily="@font/notoseriftc__medium"
+            android:fontFamily="@font/notoseriftc_semibold"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="Set your M-PIN"
@@ -31,10 +31,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_20"
-            android:fontFamily="@font/notoseriftc__medium"
+            android:fontFamily="@font/notoseriftc_semibold"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="Create M-pin?"
+            android:text="Create M-PIN?"
             android:textColor="#420052"
             android:textStyle="bold"
             android:textSize="16sp" />
@@ -46,27 +46,27 @@
             android:orientation="horizontal">
 
             <EditText
-                android:fontFamily="@font/notoseriftc__medium"
-                android:includeFontPadding="false"
-                android:textCursorDrawable="@color/black"
-                android:textColor="@color/black"
-                android:textSize="20sp"
                 android:id="@+id/et1_one"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
+                android:fontFamily="@font/notosanstc_medium"
+                android:includeFontPadding="false"
                 android:inputType="number"
                 android:maxLength="1"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textCursorDrawable="@color/black"
+                android:textSize="20sp" />
 
             <EditText
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notosanstc_medium"
                 android:id="@+id/et1_two"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
@@ -82,7 +82,7 @@
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notosanstc_medium"
                 android:id="@+id/et1_three"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
@@ -98,7 +98,7 @@
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notosanstc_medium"
                 android:id="@+id/et1_four"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
@@ -115,10 +115,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_10"
-            android:fontFamily="@font/notoseriftc__medium"
+            android:fontFamily="@font/notoseriftc_semibold"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="Retype M-pin?"
+            android:text="Retype M-PIN?"
             android:textColor="#420052"
             android:textStyle="bold"
             android:textSize="16sp" />
@@ -130,7 +130,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notosanstc_medium"
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
@@ -150,7 +150,7 @@
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notosanstc_medium"
                 android:id="@+id/et2_two"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
@@ -166,7 +166,7 @@
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notosanstc_medium"
                 android:id="@+id/et2_three"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
@@ -182,7 +182,7 @@
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notosanstc_medium"
                 android:id="@+id/et2_four"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
@@ -211,7 +211,6 @@
             android:text="CONFIRM"
             android:lineSpacingExtra="@dimen/dimen_11"
             android:textColor="@color/white"
-            android:letterSpacing="0.1"
             android:textSize="18sp" />
 
 

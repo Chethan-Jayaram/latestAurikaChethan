@@ -54,8 +54,8 @@
             android:layout_marginLeft="@dimen/dimen_8"
             android:layout_marginRight="@dimen/dimen_8"
             android:layout_marginBottom="@dimen/dimen_10"
-            android:background="@color/btn_color"
-            android:fontFamily="@font/notoseriftc_regular"
+            android:background="@drawable/button_corner_radius"
+            android:fontFamily="@font/notoseriftc__medium"
             android:includeFontPadding="false"
             android:textAllCaps="false"
             android:text="Reserve a table"
@@ -65,14 +65,13 @@
 
         <RelativeLayout
 
-            android:paddingStart="@dimen/dimen_10"
-            android:paddingBottom="@dimen/dimen_10"
-            android:background="#BBAF98"
+            android:padding="@dimen/dimen_5"
+            android:background="#d1c2aa "
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_alignLeft="@+id/lyt_time"
+                android:layout_toLeftOf="@+id/lyt_time"
                 android:layout_marginRight="@dimen/dimen_10"
                 android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
@@ -80,10 +79,10 @@
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_5"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="@dimen/dimen_1"
-                android:fontFamily="@font/notoseriftc_regular"
-                android:gravity="center_vertical"
+                android:fontFamily="@font/notosanstc_bold"
                 android:includeFontPadding="false"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
@@ -101,6 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/dimen_2"
                     android:gravity="center_vertical"
                     android:src="@drawable/icon_clock" />
 
@@ -110,15 +110,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dimen_2"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/notoseriftc_regular"
+                    android:fontFamily="@font/notoseriftc_bold"
                     android:layout_margin="@dimen/dimen_1"
                     android:textSize="12sp" />
 
                 <TextView
-                    android:fontFamily="@font/notoseriftc_regular"
+                    android:fontFamily="@font/notoseriftc_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="to"
+                    android:layout_gravity="center"
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     android:layout_marginLeft="@dimen/dimen_2"
@@ -129,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/notoseriftc_regular"
+                    android:fontFamily="@font/notoseriftc_bold"
                     android:layout_margin="@dimen/dimen_1"
                     android:textSize="12sp" />
 

@@ -3,6 +3,7 @@ package com.mobisprint.aurika.coorg.fragments.recreationalfacilities;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mobisprint.aurika.R;
@@ -35,6 +37,9 @@ public class RecreationalFacilities extends Fragment implements ApiListner {
     private Context mContext;
     private TextView toolbar_title;
     private ImageView img_back;
+    private CoordinatorLayout coordinatorLayout;
+    private ProgressBar progressBar;
+
 
 
 
@@ -44,29 +49,48 @@ public class RecreationalFacilities extends Fragment implements ApiListner {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recreational_facilities, container, false);
 
-        recreational_recycler = view.findViewById(R.id.coorg_recreation_recycler);
-        controller = new RecreationalFacilitiesController(this);
-        mContext = getContext();
-        controller.getRecreationalFacilities();
-        toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+        try {
+            recreational_recycler = view.findViewById(R.id.coorg_recreation_recycler);
+            controller = new RecreationalFacilitiesController(this);
+            mContext = getContext();
 
-        img_back = getActivity().findViewById(R.id.naviagation_hamberger);
-        img_back.setVisibility(View.VISIBLE);
+            coordinatorLayout = view.findViewById(R.id.lyt);
+            coordinatorLayout.setVisibility(View.GONE);
 
-        Bundle bundle = getArguments();
+            progressBar = view.findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.GONE);
 
-        toolbar_title.setText(bundle.getString("title"));
 
+            controller.getRecreationalFacilities();
+            toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+
+            img_back = getActivity().findViewById(R.id.naviagation_hamberger);
+            img_back.setVisibility(View.VISIBLE);
+
+
+
+            Bundle bundle = getArguments();
+
+            toolbar_title.setText(bundle.getString("title"));
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return view;
+
     }
 
     @Override
     public void onFetchProgress() {
+        progressBar.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
+        progressBar.setVisibility(View.GONE);
+        coordinatorLayout.setVisibility(View.VISIBLE);
 
         if (response != null){
 
@@ -82,6 +106,7 @@ public class RecreationalFacilities extends Fragment implements ApiListner {
 
     @Override
     public void onFetchError(String error) {
+       progressBar.setVisibility(View.GONE);
 
         GlobalClass.ShowAlert(getContext(), "Alert", error);
 

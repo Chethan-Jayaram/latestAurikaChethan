@@ -3,6 +3,7 @@ package com.mobisprint.aurika.coorg.fragments.sightseeing;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -36,26 +38,43 @@ public class CoorgSightSeeing extends Fragment implements ApiListner {
     private CoorgSightSeeingController controller;
     private Context mContext;
     private ImageView img_back;
+    private CoordinatorLayout coordinatorLayout;
+    private ProgressBar progressBar;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
        View view = inflater.inflate(R.layout.fragment_coorg_sight_seeing, container, false);
 
-       tv_sight_seeing_desc = view.findViewById(R.id.tv_sight_seeing_desc);
-       sight_seeing_recycler = view.findViewById(R.id.sight_seeing_recycler);
-       bt_sight_seeing_call_back = view.findViewById(R.id.bt_sight_seeing_call_back);
-       controller = new CoorgSightSeeingController(this);
-       toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-       mContext = getContext();
-        img_back = getActivity().findViewById(R.id.naviagation_hamberger);
-        img_back.setVisibility(View.VISIBLE);
+       try {
+
+           tv_sight_seeing_desc = view.findViewById(R.id.tv_sight_seeing_desc);
+           sight_seeing_recycler = view.findViewById(R.id.sight_seeing_recycler);
+           bt_sight_seeing_call_back = view.findViewById(R.id.bt_sight_seeing_call_back);
+           controller = new CoorgSightSeeingController(this);
+           toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+           mContext = getContext();
+           img_back = getActivity().findViewById(R.id.naviagation_hamberger);
+           img_back.setVisibility(View.VISIBLE);
+
+           coordinatorLayout = view.findViewById(R.id.lyt);
+           coordinatorLayout.setVisibility(View.GONE);
+
+           progressBar = view.findViewById(R.id.progress_bar);
+           progressBar.setVisibility(View.GONE);
 
 
-       Bundle bundle = getArguments();
-       toolbar_title.setText(bundle.getString("title"));
+           Bundle bundle = getArguments();
+           toolbar_title.setText(bundle.getString("title"));
 
-       controller.getSightSeeing();
+           controller.getSightSeeing();
+
+
+       }catch (Exception e){
+           e.printStackTrace();
+       }
+
 
 
         return view;
@@ -64,10 +83,15 @@ public class CoorgSightSeeing extends Fragment implements ApiListner {
     @Override
     public void onFetchProgress() {
 
+        progressBar.setVisibility(View.VISIBLE);
+
     }
 
     @Override
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
+
+        progressBar.setVisibility(View.GONE);
+        coordinatorLayout.setVisibility(View.VISIBLE);
 
         if (response!= null){
 
@@ -87,6 +111,8 @@ public class CoorgSightSeeing extends Fragment implements ApiListner {
 
     @Override
     public void onFetchError(String error) {
+
+        progressBar.setVisibility(View.GONE);
 
         GlobalClass.ShowAlert(getContext(),"Alert",error);
 

@@ -22,7 +22,7 @@
             android:layout_marginLeft="@dimen/dimen_60"
             android:layout_marginRight="@dimen/dimen_60"
             android:layout_marginTop="@dimen/dimen_30"
-            android:fontFamily="@font/notoseriftc__medium"
+            android:fontFamily="@font/notoseriftc_semibold"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="Please enter the 6 digit verification code sent to you"
@@ -39,7 +39,7 @@
 
             <EditText
                 android:layout_margin="@dimen/dimen_5"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notosanstc_medium"
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
@@ -59,7 +59,7 @@
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notosanstc_medium"
                 android:id="@+id/et_two"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
@@ -75,7 +75,7 @@
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notosanstc_medium"
                 android:id="@+id/et_three"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
@@ -91,7 +91,7 @@
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notosanstc_medium"
                 android:id="@+id/et_four"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
@@ -107,7 +107,7 @@
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notosanstc_medium"
                 android:id="@+id/et_five"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
@@ -123,7 +123,7 @@
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notosanstc_medium"
                 android:id="@+id/et_six"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
@@ -135,6 +135,7 @@
 
         </LinearLayout>
 
+<!--
 
         <TextView
             android:layout_gravity="center"
@@ -145,24 +146,52 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="Didn't recieve the verification code?"
-            android:textColor="#373737"
+            android:textColor="@color/custom_purple"
             android:textStyle="bold"
             android:textSize="16sp" />
+-->
 
-        <TextView
-            android:layout_width="wrap_content"
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="@dimen/dimen_40"
-            android:fontFamily="@font/notoseriftc__medium"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:padding="@dimen/dimen_10"
-            android:text="Resend Code"
-            android:textColor="#420052"
-            android:textSize="16sp"
-            android:textStyle="normal" />
+            android:layout_marginTop="@dimen/dimen_30"
+            android:layout_marginBottom="@dimen/dimen_40">
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_resend_otp"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/notosanstc_medium"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_10"
+                android:text="Resend OTP"
+                android:textColor="#420052"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <TextView
+
+                android:id="@+id/tv_resend_otp_timer"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/notosanstc_medium"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_10"
+                android:textColor="#420052"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+        </RelativeLayout>
+
+
 
     </LinearLayout>
 

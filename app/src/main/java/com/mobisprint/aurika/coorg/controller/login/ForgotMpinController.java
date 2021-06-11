@@ -20,12 +20,13 @@ public class ForgotMpinController {
     }
 
 
-    public void isEmailSelected() {
-        if (isEmailSelected){
+    public void isEmailSelected(Boolean check) {
+       /* if (isEmailSelected){
             isEmailSelected = false;
         }else {
             isEmailSelected = true;
-        }
+        }*/
+        isEmailSelected = check;
     }
 
     public void getOtp(String country_code, String ph_num, String android_id) {

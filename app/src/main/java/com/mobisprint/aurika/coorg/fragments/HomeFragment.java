@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mobisprint.aurika.R;
@@ -38,9 +39,10 @@ public class HomeFragment extends Fragment implements ApiListner {
     private TextView toolbar_title;
     private HomeFragmentController controller;
     private Context mContext;
+    private LinearLayout lyt;
+    private ProgressBar progressBar;
 
 
-    private LinearLayout ll_conent;
     private ImageView img_view, img_bck;
 
 
@@ -54,6 +56,10 @@ try {
     img_view = view.findViewById(R.id.img_view);
     img_view.setImageResource(R.drawable.homescreenbanner);
     controller = new HomeFragmentController(this);
+    lyt = view.findViewById(R.id.ll_conent);
+    progressBar = view.findViewById(R.id.progress_bar);
+    progressBar.setVisibility(View.GONE);
+    lyt.setVisibility(View.GONE);
     mContext = getContext();
     img_bck = getActivity().findViewById(R.id.naviagation_hamberger);
     img_bck.setVisibility(View.INVISIBLE);
@@ -69,11 +75,14 @@ try {
 
     @Override
     public void onFetchProgress() {
+        progressBar.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
+        progressBar.setVisibility(View.GONE);
+        lyt.setVisibility(View.VISIBLE);
 
         if (response!= null) {
             try {
@@ -84,7 +93,6 @@ try {
 
 
                     try {
-                        Log.d("route_nme", homeList.get(Position).getMobileRoute().getRouteName());
 
                         Class<?> className = Class.forName(RouteName.getHomeScreenRoutes(homeList.get(Position).getMobileRoute().getRouteName()));
                         Log.d("classname", className.getName());
@@ -113,6 +121,8 @@ try {
 
     @Override
     public void onFetchError(String error) {
+        progressBar.setVisibility(View.GONE);
+        GlobalClass.ShowAlert(mContext,"Alert",error);
 
     }
 }

@@ -57,6 +57,7 @@ public class LoginFragment extends Fragment implements ApiListner {
             et_four = view.findViewById(R.id.et_4);
             android_id = GlobalClass.prefix + GlobalClass.android_id + GlobalClass.suffix;
 
+            GlobalClass.Forgot_Mpin = true;
 
             loginController = new LoginController(this);
 

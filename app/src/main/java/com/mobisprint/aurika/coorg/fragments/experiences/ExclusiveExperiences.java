@@ -3,6 +3,7 @@ package com.mobisprint.aurika.coorg.fragments.experiences;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mobisprint.aurika.R;
@@ -21,6 +23,7 @@ import com.mobisprint.aurika.coorg.pojo.experiences.Data;
 import com.mobisprint.aurika.coorg.pojo.experiences.Experiences;
 import com.mobisprint.aurika.coorg.pojo.home.Home;
 import com.mobisprint.aurika.helper.ApiListner;
+import com.mobisprint.aurika.helper.GlobalClass;
 
 import java.util.List;
 
@@ -35,6 +38,9 @@ public class ExclusiveExperiences extends Fragment implements ApiListner {
     private Context mContext;
     private ExclusiveExperiencesController controller;
     private ImageView img_back;
+    private CoordinatorLayout coordinatorLayout;
+    private ProgressBar progressBar;
+
 
 
     @Override
@@ -49,6 +55,12 @@ public class ExclusiveExperiences extends Fragment implements ApiListner {
        toolbar_title = getActivity().findViewById(R.id.toolbar_title);
        img_back = getActivity().findViewById(R.id.naviagation_hamberger);
        img_back.setVisibility(View.VISIBLE);
+
+       coordinatorLayout = view.findViewById(R.id.lyt);
+       coordinatorLayout.setVisibility(View.GONE);
+
+       progressBar = view.findViewById(R.id.progress_bar);
+       progressBar.setVisibility(View.GONE);
 
 
        Bundle bundle = getArguments();
@@ -67,10 +79,15 @@ public class ExclusiveExperiences extends Fragment implements ApiListner {
     @Override
     public void onFetchProgress() {
 
+        progressBar.setVisibility(View.VISIBLE);
+
     }
 
     @Override
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
+
+        progressBar.setVisibility(View.GONE);
+        coordinatorLayout.setVisibility(View.VISIBLE);
 
         if (response!=null){
             Experiences experiences = (Experiences) response.body();
@@ -85,6 +102,9 @@ public class ExclusiveExperiences extends Fragment implements ApiListner {
 
     @Override
     public void onFetchError(String error) {
+
+        progressBar.setVisibility(View.GONE);
+        GlobalClass.ShowAlert(mContext,"Alert",error);
 
     }
 }

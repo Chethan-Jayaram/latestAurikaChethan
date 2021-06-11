@@ -38,13 +38,23 @@ public class SpaDropDownAdapter extends RecyclerView.Adapter<SpaDropDownAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.spa_heading.setText(spaList.get(position).getTitle());
-        holder.spa_time.setText("("+spaList.get(position).getDuration()+")");
-        holder.spa_price.setText("₹"+" "+spaList.get(position).getPrice());
+        if (spaList.get(position).getPrice() == null || spaList.get(position).getPrice().isEmpty() || spaList.get(position).getPrice().equals("0.00")){
+            holder.spa_price.setVisibility(View.GONE);
+        }
 
-        holder.lyt_select_therapy.setOnClickListener(v -> {
-            mListener.onItemClicked(position);
-        });
+        if (spaList.get(position).getDuration() == null || spaList.get(position).getDuration().isEmpty() || spaList.get(position).getDuration().equals("0")){
+            holder.spa_time.setVisibility(View.GONE);
+        }
+            holder.spa_heading.setText(spaList.get(position).getTitle());
+            holder.spa_time.setText("("+spaList.get(position).getDuration()+ " mins"+")");
+            holder.spa_price.setText("₹"+" "+spaList.get(position).getPrice());
+
+            holder.lyt_select_therapy.setOnClickListener(v -> {
+                mListener.onItemClicked(position);
+            });
+
+
+
 
 
     }

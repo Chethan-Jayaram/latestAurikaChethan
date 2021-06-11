@@ -8,19 +8,26 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.pojo.dining.Data;
 import com.mobisprint.aurika.helper.GlobalClass;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class InRoomDiningAdapter extends RecyclerView.Adapter<InRoomDiningAdapter.ViewHolder> {
     private Context mContext;
     private List<Data> dataList;
     private GlobalClass.AdapterListener mListener;
-    public InRoomDiningAdapter(Context mContext, List<Data> dataList,GlobalClass.AdapterListener mListener) {
+    DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+
+    public InRoomDiningAdapter(Context mContext, List<Data> dataList, GlobalClass.AdapterListener mListener) {
         this.mContext = mContext;
         this.dataList = dataList;
         this.mListener = mListener;
@@ -29,7 +36,7 @@ public class InRoomDiningAdapter extends RecyclerView.Adapter<InRoomDiningAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.single_item_main_screen,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_item_main_screen, parent, false);
 
         return new ViewHolder(view);
     }
@@ -37,10 +44,18 @@ public class InRoomDiningAdapter extends RecyclerView.Adapter<InRoomDiningAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+
         holder.title.setText(dataList.get(position).getTitle());
         holder.select.setOnClickListener(view -> {
             mListener.onItemClicked(position);
         });
+
+        if (!GlobalClass.timeComparator(dataList.get(position).getFromTime(), dataList.get(position).getToTime())) {
+            holder.select.setClickable(false);
+            holder.select.getBackground().setAlpha(175);
+        }
+
+
     }
 
     @Override
@@ -52,6 +67,7 @@ public class InRoomDiningAdapter extends RecyclerView.Adapter<InRoomDiningAdapte
 
         TextView title;
         RelativeLayout select;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

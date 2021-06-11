@@ -4,7 +4,6 @@
     <!-- Background Color -->
     <solid android:color="#1e0028" />
 
-
     <!-- Round Corners -->
     <corners android:radius="10dp" />
 

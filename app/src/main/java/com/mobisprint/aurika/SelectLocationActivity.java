@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,6 +27,8 @@ public class SelectLocationActivity extends AppCompatActivity implements ApiList
 
     private RecyclerView location_recyclerview;
     private SelectLocationAdapter selectLocationAdapter;
+    private LinearLayout lyt;
+    private ProgressBar progress_bar;
 
     private EditText txt_location;
     private ImageView txt_search_loaction;
@@ -52,6 +55,10 @@ public class SelectLocationActivity extends AppCompatActivity implements ApiList
             img_notification = findViewById(R.id.img_notification);
             toolbar_title = findViewById(R.id.toolbar_title);
             lyt_notification = findViewById(R.id.lyt_notification);
+            lyt = findViewById(R.id.lyt);
+            progress_bar = findViewById(R.id.progress_bar);
+            progress_bar.setVisibility(View.GONE);
+            lyt.setVisibility(View.GONE);
 
             lyt_notification.setVisibility(View.GONE);
 
@@ -63,8 +70,7 @@ public class SelectLocationActivity extends AppCompatActivity implements ApiList
             toolbar_title.setGravity(Gravity.CENTER);
 
 
-            progressBar = findViewById(R.id.progressbar);
-            progressBar.setVisibility(View.VISIBLE);
+
             controller.getLocations();
 
 
@@ -76,16 +82,19 @@ public class SelectLocationActivity extends AppCompatActivity implements ApiList
 
     @Override
     public void onFetchProgress() {
-        progressBar.setVisibility(View.VISIBLE);
+        lyt.setVisibility(View.GONE);
+        progress_bar.setVisibility(View.VISIBLE);
         Log.d("onProgress","progress");
     }
 
 
     @Override
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
+
+        lyt.setVisibility(View.VISIBLE);
+        progress_bar.setVisibility(View.GONE);
         Log.d("onCompleted","Completed");
         if(response!=null){
-            progressBar.setVisibility(View.GONE);
             SelectLocation selectLocation= (SelectLocation) response.body();
             selectLocationAdapter = new SelectLocationAdapter(this,selectLocation.getData());
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -97,7 +106,7 @@ public class SelectLocationActivity extends AppCompatActivity implements ApiList
 
     @Override
     public void onFetchError(String error) {
-        progressBar.setVisibility(View.GONE);
+        progress_bar.setVisibility(View.GONE);
         Log.d("onerror",error);
         GlobalClass.ShowAlert(this,"Alert",error);
     }

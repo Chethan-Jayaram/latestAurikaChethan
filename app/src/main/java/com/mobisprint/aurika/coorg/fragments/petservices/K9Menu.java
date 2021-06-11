@@ -2,6 +2,7 @@ package com.mobisprint.aurika.coorg.fragments.petservices;
 
 import android.os.Bundle;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mobisprint.aurika.R;
@@ -39,6 +41,8 @@ public class K9Menu extends Fragment implements ApiListner {
     private ImageView img_back;
 
     private K9MenuController controller;
+    private CoordinatorLayout lyt;
+    private ProgressBar progressBar;
 
 
     private Integer items_count = 0;
@@ -63,6 +67,10 @@ public class K9Menu extends Fragment implements ApiListner {
         tv_num_of_items = view.findViewById(R.id.tv_num_items);
         tv_total_price = view.findViewById(R.id.tv_total_price);
         view_order = view.findViewById(R.id.view_order);
+        progressBar = view.findViewById(R.id.progress_bar);
+        lyt = view.findViewById(R.id.lyt);
+        progressBar.setVisibility(View.GONE);
+        lyt.setVisibility(View.GONE);
 
 
         Bundle bundle = getArguments();
@@ -102,11 +110,14 @@ public class K9Menu extends Fragment implements ApiListner {
 
     @Override
     public void onFetchProgress() {
+        progressBar.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
+        progressBar.setVisibility(View.GONE);
+        lyt.setVisibility(View.VISIBLE);
         if (response!= null){
 
             PetServices services = (PetServices) response.body();
@@ -159,6 +170,7 @@ public class K9Menu extends Fragment implements ApiListner {
 
     @Override
     public void onFetchError(String error) {
+        progressBar.setVisibility(View.GONE);
 
         GlobalClass.ShowAlert(getContext(),"Alert",error);
 

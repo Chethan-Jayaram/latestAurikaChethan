@@ -1,66 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
+    android:fillViewport="true"
     android:layout_height="match_parent">
 
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <!--  app:contentScrim : The Toolbar color when the
-              collapsing toolbar is collapsed. -->
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar_layout"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progress_bar"
+            android:layout_centerInParent="true"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:indeterminate="true"/>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_above="@id/selected_items"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:id="@+id/lyt">
 
-            <!-- app:layout_collapseMode : parallax means an animation effect,
-                 pin means fixed. -->
-
-            <TextView
-                android:id="@+id/tv_amenities_desc"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="#f5efe4"
-                android:fontFamily="@font/notosanstc_light"
-                android:gravity="bottom"
-                android:includeFontPadding="false"
-                android:padding="@dimen/dimen_20"
-                android:scaleType="centerCrop"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                app:layout_anchor="@+id/appBarLayout"
-                app:layout_anchorGravity="center"
-                app:layout_collapseMode="parallax" />
+                android:layout_height="wrap_content">
+                <!--  app:contentScrim : The Toolbar color when the
+                      collapsing toolbar is collapsed. -->
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/collapsing_toolbar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                    <!-- app:layout_collapseMode : parallax means an animation effect,
+                         pin means fixed. -->
 
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+                    <TextView
+                        android:id="@+id/tv_amenities_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:background="#f5efe4"
+                        android:fontFamily="@font/notosanstc_light"
+                        android:gravity="bottom"
+                        android:includeFontPadding="false"
+                        android:padding="@dimen/dimen_20"
+                        android:scaleType="centerCrop"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        app:layout_anchor="@+id/appBarLayout"
+                        app:layout_anchorGravity="center"
+                        app:layout_collapseMode="parallax" />
 
 
-    </com.google.android.material.appbar.AppBarLayout>
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/appBarLayout"
-        android:layout_above="@+id/cart"
-        android:id="@+id/amenities_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dimen_10"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </com.google.android.material.appbar.AppBarLayout>
 
 
-    <include
-        android:id="@+id/cart"
-        android:layout_alignParentBottom="true"
-        layout="@layout/num_of_item_selected"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom" />
+            <androidx.core.widget.NestedScrollView
+                android:layout_above="@+id/selected_items"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:fillViewport="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-</RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_below="@+id/appBarLayout"
+                    android:layout_above="@+id/cart"
+                    android:id="@+id/amenities_recycler"
+                    android:nestedScrollingEnabled="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            </androidx.core.widget.NestedScrollView>
+
+
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <include
+            android:id="@+id/selected_items"
+            layout="@layout/num_of_item_selected"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom" />
+
+    </RelativeLayout>
+
+
+
+
+
+
+</ScrollView>

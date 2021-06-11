@@ -3,6 +3,7 @@ package com.mobisprint.aurika.coorg.fragments.petservices;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mobisprint.aurika.R;
@@ -32,6 +35,8 @@ public class K9Facilities extends Fragment implements ApiListner {
     private TextView toolbar_title,tv_k9_facilities_desc;
     private ImageView img_back;
     private Context mContext;
+    private CoordinatorLayout lyt;
+    private ProgressBar progressBar;
 
 
 
@@ -48,7 +53,10 @@ public class K9Facilities extends Fragment implements ApiListner {
         img_back.setVisibility(View.VISIBLE);
         tv_k9_facilities_desc = view.findViewById(R.id.tv_k9_facilities_desc);
         mContext = getContext();
-
+        lyt= view.findViewById(R.id.lyt);
+        progressBar = view.findViewById(R.id.progress_bar);
+        lyt.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
        toolbar_title = getActivity().findViewById(R.id.toolbar_title);
 
        Bundle bundle =getArguments();
@@ -64,11 +72,14 @@ public class K9Facilities extends Fragment implements ApiListner {
 
     @Override
     public void onFetchProgress() {
+        progressBar.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
+        progressBar.setVisibility(View.GONE);
+        lyt.setVisibility(View.VISIBLE);
         if (response!= null){
 
             PetServices services = (PetServices) response.body();
@@ -83,6 +94,7 @@ public class K9Facilities extends Fragment implements ApiListner {
 
     @Override
     public void onFetchError(String error) {
+        progressBar.setVisibility(View.GONE);
 
         GlobalClass.ShowAlert(getContext(),"Alert",error);
     }

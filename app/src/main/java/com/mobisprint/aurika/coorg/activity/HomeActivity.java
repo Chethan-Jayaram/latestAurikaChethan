@@ -7,10 +7,10 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
@@ -18,6 +18,7 @@ import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.adapter.NavigationAdapter;
 import com.mobisprint.aurika.coorg.controller.HomeActivityController;
 import com.mobisprint.aurika.coorg.fragments.HomeFragment;
+import com.mobisprint.aurika.coorg.fragments.ProfileFragment;
 import com.mobisprint.aurika.coorg.pojo.navigation.Data;
 import com.mobisprint.aurika.coorg.pojo.navigation.Navigation;
 import com.mobisprint.aurika.helper.ApiListner;
@@ -35,8 +36,10 @@ public class HomeActivity extends AppCompatActivity implements ApiListner  {
     private NavigationView navigationView;
     private DrawerLayout drawer;
     public ActionBarDrawerToggle actionBarDrawerToggle;
-    public TextView coorg_toolbar_title;
+    public TextView coorg_toolbar_title,tv_my_profile;
     public ImageView bt_bck;
+    private RelativeLayout lyt_profile;
+    private boolean status= true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,11 @@ public class HomeActivity extends AppCompatActivity implements ApiListner  {
         setContentView(R.layout.activity_home);
         controller = new HomeActivityController(this);
         mContext = getApplicationContext();
+        navigationView = findViewById(R.id.nav_view);
+        drawer = findViewById(R.id.drawer_layout);
+        lyt_profile = findViewById(R.id.lyt_profile);
+        tv_my_profile = findViewById(R.id.tv_my_profile);
+        tv_my_profile.setVisibility(View.GONE);
 
         coorg_toolbar_title = findViewById(R.id.toolbar_title);
 
@@ -54,6 +62,26 @@ public class HomeActivity extends AppCompatActivity implements ApiListner  {
         bt_bck.setOnClickListener(v -> {
             onClicked();
         });
+
+        lyt_profile.setOnClickListener(v -> {
+
+            if (status){
+                tv_my_profile.setVisibility(View.VISIBLE);
+                status =false;
+            }else{
+                tv_my_profile.setVisibility(View.GONE);
+                status =true;
+            }
+
+        });
+
+        tv_my_profile.setOnClickListener(v -> {
+            Fragment fragment = new ProfileFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
+            drawer.closeDrawers();
+
+        });
+
 
 
         navigation_expandableListView = findViewById(R.id.navigation_expandable_list_view);
@@ -104,18 +132,26 @@ public class HomeActivity extends AppCompatActivity implements ApiListner  {
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
         if (response!= null){
 
-            Navigation navigation = (Navigation) response.body();
+            /*Navigation navigation = (Navigation) response.body();
             List<Data> navigationList = navigation.getData();
             NavigationAdapter adapter = new NavigationAdapter(mContext,navigationList);
-            navigation_expandableListView.setAdapter(adapter);
+            navigation_expandableListView.setAdapter(adapter);*/
 
-            /*try {
+            try {
                 Navigation navigation = (Navigation) response.body();
                 List<Data> navigationList = navigation.getData();
                 NavigationAdapter adapter = new NavigationAdapter(mContext,navigationList,Position -> {
-                    Class<?> className = Class.forName(RouteName.getHomeScreenRoutes(navigationList.get(Position).getMobileRoute().));
-
-
+                    try {
+                        Class<?> className = Class.forName(RouteName.getHomeScreenRoutes(navigationList.get(Position).getMobileRoute().getRouteName()));
+                        Bundle bundle = new Bundle();
+                        bundle.putString("title",navigationList.get(Position).getTitle());
+                        Fragment fragment = (Fragment) className.newInstance();
+                        fragment.setArguments(bundle);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
+                        drawer.closeDrawers();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                 });
 
@@ -124,7 +160,7 @@ public class HomeActivity extends AppCompatActivity implements ApiListner  {
 
             }catch (Exception e){
                 e.printStackTrace();
-            }*/
+            }
 
         }
 

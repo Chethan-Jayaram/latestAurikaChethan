@@ -1,7 +1,6 @@
 
 package com.mobisprint.aurika.coorg.pojo.navigation;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,24 +9,27 @@ public class Data {
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("routes_subcategory")
-    @Expose
-    private List<Object> routesSubcategory = null;
-    @SerializedName("mobile_route")
-    @Expose
-    private Object mobileRoute;
-    @SerializedName("title")
-    @Expose
-    private String title;
     @SerializedName("image")
     @Expose
     private String image;
+    @SerializedName("mobile_route")
+    @Expose
+    private MobileRoute mobileRoute;
+    @SerializedName("title")
+    @Expose
+    private String title;
     @SerializedName("is_dashboard_visible")
     @Expose
     private Boolean isDashboardVisible;
     @SerializedName("display_only_on_booking")
     @Expose
     private Boolean displayOnlyOnBooking;
+    @SerializedName("description")
+    @Expose
+    private Object description;
+    @SerializedName("availability")
+    @Expose
+    private Object availability;
     @SerializedName("status")
     @Expose
     private Integer status;
@@ -52,19 +54,19 @@ public class Data {
         this.id = id;
     }
 
-    public List<Object> getRoutesSubcategory() {
-        return routesSubcategory;
+    public String getImage() {
+        return image;
     }
 
-    public void setRoutesSubcategory(List<Object> routesSubcategory) {
-        this.routesSubcategory = routesSubcategory;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public Object getMobileRoute() {
+    public MobileRoute getMobileRoute() {
         return mobileRoute;
     }
 
-    public void setMobileRoute(Object mobileRoute) {
+    public void setMobileRoute(MobileRoute mobileRoute) {
         this.mobileRoute = mobileRoute;
     }
 
@@ -74,14 +76,6 @@ public class Data {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public Boolean getIsDashboardVisible() {
@@ -98,6 +92,22 @@ public class Data {
 
     public void setDisplayOnlyOnBooking(Boolean displayOnlyOnBooking) {
         this.displayOnlyOnBooking = displayOnlyOnBooking;
+    }
+
+    public Object getDescription() {
+        return description;
+    }
+
+    public void setDescription(Object description) {
+        this.description = description;
+    }
+
+    public Object getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(Object availability) {
+        this.availability = availability;
     }
 
     public Integer getStatus() {

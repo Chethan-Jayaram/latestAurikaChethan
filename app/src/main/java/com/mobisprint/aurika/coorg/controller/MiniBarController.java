@@ -17,7 +17,6 @@ public class MiniBarController {
         this.listner = listner;
     }
 
-/*
     public void getMiniBarContent() {
 
         listner.onFetchProgress();
@@ -45,5 +44,4 @@ public class MiniBarController {
             }
         });
     }
-*/
 }

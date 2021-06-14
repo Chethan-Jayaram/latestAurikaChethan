@@ -137,6 +137,7 @@
 
              app:layout_behavior="@string/appbar_scrolling_view_behavior"
              android:fillViewport="true"
+             android:focusableInTouchMode="true"
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
@@ -153,6 +154,7 @@
                    android:layout_marginLeft="@dimen/dimen_10"
                    android:layout_marginRight="@dimen/dimen_10"
                    android:layout_marginBottom="@dimen/dimen_20"
+
                    android:divider="@null"
                    android:nestedScrollingEnabled="true"
                    android:groupIndicator="@null" />

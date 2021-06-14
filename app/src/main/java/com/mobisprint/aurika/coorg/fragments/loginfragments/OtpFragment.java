@@ -1,7 +1,9 @@
 package com.mobisprint.aurika.coorg.fragments.loginfragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
@@ -12,7 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.phone.SmsRetriever;
+import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.controller.login.OtpController;
 import com.mobisprint.aurika.coorg.pojo.login.Login;
@@ -29,6 +36,9 @@ public class OtpFragment extends Fragment implements ApiListner {
  private String request_id;
  private TextView tv_resend_otp,tv_resend_otp_timer;
  private Integer counter;
+ private Context mContext;
+    private static final int REQ_USER_CONSENT = 200;
+    private SmsBroadcastReceiver smsBroadcastReceiver;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,6 +57,7 @@ public class OtpFragment extends Fragment implements ApiListner {
         tv_resend_otp = view.findViewById(R.id.tv_resend_otp);
         tv_resend_otp_timer = view.findViewById(R.id.tv_resend_otp_timer);
         tv_resend_otp.setVisibility(View.GONE);
+        mContext = view.getContext();
 
         otpTimer();
 
@@ -61,9 +72,27 @@ public class OtpFragment extends Fragment implements ApiListner {
             otpTimer();
         });
 
+        startSmsUserConsent();
 
 
         return view;
+    }
+
+    private void startSmsUserConsent() {
+        SmsRetrieverClient client = SmsRetriever.getClient(mContext);
+        //We can add sender phone number or leave it blank
+        // I'm adding null here
+        client.startSmsUserConsent(null).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(mContext, "On Success", Toast.LENGTH_LONG).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(mContext, "On OnFailure", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void otpTimer() {

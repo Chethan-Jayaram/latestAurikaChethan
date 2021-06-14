@@ -78,9 +78,9 @@ public interface APIMethods {
     Call<CoorgServicesPojo> sleepWell();
 
 
-    /*@Headers({"Content-Type:application/json", "organization-key:80b2f8f25c554f9705bb216c8128ba4f05bb0cfd", "location:aurika-coorg"})
+    @Headers({"Content-Type:application/json", "organization-key:80b2f8f25c554f9705bb216c8128ba4f05bb0cfd", "location:aurika-coorg"})
     @GET("aurika/guest/guest-minibar/")
-    Call<CoorgServicesPojo> miniBar();*/
+    Call<CoorgServicesPojo> miniBar();
 
     @Headers({"Content-Type:application/json", "organization-key:80b2f8f25c554f9705bb216c8128ba4f05bb0cfd", "location:aurika-coorg"})
     @GET("aurika/guest/guest-laundry-category/")

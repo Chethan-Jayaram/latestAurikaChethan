@@ -23,6 +23,7 @@ import com.mobisprint.aurika.coorg.pojo.dining.Dining__1;
 import com.mobisprint.aurika.helper.GlobalClass;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -200,7 +201,7 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter {
 
     private void pushData(List<Data> dataList) {
 
-        Set<Data> set = new HashSet<>(dataList);
+        Set<Data> set = new LinkedHashSet<>(dataList);
         Gson gson = new Gson();
         String json = gson.toJson(set);
         GlobalClass.editor.putString("Dining", json);

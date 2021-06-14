@@ -20,6 +20,7 @@ import com.mobisprint.aurika.coorg.pojo.Services.SleepwellList;
 import com.mobisprint.aurika.helper.GlobalClass;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -149,11 +150,11 @@ public class ReviewOrderSleeWellAdapter extends BaseExpandableListAdapter {
                 lyt_desc.setVisibility(View.GONE);
             }
 
-            if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getPrice() == null || sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getPrice().equals("0.00")){
+            /*if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getPrice() == null || sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getPrice().equals("0.00")){
                 itemPrice.setVisibility(View.GONE);
             }else {
                 itemPrice.setVisibility(View.VISIBLE);
-            }
+            }*/
 
             itemPrice.setText("₹"+" "+expandedListText.get(childPosition).getPrice());
             tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
@@ -193,7 +194,7 @@ public class ReviewOrderSleeWellAdapter extends BaseExpandableListAdapter {
 
     private void pushData(List<Data> sleepWellList) {
 
-        Set<Data> set = new HashSet<>(sleepWellList);
+        Set<Data> set = new LinkedHashSet<>(sleepWellList);
         Gson gson = new Gson();
         String json = gson.toJson(set);
         GlobalClass.editor.putString("SleepWell", json);

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import com.mobisprint.aurika.coorg.fragments.ProfileFragment;
 import com.mobisprint.aurika.coorg.pojo.navigation.Data;
 import com.mobisprint.aurika.coorg.pojo.navigation.Navigation;
 import com.mobisprint.aurika.helper.ApiListner;
+import com.mobisprint.aurika.helper.GlobalClass;
 import com.mobisprint.aurika.helper.RouteName;
 
 import java.util.List;
@@ -168,6 +170,8 @@ public class HomeActivity extends AppCompatActivity implements ApiListner  {
 
     @Override
     public void onFetchError(String error) {
+
+        GlobalClass.ShowAlert(mContext,"Alert",error);
 
     }
 }

@@ -238,20 +238,36 @@
                     android:fontFamily="@font/notosanstc_regular"
                     android:textColor="@color/black"/>
 
-                <EditText
-                    android:id="@+id/mobile_num"
-                    android:maxLength="10"
-                    android:inputType="number"
-                    android:layout_marginLeft="@dimen/dimen_20"
-                    android:layout_marginRight="@dimen/dimen_20"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/img_clear"
-                    android:fontFamily="@font/notosanstc_medium"
-                    android:textColor="@color/black"
-                    android:layout_below="@+id/txt_firstname"
-                    android:includeFontPadding="false"
-                    android:text=""/>
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/mobile_num"
+                        android:maxLength="10"
+                        android:inputType="number"
+                        android:layout_marginLeft="@dimen/dimen_20"
+                        android:layout_marginRight="@dimen/dimen_20"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosanstc_medium"
+                        android:textColor="@color/black"
+                        android:includeFontPadding="false"
+                        android:text=""/>
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/img_clear_mobile"
+                        android:layout_marginRight="@dimen/dimen_20"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/img_clear"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"/>
+
+                </RelativeLayout>
+
+
 
                 <TextView
                     android:layout_marginLeft="@dimen/dimen_20"
@@ -263,18 +279,34 @@
                     android:fontFamily="@font/notosanstc_regular"
                     android:textColor="@color/black"/>
 
-                <EditText
-                    android:id="@+id/email_id"
-                    android:drawableRight="@drawable/img_clear"
-                    android:layout_marginLeft="@dimen/dimen_20"
-                    android:layout_marginRight="@dimen/dimen_20"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/notosanstc_medium"
-                    android:textColor="@color/black"
-                    android:layout_below="@+id/txt_firstname"
-                    android:includeFontPadding="false"
-                    android:text=""/>
+                    android:layout_height="wrap_content">
+
+
+                    <EditText
+                        android:id="@+id/email_id"
+                        android:layout_marginLeft="@dimen/dimen_20"
+                        android:layout_marginRight="@dimen/dimen_20"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosanstc_medium"
+                        android:textColor="@color/black"
+                        android:includeFontPadding="false"
+                        android:text=""/>
+
+                    <ImageView
+                        android:id="@+id/img_clear_email"
+                        android:layout_marginRight="@dimen/dimen_20"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/img_clear"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"/>
+
+                </RelativeLayout>
+
+
 
 
                 <TextView

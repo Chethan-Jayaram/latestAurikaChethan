@@ -28,6 +28,7 @@ import com.mobisprint.aurika.helper.GlobalClass;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -117,7 +118,7 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
         try{
-
+            convertView=null;
             if (arrPackageData != null) {
 
 
@@ -404,7 +405,7 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
 
     private void pushData(List<Data> arrPackageData) {
 
-        Set<Data> set = new HashSet<>(arrPackageData);
+        Set<Data> set = new LinkedHashSet<>(arrPackageData);
         Gson gson = new Gson();
         String json = gson.toJson(set);
         GlobalClass.editor.putString("Laundry", json);
@@ -414,7 +415,7 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
 
     private void pushDataDining(List<com.mobisprint.aurika.coorg.pojo.dining.Data> diningArrPackageData) {
 
-        Set<com.mobisprint.aurika.coorg.pojo.dining.Data> set = new HashSet<>(diningArrPackageData);
+        Set<com.mobisprint.aurika.coorg.pojo.dining.Data> set = new LinkedHashSet<>(diningArrPackageData);
         Gson gson = new Gson();
         String json = gson.toJson(set);
         GlobalClass.editor.putString("Dining", json);

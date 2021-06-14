@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import com.mobisprint.aurika.coorg.pojo.Services.CoorgServicesPojo;
 import com.mobisprint.aurika.coorg.pojo.Services.Data;
 import com.mobisprint.aurika.helper.ApiListner;
 import com.mobisprint.aurika.helper.GlobalClass;
+import com.mobisprint.aurika.helper.NonScrollExpandableListView;
 
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class MiniBar extends Fragment implements ApiListner {
     private MiniBarController controller;
     private Context mContext;
     private ImageView img_back;
+    private ExpandableListView expandableListView;
 
 
 
@@ -40,24 +43,30 @@ public class MiniBar extends Fragment implements ApiListner {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        try {
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         View view = inflater.inflate(R.layout.fragment_mini_bar, container, false);
 
         tv_coorg_minibar_desc = view.findViewById(R.id.tv_coorg_minibar_desc);
-        mini_bar_recycler = view.findViewById(R.id.mini_bar_recycler);
         controller = new MiniBarController(this);
         mContext = getContext();
         toolbar_title = getActivity().findViewById(R.id.toolbar_title);
         img_back = getActivity().findViewById(R.id.naviagation_hamberger);
         img_back.setVisibility(View.VISIBLE);
+        expandableListView = view.findViewById(R.id.mini_bar_expandable_listview);
 
         Bundle bundle = getArguments();
 
         tv_coorg_minibar_desc.setText(bundle.getString("desc"));
         toolbar_title.setText(bundle.getString("title"));
 
-/*
+
         controller.getMiniBarContent();
-*/
+
 
 
         return view;
@@ -76,9 +85,7 @@ public class MiniBar extends Fragment implements ApiListner {
             CoorgServicesPojo minibar = (CoorgServicesPojo) response.body();
             List<Data> minibarList = minibar.getData();
             MiniBarAdapter adapter = new MiniBarAdapter(mContext,minibarList);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
-            mini_bar_recycler.setLayoutManager(layoutManager);
-            mini_bar_recycler.setAdapter(adapter);
+            expandableListView.setAdapter(adapter);
         }
 
     }

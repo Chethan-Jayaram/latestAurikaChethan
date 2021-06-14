@@ -27,6 +27,7 @@ import com.mobisprint.aurika.helper.GlobalClass;
 import org.w3c.dom.Text;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -189,7 +190,7 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
 
     private void pushData(List<Data> arrPackageData) {
 
-        Set<Data> set = new HashSet<>(arrPackageData);
+        Set<Data> set = new LinkedHashSet<>(arrPackageData);
         Gson gson = new Gson();
         String json = gson.toJson(set);
         GlobalClass.editor.putString("Laundry", json);

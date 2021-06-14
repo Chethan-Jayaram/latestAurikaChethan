@@ -24,6 +24,7 @@ import com.mobisprint.aurika.coorg.pojo.Services.SleepwellList;
 import com.mobisprint.aurika.helper.GlobalClass;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -38,7 +39,6 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
         this.mContext = mContext;
         this.mListener = mListener;
     }
-
 
     @Override
     public int getGroupCount() {
@@ -84,6 +84,7 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
         }
 
         ImageView img_dropdown = convertView.findViewById(R.id.img_dropdown);
+        RelativeLayout lyt_desc = convertView.findViewById(R.id.lyt_desc);
 
         if (isExpanded){
             img_dropdown.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_down_arrow));
@@ -96,7 +97,15 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
         TextView desc = (TextView) convertView.findViewById(R.id.tv_coorg_sleepwell_desc);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
         listTitleTextView.setText(sleepWellList.get(groupPosition).getTitle());
-        desc.setText(sleepWellList.get(groupPosition).getDescription());
+
+        if (isExpanded) {
+            desc.setVisibility(View.VISIBLE);
+            desc.setText(sleepWellList.get(groupPosition).getDescription());
+            lyt_desc.setVisibility(View.VISIBLE);
+        }else{
+            desc.setVisibility(View.GONE);
+            lyt_desc.setVisibility(View.GONE);
+        }
 
 
         return convertView;
@@ -163,11 +172,11 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
                 lyt_desc.setVisibility(View.GONE);
             }
 
-            if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getPrice() == null || sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getPrice().equals("0.00")){
+           /* if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getPrice() == null || sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getPrice().equals("0.00")){
                 itemPrice.setVisibility(View.GONE);
             }else {
                 itemPrice.setVisibility(View.VISIBLE);
-            }
+            }*/
 
             itemPrice.setText("₹"+" "+sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getPrice());
             tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
@@ -211,7 +220,7 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
 
     private void pushData(List<Data> sleepWellList) {
 
-        Set<Data> set = new HashSet<>(sleepWellList);
+        Set<Data> set = new LinkedHashSet<>(sleepWellList);
         Gson gson = new Gson();
         String json = gson.toJson(set);
         GlobalClass.editor.putString("SleepWell", json);

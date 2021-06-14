@@ -175,6 +175,12 @@ dependencies {
     //toggle button
 
     implementation 'com.github.angads25:toggle:1.0.0'
+
+    //Auto read SMS
+
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.1'
+
 }
 configurations {
     testCompile.exclude module: 'hamcrest-core'

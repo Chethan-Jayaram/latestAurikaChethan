@@ -19,6 +19,7 @@ import com.mobisprint.aurika.coorg.pojo.petservices.K9Data;
 import com.mobisprint.aurika.helper.GlobalClass;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -107,7 +108,7 @@ public class K9AmenitiesAdapter extends RecyclerView.Adapter<K9AmenitiesAdapter.
 
     private void pushDataK9(List<K9Data> k9Data) {
 
-        Set<K9Data> set = new HashSet<>(k9Data);
+        Set<K9Data> set = new LinkedHashSet<>(k9Data);
         Gson gson = new Gson();
         String json = gson.toJson(set);
         GlobalClass.editor.putString("K9Amenities", json);

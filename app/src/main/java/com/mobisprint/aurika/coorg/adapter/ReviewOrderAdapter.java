@@ -19,6 +19,7 @@ import com.mobisprint.aurika.coorg.pojo.petservices.K9Data;
 import com.mobisprint.aurika.helper.GlobalClass;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -65,13 +66,13 @@ public class ReviewOrderAdapter extends RecyclerView.Adapter<ReviewOrderAdapter.
 
         if (amenitiesList != null){
 
-            if (amenitiesList.get(position).getPrice() ==null ||
+           /* if (amenitiesList.get(position).getPrice() ==null ||
                     amenitiesList.get(position).getPrice().isEmpty() ||
                     amenitiesList.get(position).getPrice().equals("0.00")){
                 holder.tv_item_price.setVisibility(View.GONE);
             }else {
                 holder.tv_item_price.setVisibility(View.VISIBLE);
-            }
+            }*/
 
             if (amenitiesList.get(position).getCount()>0){
                 holder.lyt_items.setVisibility(View.VISIBLE);
@@ -131,13 +132,13 @@ public class ReviewOrderAdapter extends RecyclerView.Adapter<ReviewOrderAdapter.
 
         }else if (houskeepingList != null){
 
-            if (houskeepingList.get(position).getPrice() ==null ||
+            /*if (houskeepingList.get(position).getPrice() ==null ||
                     houskeepingList.get(position).getPrice().isEmpty() ||
                     houskeepingList.get(position).getPrice().equals("0.00")){
                 holder.tv_item_price.setVisibility(View.GONE);
             }else {
                 holder.tv_item_price.setVisibility(View.VISIBLE);
-            }
+            }*/
             holder.lyt_items.setVisibility(View.VISIBLE);
             holder.tv_item_name.setText(houskeepingList.get(position).getName());
             holder.tv_item_price.setText(houskeepingList.get(position).getPrice());
@@ -193,7 +194,7 @@ public class ReviewOrderAdapter extends RecyclerView.Adapter<ReviewOrderAdapter.
 
     private void pushData(List<Data> amenitiesList) {
 
-        Set<Data> set = new HashSet<>(amenitiesList);
+        Set<Data> set = new LinkedHashSet<>(amenitiesList);
         Gson gson = new Gson();
         String json = gson.toJson(set);
         GlobalClass.editor.putString("Amenities", json);
@@ -202,7 +203,7 @@ public class ReviewOrderAdapter extends RecyclerView.Adapter<ReviewOrderAdapter.
 
     private void pushDataK9(List<K9Data> k9Data) {
 
-        Set<K9Data> set = new HashSet<>(k9Data);
+        Set<K9Data> set = new LinkedHashSet<>(k9Data);
         Gson gson = new Gson();
         String json = gson.toJson(set);
         GlobalClass.editor.putString("K9Amenities", json);

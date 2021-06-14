@@ -12,6 +12,10 @@ import com.mobisprint.aurika.udaipur.pojo.GeneralPojo;
 
 public class Data implements Parcelable {
 
+    @SerializedName("minibar_list")
+    @Expose
+    private List<Minibar__1> minibarList = null;
+
     public Integer getCount() {
         return count;
     }
@@ -23,6 +27,14 @@ public class Data implements Parcelable {
     @SerializedName("count")
     @Expose
     private Integer count=0;
+
+    public List<Minibar__1> getMinibarList() {
+        return minibarList;
+    }
+
+    public void setMinibarList(List<Minibar__1> minibarList) {
+        this.minibarList = minibarList;
+    }
 
     @SerializedName("id")
     @Expose

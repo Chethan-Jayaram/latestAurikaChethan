@@ -22,6 +22,7 @@ import com.mobisprint.aurika.coorg.pojo.Services.Data;
 import com.mobisprint.aurika.helper.GlobalClass;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -67,13 +68,13 @@ public class AmenitiesAdapter extends RecyclerView.Adapter<AmenitiesAdapter.View
             holder.lyt_counter.setVisibility(View.VISIBLE);
         });
 
-        if (amenitiesList.get(position).getPrice() ==null ||
+        /*if (amenitiesList.get(position).getPrice() ==null ||
                 amenitiesList.get(position).getPrice().isEmpty() ||
                 amenitiesList.get(position).getPrice().equals("0.00")){
             holder.tv_item_price.setVisibility(View.GONE);
         }else {
             holder.tv_item_price.setVisibility(View.VISIBLE);
-        }
+        }*/
 
 
             holder.tv_item_name.setText(amenitiesList.get(position).getTitle());
@@ -111,7 +112,7 @@ public class AmenitiesAdapter extends RecyclerView.Adapter<AmenitiesAdapter.View
 
     private void pushData(List<Data> amenitiesList) {
 
-        Set<Data> set = new HashSet<>(amenitiesList);
+        Set<Data> set = new LinkedHashSet<>(amenitiesList);
         Gson gson = new Gson();
         String json = gson.toJson(set);
         GlobalClass.editor.putString("Amenities", json);

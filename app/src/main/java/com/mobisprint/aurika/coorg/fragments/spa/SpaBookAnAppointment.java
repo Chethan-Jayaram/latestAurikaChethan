@@ -215,7 +215,7 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner {
                 }
 
 
-                img_drop_down.setVisibility(View.GONE);
+                /*img_drop_down.setVisibility(View.GONE);*/
 
                 if (spaList.get(Position).getPrice() == null  || spaList.get(Position).getPrice().equals("0.00") ){
                     therapy_price.setVisibility(View.GONE);

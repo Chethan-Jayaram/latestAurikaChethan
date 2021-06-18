@@ -38,9 +38,8 @@ public class HomeActivity extends AppCompatActivity implements ApiListner  {
     private NavigationView navigationView;
     private DrawerLayout drawer;
     public ActionBarDrawerToggle actionBarDrawerToggle;
-    public TextView coorg_toolbar_title,tv_my_profile;
+    public TextView coorg_toolbar_title;
     public ImageView bt_bck;
-    private RelativeLayout lyt_profile;
     private boolean status= true;
 
     @Override
@@ -51,9 +50,7 @@ public class HomeActivity extends AppCompatActivity implements ApiListner  {
         mContext = getApplicationContext();
         navigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawer_layout);
-        lyt_profile = findViewById(R.id.lyt_profile);
-        tv_my_profile = findViewById(R.id.tv_my_profile);
-        tv_my_profile.setVisibility(View.GONE);
+
 
         coorg_toolbar_title = findViewById(R.id.toolbar_title);
 
@@ -65,24 +62,6 @@ public class HomeActivity extends AppCompatActivity implements ApiListner  {
             onClicked();
         });
 
-        lyt_profile.setOnClickListener(v -> {
-
-            if (status){
-                tv_my_profile.setVisibility(View.VISIBLE);
-                status =false;
-            }else{
-                tv_my_profile.setVisibility(View.GONE);
-                status =true;
-            }
-
-        });
-
-        tv_my_profile.setOnClickListener(v -> {
-            Fragment fragment = new ProfileFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
-            drawer.closeDrawers();
-
-        });
 
 
 
@@ -144,13 +123,16 @@ public class HomeActivity extends AppCompatActivity implements ApiListner  {
                 List<Data> navigationList = navigation.getData();
                 NavigationAdapter adapter = new NavigationAdapter(mContext,navigationList,Position -> {
                     try {
-                        Class<?> className = Class.forName(RouteName.getHomeScreenRoutes(navigationList.get(Position).getMobileRoute().getRouteName()));
-                        Bundle bundle = new Bundle();
-                        bundle.putString("title",navigationList.get(Position).getTitle());
-                        Fragment fragment = (Fragment) className.newInstance();
-                        fragment.setArguments(bundle);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
-                        drawer.closeDrawers();
+                        String route=RouteName.getHomeScreenRoutes(navigationList.get(Position).getMobileRoute().getRouteName());
+                        if (!route.isEmpty()) {
+                            Class<?> className = Class.forName(route);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("title", navigationList.get(Position).getTitle());
+                            Fragment fragment = (Fragment) className.newInstance();
+                            fragment.setArguments(bundle);
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
+                            drawer.closeDrawers();
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

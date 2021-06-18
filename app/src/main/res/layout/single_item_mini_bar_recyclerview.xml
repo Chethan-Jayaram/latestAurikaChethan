@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content">
 
     <TableLayout
+
         android:background="@drawable/table_layout_border"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -13,7 +14,6 @@
         <TableRow
             android:id="@+id/table_header"
             android:gravity="center"
-            android:background="#e5e5e5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -25,7 +25,7 @@
                 android:includeFontPadding="false"
                 android:padding="@dimen/dimen_10"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:fontFamily="@font/notosanstc_bold"/>
 
         </TableRow>
@@ -36,44 +36,45 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:background="@drawable/table_layout_border"
-                android:layout_height="wrap_content"
+                android:background="@drawable/table_layout_inner_border"
+                android:layout_height="match_parent"
                 android:layout_width="0dp"
                 android:layout_column="0"
                 android:layout_weight="1"
-                android:text="Item"
+                android:text="ITEM"
+                android:gravity="center_vertical"
                 android:fontFamily="@font/notosanstc_bold"
                 android:includeFontPadding="false"
-                android:padding="@dimen/dimen_5"
-                android:textSize="14sp"
+                android:padding="@dimen/dimen_8"
+                android:textSize="11sp"
                 android:textColor="@color/black"/>
 
             <TextView
-                android:background="@drawable/table_layout_border"
-                android:layout_weight="0.8"
+                android:background="@drawable/table_layout_inner_border"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_width="0dp"
                 android:layout_column="1"
-                android:text="Pre-placed Qty"
+                android:text="PRE-PLACED QTY"
                 android:fontFamily="@font/notosanstc_bold"
                 android:includeFontPadding="false"
-                android:padding="@dimen/dimen_5"
-                android:textSize="14sp"
+                android:padding="@dimen/dimen_8"
+                android:textSize="11sp"
                 android:textColor="@color/black"/>
 
             <TextView
-                android:background="@drawable/table_layout_border"
-                android:layout_weight="0.8"
+                android:background="@drawable/table_layout_inner_border"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_width="0dp"
                 android:layout_column="2"
-                android:text="Price per item"
+                android:text="PRICE PER ITEM"
                 android:fontFamily="@font/notosanstc_bold"
                 android:includeFontPadding="false"
-                android:padding="@dimen/dimen_5"
-                android:textSize="14sp"
+                android:padding="@dimen/dimen_8"
+                android:textSize="11sp"
                 android:textColor="@color/black"/>
 
         </TableRow>

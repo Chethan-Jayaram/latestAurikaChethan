@@ -1,6 +1,7 @@
 package com.mobisprint.aurika.coorg.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +46,21 @@ public class SpaDropDownAdapter extends RecyclerView.Adapter<SpaDropDownAdapter.
         if (spaList.get(position).getDuration() == null || spaList.get(position).getDuration().isEmpty() || spaList.get(position).getDuration().equals("0")){
             holder.spa_time.setVisibility(View.GONE);
         }
-            holder.spa_heading.setText(spaList.get(position).getTitle());
-            holder.spa_time.setText("("+spaList.get(position).getDuration()+ " mins"+")");
+           /* holder.spa_heading.setText(spaList.get(position).getTitle());
+            holder.spa_time.setText("("+spaList.get(position).getDuration()+ " mins"+")");*/
+
+     /*   holder.spa_heading.setText(Html.fromHtml("<body>" +
+                "        <p" + spaList.get(position).getTitle() +" style=\"color:#1e0028\">" + spaList.get(position).getDuration()+" mins" + "</a>"+
+                "        </p>" +
+                "    </body>"));*/
+
+
+
+        holder.spa_heading.setText(Html.fromHtml("<font color=#000000>"+ spaList.get(position).getTitle() +"</font> <font color=#A7A7A7>"+"("+spaList.get(position).getDuration()+" mins)" +"</font>"));
+
+
+
+
             holder.spa_price.setText("₹"+" "+spaList.get(position).getPrice());
 
             holder.lyt_select_therapy.setOnClickListener(v -> {

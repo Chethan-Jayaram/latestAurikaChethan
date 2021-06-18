@@ -61,15 +61,13 @@
                         android:id="@+id/dining_menu_desc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/notosanstc_bold"
+                        android:fontFamily="@font/notosanstc_regular"
                         android:includeFontPadding="false"
                         android:textSize="14sp"
                         android:text=""
                         android:textColor="@color/black"/>
 
                 </RelativeLayout>
-
-
 
 
                 <TextView
@@ -80,7 +78,7 @@
                     android:id="@+id/dining_menu_price"
                     android:fontFamily="@font/notoseriftc_regular"
                     android:includeFontPadding="false"
-                    android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:layout_below="@id/lyt_desc"
                     android:layout_marginLeft="@dimen/dimen_5"
                     android:textSize="14sp"/>

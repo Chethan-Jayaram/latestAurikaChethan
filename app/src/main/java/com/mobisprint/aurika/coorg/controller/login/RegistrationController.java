@@ -27,7 +27,7 @@ public class RegistrationController {
         map.put("first_name",first_name);
         map.put("last_name",last_name);
         map.put("email",email);
-        map.put("country_code",country_code);
+        map.put("country_code","+"+country_code);
         map.put("contact_number",phnum);
         map.put("device_id",android_id);
         Call<Login> call = GlobalClass.API_COORG.registration(map);

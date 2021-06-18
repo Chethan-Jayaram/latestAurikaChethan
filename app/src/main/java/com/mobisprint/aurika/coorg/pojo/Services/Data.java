@@ -12,6 +12,18 @@ import com.mobisprint.aurika.udaipur.pojo.GeneralPojo;
 
 public class Data implements Parcelable {
 
+    public boolean isItemSelected() {
+        return isItemSelected;
+    }
+
+    public void setItemSelected(boolean itemSelected) {
+        isItemSelected = itemSelected;
+    }
+
+    @SerializedName("isItemSelected")
+    @Expose
+    private boolean isItemSelected=false;
+
     @SerializedName("minibar_list")
     @Expose
     private List<Minibar__1> minibarList = null;

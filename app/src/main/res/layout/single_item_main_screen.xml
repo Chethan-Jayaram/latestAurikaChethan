@@ -31,9 +31,9 @@
         <ImageView
             android:layout_centerInParent="true"
             android:layout_marginRight="@dimen/dimen_17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/arrow_1x"
             android:layout_alignParentRight="true" />
 
 

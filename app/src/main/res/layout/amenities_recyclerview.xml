@@ -33,7 +33,7 @@
         android:textColor="#070707"
         android:textSize="14sp"
         android:includeFontPadding="false"
-        android:fontFamily="@font/notoseriftc_regular"
+        android:fontFamily="@font/notosanstc_regular"
         android:paddingLeft="@dimen/dimen_10"/>
 
 

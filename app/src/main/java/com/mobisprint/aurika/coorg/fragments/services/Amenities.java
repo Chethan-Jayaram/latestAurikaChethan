@@ -96,7 +96,7 @@ public class Amenities extends Fragment implements ApiListner {
             tv_num_of_items.setText(items_count+" " +"items");
 
             total_price = GlobalClass.sharedPreferences.getFloat(GlobalClass.Amenities_price,0);
-            tv_total_price.setText("₹ "+(double)total_price);
+            tv_total_price.setText("₹ "+GlobalClass.round(total_price,2));
 
 
             view_order.setOnClickListener(v -> {
@@ -205,7 +205,7 @@ public class Amenities extends Fragment implements ApiListner {
 
                            if (amenitiesList.get(i).getCount() >= 0 ){
                                total_price += amenitiesList.get(i).getCount() * Double.parseDouble(amenitiesList.get(i).getPrice()) ;
-                               tv_total_price.setText("₹ "+ " "+total_price);
+                               tv_total_price.setText("₹ "+ " "+GlobalClass.round(total_price,2));
 
                            }
 

@@ -1,11 +1,28 @@
 package com.mobisprint.aurika.coorg.fragments.loginfragments;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.hardware.biometrics.BiometricPrompt;
+import android.hardware.fingerprint.FingerprintManager;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.biometric.BiometricManager;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.CancellationSignal;
+import android.security.keystore.KeyGenParameterSpec;
+import android.security.keystore.KeyPermanentlyInvalidatedException;
+import android.security.keystore.KeyProperties;
 import android.text.Html;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -17,6 +34,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hbb20.CountryCodePicker;
 import com.mobisprint.aurika.R;
@@ -24,12 +42,36 @@ import com.mobisprint.aurika.coorg.activity.HomeActivity;
 import com.mobisprint.aurika.coorg.controller.login.ForgotMpinController;
 import com.mobisprint.aurika.coorg.pojo.login.Login;
 import com.mobisprint.aurika.helper.ApiListner;
+import com.mobisprint.aurika.helper.BiometricDialogV23;
+import com.mobisprint.aurika.helper.FingerprintHandler;
 import com.mobisprint.aurika.helper.GlobalClass;
+
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
+import java.util.concurrent.Executor;
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
 
 import retrofit2.Response;
 
+import static android.content.Context.FINGERPRINT_SERVICE;
+import static android.content.Context.KEYGUARD_SERVICE;
+
 
 public class ForgotMpinFragment extends Fragment implements ApiListner {
+
+
+
 
     private EditText et_email_or_phnum;
     private CheckBox checkBox;
@@ -46,6 +88,9 @@ public class ForgotMpinFragment extends Fragment implements ApiListner {
 
 
 
+
+
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,6 +113,13 @@ public class ForgotMpinFragment extends Fragment implements ApiListner {
             et_email_or_phnum.setFilters(FilterArray);
 
 
+
+
+
+          // displayBiometricPrompt(biometricCallback);
+
+
+
             checkBox.setText(Html.fromHtml("<body>\n" +
                     "        <p" +
                     "          style=\"color:#1e0028\">  Do you agree to our  <a href=\"https://www.google.com/\" style=\"color:#1e0028\">Terms &amp; Conditions</a>\n" +
@@ -81,6 +133,8 @@ public class ForgotMpinFragment extends Fragment implements ApiListner {
             checkBox.setMovementMethod(LinkMovementMethod.getInstance());
 
             check_status = GlobalClass.sharedPreferences.getBoolean(String.valueOf(GlobalClass.Forgot_Mpin),true);
+
+
 
             if (GlobalClass.Forgot_Mpin){
                 forgotMpinController.isEmailSelected(false);
@@ -183,6 +237,73 @@ public class ForgotMpinFragment extends Fragment implements ApiListner {
         return view;
     }
 
+   /* private Boolean checkBiometricSupport() {
+
+        KeyguardManager keyguardManager =
+                (KeyguardManager) getActivity().getSystemService(KEYGUARD_SERVICE);
+
+        PackageManager packageManager =getActivity().getPackageManager();
+
+        if (!keyguardManager.isKeyguardSecure()) {
+          //  notifyUser("Lock screen security not enabled in Settings");
+            return false;
+        }
+
+        if (ActivityCompat.checkSelfPermission(mContext,
+                Manifest.permission.USE_BIOMETRIC) !=
+                PackageManager.PERMISSION_GRANTED) {
+
+           // notifyUser("Fingerprint authentication permission not enabled");
+            return false;
+        }
+
+        if (packageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT))
+        {
+            return true;
+        }
+
+        return true;
+    }*/
+
+    /*@RequiresApi(api = Build.VERSION_CODES.P)
+    private BiometricPrompt.AuthenticationCallback getAuthenticationCallback() {
+
+        return new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errorCode,
+                                              CharSequence errString) {
+               // notifyUser("Authentication error: " + errString);
+                super.onAuthenticationError(errorCode, errString);
+            }
+
+            @Override
+            public void onAuthenticationHelp(int helpCode,
+                                             CharSequence helpString) {
+                super.onAuthenticationHelp(helpCode, helpString);
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(
+                    BiometricPrompt.AuthenticationResult result) {
+                Intent intent = new Intent(mContext, HomeActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+                super.onAuthenticationSucceeded(result);
+            }
+        };
+    }
+
+
+*/
+
+
+
+
     @Override
     public void onFetchProgress() {
 
@@ -203,8 +324,25 @@ public class ForgotMpinFragment extends Fragment implements ApiListner {
 
     @Override
     public void onFetchError(String error) {
-
         GlobalClass.ShowAlert(getContext(),"Alert",error);
-
     }
+
+/*
+    @RequiresApi(api = Build.VERSION_CODES.P)
+    public void authenticateUser(View view) {
+        BiometricPrompt biometricPrompt = new BiometricPrompt.Builder(mContext)
+                .setTitle("Login")
+                .setSubtitle("Login into Aurika")
+                .setDescription("Place your finger on homescreen button to verify your identity")
+                .setNegativeButton("Cancel", mContext.getMainExecutor(),
+                        (dialogInterface, i) -> {
+                          //  notifyUser("Authentication cancelled");
+                        })
+                .build();
+
+        biometricPrompt.authenticate(getCancellationSignal(), mContext.getMainExecutor(),
+             getAuthenticationCallback());
+    }*/
+
+
 }

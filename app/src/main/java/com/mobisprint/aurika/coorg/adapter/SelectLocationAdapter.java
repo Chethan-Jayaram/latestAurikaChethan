@@ -53,7 +53,6 @@ public class SelectLocationAdapter extends RecyclerView.Adapter<SelectLocationAd
             holder.tv_location_status.setVisibility(View.VISIBLE);
             holder.tv_location_status.setText("Upcoming");
             holder.tv_location_title.setBackgroundResource(R.drawable.button_colour_for_upcoming);
-            holder.tv_location_status.setBackgroundResource(R.drawable.button_colour_for_upcoming);
         }else holder.tv_location_status.setVisibility(View.GONE);
 
 

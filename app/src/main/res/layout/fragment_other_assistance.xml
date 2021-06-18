@@ -17,29 +17,22 @@
         android:textStyle="bold"
         android:layout_marginLeft="@dimen/dimen_30"/>
 
-    <TextView
-        android:textColor="@color/black"
-        android:id="@+id/sub_heading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:text="Type the requirement hear"
-        android:layout_below="@+id/heading"
-        android:fontFamily="@font/notosanstc_regular"
-        android:layout_marginLeft="@dimen/dimen_30"/>
+
 
 
     <EditText
         android:id="@+id/txt_assistance"
         android:layout_width="match_parent"
+        android:hint="Type the requirement here"
         android:includeFontPadding="false"
         android:layout_height="wrap_content"
         android:fontFamily="@font/notoseriftc__medium"
-        android:layout_below="@+id/sub_heading"
+        android:layout_below="@+id/heading"
+        android:backgroundTint="@color/black"
         android:layout_marginLeft="@dimen/dimen_30"
         android:layout_marginRight="@dimen/dimen_30"
         android:textColor="@color/black"
-        android:textSize="@dimen/dimen_14"/>
+        android:textSize="16sp"/>
 
 
     <Button

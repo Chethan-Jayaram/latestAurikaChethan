@@ -1,12 +1,26 @@
 package com.mobisprint.aurika.coorg.fragments.loginfragments;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.hardware.biometrics.BiometricPrompt;
+import android.hardware.fingerprint.FingerprintManager;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.CancellationSignal;
 import android.os.Handler;
+import android.security.keystore.KeyGenParameterSpec;
+import android.security.keystore.KeyPermanentlyInvalidatedException;
+import android.security.keystore.KeyProperties;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -24,12 +38,32 @@ import com.mobisprint.aurika.coorg.fragments.loginfragments.ForgotMpinFragment;
 import com.mobisprint.aurika.coorg.fragments.loginfragments.RegistrationFragment;
 import com.mobisprint.aurika.coorg.pojo.login.Login;
 import com.mobisprint.aurika.helper.ApiListner;
+import com.mobisprint.aurika.helper.BiometricDialogV23;
+import com.mobisprint.aurika.helper.FingerprintHandler;
 import com.mobisprint.aurika.helper.GlobalClass;
+
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
 
 import retrofit2.Response;
 
+import static android.content.Context.FINGERPRINT_SERVICE;
+import static android.content.Context.KEYGUARD_SERVICE;
 
-public class LoginFragment extends Fragment implements ApiListner {
+
+public class LoginFragment extends Fragment implements ApiListner,GlobalClass.OnBiometricAuthSucess {
 
     private Button btn_confirm;
     private TextView forgot_mpin, new_user, skip;
@@ -39,6 +73,16 @@ public class LoginFragment extends Fragment implements ApiListner {
     private Context mContext;
 
     private Fragment fragment;
+
+    private Cipher cipher;
+    private KeyStore keyStore;
+    private KeyGenerator keyGenerator;
+    private static final String KEY_NAME = "RefinaryBioMetric";
+
+    private FingerprintManager.CryptoObject cryptoObject;
+    private FingerprintManager fingerprintManager;
+    private KeyguardManager keyguardManager;
+    private CancellationSignal cancellationSignal;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,6 +106,7 @@ public class LoginFragment extends Fragment implements ApiListner {
             loginController = new LoginController(this);
 
             init();
+
 
             forgot_mpin.setOnClickListener(v -> {
                 fragment = new ForgotMpinFragment();
@@ -206,6 +251,57 @@ public class LoginFragment extends Fragment implements ApiListner {
 
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.P)
+    @Override
+    public void onResume() {
+        super.onResume();
+       /* if (checkBiometricSupport()){
+          authenticateUser(this.getView());
+        }*/
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            keyguardManager = (KeyguardManager) mContext.getSystemService(KEYGUARD_SERVICE);
+            fingerprintManager = (FingerprintManager) mContext.getSystemService(FINGERPRINT_SERVICE);
+
+            if (fingerprintManager != null) {
+                if (fingerprintManager.isHardwareDetected()) {
+                    if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+
+                        GlobalClass.ShowAlert(mContext, "Alert", "enable Please register at least one fingerprint in your device's Settings to use BIOMETRIC to login");
+                    } else if (!fingerprintManager.hasEnrolledFingerprints()) {
+
+                        GlobalClass.ShowAlert(mContext, "Alert", "No fingerprint configured. Please register at least one fingerprint in your device's Settings to use BIOMETRIC to login");
+                        //  enableBioWithoutBiometric();
+                    } else {
+                        //  enableBIometric();
+                       /* mBtn_biometric.setVisibility(View.VISIBLE);
+                        showBio();
+
+                        m_lyt.setAlpha(0.2f);*/
+                        initiateFingerprintlistner();
+                        if(cancellationSignal != null && !cancellationSignal.isCanceled()){
+                            new BiometricDialogV23(mContext,cancellationSignal).show();
+                        }
+
+                    }
+
+                } else {
+                    // enableMPIN();
+                }
+                //password protection
+
+            } else {
+
+                //enableMPIN();
+            }
+
+
+        }
+
+    }
+
     @Override
     public void onFetchProgress() {
 
@@ -228,4 +324,124 @@ public class LoginFragment extends Fragment implements ApiListner {
     public void onFetchError(String error) {
         GlobalClass.ShowAlert(getContext(), "Alert", error);
     }
+
+    private void initiateFingerprintlistner() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            try {
+                generateKey();
+            } catch (LoginFragment.FingerprintException e) {
+                e.printStackTrace();
+            }
+            if (initCipher()) {
+                try {
+                    cryptoObject = new FingerprintManager.CryptoObject(cipher);
+                    FingerprintHandler helper = new FingerprintHandler(mContext,this );
+                    helper.startAuth(fingerprintManager, cryptoObject);
+                    cancellationSignal = new CancellationSignal();
+                    fingerprintManager.authenticate(cryptoObject, cancellationSignal, 0, helper, null);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    private void generateKey() throws LoginFragment.FingerprintException {
+        try {
+
+            keyStore = KeyStore.getInstance("AndroidKeyStore");
+
+
+            keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
+
+            keyStore.load(null);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                keyGenerator.init(new
+                        KeyGenParameterSpec.Builder(KEY_NAME,
+                        KeyProperties.PURPOSE_ENCRYPT |
+                                KeyProperties.PURPOSE_DECRYPT)
+                        .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
+                        .setUserAuthenticationRequired(true)
+                        .setEncryptionPaddings(
+                                KeyProperties.ENCRYPTION_PADDING_PKCS7)
+                        .build());
+            }
+
+            keyGenerator.generateKey();
+
+        } catch (KeyStoreException
+                | NoSuchAlgorithmException
+                | NoSuchProviderException
+                | InvalidAlgorithmParameterException
+                | CertificateException
+                | IOException exc) {
+            exc.printStackTrace();
+            throw new FingerprintException(exc);
+        }
+
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public boolean initCipher() {
+        try {
+            cipher = Cipher.getInstance(
+                    KeyProperties.KEY_ALGORITHM_AES + "/"
+                            + KeyProperties.BLOCK_MODE_CBC + "/"
+                            + KeyProperties.ENCRYPTION_PADDING_PKCS7);
+        } catch (NoSuchAlgorithmException |
+                NoSuchPaddingException e) {
+            throw new RuntimeException("Failed to get Cipher", e);
+        }
+
+        try {
+            keyStore.load(null);
+            SecretKey key = (SecretKey) keyStore.getKey(KEY_NAME,
+                    null);
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+            return true;
+        } catch (KeyPermanentlyInvalidatedException e) {
+            return false;
+        } catch (KeyStoreException | CertificateException
+                | UnrecoverableKeyException | IOException
+                | NoSuchAlgorithmException | InvalidKeyException e) {
+            throw new RuntimeException("Failed to init Cipher", e);
+        }
+    }
+
+    @Override
+    public void onSucessfullBiometricAuth() {
+        Intent intent = new Intent(mContext, HomeActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
+
+    private class FingerprintException extends Exception {
+
+        public FingerprintException(Exception e) {
+            super(e);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        try{
+            stopFingerAuth();
+
+           /* if(mBioAlertDialog!=null && mBioAlertDialog.isShowing()){
+                mBioAlertDialog.dismiss();
+            }*/
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void stopFingerAuth(){
+        if(cancellationSignal != null && !cancellationSignal.isCanceled()){
+            cancellationSignal.cancel();
+        }
+    }
+
 }

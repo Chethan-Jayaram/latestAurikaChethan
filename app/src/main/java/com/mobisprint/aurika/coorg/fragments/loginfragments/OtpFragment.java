@@ -1,12 +1,18 @@
 package com.mobisprint.aurika.coorg.fragments.loginfragments;
 
+import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -18,15 +24,23 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.controller.login.OtpController;
 import com.mobisprint.aurika.coorg.pojo.login.Login;
 import com.mobisprint.aurika.helper.ApiListner;
 import com.mobisprint.aurika.helper.GlobalClass;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 
 public class OtpFragment extends Fragment implements ApiListner {
@@ -72,28 +86,49 @@ public class OtpFragment extends Fragment implements ApiListner {
             otpTimer();
         });
 
-        startSmsUserConsent();
-
 
         return view;
     }
 
-    private void startSmsUserConsent() {
-        SmsRetrieverClient client = SmsRetriever.getClient(mContext);
-        //We can add sender phone number or leave it blank
-        // I'm adding null here
-        client.startSmsUserConsent(null).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(mContext, "On Success", Toast.LENGTH_LONG).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(mContext, "On OnFailure", Toast.LENGTH_LONG).show();
-            }
-        });
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            // ...
+            case SMS_CONSENT_REQUEST:
+                if (resultCode == RESULT_OK) {
+                    // Get SMS message content
+                    String message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE);
+                    // Extract one-time code from the message and complete verification
+                    // `sms` contains the entire text of the SMS message, so you will need
+                    // to parse the string.
+                    //  String oneTimeCode = message); // define this function
+
+                    String[] OTP= message.split("OTP",6);
+
+                    onOTPReceived(OTP[1].trim().substring(0,6).trim());
+                    // send one time code to the server
+                } else {
+                    // Consent canceled, handle the error ...
+                }
+                break;
+        }
     }
+
+    private void onOTPReceived(String message) {
+        // This will match any 6 digit number in the message
+
+        et_one.setText(message.charAt(0) + "");
+        et_two.setText(message.charAt(1) + "");
+        et_three.setText(message.charAt(2) + "");
+        et_four.setText(message.charAt(3) + "");
+        et_five.setText(message.charAt(4) + "");
+        et_six.setText(message.charAt(5) + "");
+
+
+    }
+
 
     private void otpTimer() {
         counter = 60;
@@ -285,7 +320,7 @@ public class OtpFragment extends Fragment implements ApiListner {
             Login login = (Login) response.body();
             GlobalClass.user_token = login.getData().getToken();
             Fragment fragment = new CreateMpinFragment();
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, fragment).addToBackStack(null).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, fragment).commit();
 
         }
 
@@ -297,4 +332,63 @@ public class OtpFragment extends Fragment implements ApiListner {
         GlobalClass.ShowAlert(getContext(),"Alert",error);
 
     }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        getActivity().unregisterReceiver(smsVerificationReceiver);
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        startSMSListener();
+    }
+
+
+
+    private void startSMSListener() {
+        try {
+            Task<Void> task = SmsRetriever.getClient(mContext).startSmsUserConsent(null);
+            IntentFilter intentFilter = new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION);
+            getActivity().registerReceiver(smsVerificationReceiver,intentFilter,SmsRetriever.SEND_PERMISSION,null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private static final int SMS_CONSENT_REQUEST = 2;  // Set to an unused request code
+    private final BroadcastReceiver smsVerificationReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (SmsRetriever.SMS_RETRIEVED_ACTION.equals(intent.getAction())) {
+                Bundle extras = intent.getExtras();
+                Status smsRetrieverStatus = (Status) extras.get(SmsRetriever.EXTRA_STATUS);
+
+                switch (smsRetrieverStatus.getStatusCode()) {
+                    case CommonStatusCodes.SUCCESS:
+                        // Get consent intent
+                        Intent consentIntent = extras.getParcelable(SmsRetriever.EXTRA_CONSENT_INTENT);
+                        try {
+                            // Start activity to show consent dialog to user, activity must be started in
+                            // 5 minutes, otherwise you'll receive another TIMEOUT intent
+                            startActivityForResult(consentIntent, SMS_CONSENT_REQUEST);
+                        } catch (ActivityNotFoundException e) {
+                            e.printStackTrace();
+                            // Handle the exception ...
+                        }
+                        break;
+                    case CommonStatusCodes.TIMEOUT:
+                        // Time out occurred, handle the error.
+                        break;
+                }
+            }
+        }
+    };
+
+
 }

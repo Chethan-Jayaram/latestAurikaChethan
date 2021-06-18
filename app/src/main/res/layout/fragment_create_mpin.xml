@@ -34,7 +34,7 @@
             android:fontFamily="@font/notoseriftc_semibold"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="Create M-PIN?"
+            android:text="Create M-PIN"
             android:textColor="#420052"
             android:textStyle="bold"
             android:textSize="16sp" />
@@ -118,7 +118,7 @@
             android:fontFamily="@font/notoseriftc_semibold"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="Retype M-PIN?"
+            android:text="Retype M-PIN"
             android:textColor="#420052"
             android:textStyle="bold"
             android:textSize="16sp" />

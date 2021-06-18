@@ -14,6 +14,8 @@ import com.mobisprint.aurika.coorg.services.APIMethods;
 import com.mobisprint.aurika.retrofit.ClientServiceGenerator;
 import com.mobisprint.aurika.unlock.Aurika;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -117,16 +119,31 @@ public class GlobalClass {
 
             }*/
 
+
+
             Calendar c = Calendar.getInstance();
             String time = new SimpleDateFormat("HH:mm").format(c.getTime());
             SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm");
-            Date Current=_24HourSDF.parse(time);
+            Date current=_24HourSDF.parse(time);
             Date from = _24HourSDF.parse(fromTime);
             Date to = _24HourSDF.parse(toTime);
-            int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
-            if (Current.after (from)&&Current.before(to)) {
 
-                return true;
+           if(from.getTime()>to.getTime())  {
+                if(current.getTime()<=to.getTime()) {
+                   return true;
+                }else if (current.getTime()>from.getTime()) {
+                   return  true;
+                }else{
+                    return  false;
+                }
+
+            }else{
+               if(from.getTime()<=current.getTime() &&( current.getTime()<=to.getTime()|| from.getTime()>to.getTime())){
+                   return true;
+                }else{
+                    return  false;
+                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -165,6 +182,26 @@ public class GlobalClass {
         }
     }
 */
+
+
+    public static String round(double value, int places) {
+  /*  if (places < 0) throw new IllegalArgumentException();
+    long factor = (long) Math.pow(10, places);
+    value = value * factor;
+    long tmp = Math.round(value);
+    return (double) tmp / factor;*/
+        if (places < 0) throw new IllegalArgumentException();
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+
+        return String.format("%.2f",bd.doubleValue());
+
+    }
+
+
+    public interface OnBiometricAuthSucess { // create an interface
+        void onSucessfullBiometricAuth(); // create callback function
+    }
 
 
 }

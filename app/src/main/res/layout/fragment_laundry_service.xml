@@ -111,7 +111,7 @@
                             android:layout_marginTop="@dimen/dimen_10"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dimen_10"
+                            android:layout_marginLeft="@dimen/dimen_20"
                             android:fontFamily="@font/notoseriftc_bold"
                             android:includeFontPadding="false"
                             android:text="Please note:"
@@ -138,7 +138,7 @@
                             \n\n7.   The hotel is not responsible for clothing bleeding, shrinking, or otherwise changing the result from a normal wash.
                             \n\n8.   The hotel exercises extreme diligence in processing your garments. However, in case of any loss or damage to the garments(s), the reimbursement will not exceed three times the cost of cleaning the lost/damaged garment(s).
                             \n\n9.   Uncollected/unclaimed garment(s) will be in the hotel’s safe keeping for a maximum period of 30 days."
-                            android:layout_marginLeft="@dimen/dimen_10"/>
+                            android:layout_marginLeft="@dimen/dimen_20"/>
 
                     </LinearLayout>
 

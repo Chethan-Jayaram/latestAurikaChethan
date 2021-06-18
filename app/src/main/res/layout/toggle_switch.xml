@@ -8,12 +8,12 @@
     <com.github.angads25.toggle.LabeledSwitch
         android:paddingStart="@dimen/dimen_2"
         android:id="@+id/switch4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
         android:textSize="14sp"
         app:on="false"
-        app:textOn="Added"
+        app:textOn=" Added"
+        app:colorBorder= "@color/custom_purple"
         app:textOff="Add"/>
 
 </RelativeLayout>

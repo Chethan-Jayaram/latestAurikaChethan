@@ -72,7 +72,7 @@ public class K9AmenitiesAdapter extends RecyclerView.Adapter<K9AmenitiesAdapter.
         }
 
             holder.lyt_items.setVisibility(View.VISIBLE);
-            holder.tv_item_name.setText(amenitiesList.get(position).getTitle());
+            holder.tv_item_name.setText(amenitiesList.get(position).getTitle() + "(and services)");
             holder.tv_item_price.setText("₹"+" "+amenitiesList.get(position).getPrice());
             holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));
 

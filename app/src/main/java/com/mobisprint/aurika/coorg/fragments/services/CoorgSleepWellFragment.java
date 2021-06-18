@@ -82,7 +82,8 @@ public class CoorgSleepWellFragment extends Fragment implements ApiListner {
         tv_num_of_items.setText(items_count+" " +"items");
 
         total_price = GlobalClass.sharedPreferences.getFloat(GlobalClass.SleepWell_price,0);
-        tv_total_price.setText("₹ "+total_price);
+        tv_total_price.setText("₹ "+GlobalClass.round(total_price,2));
+
 
         view_order.setOnClickListener(v -> {
             if (items_count>0)  {
@@ -176,10 +177,14 @@ public class CoorgSleepWellFragment extends Fragment implements ApiListner {
                             tv_num_of_items.setText(items_count+" " +"items");
                             if (sleepWellList.get(i).getSleepwellList().get(j).getCount() >= 0 ){
                                 total_price +=sleepWellList.get(i).getSleepwellList().get(j).getCount() * Double.parseDouble(sleepWellList.get(i).getSleepwellList().get(j).getPrice()) ;
-                                tv_total_price.setText("₹ "+ " "+total_price);
+                                tv_total_price.setText("₹ "+ " "+GlobalClass.round(total_price,2));
                             }
                         }
                     }
+
+                    GlobalClass.editor.putInt(GlobalClass.SleepWell_count, items_count);
+                    GlobalClass.editor.putFloat(GlobalClass.SleepWell_price, (float) total_price);
+                    GlobalClass.editor.commit();
 
                 }catch (Exception e){
                     e.printStackTrace();

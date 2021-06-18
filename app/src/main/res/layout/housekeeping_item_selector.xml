@@ -47,7 +47,7 @@
 
             <include
                 android:id="@+id/selector"
-                layout="@layout/item_selector"
+                layout="@layout/toggle_switch"
                 android:layout_alignParentRight="true"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

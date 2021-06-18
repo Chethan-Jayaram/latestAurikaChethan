@@ -31,7 +31,7 @@ public class K9MenuAdapter extends RecyclerView.Adapter<K9MenuAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.coorg_sleep_well_internal_list,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.k9_menu_internal_list,parent,false);
         return new ViewHolder(view);
     }
 
@@ -43,7 +43,7 @@ public class K9MenuAdapter extends RecyclerView.Adapter<K9MenuAdapter.ViewHolder
         holder.desc.setText(menuList.get(position).getDescription());
         holder.price.setText("₹"+" "+menuList.get(position).getPrice());
 
-        holder.img_add.setOnClickListener(v -> {
+       /* holder.img_add.setOnClickListener(v -> {
             menuList.get(position).setCount( menuList.get(position).getCount()+1);
             holder.tv_quantity.setText(Integer.toString(menuList.get(position).getCount()));
             mListener.onItemClicked(position);
@@ -55,7 +55,7 @@ public class K9MenuAdapter extends RecyclerView.Adapter<K9MenuAdapter.ViewHolder
                 holder.tv_quantity.setText(Integer.toString(menuList.get(position).getCount()));
                 mListener.onItemClicked(position);
             }
-        });
+        });*/
     }
 
     @Override
@@ -74,9 +74,9 @@ public class K9MenuAdapter extends RecyclerView.Adapter<K9MenuAdapter.ViewHolder
             title = itemView.findViewById(R.id.tv_coorg_sleep_well_item_name);
             desc = itemView.findViewById(R.id.tv_coorg_sleep_well_item_desc);
             price = itemView.findViewById(R.id.tv_coorg_sleep_well_item_price);
-            img_add = itemView.findViewById(R.id.img_add);
+            /*img_add = itemView.findViewById(R.id.img_add);
             img_remove = itemView.findViewById(R.id.img_remove);
-            tv_quantity = itemView.findViewById(R.id.tv_quantity);
+            tv_quantity = itemView.findViewById(R.id.tv_quantity);*/
         }
     }
 }

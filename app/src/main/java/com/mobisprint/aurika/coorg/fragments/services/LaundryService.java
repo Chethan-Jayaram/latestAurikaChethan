@@ -97,12 +97,13 @@ public class LaundryService extends Fragment implements ApiListner {
        toolbar_title.setText(bundle.getString("title"));
 
 
-       controller.getLaundryServices();
-       items_count=GlobalClass.sharedPreferences.getInt(GlobalClass.Laundry_count,0);
+        items_count=GlobalClass.sharedPreferences.getInt(GlobalClass.Laundry_count,0);
         tv_num_of_items.setText(items_count+" " +"items");
 
-       total_price = GlobalClass.sharedPreferences.getFloat(GlobalClass.Laundry_price,0);
-       tv_total_price.setText("₹ "+total_price);
+        total_price = GlobalClass.sharedPreferences.getFloat(GlobalClass.Laundry_price,0);
+        tv_total_price.setText("₹ "+GlobalClass.round(total_price,2));
+       controller.getLaundryServices();
+
 
 
         view_order.setOnClickListener(v -> {
@@ -194,13 +195,10 @@ public class LaundryService extends Fragment implements ApiListner {
 
             LaundryServiceAdapter adapter = new LaundryServiceAdapter(mContext,laundry_service_list, data -> {
 
-
                 try {
-
 
                     items_count= 0;
                     total_price = 0;
-
 
                     for(int i=0;i<laundry_service_list.size() ;i++){
 
@@ -212,10 +210,15 @@ public class LaundryService extends Fragment implements ApiListner {
 
                             if (laundry_service_list.get(i).getCategory_item().get(j).getCount() >= 0 ){
 ;                                total_price +=laundry_service_list.get(i).getCategory_item().get(j).getCount() * Double.parseDouble(laundry_service_list.get(i).getCategory_item().get(j).getPrice()) ;
-                                tv_total_price.setText("₹ "+ " "+total_price);
+                                tv_total_price.setText("₹ "+ " "+GlobalClass.round(total_price,2));
                             }
                         }
                     }
+
+                    GlobalClass.editor.putInt(GlobalClass.Laundry_count, items_count);
+                    GlobalClass.editor.putFloat(GlobalClass.Laundry_price, (float) total_price);
+                    GlobalClass.editor.commit();
+
 
 
                     /*for (int i = 0; i<= category_items.size() - 1;i++){

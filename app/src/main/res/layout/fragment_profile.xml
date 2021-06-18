@@ -37,8 +37,8 @@
                             android:layout_alignBottom="@+id/img_profile"
                             android:layout_alignEnd="@+id/img_profile"
                             android:layout_width="@dimen/dimen_30"
-                            android:layout_height="@dimen/dimen_30"
-                            app:srcCompat="@drawable/ic_baseline_camera_alt_24"/>
+                        android:background="@drawable/edit_profile_image"
+                            android:layout_height="@dimen/dimen_30" />
 
 
                 </RelativeLayout>

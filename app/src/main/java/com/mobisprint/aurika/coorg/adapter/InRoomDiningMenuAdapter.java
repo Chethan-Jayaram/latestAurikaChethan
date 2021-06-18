@@ -195,7 +195,7 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter {
 
             }
         });
-
+        convertView.setSelected(true);
         return convertView;
     }
 

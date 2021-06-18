@@ -4,7 +4,28 @@ package com.mobisprint.aurika.coorg.pojo.navigation;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Data {
+
+    public List<RoutesSubcategory> getRoutesSubcategory() {
+        return routesSubcategory;
+    }
+
+    public void setRoutesSubcategory(List<RoutesSubcategory> routesSubcategory) {
+        this.routesSubcategory = routesSubcategory;
+    }
+
+    @SerializedName("routes_subcategory")
+    @Expose
+    private List<RoutesSubcategory> routesSubcategory = null;
+    public Boolean getDashboardVisible() {
+        return isDashboardVisible;
+    }
+
+    public void setDashboardVisible(Boolean dashboardVisible) {
+        isDashboardVisible = dashboardVisible;
+    }
 
     @SerializedName("id")
     @Expose

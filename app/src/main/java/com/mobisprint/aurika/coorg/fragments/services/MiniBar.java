@@ -3,6 +3,7 @@ package com.mobisprint.aurika.coorg.fragments.services;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mobisprint.aurika.R;
@@ -36,6 +38,8 @@ public class MiniBar extends Fragment implements ApiListner {
     private Context mContext;
     private ImageView img_back;
     private ExpandableListView expandableListView;
+    private CoordinatorLayout coordinatorLayout;
+    private ProgressBar progressBar;
 
 
 
@@ -58,6 +62,11 @@ public class MiniBar extends Fragment implements ApiListner {
         img_back = getActivity().findViewById(R.id.naviagation_hamberger);
         img_back.setVisibility(View.VISIBLE);
         expandableListView = view.findViewById(R.id.mini_bar_expandable_listview);
+        progressBar = view.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
+        coordinatorLayout = view.findViewById(R.id.lyt);
+        coordinatorLayout.setVisibility(View.GONE);
+
 
         Bundle bundle = getArguments();
 
@@ -74,11 +83,14 @@ public class MiniBar extends Fragment implements ApiListner {
 
     @Override
     public void onFetchProgress() {
+        progressBar.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
+        progressBar.setVisibility(View.GONE);
+        coordinatorLayout.setVisibility(View.VISIBLE);
 
         if (response!=null){
 
@@ -92,6 +104,7 @@ public class MiniBar extends Fragment implements ApiListner {
 
     @Override
     public void onFetchError(String error) {
+        progressBar.setVisibility(View.GONE);
 
         GlobalClass.ShowAlert(mContext,"Alert",error);
 

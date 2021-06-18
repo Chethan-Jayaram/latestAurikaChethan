@@ -167,7 +167,7 @@
             android:fontFamily="@font/notoseriftc_semibold"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="Skip >>"
+            android:text="Skip >"
             android:textColor="#420052"
             android:textSize="16sp"
             android:textStyle="bold"/>

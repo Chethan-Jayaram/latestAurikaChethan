@@ -15,10 +15,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -124,8 +126,8 @@ public class OrderSummary extends Fragment {
                     for (int i = 0; i < amenitiesList.size(); i++) {
                         if (amenitiesList.get(i).getCount() >= 0) {
                             total_price += amenitiesList.get(i).getCount() * Double.parseDouble(amenitiesList.get(i).getPrice());
-                            tv_item_total_price.setText("₹ " + " " + total_price);
-                            tv_total_price.setText("₹" + " " + (double) (total_price + service_tax));
+                            tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                            tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
                         }
                     }
@@ -141,8 +143,8 @@ public class OrderSummary extends Fragment {
 
                             if (amenitiesList.get(i).getCount() >= 0) {
                                 total_price += amenitiesList.get(i).getCount() * Double.parseDouble(amenitiesList.get(i).getPrice());
-                                tv_item_total_price.setText("₹ " + " " + total_price);
-                                tv_total_price.setText("₹" + " " + (double) (total_price + service_tax));
+                                tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                                tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
                             }
                         }
@@ -174,8 +176,8 @@ public class OrderSummary extends Fragment {
                     for (int i = 0; i < k9Amenities.size(); i++) {
                         if (k9Amenities.get(i).getCount() >= 0) {
                             total_price += k9Amenities.get(i).getCount() * Double.parseDouble(k9Amenities.get(i).getPrice());
-                            tv_item_total_price.setText("₹ " + " " + total_price);
-                            tv_total_price.setText("₹" + " " + (double) (total_price + service_tax));
+                            tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                            tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
                         }
                     }
@@ -188,8 +190,8 @@ public class OrderSummary extends Fragment {
                             items_count += k9Amenities.get(i).getCount();
                             if (k9Amenities.get(i).getCount() >= 0) {
                                 total_price += k9Amenities.get(i).getCount() * Double.parseDouble(k9Amenities.get(i).getPrice());
-                                tv_item_total_price.setText("₹ " + " " + total_price);
-                                tv_total_price.setText("₹" + " " + (double) (total_price + service_tax));
+                                tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                                tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
                             }
                         }
@@ -215,8 +217,8 @@ public class OrderSummary extends Fragment {
                     for (int i = 0; i < houskeepingList.size(); i++) {
                         if (houskeepingList.get(i).getCount() >= 0) {
                             total_price += houskeepingList.get(i).getCount() * Double.parseDouble(houskeepingList.get(i).getPrice());
-                            tv_item_total_price.setText("₹ " + " " + total_price);
-                            tv_total_price.setText("₹" + " " + (double) (total_price + service_tax));
+                            tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                            tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
                         }
                     }
@@ -234,8 +236,8 @@ public class OrderSummary extends Fragment {
                     for (int i = 0; i < k9Menu.size(); i++) {
                         if (k9Menu.get(i).getCount() >= 0) {
                             total_price += k9Menu.get(i).getCount() * Double.parseDouble(k9Menu.get(i).getPrice());
-                            tv_item_total_price.setText("₹ " + " " + total_price);
-                            tv_total_price.setText("₹" + " " + (double) (total_price + service_tax));
+                            tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                            tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
                         }
                     }
@@ -262,8 +264,8 @@ public class OrderSummary extends Fragment {
 
                     items_count=GlobalClass.sharedPreferences.getInt(GlobalClass.Laundry_count,0);
                     total_price = GlobalClass.sharedPreferences.getFloat(GlobalClass.Laundry_price,0);
-                    tv_total_price.setText("₹ " + (double) (total_price + service_tax));
-                    tv_item_total_price.setText("₹ " + " " + total_price);
+                    tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                    tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
 
 
@@ -281,8 +283,8 @@ public class OrderSummary extends Fragment {
 
                                 if (laundryList.get(i).getCategory_item().get(j).getCount() >= 0) {
                                     total_price += laundryList.get(i).getCategory_item().get(j).getCount() * Double.parseDouble(laundryList.get(i).getCategory_item().get(j).getPrice());
-                                    tv_item_total_price.setText("₹ " + " " + total_price);
-                                    tv_total_price.setText("₹" + " " + (double) (total_price + service_tax));
+                                    tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                                    tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
                                 }
                             }
 
@@ -317,8 +319,8 @@ public class OrderSummary extends Fragment {
 
                     items_count=GlobalClass.sharedPreferences.getInt(GlobalClass.Dining_count,0);
                     total_price = GlobalClass.sharedPreferences.getFloat(GlobalClass.Dining_price,0);
-                    tv_total_price.setText("₹ " + (double) (total_price + service_tax));
-                    tv_item_total_price.setText("₹ " + " " + total_price);
+                    tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                    tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
                     Log.d("dining_size", String.valueOf(diningList.size()));
 
@@ -337,8 +339,8 @@ public class OrderSummary extends Fragment {
                                 if (diningList.get(i).getDiningList().get(j).getCount() >= 0 ){
                                     category_items.add(diningList.get(i).getDiningList().get(j));
                                     total_price +=diningList.get(i).getDiningList().get(j).getCount() * Double.parseDouble(diningList.get(i).getDiningList().get(j).getPrice()) ;
-                                    tv_item_total_price.setText("₹ " + " " + total_price);
-                                    tv_total_price.setText("₹" + " " + (double) (total_price + service_tax));
+                                    tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                                    tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
                                 }
                             }
 
@@ -373,8 +375,8 @@ public class OrderSummary extends Fragment {
 
                     items_count=GlobalClass.sharedPreferences.getInt(GlobalClass.SleepWell_count,0);
                     total_price = GlobalClass.sharedPreferences.getFloat(GlobalClass.SleepWell_price,0);
-                    tv_total_price.setText("₹ " + (double) (total_price + service_tax));
-                    tv_item_total_price.setText("₹ " + " " + total_price);
+                    tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                    tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
                     ReviewOrderSleeWellAdapter adapter6 = new ReviewOrderSleeWellAdapter(sleepWellList,mContext,data -> {
 
@@ -389,8 +391,8 @@ public class OrderSummary extends Fragment {
                                 items_count += sleepWellList.get(i).getSleepwellList().get(j).getCount();
                                 if (sleepWellList.get(i).getSleepwellList().get(j).getCount() >= 0 ){
                                     total_price +=sleepWellList.get(i).getSleepwellList().get(j).getCount() * Double.parseDouble(sleepWellList.get(i).getSleepwellList().get(j).getPrice()) ;
-                                    tv_total_price.setText("₹ "+ " "+total_price);
-                                    tv_item_total_price.setText("₹ " + " " + total_price);
+                                    tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                                    tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
                                 }
                             }
                         }
@@ -439,6 +441,10 @@ public class OrderSummary extends Fragment {
         ImageView img_up_hr = bottomSheetDialog.findViewById(R.id.img_up_hr);
         ImageView img_down_hr = bottomSheetDialog.findViewById(R.id.img_down_hr);
 
+        LinearLayout lyt_calendar = bottomSheetDialog.findViewById(R.id.lyt_calendar);
+        LinearLayout lyt_select_date = bottomSheetDialog.findViewById(R.id.lyt_select_date);
+        lyt_select_date.setVisibility(View.VISIBLE);
+
         ImageView img_up_min = bottomSheetDialog.findViewById(R.id.img_up_min);
         ImageView img_down_min = bottomSheetDialog.findViewById(R.id.img_down_min);
 
@@ -446,7 +452,22 @@ public class OrderSummary extends Fragment {
         TextView tv_min = bottomSheetDialog.findViewById(R.id.tv_min);
 
 
+        Button bt_back = bottomSheetDialog.findViewById(R.id.bt_back);
+        Button bt_save = bottomSheetDialog.findViewById(R.id.bt_save);
 
+        CalendarView calendar_view = bottomSheetDialog.findViewById(R.id.calendar_view);
+
+
+
+        bt_back.setOnClickListener(v -> {
+            lyt_calendar.setVisibility(View.GONE);
+            lyt_select_date.setVisibility(View.VISIBLE);
+        });
+
+        bt_save.setOnClickListener(v -> {
+            lyt_calendar.setVisibility(View.GONE);
+            lyt_select_date.setVisibility(View.VISIBLE);
+        });
 
         bt_today.setOnClickListener(v -> {
 
@@ -470,23 +491,24 @@ public class OrderSummary extends Fragment {
 
         select_date.setOnClickListener(v -> {
 
+
+            lyt_calendar.setVisibility(View.VISIBLE);
+            lyt_select_date.setVisibility(View.GONE);
+
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);
             int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(mContext,
+            /*DatePickerDialog datePickerDialog = new DatePickerDialog(mContext,
                     new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-
-
                         }
                     }, year, month, dayOfMonth);
             datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-            datePickerDialog.show();
-
+            datePickerDialog.show();*/
 
 
             bt_today.setBackgroundColor(getResources().getColor(R.color.white));

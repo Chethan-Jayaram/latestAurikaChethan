@@ -3,12 +3,17 @@
     package="com.mobisprint.aurika"
     android:installLocation="internalOnly">
 
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- Bluetooth low energy permissions are specified in the SDK -->
+
+
     <!-- NFC permissions and features -->
     <uses-feature
         android:name="android.hardware.nfc.hce"
@@ -46,14 +51,14 @@
             </intent-filter>
         </activity>
 
-        <receiver
+       <!-- <receiver
             android:name=".helper.SMSReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
             </intent-filter>
         </receiver>
-
+-->
         <meta-data
             android:name="com.onesignal.NotificationOpened.DEFAULT"
             android:value="DISABLE" />

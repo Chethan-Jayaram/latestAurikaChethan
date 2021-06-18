@@ -16,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -28,11 +29,12 @@ import java.util.Calendar;
 public class WineAndDineBookTable extends Fragment {
 
     private TextView tv_selected_wine_dine_title,prefered_time_wine_and_dine,toolbar_title;
-    private ImageView img_selected_wine_and_dine,img_select_time;
+    private ImageView img_selected_wine_and_dine;
     private ImageView img_back;
     private LinearLayout lyt;
     private ProgressBar progressBar;
     private Context mContext;
+    private RelativeLayout img_select_time;
 
 
     @Override
@@ -86,6 +88,22 @@ public class WineAndDineBookTable extends Fragment {
         TextView tv_hr = bottomSheetDialog.findViewById(R.id.tv_hr);
         TextView tv_min = bottomSheetDialog.findViewById(R.id.tv_min);
 
+        LinearLayout lyt_calendar = bottomSheetDialog.findViewById(R.id.lyt_calendar);
+        LinearLayout lyt_select_date = bottomSheetDialog.findViewById(R.id.lyt_select_date);
+        lyt_select_date.setVisibility(View.VISIBLE);
+
+        Button bt_back = bottomSheetDialog.findViewById(R.id.bt_back);
+        Button bt_save = bottomSheetDialog.findViewById(R.id.bt_save);
+
+        bt_back.setOnClickListener(v -> {
+            lyt_calendar.setVisibility(View.GONE);
+            lyt_select_date.setVisibility(View.VISIBLE);
+        });
+
+        bt_save.setOnClickListener(v -> {
+            lyt_calendar.setVisibility(View.GONE);
+            lyt_select_date.setVisibility(View.VISIBLE);
+        });
 
 
 
@@ -111,13 +129,16 @@ public class WineAndDineBookTable extends Fragment {
 
         select_date.setOnClickListener(v -> {
 
+            lyt_calendar.setVisibility(View.VISIBLE);
+            lyt_select_date.setVisibility(View.GONE);
+
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);
             int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(mContext,
+            /*DatePickerDialog datePickerDialog = new DatePickerDialog(mContext,
                     new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -126,7 +147,7 @@ public class WineAndDineBookTable extends Fragment {
                         }
                     }, year, month, dayOfMonth);
             datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-            datePickerDialog.show();
+            datePickerDialog.show();*/
 
 
 

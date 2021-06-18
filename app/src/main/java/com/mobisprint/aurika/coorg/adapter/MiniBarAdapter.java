@@ -74,13 +74,23 @@ public class MiniBarAdapter extends BaseExpandableListAdapter {
             tv_minibar_title.setText(minibarList.get(groupPosition).getTitle());
             ExpandableListView elv = (ExpandableListView)  parent;
             elv.expandGroup(groupPosition);
+
+
+            elv.setOnGroupClickListener((arg0, itemView, itemPosition, itemId) -> {
+                elv.expandGroup(itemPosition);
+                return true;
+            });
+
         }
 
         return convertView;
     }
 
+
+
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        convertView=null;
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.mContext.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -91,8 +101,8 @@ public class MiniBarAdapter extends BaseExpandableListAdapter {
             TextView tv_item_quantity = convertView.findViewById(R.id.tv_item_quantity);
             TextView tv_item_price = convertView.findViewById(R.id.tv_item_price);
 
-            tv_item_name.setText(minibarList.get(groupPosition).getMinibarList().get(childPosition).getTitle());
-            tv_item_price.setText(minibarList.get(groupPosition).getMinibarList().get(childPosition).getPrice());
+            tv_item_name.setText(minibarList.get(groupPosition).getMinibarList().get(childPosition).getTitle() + "\n(and services)");
+            tv_item_price.setText("₹ " + minibarList.get(groupPosition).getMinibarList().get(childPosition).getPrice());
 
 
             tv_item_quantity.setText(String.valueOf(minibarList.get(groupPosition).getMinibarList().get(childPosition).getQuantity()));

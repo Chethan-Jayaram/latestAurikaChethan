@@ -1,8 +1,12 @@
 package com.mobisprint.aurika.coorg.fragments.loginfragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.hardware.biometrics.BiometricPrompt;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -24,7 +28,7 @@ import com.mobisprint.aurika.helper.GlobalClass;
 import retrofit2.Response;
 
 
-public class CreateMpinFragment extends Fragment implements ApiListner {
+public class CreateMpinFragment extends Fragment implements ApiListner  {
 
     private EditText et1_one,et1_two,et1_three,et1_four,et2_one,et2_two,et2_three,et2_four;
     private CreateMpinController createMpinController;
@@ -35,6 +39,7 @@ public class CreateMpinFragment extends Fragment implements ApiListner {
     private String mpin;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,7 +83,8 @@ public class CreateMpinFragment extends Fragment implements ApiListner {
                     GlobalClass.ShowAlert(mContext,"Alert","Mpin mismatch");
                 }
             });
-
+            
+            /*displayBiometricPrompt();*/
 
 
         }catch (Exception e){
@@ -87,6 +93,9 @@ public class CreateMpinFragment extends Fragment implements ApiListner {
 
         return view;
     }
+
+
+
 
     private void init() {
 

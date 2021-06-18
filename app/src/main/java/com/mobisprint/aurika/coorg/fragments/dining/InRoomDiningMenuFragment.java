@@ -113,7 +113,7 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
             tv_num_of_items.setText(items_count+" " +"items");
 
             total_price = GlobalClass.sharedPreferences.getFloat(GlobalClass.Dining_price,0);
-            tv_total_price.setText("₹ "+total_price);
+            tv_total_price.setText("₹ "+GlobalClass.round(total_price,2));
 
 
 
@@ -253,11 +253,15 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                             if (dataList.get(i).getDiningList().get(j).getCount() >= 0 ){
                                 category_items.add(dataList.get(i).getDiningList().get(j));
                                 total_price +=dataList.get(i).getDiningList().get(j).getCount() * Double.parseDouble(dataList.get(i).getDiningList().get(j).getPrice()) ;
-                                tv_total_price.setText("₹ "+ " "+total_price);
+                                tv_total_price.setText("₹ "+ " "+GlobalClass.round(total_price,2));
                             }
                         }
 
                     }
+
+                    GlobalClass.editor.putInt(GlobalClass.Dining_count, items_count);
+                    GlobalClass.editor.putFloat(GlobalClass.Dining_price, (float) total_price);
+                    GlobalClass.editor.commit();
 
 
                 }catch (Exception e){

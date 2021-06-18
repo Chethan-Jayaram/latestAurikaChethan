@@ -40,7 +40,7 @@ public class SMSReceiver extends BroadcastReceiver {
                     /*<#> Your ExampleApp code is: 123ABC78
                     FA+9qCX9VSu*/
 
-                    Log.d("otp received","sucessfully");
+
                     String[] otp=message.split("is",6);
                     Log.d("myOTP",otp[1]);
 

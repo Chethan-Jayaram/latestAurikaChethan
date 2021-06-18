@@ -24,6 +24,8 @@
 
 
     <TextView
+        android:layout_toLeftOf="@+id/img_navigation_drop_down"
+        android:layout_marginRight="@dimen/dimen_10"
         android:layout_centerInParent="true"
         android:layout_toRightOf="@+id/navigation_bar_image"
         android:id="@+id/navigation_bar_text"
@@ -36,5 +38,16 @@
         android:layout_height="wrap_content"
         android:textSize="16sp" >
     </TextView>
+
+
+    <ImageView
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ccp_down_arrow"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dimen_10"
+        android:layout_centerInParent="true"
+        android:id="@+id/img_navigation_drop_down"/>
 
 </RelativeLayout>

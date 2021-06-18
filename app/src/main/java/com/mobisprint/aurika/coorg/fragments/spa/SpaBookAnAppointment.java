@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,11 +43,11 @@ import retrofit2.Response;
 public class SpaBookAnAppointment extends Fragment implements ApiListner {
 
     private TextView toolbar_title,tv_spa_title,therapy_heading,therapy_time,therapy_price;
-    private ImageView img_spa,img_drop_down,img_time;
+    private ImageView img_spa,img_drop_down;
     private Context mContext;
     private BookAnAppointmentController controller;
     private RecyclerView recyclerView;
-    private RelativeLayout lyt_select_therapy,lyt_main;
+    private RelativeLayout lyt_select_therapy,lyt_main,img_time;
     private LinearLayout linearLayout;
     private ProgressBar progressBar;
     private Boolean chech_status = true;
@@ -131,6 +132,23 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner {
         TextView tv_min = bottomSheetDialog.findViewById(R.id.tv_min);
 
 
+        LinearLayout lyt_calendar = bottomSheetDialog.findViewById(R.id.lyt_calendar);
+        LinearLayout lyt_select_date = bottomSheetDialog.findViewById(R.id.lyt_select_date);
+        lyt_select_date.setVisibility(View.VISIBLE);
+
+        Button bt_back = bottomSheetDialog.findViewById(R.id.bt_back);
+        Button bt_save = bottomSheetDialog.findViewById(R.id.bt_save);
+
+        bt_back.setOnClickListener(v -> {
+            lyt_calendar.setVisibility(View.GONE);
+            lyt_select_date.setVisibility(View.VISIBLE);
+        });
+
+        bt_save.setOnClickListener(v -> {
+            lyt_calendar.setVisibility(View.GONE);
+            lyt_select_date.setVisibility(View.VISIBLE);
+        });
+
 
 
         bt_today.setOnClickListener(v -> {
@@ -155,13 +173,16 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner {
 
         select_date.setOnClickListener(v -> {
 
+            lyt_calendar.setVisibility(View.VISIBLE);
+            lyt_select_date.setVisibility(View.GONE);
+
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);
             int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(mContext,
+           /* DatePickerDialog datePickerDialog = new DatePickerDialog(mContext,
                     new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -170,7 +191,7 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner {
                         }
                     }, year, month, dayOfMonth);
             datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-            datePickerDialog.show();
+            datePickerDialog.show();*/
 
 
 
@@ -206,16 +227,16 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner {
                 Log.d("pos my click", String.valueOf(Position));
                 therapy_heading.setText(spaList.get(Position).getTitle());
 
-
-                if (spaList.get(Position).getDuration() == null || spaList.get(Position).getDuration().isEmpty() || spaList.get(Position).getDuration().equals("0")){
+                therapy_heading.setText(Html.fromHtml("<font color=#000000>"+ spaList.get(Position).getTitle() +"</font> <font color=#A7A7A7>"+"("+spaList.get(Position).getDuration()+" mins)" +"</font>"));
+               /* if (spaList.get(Position).getDuration() == null || spaList.get(Position).getDuration().isEmpty() || spaList.get(Position).getDuration().equals("0")){
                     therapy_time.setVisibility(View.GONE);
                 }else {
                     therapy_time.setText("(" + spaList.get(Position).getDuration()+" mins"+")");
                     therapy_time.setVisibility(View.VISIBLE);
-                }
+                }*/
 
 
-                /*img_drop_down.setVisibility(View.GONE);*/
+                img_drop_down.setVisibility(View.VISIBLE);
 
                 if (spaList.get(Position).getPrice() == null  || spaList.get(Position).getPrice().equals("0.00") ){
                     therapy_price.setVisibility(View.GONE);

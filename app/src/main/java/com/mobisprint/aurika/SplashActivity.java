@@ -18,6 +18,8 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mobisprint.aurika.coorg.activity.HomeActivity;
+import com.mobisprint.aurika.coorg.activity.UserAuthenticationActivity;
 import com.mobisprint.aurika.helper.CustomMessageHelper;
 import com.mobisprint.aurika.helper.GlobalClass;
 import com.mobisprint.aurika.retrofit.ClientServiceGenerator;
@@ -82,9 +84,13 @@ public class SplashActivity extends Activity {
         super.onResume();
         // Creates instance of the manager.
 
+        Intent startAct = new Intent(getApplicationContext(), UserAuthenticationActivity.class);
+        startAct.putExtra("notification", notification);
+        startActivity(startAct);
+        finish();
 
 
-        if (GlobalClass.APPDATA.isEmpty()) {
+        /*if (GlobalClass.APPDATA.isEmpty()) {
             if (!haveNetworkConnection()) {
                 ShowAlet("No Internet Connection", "Turn on your internet and continue");
             } else {
@@ -96,7 +102,7 @@ public class SplashActivity extends Activity {
             } else {
                 handlermethod();
             }
-        }
+        }*/
 
     }
 

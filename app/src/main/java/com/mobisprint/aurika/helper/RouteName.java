@@ -34,6 +34,7 @@ public class RouteName {
 
 
 
+
     //Coorg PetServices
 
 
@@ -43,6 +44,10 @@ public class RouteName {
 
 
 
+    //Coorg profile routes
+
+    public static final String myprofile = "myprofile";
+    public static final String my_stay = "my-stay";
 
     public static String getLocationRoutes(String route){
         switch(route){
@@ -97,6 +102,8 @@ public class RouteName {
                 return COORG_PATH+"fragments.experiences.ExclusiveExperiences";
             case in_room_dining:
                 return COORG_PATH+"fragments.dining.CoorgInRoomDiningFragment";
+            case myprofile:
+                return "";
             default:return "";
 
         }

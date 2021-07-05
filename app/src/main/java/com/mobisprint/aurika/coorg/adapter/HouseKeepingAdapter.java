@@ -13,17 +13,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.angads25.toggle.LabeledSwitch;
 import com.github.angads25.toggle.interfaces.OnToggledListener;
+import com.google.gson.Gson;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.pojo.Services.Data;
+import com.mobisprint.aurika.coorg.pojo.petservices.K9Data;
 import com.mobisprint.aurika.helper.GlobalClass;
+import com.mobisprint.aurika.helper.MySwitc;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public  class HouseKeepingAdapter extends RecyclerView.Adapter<HouseKeepingAdapter.ViewHolder> {
 
     List<Data> houseKeepingList;
     private GlobalClass.AdapterListener mListener;
     private boolean isItemSelected = false ;
+    private boolean isMultipleItemSelected = false;
 
     public HouseKeepingAdapter(List<Data> houseKeepingList,GlobalClass.AdapterListener mListener) {
 
@@ -45,99 +51,120 @@ public  class HouseKeepingAdapter extends RecyclerView.Adapter<HouseKeepingAdapt
 
         holder.tv_item_name.setText(houseKeepingList.get(position).getName());
         holder.tv_item_price.setText("₹"+" "+houseKeepingList.get(position).getPrice());
+        holder.tv_quantity.setText(Integer.toString(houseKeepingList.get(position).getCount()));
 
-
-
-
-        /*if (houseKeepingList.get(position).isItemSelected()){
-            holder.switch4.setEnabled(true);
-            isItemSelected = true;
-
+        if (houseKeepingList.get(position).getDescription() !=null
+                && !houseKeepingList.get(position).getDescription().equals("")
+                && !houseKeepingList.get(position).getDescription().isEmpty()  ){
+            holder.tv_amenities_item_desc.setVisibility(View.VISIBLE);
+            holder.tv_amenities_item_desc.setText(houseKeepingList.get(position).getDescription());
         }else{
-            if (isItemSelected){
-                holder.switch4.setClickable(false);
+            holder.tv_amenities_item_desc.setVisibility(View.GONE);
+        }
 
+        if (houseKeepingList.get(position).getCount() == 0){
+            holder.lyt_add.setVisibility(View.VISIBLE);
+            holder.lyt_counter.setVisibility(View.GONE);
+        }else{
+            holder.lyt_add.setVisibility(View.GONE);
+            holder.lyt_counter.setVisibility(View.VISIBLE);
+        }
 
-            }
-            holder.switch4.setEnabled(false);
-        }*/
-
-
-        holder.switch4.setOnClickListener( v -> {
-            if (isItemSelected && !houseKeepingList.get(position).isItemSelected() ){
-                GlobalClass.ShowAlert(holder.itemView.getContext(),"Alert","Only one item can be selected, Please raise a new request for different item ");
-                holder.switch4.setEnabled(false);
-            }else if (isItemSelected && houseKeepingList.get(position).isItemSelected()){
-                holder.switch4.setEnabled(false);
-                isItemSelected = false;
-                houseKeepingList.get(position).setItemSelected(false);
-            }else if(!isItemSelected && !houseKeepingList.get(position).isItemSelected()) {
-                holder.switch4.setEnabled(true);
-                isItemSelected = true;
-                houseKeepingList.get(position).setItemSelected(true);
+        holder.bt_add.setOnClickListener(v -> {
+            if (!isItemSelected){
+                isMultipleItemSelected = true;
+                houseKeepingList.get(position).setCount( houseKeepingList.get(position).getCount()+1);
+                holder.tv_quantity.setText(Integer.toString(houseKeepingList.get(position).getCount()));
+                holder.lyt_add.setVisibility(View.GONE);
+                holder.lyt_counter.setVisibility(View.VISIBLE);
+                pushData(houseKeepingList);
+                mListener.onItemClicked(position);
             }else{
-                holder.switch4.setEnabled(false);
+                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests  ");
             }
 
         });
 
+        if (houseKeepingList.get(position).getItemselectorType().equalsIgnoreCase("single")){
+            holder.bt_single.setVisibility(View.VISIBLE);
+            if (houseKeepingList.get(position).getCount()>0){
+                isItemSelected =true;
+                holder.switch4.setOn(true);
+            }
 
+        }else if (houseKeepingList.get(position).getItemselectorType().equalsIgnoreCase("multi")){
+            holder.bt_multiple.setVisibility(View.VISIBLE);
+            if (houseKeepingList.get(position).getCount()>0){
+                isMultipleItemSelected = true;
+            }
+        }
 
-        /*holder.switch4.setOnToggledListener(new OnToggledListener() {
-            @Override
-            public void onSwitched(LabeledSwitch labeledSwitch, boolean isOn) {
+        holder.img_add.setOnClickListener(v -> {
+            if (houseKeepingList.get(position).getMaxCount() != null){
 
-                *//*if (isItemSelected && isOn){
+                if (houseKeepingList.get(position).getCount() < houseKeepingList.get(position).getMaxCount()){
+                    isMultipleItemSelected=true;
                     isItemSelected = false;
-                    houseKeepingList.get(position).setItemSelected(true);
-                }else{
-                    for (int i = 0; i<=houseKeepingList.size();i++){
-                        if (houseKeepingList.get(position).isItemSelected()){
-
-                        }
-                    }
-                }*//*
-
-
-
-
-                if (isItemSelected && !houseKeepingList.get(position).isItemSelected() ){
-                    labeledSwitch.setEnabled(false);
-                    GlobalClass.ShowAlert(holder.itemView.getContext(),"Alert","Only one item can be selected, Please raise a new request for different item ");
-
-                }else
-                if (isItemSelected && houseKeepingList.get(position).isItemSelected()){
-                    isItemSelected = false;
+                    houseKeepingList.get(position).setCount( houseKeepingList.get(position).getCount()+1);
+                    holder.tv_quantity.setText(Integer.toString(houseKeepingList.get(position).getCount()));
+                    pushData(houseKeepingList);
+                    mListener.onItemClicked(position);
                 }else {
-                    isItemSelected = true;
-                    houseKeepingList.get(position).setItemSelected(true);
+                    GlobalClass.ShowAlert(holder.itemView.getContext(),"Alert","Maximum count for this item has been reached");
                 }
             }
-        });*/
 
-        /*holder.tv_quantity.setText(Integer.toString(houseKeepingList.get(position).getCount()));*/
 
-        /*holder.img_add.setOnClickListener(v -> {
-            houseKeepingList.get(position).setCount( houseKeepingList.get(position).getCount()+1);
-            holder.tv_quantity.setText(Integer.toString(houseKeepingList.get(position).getCount()));
-            mListener.onItemClicked(position);
+
         });
 
-        *//*if (houseKeepingList.get(position).getPrice() ==null ||
-                houseKeepingList.get(position).getPrice().isEmpty() ||
-                houseKeepingList.get(position).getPrice().equals("0.00")){
-            holder.tv_item_price.setVisibility(View.GONE);
-        }else {
-            holder.tv_item_price.setVisibility(View.VISIBLE);
-        }*//*
-
         holder.img_remove.setOnClickListener(v -> {
+            if (houseKeepingList.get(position).getCount() == 1){
+                holder.lyt_add.setVisibility(View.VISIBLE);
+                holder.lyt_counter.setVisibility(View.GONE);
+                houseKeepingList.get(position).setCount( houseKeepingList.get(position).getCount()-1);
+                holder.tv_quantity.setText(Integer.toString(houseKeepingList.get(position).getCount()));
+                pushData(houseKeepingList);
+                mListener.onItemClicked(position);
+            }
             if (houseKeepingList.get(position).getCount()>0){
                 houseKeepingList.get(position).setCount( houseKeepingList.get(position).getCount()-1);
                 holder.tv_quantity.setText(Integer.toString(houseKeepingList.get(position).getCount()));
+                pushData(houseKeepingList);
                 mListener.onItemClicked(position);
             }
-        });*/
+            if(houseKeepingList.get(position).getCount()==0){
+                if (GlobalClass.sharedPreferences.getInt(GlobalClass.HouseKeeping_count,0) == 0){
+                    isMultipleItemSelected = false;
+                    isItemSelected=false;
+                }
+            }
+
+        });
+
+
+        holder.switch4.setOnClickListener(v -> {
+            if ((isItemSelected && !houseKeepingList.get(position).isItemSelected()) || isMultipleItemSelected) {
+                holder.switch4.setOn(true);
+                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests  ");
+            } else if (isItemSelected && houseKeepingList.get(position).isItemSelected() ){
+                holder.switch4.setEnabled(false);
+                isItemSelected = false;
+                houseKeepingList.get(position).setItemSelected(false);
+                houseKeepingList.get(position).setCount( houseKeepingList.get(position).getCount()-1);
+                pushData(houseKeepingList);
+                mListener.onItemClicked(position);
+            } else if ((!isItemSelected && !houseKeepingList.get(position).isItemSelected()) || !isMultipleItemSelected) {
+                holder.switch4.setEnabled(true);
+                isItemSelected = true;
+                houseKeepingList.get(position).setItemSelected(true);
+                houseKeepingList.get(position).setCount( houseKeepingList.get(position).getCount()+1);
+                pushData(houseKeepingList);
+                mListener.onItemClicked(position);
+            }
+        });
+
+
 
 
     }
@@ -147,22 +174,40 @@ public  class HouseKeepingAdapter extends RecyclerView.Adapter<HouseKeepingAdapt
         return houseKeepingList.size();
     }
 
+    private void pushData(List<Data> HouseKeepingData) {
+
+        Set<Data> set = new LinkedHashSet<>(HouseKeepingData);
+        Gson gson = new Gson();
+        String json = gson.toJson(set);
+        GlobalClass.editor.putString("HouseKeeping", json);
+        GlobalClass.editor.commit();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_item_name, tv_item_price,tv_quantity;
+        TextView tv_item_name, tv_item_price,tv_quantity,tv_amenities_item_desc;
         ImageView img_add,img_remove;
         CardView add_to_cart;
-        LabeledSwitch switch4;
+        MySwitc switch4;
+        View bt_single,bt_multiple;
+        CardView lyt_counter ;
+        CardView lyt_add ;
+        TextView bt_add ;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_item_name = itemView.findViewById(R.id.tv_amenities_item_name);
             tv_item_price = itemView.findViewById(R.id.tv_amenities_item_price);
             tv_quantity = itemView.findViewById(R.id.tv_quantity);
+            tv_amenities_item_desc = itemView.findViewById(R.id.tv_amenities_item_desc);
             switch4 = itemView.findViewById(R.id.switch4);
-           /* img_add = itemView.findViewById(R.id.img_add);
+            bt_single = itemView.findViewById(R.id.bt_housekeeping_single);
+            bt_multiple = itemView.findViewById(R.id.bt_housekeeping_multiple);
+            lyt_add =itemView.findViewById(R.id.lyt_add);
+            lyt_counter = itemView.findViewById(R.id.lyt_counter);
+            bt_add = itemView.findViewById(R.id.bt_add);
+            img_add = itemView.findViewById(R.id.img_add);
             img_remove = itemView.findViewById(R.id.img_remove);
-            add_to_cart = itemView.findViewById(R.id.add_to_cart);*/
         }
     }
 }

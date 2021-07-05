@@ -23,9 +23,9 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
 
     private Context mContext;
     private List<Data> navigationList;
-    private GlobalClass.AdapterListener mListener;
+    private GlobalClass.NavigationListener mListener;
 
-    public NavigationAdapter(Context mContext, List<Data> navigationList, GlobalClass.AdapterListener mListener) {
+    public NavigationAdapter(Context mContext, List<Data> navigationList, GlobalClass.NavigationListener mListener) {
         this.mContext = mContext;
         this.navigationList = navigationList;
         this.mListener = mListener;
@@ -107,7 +107,7 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
             }else{
                 elv.expandGroup(groupPosition);
             }
-            mListener.onItemClicked(groupPosition);
+            mListener.onItemClicked(groupPosition,0,true);
         });
 
 
@@ -127,7 +127,9 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
 
             tv_sub_items.setText(navigationList.get(groupPosition).getRoutesSubcategory().get(childPosition).getTitle());
 
-
+            tv_sub_items.setOnClickListener(v -> {
+                mListener.onItemClicked(groupPosition, childPosition,false);
+            });
 
 
         return convertView;

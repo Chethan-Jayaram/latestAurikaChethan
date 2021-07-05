@@ -46,8 +46,20 @@
         android:layout_height="wrap_content">
 
         <include
-            android:id="@+id/selector"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/dimen_2"
+            android:id="@+id/bt_amen_multiple"
             layout="@layout/item_selector"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"/>
+
+        <include
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/dimen_2"
+            android:id="@+id/bt_amen_single"
+            layout="@layout/toggle_switch"
             android:layout_alignParentRight="true"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

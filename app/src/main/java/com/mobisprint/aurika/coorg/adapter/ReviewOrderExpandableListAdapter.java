@@ -3,18 +3,14 @@ package com.mobisprint.aurika.coorg.adapter;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -25,13 +21,11 @@ import com.mobisprint.aurika.coorg.pojo.Services.Category_item;
 import com.mobisprint.aurika.coorg.pojo.Services.Data;
 import com.mobisprint.aurika.coorg.pojo.dining.Dining__1;
 import com.mobisprint.aurika.helper.GlobalClass;
+import com.mobisprint.aurika.helper.MySwitc;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static com.mobisprint.aurika.R.drawable.icon_veg;
 
@@ -41,16 +35,19 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
     private List<com.mobisprint.aurika.coorg.pojo.dining.Data> diningArrPackageData;
     private GlobalClass.ExpandableAdapterListener mListener;
     private GlobalClass.ExpandableAdapterListenerIRD mListenerIRD;
+    private Context mContext;
 
     public ReviewOrderExpandableListAdapter(List<Data> arrPackageData, Context mContext,GlobalClass.ExpandableAdapterListener mListener) {
         this.arrPackageData = arrPackageData;
         this.mListener = mListener;
+        this.mContext = mContext;
     }
 
 
-    public ReviewOrderExpandableListAdapter(List<com.mobisprint.aurika.coorg.pojo.dining.Data> diningArrPackageData, String dining,GlobalClass.ExpandableAdapterListenerIRD mListenerIRD) {
+    public ReviewOrderExpandableListAdapter(List<com.mobisprint.aurika.coorg.pojo.dining.Data> diningArrPackageData, String dining, Context mContext,GlobalClass.ExpandableAdapterListenerIRD mListenerIRD) {
         this.diningArrPackageData = diningArrPackageData;
         this.mListenerIRD = mListenerIRD;
+        this.mContext = mContext;
     }
 
     @Override
@@ -133,8 +130,13 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
                 ImageView imageView = convertView.findViewById(R.id.img_dropdown);
                 imageView.setVisibility(View.GONE);
                 RelativeLayout relativeLayout = convertView.findViewById(R.id.lyt_header_view);
-                relativeLayout.setVisibility(View.GONE);
+                RelativeLayout lyt_view = convertView.findViewById(R.id.lyt_view);
+
                 RelativeLayout group_lyt=convertView.findViewById(R.id.group_lyt);
+
+               if (groupPosition == 0){
+                   lyt_view.setVisibility(View.GONE);
+               }
 
                 if (arrPackageData.get(groupPosition).getCategory_item().size() != 0) {
                     listTitleTextView.setTypeface(null, Typeface.BOLD);
@@ -167,7 +169,9 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
                 RelativeLayout group_lyt = convertView.findViewById(R.id.group_lyt);
                 View lyt_view = convertView.findViewById(R.id.lyt_view);
 
-                lyt_view.setVisibility(View.GONE);
+
+                    lyt_view.setVisibility(View.GONE);
+
 
                 title.setText(diningArrPackageData.get(groupPosition).getTitle());
 
@@ -220,6 +224,28 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
             RelativeLayout lyt_items = convertView.findViewById(R.id.lyt_items);
             lyt_items.setVisibility(View.GONE);
 
+            View bt_single = convertView.findViewById(R.id.bt_amen_single);
+            View bt_multiple = convertView.findViewById(R.id.bt_amen_multiple);
+            MySwitc switch4 = convertView.findViewById(R.id.switch4);
+
+            if (arrPackageData.get(groupPosition).getCategory_item().get(childPosition).getItemselectorType().equalsIgnoreCase("single")){
+                bt_single.setVisibility(View.VISIBLE);
+                if (arrPackageData.get(groupPosition).getCategory_item().get(childPosition).getCount()>0){
+                    switch4.setOn(true);
+                }else {
+                    switch4.setOn(false );
+                }
+
+            }else {
+                bt_single.setVisibility(View.GONE);
+            }
+
+            if (arrPackageData.get(groupPosition).getCategory_item().get(childPosition).getItemselectorType().equalsIgnoreCase("multi")){
+                bt_multiple.setVisibility(View.VISIBLE);
+            }else {
+                bt_multiple.setVisibility(View.GONE);
+            }
+
 
             if (expandedListText.getCount()>0){
                 lyt_items.setVisibility(View.VISIBLE);
@@ -229,15 +255,22 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
             }
 
 
-
-
-
             img_add.setOnClickListener(v -> {
                 try {
-                    arrPackageData.get(groupPosition).getCategory_item().get(childPosition).setCount(expandedListText.getCount() + 1);
-                    tv_quantity.setText(Integer.toString(expandedListText.getCount()));
-                    mListener.onItemClicked(arrPackageData.get(groupPosition));
-                    pushData(arrPackageData);
+                    if (arrPackageData.get(groupPosition).getCategory_item().get(childPosition).getMaxCount() != null){
+                        if (arrPackageData.get(groupPosition).getCategory_item().get(childPosition).getCount() < arrPackageData.get(groupPosition).getCategory_item().get(childPosition).getMaxCount()){
+
+                            arrPackageData.get(groupPosition).getCategory_item().get(childPosition).setCount(expandedListText.getCount() + 1);
+                            tv_quantity.setText(Integer.toString(expandedListText.getCount()));
+                            mListener.onItemClicked(arrPackageData.get(groupPosition));
+                            pushData(arrPackageData);
+                        }else {
+                            GlobalClass.ShowAlert(mContext,"Alert","Maximum count for this item has been reached");
+                        }
+
+                    }
+
+
                 }catch (Exception e){
                     e.printStackTrace();
 
@@ -246,7 +279,7 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
 
             img_remove.setOnClickListener(v -> {
                 if (arrPackageData.get(groupPosition).getCategory_item().get(childPosition).getCount() == 1){
-                     Alert(parent.getContext(),groupPosition,childPosition,lyt_items);
+                     Alert(parent.getContext(),groupPosition,childPosition,lyt_items,arrPackageData.get(groupPosition).getCategory_item().get(childPosition).getItemselectorType());
                 }else if (arrPackageData.get(groupPosition).getCategory_item().get(childPosition).getCount() > 0) {
                     arrPackageData.get(groupPosition).getCategory_item().get(childPosition).setCount(arrPackageData.get(groupPosition).getCategory_item().get(childPosition).getCount() - 1);
                     tv_quantity.setText(Integer.toString(expandedListText.getCount()));
@@ -255,6 +288,10 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
                    lyt_items.setVisibility(View.VISIBLE);
                 }
 
+            });
+
+            switch4.setOnClickListener(v -> {
+                Alert(parent.getContext(),groupPosition,childPosition,lyt_items, arrPackageData.get(groupPosition).getCategory_item().get(childPosition).getItemselectorType());
             });
 
         }
@@ -279,16 +316,38 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
             RelativeLayout lyt_desc = convertView.findViewById(R.id.lyt_desc);
             lyt_desc.setVisibility(View.GONE);
 
+
+            View bt_single = convertView.findViewById(R.id.bt_dining_single);
+            View bt_multiple = convertView.findViewById(R.id.bt_dining_multiple);
+            MySwitc switch4 = convertView.findViewById(R.id.switch4);
+
             if (diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getDescription() !=null &&  !diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getDescription().isEmpty()){
 
                 lyt_desc.setVisibility(View.VISIBLE);
                 dining_menu_desc.setVisibility(View.VISIBLE);
                 dining_menu_desc.setText(diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getDescription());
 
-
             }else {
                 dining_menu_desc.setVisibility(View.GONE);
                 lyt_desc.setVisibility(View.GONE);
+            }
+
+            if (diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getItemselectorType().equalsIgnoreCase("single")){
+                bt_single.setVisibility(View.VISIBLE);
+                if (diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getCount()>0){
+                    switch4.setOn(true);
+                }else {
+                    switch4.setOn(false );
+                }
+
+            }else {
+                bt_single.setVisibility(View.GONE);
+            }
+
+            if (diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getItemselectorType().equalsIgnoreCase("multi")){
+                bt_multiple.setVisibility(View.VISIBLE);
+            }else {
+                bt_multiple.setVisibility(View.GONE);
             }
 
             if (expandedListText.getCount()>0){
@@ -308,10 +367,19 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
 
             img_add.setOnClickListener(v -> {
                 try {
-                    diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).setCount(diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getCount() + 1);
-                    tv_quantity.setText(Integer.toString(diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getCount()));
-                    mListenerIRD.onItemClicked(diningArrPackageData.get(groupPosition));
-                    pushDataDining(diningArrPackageData);
+                    if (diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getMaxCount() != null){
+
+                        if (diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getCount() < diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getMaxCount()){
+                            diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).setCount(diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getCount() + 1);
+                            tv_quantity.setText(Integer.toString(diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getCount()));
+                            mListenerIRD.onItemClicked(diningArrPackageData.get(groupPosition));
+                            pushDataDining(diningArrPackageData);
+                        }else {
+                            GlobalClass.ShowAlert(mContext,"Alert","Maximum count for this item has been reached");
+                        }
+                    }
+
+
                 }catch (Exception e){
                     e.printStackTrace();
 
@@ -329,6 +397,10 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
                     lyt_view.setVisibility(View.VISIBLE);
                 }
 
+            });
+
+            switch4.setOnClickListener(v -> {
+                AlertIRD(parent.getContext(),groupPosition,childPosition,lyt_view);
             });
 
 
@@ -361,19 +433,30 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
         return convertView;
     }
 
-    private void Alert(Context mContext, int groupPosition, int childPosition, RelativeLayout lyt_items) {
+    private void Alert(Context mContext, int groupPosition, int childPosition, RelativeLayout lyt_items, String itemselectorType) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
         builder.setMessage("Are you sure you want to remove this item from cart?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", (dialog, id) -> {
-                    arrPackageData.get(groupPosition).getCategory_item().get(childPosition).setCount(arrPackageData.get(groupPosition).getCategory_item().get(childPosition).getCount() - 1);
-                    mListener.onItemClicked(arrPackageData.get(groupPosition));
-                    lyt_items.setVisibility(View.GONE);
-                    pushData(arrPackageData);
-                    notifyDataSetChanged();
+                    if (arrPackageData.get(groupPosition).getCategory_item().get(childPosition).getCount() ==1){
+                        arrPackageData.get(groupPosition).getCategory_item().get(childPosition).setCount(arrPackageData.get(groupPosition).getCategory_item().get(childPosition).getCount() - 1);
+                        mListener.onItemClicked(arrPackageData.get(groupPosition));
+                        arrPackageData.get(groupPosition).getCategory_item().get(childPosition).setItemSelected(false);
+                        lyt_items.setVisibility(View.GONE);
+                        if (itemselectorType.equals("single")){
+                            GlobalClass.editor.putBoolean("isItemSelected",false);
+                        }else if (itemselectorType.equals("multi")){
+                            GlobalClass.editor.putBoolean("isMultipleItemSelected",false);
+                        }
+                        GlobalClass.editor.commit();
+                        pushData(arrPackageData);
+                        notifyDataSetChanged();
+                    }
+
                 })
                 .setNegativeButton("No", (dialog, id) -> {
+                    notifyDataSetChanged();
                     dialog.dismiss();
                 });
         final AlertDialog alert = builder.create();
@@ -388,13 +471,19 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
         builder.setMessage("Are you sure you want to remove this item from cart?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", (dialog, id) -> {
-                    diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).setCount(diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getCount() - 1);
-                    mListenerIRD.onItemClicked(diningArrPackageData.get(groupPosition));
-                    lyt_items.setVisibility(View.GONE);
-                    pushDataDining(diningArrPackageData);
-                    notifyDataSetChanged();
+                    if (diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getCount() ==1){
+
+                        diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).setCount(diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getCount() - 1);
+                        mListenerIRD.onItemClicked(diningArrPackageData.get(groupPosition));
+                        lyt_items.setVisibility(View.GONE);
+                        diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).setItemSelected(false);
+                        pushDataDining(diningArrPackageData);
+                        notifyDataSetChanged();
+                    }
+
                 })
                 .setNegativeButton("No", (dialog, id) -> {
+                    notifyDataSetChanged();
                     dialog.dismiss();
                 });
         final AlertDialog alert = builder.create();

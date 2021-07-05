@@ -84,7 +84,7 @@ public class K9Amenities extends Fragment implements ApiListner {
         tv_num_of_items.setText(items_count+" " +"items");
 
         total_price = GlobalClass.sharedPreferences.getFloat(GlobalClass.K9Amenities_price,0);
-        tv_total_price.setText("₹ "+total_price);
+        tv_total_price.setText("₹ "+GlobalClass.round(total_price,2));
 
         view_order.setOnClickListener(v -> {
             if (items_count>0) {
@@ -96,7 +96,6 @@ public class K9Amenities extends Fragment implements ApiListner {
                 GlobalClass.editor.putInt(GlobalClass.K9Amenities_count, items_count);
                 GlobalClass.editor.putFloat(GlobalClass.K9Amenities_price, (float) total_price);
                 GlobalClass.editor.commit();
-
 
 
                 bundle1.putString("category",order_category);
@@ -177,7 +176,7 @@ public class K9Amenities extends Fragment implements ApiListner {
 
                     if (amenitiesList.get(i).getCount() >= 0 ){
                         total_price += amenitiesList.get(i).getCount() * Double.parseDouble(amenitiesList.get(i).getPrice()) ;
-                        tv_total_price.setText("₹ "+ " "+total_price);
+                        tv_total_price.setText("₹ "+GlobalClass.round(total_price,2));
 
                     }
 

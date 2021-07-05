@@ -99,7 +99,7 @@
                 android:id="@+id/view_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/notoseriftc_bold"
+                android:fontFamily="@font/notosanstc_bold"
                 android:includeFontPadding="false"
                 android:text="View Order"
                 android:textColor="@color/black"

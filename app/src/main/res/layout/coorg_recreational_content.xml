@@ -50,6 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_10"
+                android:gravity="center"
                 android:layout_marginTop="160dp"
                 android:background="@drawable/border_edges"
                 android:fontFamily="@font/notoseriftc_regular"
@@ -94,16 +95,8 @@
                     app:srcCompat="@drawable/time"
                     android:layout_marginRight="@dimen/dimen_2"/>
 
-                <TextView
 
-                    android:text="Timings: "
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dimen_5"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/notosanstc_bold"
-                    android:layout_margin="@dimen/dimen_1"
-                    android:textSize="12sp" />
+
 
                 <TextView
                     android:id="@+id/tv_coorg_recretion_start_timing"

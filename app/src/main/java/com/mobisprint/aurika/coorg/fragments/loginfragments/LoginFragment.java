@@ -83,6 +83,7 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
     private FingerprintManager fingerprintManager;
     private KeyguardManager keyguardManager;
     private CancellationSignal cancellationSignal;
+    private BiometricDialogV23 biometricDialogV23;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -282,7 +283,8 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
                         m_lyt.setAlpha(0.2f);*/
                         initiateFingerprintlistner();
                         if(cancellationSignal != null && !cancellationSignal.isCanceled()){
-                            new BiometricDialogV23(mContext,cancellationSignal).show();
+                            biometricDialogV23 = new BiometricDialogV23(mContext,cancellationSignal);
+                            biometricDialogV23.show();
                         }
 
                     }
@@ -312,6 +314,8 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
         if (response != null) {
             Login login = (Login) response.body();
             GlobalClass.user_token = login.getData().getToken();
+            GlobalClass.editor.putBoolean("isMpinSetUpComplete",true);
+            GlobalClass.editor.apply();
             Intent intent = new Intent(mContext, HomeActivity.class);
             startActivity(intent);
             getActivity().finish();
@@ -411,6 +415,12 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
 
     @Override
     public void onSucessfullBiometricAuth() {
+        stopFingerAuth();
+        if (biometricDialogV23.isShowing()){
+            biometricDialogV23.dismiss();
+        }
+        GlobalClass.editor.putBoolean("isMpinSetUpComplete",true);
+        GlobalClass.editor.apply();
         Intent intent = new Intent(mContext, HomeActivity.class);
         startActivity(intent);
         getActivity().finish();

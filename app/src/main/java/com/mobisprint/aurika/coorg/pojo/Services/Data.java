@@ -12,6 +12,30 @@ import com.mobisprint.aurika.udaipur.pojo.GeneralPojo;
 
 public class Data implements Parcelable {
 
+    @SerializedName("max_count")
+    @Expose
+    private Integer maxCount;
+
+    public Integer getMaxCount() {
+        return maxCount;
+    }
+
+    public void setMaxCount(Integer maxCount) {
+        this.maxCount = maxCount;
+    }
+
+    @SerializedName("ItemselectorType")
+    @Expose
+    private String itemselectorType;
+
+    public String getItemselectorType() {
+        return itemselectorType;
+    }
+
+    public void setItemselectorType(String itemselectorType) {
+        this.itemselectorType = itemselectorType;
+    }
+
     public boolean isItemSelected() {
         return isItemSelected;
     }
@@ -79,7 +103,7 @@ public class Data implements Parcelable {
     private String price;
     @SerializedName("quantity")
     @Expose
-    private String quantity;
+    private Integer quantity;
 
     public String getPrice() {
         return price;
@@ -89,11 +113,11 @@ public class Data implements Parcelable {
         this.price = price;
     }
 
-    public String getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 

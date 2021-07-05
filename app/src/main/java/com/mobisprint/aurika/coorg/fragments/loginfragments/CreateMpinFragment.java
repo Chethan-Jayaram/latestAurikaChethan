@@ -2,6 +2,7 @@ package com.mobisprint.aurika.coorg.fragments.loginfragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.hardware.biometrics.BiometricPrompt;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -298,8 +300,10 @@ public class CreateMpinFragment extends Fragment implements ApiListner  {
                     et1_two.getText().toString()+
                     et1_three.getText().toString()+
                     et1_four.getText().toString();
+
+           GlobalClass.editor.clear();
             GlobalClass.editor.putString("token",GlobalClass.user_token);
-            GlobalClass.editor.putBoolean("isMpinSetUpComplete",true);
+            /*GlobalClass.editor.putBoolean("isMpinSetUpComplete",true);*/
             GlobalClass.editor.apply();
             Fragment fragment = new LoginFragment();
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, fragment).addToBackStack(null).commit();

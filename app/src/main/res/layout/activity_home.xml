@@ -79,11 +79,50 @@
                         android:background="@color/gray" />
 
 
+                <RelativeLayout
+                    android:layout_below="@id/lyt_top_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lyt_logout"
+                    android:padding="@dimen/dimen_5">
+
+
+                    <ImageView
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/img_logout"
+                        android:layout_width="@dimen/dimen_32"
+                        android:layout_height="@dimen/dimen_32"
+                        android:src="@drawable/ic_logout" />
+
+                    <TextView
+                        android:id="@+id/tv_logout"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:fontFamily="@font/notosanstc_light"
+                        android:textSize="18sp"
+                        android:layout_toRightOf="@+id/img_logout"
+                        android:includeFontPadding="false"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_below="@+id/lyt_logout"
+                    android:id="@+id/lyt_middle_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_margin="2dp"
+                    android:background="@color/gray" />
 
                 <RelativeLayout
-                    android:id="@+id/lyt_notification"
+                    android:id="@+id/lyt_drawer_notification"
                     android:padding="@dimen/dimen_10"
-                    android:layout_below="@+id/lyt_top_view"
+                    android:layout_below="@+id/lyt_logout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -124,7 +163,7 @@
 
                 <RelativeLayout
                     android:id="@+id/lyt_bottom_notification_view"
-                    android:layout_below="@+id/lyt_notification"
+                    android:layout_below="@+id/lyt_drawer_notification"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <View

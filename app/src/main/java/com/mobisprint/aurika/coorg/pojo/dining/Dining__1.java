@@ -4,6 +4,41 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Dining__1 {
+    @SerializedName("max_count")
+    @Expose
+    private Integer maxCount;
+
+    public Integer getMaxCount() {
+        return maxCount;
+    }
+
+    public void setMaxCount(Integer maxCount) {
+        this.maxCount = maxCount;
+    }
+
+    @SerializedName("ItemselectorType")
+    @Expose
+    private String itemselectorType;
+
+    @SerializedName("isItemSelected")
+    @Expose
+    private boolean isItemSelected=false;
+
+    public String getItemselectorType() {
+        return itemselectorType;
+    }
+
+    public void setItemselectorType(String itemselectorType) {
+        this.itemselectorType = itemselectorType;
+    }
+
+    public boolean isItemSelected() {
+        return isItemSelected;
+    }
+
+    public void setItemSelected(boolean itemSelected) {
+        isItemSelected = itemSelected;
+    }
 
     @SerializedName("count")
     @Expose
@@ -49,11 +84,11 @@ public class Dining__1 {
         this.description = description;
     }
 
-    public Object getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Object quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -119,7 +154,7 @@ public class Dining__1 {
     private String description;
     @SerializedName("quantity")
     @Expose
-    private Object quantity;
+    private Integer quantity;
     @SerializedName("item_type")
     @Expose
     private String itemType;

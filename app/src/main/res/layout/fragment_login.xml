@@ -151,8 +151,8 @@
             android:textSize="16sp" />
 
         <RelativeLayout
-            android:layout_marginLeft="145dp"
-            android:layout_marginRight="145dp"
+            android:layout_marginLeft="135dp"
+            android:layout_marginRight="135dp"
             android:layout_marginBottom="@dimen/dimen_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

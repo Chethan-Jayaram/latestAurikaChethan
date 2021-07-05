@@ -126,7 +126,7 @@ public class OrderSummary extends Fragment {
                     for (int i = 0; i < amenitiesList.size(); i++) {
                         if (amenitiesList.get(i).getCount() >= 0) {
                             total_price += amenitiesList.get(i).getCount() * Double.parseDouble(amenitiesList.get(i).getPrice());
-                            tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                            tv_item_total_price.setText("₹" + " " + GlobalClass.round(total_price,2));
                             tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
                         }
@@ -143,7 +143,7 @@ public class OrderSummary extends Fragment {
 
                             if (amenitiesList.get(i).getCount() >= 0) {
                                 total_price += amenitiesList.get(i).getCount() * Double.parseDouble(amenitiesList.get(i).getPrice());
-                                tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                                tv_item_total_price.setText("₹" + " " + GlobalClass.round(total_price,2));
                                 tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
                             }
@@ -160,6 +160,8 @@ public class OrderSummary extends Fragment {
                     order_summary_recyclerview.setLayoutManager(layoutManager);
                     order_summary_recyclerview.setAdapter(adapter);
                     break;
+
+
                 case "k9amenities":
                     order_summary_recyclerview.setVisibility(View.VISIBLE);
                     Gson k9AmenitiesGson = new Gson();
@@ -176,7 +178,7 @@ public class OrderSummary extends Fragment {
                     for (int i = 0; i < k9Amenities.size(); i++) {
                         if (k9Amenities.get(i).getCount() >= 0) {
                             total_price += k9Amenities.get(i).getCount() * Double.parseDouble(k9Amenities.get(i).getPrice());
-                            tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                            tv_item_total_price.setText("₹" + " " + GlobalClass.round(total_price,2));
                             tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
                         }
@@ -190,7 +192,7 @@ public class OrderSummary extends Fragment {
                             items_count += k9Amenities.get(i).getCount();
                             if (k9Amenities.get(i).getCount() >= 0) {
                                 total_price += k9Amenities.get(i).getCount() * Double.parseDouble(k9Amenities.get(i).getPrice());
-                                tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                                tv_item_total_price.setText("₹" + " " + GlobalClass.round(total_price,2));
                                 tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
                             }
@@ -211,18 +213,46 @@ public class OrderSummary extends Fragment {
 
                 case "house_keeping":
                     order_summary_recyclerview.setVisibility(View.VISIBLE);
-                    houskeepingList = bundle.getParcelableArrayList("list");
 
+                    Gson houseKeepingGson = new Gson();
+                    String houseKeepingJson = GlobalClass.sharedPreferences.getString("HouseKeeping", "");
+                    if (houseKeepingJson.isEmpty()) {
+                        // Toast.makeText(mContext, "Something went worng", Toast.LENGTH_LONG).show();
+                    } else {
+                        Type type = new TypeToken<List<Data>>() {
+                        }.getType();
+                        houskeepingList = new ArrayList(houseKeepingGson.fromJson(houseKeepingJson,type));
+                    }
 
                     for (int i = 0; i < houskeepingList.size(); i++) {
                         if (houskeepingList.get(i).getCount() >= 0) {
                             total_price += houskeepingList.get(i).getCount() * Double.parseDouble(houskeepingList.get(i).getPrice());
-                            tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                            tv_item_total_price.setText("₹" + " " + GlobalClass.round(total_price,2));
                             tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
                         }
                     }
-                    ReviewOrderAdapter adapter2 = new ReviewOrderAdapter(houskeepingList);
+
+                    ReviewOrderAdapter adapter2 = new ReviewOrderAdapter(houskeepingList,data -> {
+                        total_price =0;
+                        items_count =0;
+                        for (int i = 0; i < houskeepingList.size(); i++) {
+                            items_count += houskeepingList.get(i).getCount();
+                            if (houskeepingList.get(i).getCount() >= 0) {
+                                total_price += houskeepingList.get(i).getCount() * Double.parseDouble(houskeepingList.get(i).getPrice());
+                                tv_item_total_price.setText("₹" + " " + GlobalClass.round(total_price,2));
+                                tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
+
+                            }
+                        }
+
+                        GlobalClass.editor.putInt(GlobalClass.HouseKeeping_count, items_count);
+                        GlobalClass.editor.putFloat(GlobalClass.HouseKeeping_price, (float) total_price);
+                        GlobalClass.editor.commit();
+                        if (items_count == 0){
+                            getActivity().getSupportFragmentManager().popBackStack();
+                        }
+                    });
                     order_summary_recyclerview.setLayoutManager(layoutManager);
                     order_summary_recyclerview.setAdapter(adapter2);
                     break;
@@ -230,18 +260,46 @@ public class OrderSummary extends Fragment {
 
                 case "k9menu":
                     order_summary_recyclerview.setVisibility(View.VISIBLE);
-                    k9Menu = bundle.getParcelableArrayList("list");
+                    Gson k9MenuGson = new Gson();
+                    String k9MenuJson = GlobalClass.sharedPreferences.getString("K9Menu", "");
+                    if (k9MenuJson.isEmpty()) {
+                        // Toast.makeText(mContext, "Something went worng", Toast.LENGTH_LONG).show();
+                    } else {
+                        Type type = new TypeToken<List<K9Data>>() {
+                        }.getType();
+                        k9Menu = new ArrayList(k9MenuGson.fromJson(k9MenuJson,type));
+                    }
 
 
                     for (int i = 0; i < k9Menu.size(); i++) {
                         if (k9Menu.get(i).getCount() >= 0) {
                             total_price += k9Menu.get(i).getCount() * Double.parseDouble(k9Menu.get(i).getPrice());
-                            tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                            tv_item_total_price.setText("₹" + " " + GlobalClass.round(total_price,2));
                             tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
                         }
                     }
-                    ReviewOrderAdapter adapter3 = new ReviewOrderAdapter(k9Menu, "k9Menu", 1);
+                    items_count=GlobalClass.sharedPreferences.getInt(GlobalClass.K9Menu_count,0);
+                    ReviewOrderAdapter adapter3 = new ReviewOrderAdapter(k9Menu, "k9Menu", 1, data -> {
+                        total_price =0;
+                        items_count =0;
+                        for (int i = 0; i < k9Menu.size(); i++) {
+                            items_count += k9Menu.get(i).getCount();
+                            if (k9Menu.get(i).getCount() >= 0) {
+                                total_price += k9Menu.get(i).getCount() * Double.parseDouble(k9Menu.get(i).getPrice());
+                                tv_item_total_price.setText("₹" + " " + GlobalClass.round(total_price,2));
+                                tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
+
+                            }
+                        }
+
+                        GlobalClass.editor.putInt(GlobalClass.K9Menu_count, items_count);
+                        GlobalClass.editor.putFloat(GlobalClass.K9Menu_price, (float) total_price);
+                        GlobalClass.editor.commit();
+                        if (items_count == 0){
+                            getActivity().getSupportFragmentManager().popBackStack();
+                        }
+                    });
                     order_summary_recyclerview.setLayoutManager(layoutManager);
                     order_summary_recyclerview.setAdapter(adapter3);
                     break;
@@ -264,7 +322,7 @@ public class OrderSummary extends Fragment {
 
                     items_count=GlobalClass.sharedPreferences.getInt(GlobalClass.Laundry_count,0);
                     total_price = GlobalClass.sharedPreferences.getFloat(GlobalClass.Laundry_price,0);
-                    tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                    tv_item_total_price.setText("₹" + " " + GlobalClass.round(total_price,2));
                     tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
 
@@ -283,7 +341,7 @@ public class OrderSummary extends Fragment {
 
                                 if (laundryList.get(i).getCategory_item().get(j).getCount() >= 0) {
                                     total_price += laundryList.get(i).getCategory_item().get(j).getCount() * Double.parseDouble(laundryList.get(i).getCategory_item().get(j).getPrice());
-                                    tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                                    tv_item_total_price.setText("₹" + " " + GlobalClass.round(total_price,2));
                                     tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
                                 }
                             }
@@ -319,13 +377,13 @@ public class OrderSummary extends Fragment {
 
                     items_count=GlobalClass.sharedPreferences.getInt(GlobalClass.Dining_count,0);
                     total_price = GlobalClass.sharedPreferences.getFloat(GlobalClass.Dining_price,0);
-                    tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                    tv_item_total_price.setText("₹" + " " + GlobalClass.round(total_price,2));
                     tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
                     Log.d("dining_size", String.valueOf(diningList.size()));
 
 
-                    ReviewOrderExpandableListAdapter adapter5 = new ReviewOrderExpandableListAdapter(diningList,"dining",data -> {
+                    ReviewOrderExpandableListAdapter adapter5 = new ReviewOrderExpandableListAdapter(diningList,"dining", mContext, data -> {
 
                         items_count = 0;
                         total_price = 0;
@@ -339,7 +397,7 @@ public class OrderSummary extends Fragment {
                                 if (diningList.get(i).getDiningList().get(j).getCount() >= 0 ){
                                     category_items.add(diningList.get(i).getDiningList().get(j));
                                     total_price +=diningList.get(i).getDiningList().get(j).getCount() * Double.parseDouble(diningList.get(i).getDiningList().get(j).getPrice()) ;
-                                    tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                                    tv_item_total_price.setText("₹" + " " + GlobalClass.round(total_price,2));
                                     tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
                                 }
                             }
@@ -375,7 +433,7 @@ public class OrderSummary extends Fragment {
 
                     items_count=GlobalClass.sharedPreferences.getInt(GlobalClass.SleepWell_count,0);
                     total_price = GlobalClass.sharedPreferences.getFloat(GlobalClass.SleepWell_price,0);
-                    tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                    tv_item_total_price.setText("₹" + " " + GlobalClass.round(total_price,2));
                     tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
                     ReviewOrderSleeWellAdapter adapter6 = new ReviewOrderSleeWellAdapter(sleepWellList,mContext,data -> {
@@ -391,7 +449,7 @@ public class OrderSummary extends Fragment {
                                 items_count += sleepWellList.get(i).getSleepwellList().get(j).getCount();
                                 if (sleepWellList.get(i).getSleepwellList().get(j).getCount() >= 0 ){
                                     total_price +=sleepWellList.get(i).getSleepwellList().get(j).getCount() * Double.parseDouble(sleepWellList.get(i).getSleepwellList().get(j).getPrice()) ;
-                                    tv_item_total_price.setText("₹ " + " " + GlobalClass.round(total_price,2));
+                                    tv_item_total_price.setText("₹" + " " + GlobalClass.round(total_price,2));
                                     tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
                                 }
                             }
@@ -500,6 +558,8 @@ public class OrderSummary extends Fragment {
             int month = calendar.get(Calendar.MONTH);
             int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
+            long date = calendar.getTime().getTime();
+            calendar_view.setMinDate(date);
 
             /*DatePickerDialog datePickerDialog = new DatePickerDialog(mContext,
                     new DatePickerDialog.OnDateSetListener() {

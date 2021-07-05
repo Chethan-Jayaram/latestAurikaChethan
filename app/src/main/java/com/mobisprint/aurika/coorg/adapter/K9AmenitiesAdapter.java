@@ -1,5 +1,6 @@
 package com.mobisprint.aurika.coorg.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.google.gson.Gson;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.pojo.petservices.K9Data;
 import com.mobisprint.aurika.helper.GlobalClass;
+import com.mobisprint.aurika.helper.MySwitc;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -26,10 +28,13 @@ import java.util.Set;
 public class K9AmenitiesAdapter extends RecyclerView.Adapter<K9AmenitiesAdapter.ViewHolder> {
 
     private List<K9Data> amenitiesList;
-    private GlobalClass.K9AdapterListener mListener;
+    private GlobalClass.AdapterListener mListener;
+    private boolean isItemSelected = false ;
+    private boolean isMultipleItemSelected = false;
+    private Context mContext;
 
 
-    public K9AmenitiesAdapter(List<K9Data> amenitiesList, GlobalClass.K9AdapterListener mListener) {
+    public K9AmenitiesAdapter(List<K9Data> amenitiesList, GlobalClass.AdapterListener mListener) {
         this.amenitiesList = amenitiesList;
         this.mListener = mListener;
     }
@@ -38,11 +43,27 @@ public class K9AmenitiesAdapter extends RecyclerView.Adapter<K9AmenitiesAdapter.
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.amenities_recyclerview,parent,false);
+        mContext = parent.getContext();
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        if (amenitiesList.get(position).getItemselectorType().equalsIgnoreCase("single")){
+            holder.bt_single.setVisibility(View.VISIBLE);
+            if (amenitiesList.get(position).getCount()>0){
+                isItemSelected =true;
+                holder.switch4.setOn(true);
+            }
+
+        }else if (amenitiesList.get(position).getItemselectorType().equalsIgnoreCase("multi")){
+            holder.bt_multiple.setVisibility(View.VISIBLE);
+            if (amenitiesList.get(position).getCount()>0){
+                isMultipleItemSelected = true;
+            }
+
+        }
 
 
         if (amenitiesList.get(position).getCount() == 0){
@@ -54,12 +75,18 @@ public class K9AmenitiesAdapter extends RecyclerView.Adapter<K9AmenitiesAdapter.
         }
 
         holder.bt_add.setOnClickListener(v -> {
-            amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()+1);
-            holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));
-            mListener.onItemClicked(amenitiesList);
-            pushDataK9(amenitiesList);
-            holder.lyt_add.setVisibility(View.GONE);
-            holder.lyt_counter.setVisibility(View.VISIBLE);
+            if (!isItemSelected){
+                isMultipleItemSelected = true;
+                amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()+1);
+                holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));
+                mListener.onItemClicked(position);
+                pushDataK9(amenitiesList);
+                holder.lyt_add.setVisibility(View.GONE);
+                holder.lyt_counter.setVisibility(View.VISIBLE);
+            }else{
+                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", " Please place individual orders for individual requests");
+            }
+
         });
 
 
@@ -78,10 +105,22 @@ public class K9AmenitiesAdapter extends RecyclerView.Adapter<K9AmenitiesAdapter.
 
 
             holder.img_add.setOnClickListener(v -> {
-                amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()+1);
-                holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));
-                mListener.onItemClicked(amenitiesList);
-                pushDataK9(amenitiesList);
+                if (amenitiesList.get(position).getMaxCount() != null){
+
+                    if (amenitiesList.get(position).getCount() < amenitiesList.get(position).getMaxCount()){
+                        isMultipleItemSelected=true;
+                        isItemSelected = false;
+                        amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()+1);
+                        holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));
+                        mListener.onItemClicked(position);
+                        pushDataK9(amenitiesList);
+                    }else if (amenitiesList.get(position).getCount() == amenitiesList.get(position).getMaxCount()){
+                        GlobalClass.ShowAlert(holder.itemView.getContext(),"Alert","Maximum count for this item has been reached");
+                    }
+
+                }
+
+
             });
 
             holder.img_remove.setOnClickListener(v -> {
@@ -90,17 +129,51 @@ public class K9AmenitiesAdapter extends RecyclerView.Adapter<K9AmenitiesAdapter.
                     holder.lyt_counter.setVisibility(View.GONE);
                     amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()-1);
                     holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));
-                    mListener.onItemClicked(amenitiesList);
+                    mListener.onItemClicked(position);
                     pushDataK9(amenitiesList);
                 }
                 if (amenitiesList.get(position).getCount()>0){
                     amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()-1);
                     holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));
-                    mListener.onItemClicked(amenitiesList);
+                    mListener.onItemClicked(position);
                     pushDataK9(amenitiesList);
+                }
+                if(amenitiesList.get(position).getCount()==0){
+                    if (GlobalClass.sharedPreferences.getInt(GlobalClass.K9Amenities_count,0) == 0){
+                        isMultipleItemSelected = false;
+                        isItemSelected=false;
+                    }
                 }
             });
 
+
+        holder.switch4.setOnClickListener(v -> {
+
+            if ((isItemSelected && !amenitiesList.get(position).isItemSelected()) || isMultipleItemSelected) {
+                holder.switch4.setOn(true);
+                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests");
+            } else if (isItemSelected && amenitiesList.get(position).isItemSelected() ){
+                holder.switch4.setEnabled(false);
+                isItemSelected = false;
+                amenitiesList.get(position).setItemSelected(false);
+                amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()-1);
+                pushDataK9(amenitiesList);
+                mListener.onItemClicked(position);
+            } else if ((!isItemSelected && !amenitiesList.get(position).isItemSelected()) || !isMultipleItemSelected) {
+                holder.switch4.setEnabled(true);
+                isItemSelected = true;
+                amenitiesList.get(position).setItemSelected(true);
+                amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()+1);
+                pushDataK9(amenitiesList);
+                mListener.onItemClicked(position);
+            }
+
+                /*if (isMultipleItemSelected){
+                    holder.switch4.setOn(true);
+                    GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Only one item can be selected, Please raise a new request for different item ");
+                }*/
+
+        });
 
 
 
@@ -134,6 +207,8 @@ public class K9AmenitiesAdapter extends RecyclerView.Adapter<K9AmenitiesAdapter.
         CardView lyt_add ;
         TextView bt_add ;
 
+        MySwitc switch4;
+        View bt_single,bt_multiple;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -147,6 +222,9 @@ public class K9AmenitiesAdapter extends RecyclerView.Adapter<K9AmenitiesAdapter.
             lyt_add =itemView.findViewById(R.id.lyt_add);
             lyt_counter = itemView.findViewById(R.id.lyt_counter);
             bt_add = itemView.findViewById(R.id.bt_add);
+            switch4 = itemView.findViewById(R.id.switch4);
+            bt_single = itemView.findViewById(R.id.bt_amen_single);
+            bt_multiple = itemView.findViewById(R.id.bt_amen_multiple);
         }
     }
 }

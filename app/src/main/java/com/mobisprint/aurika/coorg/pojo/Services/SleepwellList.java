@@ -6,6 +6,42 @@ import com.google.gson.annotations.SerializedName;
 
 public class SleepwellList {
 
+    @SerializedName("max_count")
+    @Expose
+    private Integer maxCount;
+
+    public Integer getMaxCount() {
+        return maxCount;
+    }
+
+    public void setMaxCount(Integer maxCount) {
+        this.maxCount = maxCount;
+    }
+
+    @SerializedName("isItemSelected")
+    @Expose
+    private boolean isItemSelected=false;
+
+    public boolean isItemSelected() {
+        return isItemSelected;
+    }
+
+    public void setItemSelected(boolean itemSelected) {
+        isItemSelected = itemSelected;
+    }
+
+    @SerializedName("ItemselectorType")
+    @Expose
+    private String itemselectorType;
+
+    public String getItemselectorType() {
+        return itemselectorType;
+    }
+
+    public void setItemselectorType(String itemselectorType) {
+        this.itemselectorType = itemselectorType;
+    }
+
     @SerializedName("count")
     @Expose
     private Integer count=0;

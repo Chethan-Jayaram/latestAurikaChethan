@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.adapter.AmenitiesAdapter;
 import com.mobisprint.aurika.coorg.adapter.HouseKeepingAdapter;
@@ -24,9 +26,11 @@ import com.mobisprint.aurika.coorg.controller.services.HouseKeepingController;
 import com.mobisprint.aurika.coorg.fragments.OrderSummary;
 import com.mobisprint.aurika.coorg.pojo.Services.CoorgServicesPojo;
 import com.mobisprint.aurika.coorg.pojo.Services.Data;
+import com.mobisprint.aurika.coorg.pojo.petservices.K9Data;
 import com.mobisprint.aurika.helper.ApiListner;
 import com.mobisprint.aurika.helper.GlobalClass;
 
+import java.lang.reflect.Type;
 import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +45,7 @@ public class HouseKeeping extends Fragment implements ApiListner {
     private HouseKeepingController houseKeepingController;
     private Context mContext;
     private ImageView img_back;
-    private List<Data> selectedList;
+    private List<Data> k9ArrDataPackage;
     private String order_category = "house_keeping" ;
     private Integer items_count = 0;
     private double total_price = 0;
@@ -77,18 +81,23 @@ public class HouseKeeping extends Fragment implements ApiListner {
             tv_desc.setText(bundle.getString("desc"));
             toolbar_title.setText(bundle.getString("title"));
 
-            view_order.setOnClickListener(v -> {
-                if (selectedList!= null && selectedList.size() >0) {
+            items_count=GlobalClass.sharedPreferences.getInt(GlobalClass.HouseKeeping_count,0);
+            tv_num_of_items.setText(items_count+" " +"items");
 
-                    /*String json =gson.toJson(selectedList);
-                    editor.putString("selected_list",json);
-                    editor.commit();*/
+            total_price = GlobalClass.sharedPreferences.getFloat(GlobalClass.HouseKeeping_price,0);
+            tv_total_price.setText("₹ "+GlobalClass.round(total_price,2));
+
+            view_order.setOnClickListener(v -> {
+                if (items_count >0) {
 
                     Fragment fragment = new OrderSummary();
                     Bundle bundle1 = new Bundle();
-                    bundle1.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) selectedList);
                     bundle1.putString("category",order_category);
                     fragment.setArguments(bundle1);
+
+                    GlobalClass.editor.putInt(GlobalClass.HouseKeeping_count, items_count);
+                    GlobalClass.editor.putFloat(GlobalClass.HouseKeeping_price, (float) total_price);
+                    GlobalClass.editor.commit();
                     getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
                 }else
                 {
@@ -122,13 +131,43 @@ public class HouseKeeping extends Fragment implements ApiListner {
             CoorgServicesPojo servicesPojo = (CoorgServicesPojo) response.body();
             List<Data> houseKeepingList = servicesPojo.getData();
 
+
+            Gson houseKeepingGson = new Gson();
+            String houseKeepingJson = GlobalClass.sharedPreferences.getString("HouseKeeping", "");
+            if (houseKeepingJson.isEmpty()) {
+                // Toast.makeText(mContext, "Something went worng", Toast.LENGTH_LONG).show();
+            } else {
+                Type type = new TypeToken<List<Data>>() {
+                }.getType();
+                k9ArrDataPackage = new ArrayList(houseKeepingGson.fromJson(houseKeepingJson,type));
+            }
+
+
+            try {
+
+                if (k9ArrDataPackage !=null){
+
+                    for (int i=0;i<houseKeepingList.size();i++){
+                        for (int j=0;j<k9ArrDataPackage.size();j++){
+                            if (houseKeepingList.get(i).getId().equals(k9ArrDataPackage.get(j).getId())){
+                                houseKeepingList.remove(i);
+                                houseKeepingList.add(i,k9ArrDataPackage.get(j));
+                            }
+                        }
+                    }
+
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
             HouseKeepingAdapter adapter = new HouseKeepingAdapter(houseKeepingList,Position -> {
 
                 try {
 
-
-
-                    selectedList = new ArrayList<>();
                     items_count= 0;
                     total_price = 0;
                     for (int i = 0; i<= houseKeepingList.size() - 1;i++){
@@ -144,20 +183,15 @@ public class HouseKeeping extends Fragment implements ApiListner {
                         }
 
 
-                        if (houseKeepingList.get(i).getCount() != 0){
-                            selectedList.add(houseKeepingList.get(i));
-                        }
-
                     }
 
-
+                    GlobalClass.editor.putInt(GlobalClass.HouseKeeping_count, items_count);
+                    GlobalClass.editor.putFloat(GlobalClass.HouseKeeping_price, (float) total_price);
+                    GlobalClass.editor.commit();
 
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-
-
-
 
             });
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);

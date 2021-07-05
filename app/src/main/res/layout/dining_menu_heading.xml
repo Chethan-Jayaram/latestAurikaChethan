@@ -7,16 +7,17 @@
 
     <RelativeLayout
         android:id="@+id/group_lyt"
-        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_15"
         android:layout_width="match_parent"
         android:background="@color/white"
         android:layout_height="match_parent">
 
-        <!--<FrameLayout
+        <RelativeLayout
             android:id="@+id/lyt"
-
+            android:paddingTop="@dimen/dimen_5"
+            android:paddingBottom="@dimen/dimen_5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">-->
+            android:layout_height="wrap_content">
 
             <View
 
@@ -26,10 +27,11 @@
                 android:layout_margin="2dp"
                 android:background="#e5e5e5" />
 
-        <!--</FrameLayout>-->
+        </RelativeLayout>
 
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_below="@+id/lyt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -37,23 +39,38 @@
 
             <TextView
                 android:layout_marginTop="@dimen/dimen_15"
-                android:layout_alignParentLeft="true"
-                android:layout_centerInParent="true"
                 android:id="@+id/tv_dining_menu_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
                 android:lineSpacingExtra="12.7sp"
-                android:fontFamily="@font/notosanstc_medium"
+                android:fontFamily="@font/notoseriftc_regular"
                 android:includeFontPadding="false"
-                android:textSize="20sp"
+                android:textSize="23sp"
                 android:textColor="@color/black"
+                android:layout_marginLeft="@dimen/dimen_10"
+                android:layout_marginRight="@dimen/dimen_10"/>
+
+            <TextView
+                android:layout_marginBottom="@dimen/dimen_5"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/dimen_3"
+                android:id="@+id/tv_dining_menu_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_dining_menu_title"
                 android:paddingLeft="@dimen/dimen_10"
-                android:paddingRight="@dimen/dimen_10"/>
+                android:paddingRight="@dimen/dimen_10"
+                android:text=""
+                android:fontFamily="@font/notosanstc_regular"
+                android:includeFontPadding="false"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_alignParentLeft="true"
+                />
 
 
-
-        </RelativeLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 

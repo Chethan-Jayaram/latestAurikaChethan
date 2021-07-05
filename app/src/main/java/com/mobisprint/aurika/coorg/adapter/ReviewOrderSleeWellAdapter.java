@@ -18,6 +18,7 @@ import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.pojo.Services.Data;
 import com.mobisprint.aurika.coorg.pojo.Services.SleepwellList;
 import com.mobisprint.aurika.helper.GlobalClass;
+import com.mobisprint.aurika.helper.MySwitc;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -88,7 +89,11 @@ public class ReviewOrderSleeWellAdapter extends BaseExpandableListAdapter {
         RelativeLayout group_lyt=convertView.findViewById(R.id.group_lyt);
         RelativeLayout lyt_view = convertView.findViewById(R.id.lyt_view);
 
-        lyt_view.setVisibility(View.GONE);
+        if (groupPosition == 0){
+            lyt_view.setVisibility(View.GONE);
+        }
+
+
 
         for(int i=0;i<sleepWellList.get(groupPosition).getSleepwellList().size();i++){
             if(sleepWellList.get(groupPosition).getSleepwellList().get(i).getCount()>0){
@@ -130,6 +135,29 @@ public class ReviewOrderSleeWellAdapter extends BaseExpandableListAdapter {
         RelativeLayout lyt = convertView.findViewById(R.id.lyt_view);
         lyt.setVisibility(View.GONE);
 
+        View bt_single = convertView.findViewById(R.id.bt_sleepwell_single);
+        View bt_multiple = convertView.findViewById(R.id.bt_sleepwell_multiple);
+        MySwitc switch4 = convertView.findViewById(R.id.switch4);
+
+
+        if ( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getItemselectorType().equalsIgnoreCase("single")){
+            bt_single.setVisibility(View.VISIBLE);
+            if ( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()>0){
+                switch4.setOn(true);
+            }else {
+                switch4.setOn(false );
+            }
+
+        }else {
+            bt_single.setVisibility(View.GONE);
+        }
+
+        if ( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getItemselectorType().equalsIgnoreCase("multi")){
+            bt_multiple.setVisibility(View.VISIBLE);
+        }else {
+            bt_multiple.setVisibility(View.GONE);
+        }
+
         if (expandedListText.get(childPosition).getCount()>0){
             lyt.setVisibility(View.VISIBLE);
             ImageView img_add = convertView.findViewById(R.id.img_add);
@@ -161,10 +189,18 @@ public class ReviewOrderSleeWellAdapter extends BaseExpandableListAdapter {
 
             img_add.setOnClickListener(v -> {
                 try {
-                    sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() + 1);
-                    tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
-                    mListener.onItemClicked(sleepWellList.get(groupPosition));
-                    pushData(sleepWellList);
+                    if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getMaxCount() != null){
+                        if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() < sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getMaxCount()){
+                            sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() + 1);
+                            tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
+                            mListener.onItemClicked(sleepWellList.get(groupPosition));
+                            pushData(sleepWellList);
+                        }else {
+                            GlobalClass.ShowAlert(mContext,"Alert","Maximum count for this item has been reached");
+                        }
+                    }
+
+
                 }catch (Exception e){
                     e.printStackTrace();
 
@@ -182,6 +218,10 @@ public class ReviewOrderSleeWellAdapter extends BaseExpandableListAdapter {
                     lyt_desc.setVisibility(View.VISIBLE);
                 }
 
+            });
+
+            switch4.setOnClickListener(v -> {
+                Alert(parent.getContext(),groupPosition,childPosition,lyt_desc);
             });
 
         }
@@ -208,13 +248,18 @@ public class ReviewOrderSleeWellAdapter extends BaseExpandableListAdapter {
         builder.setMessage("Are you sure you want to remove this item from cart?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", (dialog, id) -> {
-                    sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() - 1);
-                    mListener.onItemClicked(sleepWellList.get(groupPosition));
-                    lyt_items.setVisibility(View.GONE);
-                    pushData(sleepWellList);
-                    notifyDataSetChanged();
+                    if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() ==1){
+                        sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() - 1);
+                        mListener.onItemClicked(sleepWellList.get(groupPosition));
+                        sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setItemSelected(false);
+                        lyt_items.setVisibility(View.GONE);
+                        pushData(sleepWellList);
+                        notifyDataSetChanged();
+                    }
+
                 })
                 .setNegativeButton("No", (dialog, id) -> {
+                    notifyDataSetChanged();
                     dialog.dismiss();
                 });
         final AlertDialog alert = builder.create();

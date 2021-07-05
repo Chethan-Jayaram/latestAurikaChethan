@@ -83,13 +83,30 @@
                     android:layout_marginLeft="@dimen/dimen_5"
                     android:textSize="14sp"/>
 
-                <include
-                    android:layout_alignParentRight="true"
+                <RelativeLayout
                     android:id="@+id/selector"
-                    layout="@layout/item_selector"
-                    android:layout_marginRight="@dimen/dimen_20"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content" />
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dimen_20">
+
+                    <include
+                        android:visibility="gone"
+                        android:id="@+id/bt_dining_multiple"
+                        layout="@layout/item_selector"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
+
+                    <include
+                        android:visibility="gone"
+                        android:id="@+id/bt_dining_single"
+                        layout="@layout/toggle_switch"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
+
+                </RelativeLayout>
+
+
             </RelativeLayout>
 
 

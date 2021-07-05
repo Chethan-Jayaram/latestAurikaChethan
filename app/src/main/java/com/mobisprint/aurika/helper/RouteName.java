@@ -103,7 +103,7 @@ public class RouteName {
             case in_room_dining:
                 return COORG_PATH+"fragments.dining.CoorgInRoomDiningFragment";
             case myprofile:
-                return "";
+                return COORG_PATH+"fragments.ProfileFragment";
             default:return "";
 
         }

@@ -79,8 +79,8 @@ public class RegistrationFragment extends Fragment implements ApiListner {
 
             reg_check_box.setText(Html.fromHtml("<body>\n" +
                     "        <p" +
-                    "          style=\"color:#1e0028\">  Do you agree to our  <a href=\"https://www.google.com/\" style=\"color:#1e0028\">Terms &amp; Conditions</a>\n" +
-                    "         and  <a href=\"https://www.google.com/\" style=\"color:#1e0028\">Privacy Policy?</a>\n" +
+                    "          style=\"color:#1e0028\">  I agree with the  <a href=\"https://www.google.com/\" style=\"color:#1e0028\">Terms &amp; Conditions</a>\n" +
+                    "         and  <a href=\"https://www.google.com/\" style=\"color:#1e0028\">Privacy Policy</a>\n" +
                     "        </p>" +
                     "    </body>"));
 

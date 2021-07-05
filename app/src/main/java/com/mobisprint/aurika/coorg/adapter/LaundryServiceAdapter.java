@@ -23,6 +23,7 @@ import com.mobisprint.aurika.coorg.pojo.Services.Category_item;
 import com.mobisprint.aurika.coorg.pojo.Services.Data;
 import com.mobisprint.aurika.coorg.pojo.Services.SleepwellList;
 import com.mobisprint.aurika.helper.GlobalClass;
+import com.mobisprint.aurika.helper.MySwitc;
 
 import org.w3c.dom.Text;
 
@@ -36,12 +37,15 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
     private Context mContext;
     private List<Data> laundry_service_list;
     private GlobalClass.ExpandableAdapterListener mListener;
+    private boolean isItemSelected = false ;
+    private boolean isMultipleItemSelected = false;
 
 
     public LaundryServiceAdapter(Context mContext, List<Data> laundry_service_list,GlobalClass.ExpandableAdapterListener mListener) {
         this.mContext = mContext;
         this.laundry_service_list = laundry_service_list;
         this.mListener = mListener;
+
     }
 
     @Override
@@ -103,6 +107,8 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
         listTitleTextView.setTypeface(null, Typeface.BOLD);
         listTitleTextView.setText(laundry_service_list.get(groupPosition).getName());
 
+
+
         return convertView;
     }
 
@@ -127,7 +133,13 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
             CardView lyt_counter = convertView.findViewById(R.id.lyt_counter);
             CardView lyt_add = convertView.findViewById(R.id.lyt_add);
             TextView bt_add = convertView.findViewById(R.id.bt_add);
+            View bt_single = convertView.findViewById(R.id.bt_amen_single);
+            View bt_multiple = convertView.findViewById(R.id.bt_amen_multiple);
+            MySwitc switch4 = convertView.findViewById(R.id.switch4);
 
+            item_name.setText(expandedListText.getName());
+            item_price.setText("₹ "+ expandedListText.getPrice());
+            tv_quantity.setText(Integer.toString(expandedListText.getCount()));
 
             if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount() == 0){
                 lyt_add.setVisibility(View.VISIBLE);
@@ -138,27 +150,70 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
             }
 
             bt_add.setOnClickListener(v -> {
-                laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount(expandedListText.getCount() + 1);
-                tv_quantity.setText(Integer.toString(laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount()));
-                mListener.onItemClicked(laundry_service_list.get(groupPosition));
-                pushData(laundry_service_list);
-                lyt_add.setVisibility(View.GONE);
-                lyt_counter.setVisibility(View.VISIBLE);
-            });
-
-
-
-            item_name.setText(expandedListText.getName());
-            item_price.setText("₹" + " " + expandedListText.getPrice());
-            tv_quantity.setText(Integer.toString(expandedListText.getCount()));
-
-
-            img_add.setOnClickListener(v -> {
-                try {
+                if (!(GlobalClass.sharedPreferences.getBoolean("IsItemSelected",false))){
+                    GlobalClass.editor.putBoolean("isMultipleItemSelected",true);
+                    GlobalClass.editor.commit();
+                    isMultipleItemSelected = true;
                     laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount(expandedListText.getCount() + 1);
                     tv_quantity.setText(Integer.toString(laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount()));
                     mListener.onItemClicked(laundry_service_list.get(groupPosition));
                     pushData(laundry_service_list);
+                    lyt_add.setVisibility(View.GONE);
+                    lyt_counter.setVisibility(View.VISIBLE);
+                }else {
+                    GlobalClass.ShowAlert(mContext, "Alert", "Please place individual orders for individual requests  ");
+                }
+
+            });
+
+
+                if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getItemselectorType().equalsIgnoreCase("single")){
+                    bt_single.setVisibility(View.VISIBLE);
+                    if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount()>0){
+                        GlobalClass.editor.putBoolean("IsItemSelected",true);
+                        GlobalClass.editor.commit();
+                        isItemSelected =true;
+                        switch4.setOn(true);
+                    }else {
+                        switch4.setOn(false );
+                    }
+
+                }else {
+                    bt_single.setVisibility(View.GONE);
+                }
+
+                    if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getItemselectorType().equalsIgnoreCase("multi")){
+                    bt_multiple.setVisibility(View.VISIBLE);
+                    if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount()>0){
+                        GlobalClass.editor.putBoolean("isMultipleItemSelected",true);
+                        GlobalClass.editor.commit();
+                        isMultipleItemSelected = true;
+                    }
+                }else {
+                        bt_multiple.setVisibility(View.GONE);
+                    }
+
+
+            img_add.setOnClickListener(v -> {
+                try {
+                    if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getMaxCount() != null){
+
+                        if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount() < laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getMaxCount()){
+                            isMultipleItemSelected=true;
+                            isItemSelected = false;
+                            GlobalClass.editor.putBoolean("isMultipleItemSelected",true);
+                            GlobalClass.editor.putBoolean("isItemSelected",false);
+                            GlobalClass.editor.commit();
+                            laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount(expandedListText.getCount() + 1);
+                            tv_quantity.setText(Integer.toString(laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount()));
+                            mListener.onItemClicked(laundry_service_list.get(groupPosition));
+                            pushData(laundry_service_list);
+                        }else {
+                            GlobalClass.ShowAlert(mContext,"Alert","Maximum count for this item has been reached");
+                        }
+                    }
+
+
                 }catch (Exception e){
                     e.printStackTrace();
 
@@ -172,13 +227,56 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
                     laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount(laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount() -1);
                     mListener.onItemClicked(laundry_service_list.get(groupPosition));
                     pushData(laundry_service_list);
-                }else if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount() > 0) {
+                } if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount() > 0) {
                     laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount(laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount() -1);
                     tv_quantity.setText(Integer.toString(laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount()));
                     mListener.onItemClicked(laundry_service_list.get(groupPosition));
                     pushData(laundry_service_list);
                 }
+                if( laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount() ==0){
+                    if (GlobalClass.sharedPreferences.getInt(GlobalClass.Laundry_count,0) == 0){
+                        GlobalClass.editor.putBoolean("isMultipleItemSelected",false);
+                        GlobalClass.editor.putBoolean("isItemSelected",false);
+                        GlobalClass.editor.commit();
+                        isMultipleItemSelected = false;
+                        isItemSelected=false;
+                    }
+                }
             });
+
+
+            switch4.setOnClickListener(v -> {
+
+                if (((GlobalClass.sharedPreferences.getBoolean("isItemSelected",false)) && !laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).isItemSelected()) || (GlobalClass.sharedPreferences.getBoolean("isMultipleItemSelected",false))) {
+                    switch4.setOn(true);
+                    GlobalClass.ShowAlert(mContext, "Alert", "Please place individual orders for individual requests  ");
+                } else if (GlobalClass.sharedPreferences.getBoolean("isItemSelected",false) && laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).isItemSelected() ){
+                    switch4.setEnabled(false);
+                    GlobalClass.editor.putBoolean("isItemSelected",false);
+                    GlobalClass.editor.commit();
+                    isItemSelected = false;
+                    laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setItemSelected(false);
+                    laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount( laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount()-1);
+                    pushData(laundry_service_list);
+                    mListener.onItemClicked(laundry_service_list.get(groupPosition));
+                } else if ((!(GlobalClass.sharedPreferences.getBoolean("isItemSelected",false)) && !laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).isItemSelected()) || !(GlobalClass.sharedPreferences.getBoolean("isMultipleItemSelected",false))) {
+                    switch4.setEnabled(true);
+                    isItemSelected = true;
+                    GlobalClass.editor.putBoolean("isItemSelected",true);
+                    GlobalClass.editor.commit();
+                    laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setItemSelected(true);
+                    laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount( laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount()+1);
+                    pushData(laundry_service_list);
+                    mListener.onItemClicked(laundry_service_list.get(groupPosition));
+                }
+
+                /*if (isMultipleItemSelected){
+                    holder.switch4.setOn(true);
+                    GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Only one item can be selected, Please raise a new request for different item ");
+                }*/
+
+            });
+
 
         }catch (Exception e){
             e.printStackTrace();

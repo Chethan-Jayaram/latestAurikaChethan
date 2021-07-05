@@ -22,6 +22,7 @@ import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.pojo.Services.Data;
 import com.mobisprint.aurika.coorg.pojo.Services.SleepwellList;
 import com.mobisprint.aurika.helper.GlobalClass;
+import com.mobisprint.aurika.helper.MySwitc;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -33,6 +34,8 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
     private List<Data> sleepWellList;
     private Context mContext;
     private GlobalClass.ExpandableAdapterListener mListener;
+    private boolean isItemSelected = false ;
+    private boolean isMultipleItemSelected = false;
 
     public CoorgSleepWellAdapter(Context mContext, List<Data> sleepWellList, GlobalClass.ExpandableAdapterListener mListener) {
         this.sleepWellList = sleepWellList;
@@ -139,6 +142,43 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
         CardView lyt_add = convertView.findViewById(R.id.lyt_add);
         TextView bt_add = convertView.findViewById(R.id.bt_add);
 
+        View bt_single = convertView.findViewById(R.id.bt_sleepwell_single);
+        View bt_multiple = convertView.findViewById(R.id.bt_sleepwell_multiple);
+        MySwitc switch4 = convertView.findViewById(R.id.switch4);
+
+        itemName.setText(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getTitle());
+        itemPrice.setText("₹"+" "+sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getPrice());
+        tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
+
+        if ( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getItemselectorType().equalsIgnoreCase("single")){
+            bt_single.setVisibility(View.VISIBLE);
+            if ( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()>0){
+                isItemSelected =true;
+                switch4.setOn(true);
+            }else {
+                switch4.setOn(false );
+            }
+
+        }else {
+            bt_single.setVisibility(View.GONE);
+        }
+
+        if ( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getItemselectorType().equalsIgnoreCase("multi")){
+            bt_multiple.setVisibility(View.VISIBLE);
+            if ( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()>0){
+                isMultipleItemSelected = true;
+            }
+        }else {
+            bt_multiple.setVisibility(View.GONE);
+        }
+
+        if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getDescription() != null && !sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getDescription().isEmpty() ){
+            lyt_desc.setVisibility(View.VISIBLE);
+            itemDesc.setVisibility(View.VISIBLE);
+            itemDesc.setText(expandedListText.get(childPosition).getDescription());
+        }else {
+            lyt_desc.setVisibility(View.GONE);
+        }
 
         if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() == 0){
             lyt_add.setVisibility(View.VISIBLE);
@@ -151,26 +191,27 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
 
 
         bt_add.setOnClickListener(v -> {
-            sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() + 1);
-            tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
-            mListener.onItemClicked(sleepWellList.get(groupPosition));
-            pushData(sleepWellList);
-            lyt_add.setVisibility(View.GONE);
-            lyt_counter.setVisibility(View.VISIBLE);
+            if (!isItemSelected){
+                isMultipleItemSelected = true;
+                sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() + 1);
+                tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
+                mListener.onItemClicked(sleepWellList.get(groupPosition));
+                pushData(sleepWellList);
+                lyt_add.setVisibility(View.GONE);
+                lyt_counter.setVisibility(View.VISIBLE);
+            }else {
+                GlobalClass.ShowAlert(mContext, "Alert", "Please place individual orders for individual requests  ");
+            }
+
         });
 
 
 
-            itemName.setText(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getTitle());
 
 
-            if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getDescription() != null && !sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getDescription().isEmpty() ){
-                lyt_desc.setVisibility(View.VISIBLE);
-                itemDesc.setVisibility(View.VISIBLE);
-                itemDesc.setText(expandedListText.get(childPosition).getDescription());
-            }else {
-                lyt_desc.setVisibility(View.GONE);
-            }
+
+
+
 
            /* if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getPrice() == null || sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getPrice().equals("0.00")){
                 itemPrice.setVisibility(View.GONE);
@@ -178,15 +219,26 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
                 itemPrice.setVisibility(View.VISIBLE);
             }*/
 
-            itemPrice.setText("₹"+" "+sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getPrice());
-            tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
+
 
             img_add.setOnClickListener(v -> {
                 try {
-                    sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() + 1);
-                    tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
-                    mListener.onItemClicked(sleepWellList.get(groupPosition));
-                    pushData(sleepWellList);
+                    if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getMaxCount() != null){
+
+                        if ( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() < sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getMaxCount()){
+
+                            isMultipleItemSelected=true;
+                            isItemSelected = false;
+                            sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() + 1);
+                            tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
+                            mListener.onItemClicked(sleepWellList.get(groupPosition));
+                            pushData(sleepWellList);
+                        }else {
+                            GlobalClass.ShowAlert(mContext,"Alert","Maximum count for this item has been reached");
+                        }
+                    }
+
+
                 }catch (Exception e){
                     e.printStackTrace();
 
@@ -207,10 +259,43 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
                     mListener.onItemClicked(sleepWellList.get(groupPosition));
                     pushData(sleepWellList);
                 }
+                if( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() ==0){
+                    if (GlobalClass.sharedPreferences.getInt(GlobalClass.Laundry_count,0) == 0){
+                        isMultipleItemSelected = false;
+                        isItemSelected=false;
+                    }
+                }
             });
 
 
 
+        switch4.setOnClickListener(v -> {
+
+            if ((isItemSelected && !sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).isItemSelected()) || isMultipleItemSelected) {
+                switch4.setOn(true);
+                GlobalClass.ShowAlert(mContext, "Alert", "Please place individual orders for individual requests  ");
+            } else if (isItemSelected && sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).isItemSelected() ){
+                switch4.setEnabled(false);
+                isItemSelected = false;
+                sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setItemSelected(false);
+                sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()-1);
+                pushData(sleepWellList);
+                mListener.onItemClicked(sleepWellList.get(groupPosition));
+            } else if ((!isItemSelected && !sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).isItemSelected()) || !isMultipleItemSelected) {
+                switch4.setEnabled(true);
+                isItemSelected = true;
+                sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setItemSelected(true);
+                sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()+1);
+                pushData(sleepWellList);
+                mListener.onItemClicked(sleepWellList.get(groupPosition));
+            }
+
+                /*if (isMultipleItemSelected){
+                    holder.switch4.setOn(true);
+                    GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Only one item can be selected, Please raise a new request for different item ");
+                }*/
+
+        });
 
 
 

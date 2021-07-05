@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.adapter.K9MenuAdapter;
 import com.mobisprint.aurika.coorg.controller.petservices.K9MenuController;
@@ -26,6 +28,7 @@ import com.mobisprint.aurika.coorg.pojo.petservices.PetServices;
 import com.mobisprint.aurika.helper.ApiListner;
 import com.mobisprint.aurika.helper.GlobalClass;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +47,7 @@ public class K9Menu extends Fragment implements ApiListner {
     private CoordinatorLayout lyt;
     private ProgressBar progressBar;
 
-
+    private List<K9Data> k9ArrDataPackage;
     private Integer items_count = 0;
     private double total_price = 0;
 
@@ -81,8 +84,14 @@ public class K9Menu extends Fragment implements ApiListner {
 
         controller.getMenu();
 
+        items_count=GlobalClass.sharedPreferences.getInt(GlobalClass.K9Menu_count,0);
+        tv_num_of_items.setText(items_count+" " +"items");
+
+        total_price = GlobalClass.sharedPreferences.getFloat(GlobalClass.K9Menu_price,0);
+        tv_total_price.setText("₹ "+GlobalClass.round(total_price,2));
+
         view_order.setOnClickListener(v -> {
-            if (selectedList!= null && selectedList.size() >0) {
+            if (items_count >0) {
 
                     /*String json =gson.toJson(selectedList);
                     editor.putString("selected_list",json);
@@ -90,11 +99,14 @@ public class K9Menu extends Fragment implements ApiListner {
 
                 Fragment fragment = new OrderSummary();
                 Bundle bundle1 = new Bundle();
-                bundle1.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) selectedList);
+                /* bundle1.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) selectedList);*/
                 bundle1.putString("category",order_category);
-                for (int i = 0; i<selectedList.size(); i++){
-                    Log.i("slected item: ", selectedList.get(i).getTitle());
-                }
+
+                GlobalClass.editor.putInt(GlobalClass.K9Menu_count, items_count);
+                GlobalClass.editor.putFloat(GlobalClass.K9Menu_price, (float) total_price);
+                GlobalClass.editor.commit();
+
+
                 fragment.setArguments(bundle1);
                 getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
             }else
@@ -123,6 +135,37 @@ public class K9Menu extends Fragment implements ApiListner {
             PetServices services = (PetServices) response.body();
             List<K9Data> menuList = services.getData();
 
+            Gson amenitiesGson = new Gson();
+            String amenitiesJson = GlobalClass.sharedPreferences.getString("K9Menu", "");
+            if (amenitiesJson.isEmpty()) {
+                // Toast.makeText(mContext, "Something went worng", Toast.LENGTH_LONG).show();
+            } else {
+                Type type = new TypeToken<List<K9Data>>() {
+                }.getType();
+                k9ArrDataPackage = new ArrayList(amenitiesGson.fromJson(amenitiesJson,type));
+            }
+
+
+            try {
+
+                if (k9ArrDataPackage !=null){
+
+                    for (int i=0;i<menuList.size();i++){
+                        for (int j=0;j<k9ArrDataPackage.size();j++){
+                            if (menuList.get(i).getId().equals(k9ArrDataPackage.get(j).getId())){
+                                menuList.remove(i);
+                                menuList.add(i,k9ArrDataPackage.get(j));
+                            }
+                        }
+                    }
+
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             K9MenuAdapter adapter = new K9MenuAdapter(getContext(),menuList,Position -> {
 
                 try {
@@ -139,7 +182,7 @@ public class K9Menu extends Fragment implements ApiListner {
 
                         if (menuList.get(i).getCount() >= 0 ){
                             total_price += menuList.get(i).getCount() * Double.parseDouble(menuList.get(i).getPrice()) ;
-                            tv_total_price.setText("₹ "+ " "+total_price);
+                            tv_total_price.setText("₹ "+GlobalClass.round(total_price,2));
 
                         }
 
@@ -149,6 +192,10 @@ public class K9Menu extends Fragment implements ApiListner {
                         }
 
                     }
+
+                    GlobalClass.editor.putInt(GlobalClass.K9Menu_count, items_count);
+                    GlobalClass.editor.putFloat(GlobalClass.K9Menu_price, (float) total_price);
+                    GlobalClass.editor.commit();
 
 
 

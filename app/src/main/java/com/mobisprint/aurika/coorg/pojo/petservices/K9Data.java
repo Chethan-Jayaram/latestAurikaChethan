@@ -10,6 +10,41 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class K9Data implements Parcelable {
+    @SerializedName("max_count")
+    @Expose
+    private Integer maxCount;
+
+    public Integer getMaxCount() {
+        return maxCount;
+    }
+
+    public void setMaxCount(Integer maxCount) {
+        this.maxCount = maxCount;
+    }
+
+    @SerializedName("ItemselectorType")
+    @Expose
+    private String itemselectorType;
+
+    public String getItemselectorType() {
+        return itemselectorType;
+    }
+
+    public void setItemselectorType(String itemselectorType) {
+        this.itemselectorType = itemselectorType;
+    }
+
+    @SerializedName("isItemSelected")
+    @Expose
+    private boolean isItemSelected=false;
+
+    public boolean isItemSelected() {
+        return isItemSelected;
+    }
+
+    public void setItemSelected(boolean itemSelected) {
+        isItemSelected = itemSelected;
+    }
 
     @SerializedName("count")
     @Expose

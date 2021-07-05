@@ -75,4 +75,6 @@
 
     <string name="privacy_policy_reg">I agree with the terms and conditions and privacy policy</string>
 
+    <string name="max_count">Maximum count for this item has been reached</string>
+
 </resources>

@@ -101,7 +101,7 @@
                 android:fontFamily="@font/notoseriftc_regular"
                 android:textSize="@dimen/dimen_12"
                 android:textStyle="bold"
-                android:paddingTop="1dp"
+                android:paddingTop="6dp"
                 android:textColor="@color/custom_purple"
                 android:includeFontPadding="false"
                 android:gravity="clip_horizontal"

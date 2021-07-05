@@ -16,10 +16,13 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.angads25.toggle.LabeledSwitch;
 import com.google.gson.Gson;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.pojo.Services.Data;
+import com.mobisprint.aurika.coorg.services.APIMethods;
 import com.mobisprint.aurika.helper.GlobalClass;
+import com.mobisprint.aurika.helper.MySwitc;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -31,6 +34,8 @@ public class AmenitiesAdapter extends RecyclerView.Adapter<AmenitiesAdapter.View
     private List<Data> amenitiesList;
     private GlobalClass.AmenitiesAdapterListener mListener;
     private Context mContext;
+    private boolean isItemSelected = false ;
+    private boolean isMultipleItemSelected = false;
 
     public AmenitiesAdapter(List<Data> amenitiesList, GlobalClass.AmenitiesAdapterListener mListener) {
         this.amenitiesList = amenitiesList;
@@ -51,6 +56,21 @@ public class AmenitiesAdapter extends RecyclerView.Adapter<AmenitiesAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+        if (amenitiesList.get(position).getItemselectorType().equalsIgnoreCase("single")){
+            holder.bt_single.setVisibility(View.VISIBLE);
+            if (amenitiesList.get(position).getCount()>0){
+                isItemSelected =true;
+                holder.switch4.setOn(true);
+            }
+
+        }else if (amenitiesList.get(position).getItemselectorType().equalsIgnoreCase("multi")){
+            holder.bt_multiple.setVisibility(View.VISIBLE);
+            if (amenitiesList.get(position).getCount()>0){
+                isMultipleItemSelected = true;
+            }
+
+        }
+
         if (amenitiesList.get(position).getCount() == 0){
             holder.lyt_add.setVisibility(View.VISIBLE);
             holder.lyt_counter.setVisibility(View.GONE);
@@ -60,12 +80,18 @@ public class AmenitiesAdapter extends RecyclerView.Adapter<AmenitiesAdapter.View
         }
 
         holder.bt_add.setOnClickListener(v -> {
-            amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()+1);
-            holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));
-            mListener.onItemClicked(amenitiesList);
-            pushData(amenitiesList);
-            holder.lyt_add.setVisibility(View.GONE);
-            holder.lyt_counter.setVisibility(View.VISIBLE);
+            if (!isItemSelected){
+                isMultipleItemSelected = true;
+                amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()+1);
+                holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));
+                holder.lyt_add.setVisibility(View.GONE);
+                holder.lyt_counter.setVisibility(View.VISIBLE);
+                pushData(amenitiesList);
+                mListener.onItemClicked(position);
+            }else {
+                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests  ");
+            }
+
         });
 
         /*if (amenitiesList.get(position).getPrice() ==null ||
@@ -77,16 +103,48 @@ public class AmenitiesAdapter extends RecyclerView.Adapter<AmenitiesAdapter.View
         }*/
 
 
+        holder.switch4.setOnClickListener(v -> {
+
+            if ((isItemSelected && !amenitiesList.get(position).isItemSelected()) || isMultipleItemSelected) {
+                holder.switch4.setOn(true);
+                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests  ");
+            } else if (isItemSelected && amenitiesList.get(position).isItemSelected()){
+                holder.switch4.setEnabled(false);
+                isItemSelected = false;
+                amenitiesList.get(position).setItemSelected(false);
+                amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()-1);
+                pushData(amenitiesList);
+                mListener.onItemClicked(position);
+            } else if ((!isItemSelected && !amenitiesList.get(position).isItemSelected()) || !isMultipleItemSelected) {
+                holder.switch4.setEnabled(true);
+                isItemSelected = true;
+                amenitiesList.get(position).setItemSelected(true);
+                amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()+1);
+                pushData(amenitiesList);
+                mListener.onItemClicked(position);
+            }
+
+        });
+
+
             holder.tv_item_name.setText(amenitiesList.get(position).getTitle());
             holder.tv_item_price.setText("₹"+" "+amenitiesList.get(position).getPrice());
             holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));
 
 
             holder.img_add.setOnClickListener(v -> {
-                amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()+1);
-                holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));
-                mListener.onItemClicked(amenitiesList);
-                pushData(amenitiesList);
+                if (amenitiesList.get(position).getMaxCount() !=null){
+                    if (amenitiesList.get(position).getCount() < amenitiesList.get(position).getMaxCount()){
+                        amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()+1);
+                        holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));
+                        mListener.onItemClicked(position);
+                        pushData(amenitiesList);
+                    }else {
+                        GlobalClass.ShowAlert(mContext,"Alert","Maximum count for this item has been reached");
+                    }
+                }
+
+
             });
 
             holder.img_remove.setOnClickListener(v -> {
@@ -95,14 +153,21 @@ public class AmenitiesAdapter extends RecyclerView.Adapter<AmenitiesAdapter.View
                     holder.lyt_counter.setVisibility(View.GONE);
                     amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()-1);
                     holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));
-                    mListener.onItemClicked(amenitiesList);
+                    mListener.onItemClicked(position);
                     pushData(amenitiesList);
                 }
-                else if (amenitiesList.get(position).getCount()>0){
+                if (amenitiesList.get(position).getCount()>0){
                     amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()-1);
                     holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));
-                    mListener.onItemClicked(amenitiesList);
+                    mListener.onItemClicked(position);
                     pushData(amenitiesList);
+                }
+
+                if(amenitiesList.get(position).getCount()==0){
+                    if (GlobalClass.sharedPreferences.getInt(GlobalClass.Amenities_count,0) == 0){
+                        isMultipleItemSelected = false;
+                        isItemSelected=false;
+                    }
                 }
             });
 
@@ -135,6 +200,8 @@ public class AmenitiesAdapter extends RecyclerView.Adapter<AmenitiesAdapter.View
         CardView lyt_counter ;
         CardView lyt_add ;
         TextView bt_add ;
+        View bt_single,bt_multiple;
+        MySwitc switch4;
 
 
 
@@ -151,6 +218,9 @@ public class AmenitiesAdapter extends RecyclerView.Adapter<AmenitiesAdapter.View
             lyt_add =itemView.findViewById(R.id.lyt_add);
             lyt_counter = itemView.findViewById(R.id.lyt_counter);
             bt_add = itemView.findViewById(R.id.bt_add);
+            bt_single = itemView.findViewById(R.id.bt_amen_single);
+            bt_multiple = itemView.findViewById(R.id.bt_amen_multiple);
+            switch4 = itemView.findViewById(R.id.switch4);
 
         }
     }

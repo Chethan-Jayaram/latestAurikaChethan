@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical"
     android:layout_height="match_parent">
@@ -11,23 +11,37 @@
         android:layout_height="wrap_content"
         android:background="@color/pale">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dimen_20"
             android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_width="wrap_content"
             android:id="@+id/img_headphones"
-            android:layout_above="@+id/tv_other_assisatance"
-            android:padding="@dimen/dimen_5"
-            android:background="@drawable/coorg_circular_bg"
-            android:layout_width="@dimen/dimen_30"
-            android:layout_height="@dimen/dimen_30"
             android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:src="@drawable/headphones"/>
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:background="@drawable/coorg_circular_bg"
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="@dimen/dimen_30"/>
+
+            <ImageView
+                android:padding="@dimen/dimen_2"
+                android:layout_width="@dimen/dimen_25"
+                android:layout_height="@dimen/dimen_25"
+                android:layout_centerInParent="true"
+                android:src="@drawable/headphones"/>
+
+        </RelativeLayout>
+
+
 
         <TextView
+            android:layout_marginRight="@dimen/dimen_10"
+            android:layout_toLeftOf="@+id/lyt_time"
             android:layout_marginTop="@dimen/dimen_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="If you require assistance, please click on 'Other Assistance' under Services."
+            android:text="If you require assistance, please click on 'Other Assistance' under Services, or use the quick action link below"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:includeFontPadding="false"
@@ -37,12 +51,14 @@
             android:id="@+id/text1"/>
 
         <TextView
+            android:padding="@dimen/dimen_5"
             android:id="@+id/tv_other_assisatance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Other Assistance"
             android:layout_below="@+id/text1"
             android:textAllCaps="true"
+            android:textSize="14sp"
             android:gravity="center_vertical"
             android:layout_toRightOf="@id/img_headphones"
             android:layout_marginLeft="@dimen/dimen_10"
@@ -54,6 +70,7 @@
 
 
         <ImageView
+            android:visibility="gone"
             android:layout_width="@dimen/dimen_10"
             android:layout_height="@dimen/dimen_10"
             android:src="@drawable/arrow_1x"
@@ -61,6 +78,31 @@
             android:layout_below="@+id/text1"
             android:layout_marginTop="@dimen/dimen_15"
             android:layout_marginLeft="@dimen/dimen_2"/>
+
+
+        <androidx.cardview.widget.CardView
+            app:cardCornerRadius="@dimen/dimen_15"
+            android:id="@+id/lyt_time"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:background="#f5e4d2"
+                android:textSize="14sp"
+                android:text="2m"
+                android:paddingLeft="@dimen/dimen_8"
+                android:paddingRight="@dimen/dimen_15"
+                android:paddingTop="@dimen/dimen_5"
+                android:paddingBottom="@dimen/dimen_5"
+                android:layout_height="wrap_content"
+                android:textColor="#777479"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/notosanstc_medium"/>
+
+        </androidx.cardview.widget.CardView>
 
 
     </RelativeLayout>

@@ -70,9 +70,11 @@ public class SpaMenuAdapter extends BaseExpandableListAdapter {
         }
 
         View lyt_view = convertView.findViewById(R.id.lyt_view);
+        RelativeLayout lyt = convertView.findViewById(R.id.lyt);
 
         if (groupPosition==0){
             lyt_view.setVisibility(View.GONE);
+            lyt.setVisibility(View.GONE);
         }
 
         TextView tv_spa_menu_title = convertView.findViewById(R.id.tv_spa_menu_title);

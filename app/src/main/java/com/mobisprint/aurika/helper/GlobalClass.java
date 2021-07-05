@@ -44,6 +44,12 @@ public class GlobalClass {
     public static final String K9Amenities_count = "K9Amenities_count";
     public static final String K9Amenities_price = "K9Amenities_price";
 
+    public static final String K9Menu_count = "K9Menu_count";
+    public static final String K9Menu_price = "K9Menu_price";
+
+    public static final String HouseKeeping_count = "HouseKeeping_count";
+    public static final String HouseKeeping_price = "HouseKeeping_price";
+
     public static final String UDAIPUR_DOOR_UNLOCK = "UDAIPUR_DOOR_UNLOCK";
     public static final String UDAIPUR = "UDAIPUR";
     public static final String COORG = "COORG";
@@ -84,13 +90,23 @@ public class GlobalClass {
 
     }
 
+    public interface NavigationListener {
+        void onItemClicked(int GroupPosition,int ChildPosition, boolean decider);
+
+    }
+
     public interface AmenitiesAdapterListener {
-        void onItemClicked(List<Data> data);
+        void onItemClicked(int Position);
     }
 
 
     public interface K9AdapterListener {
         void onItemClicked(List<K9Data> data);
+    }
+
+
+    public interface HouseKeepingListener {
+        void onItemClicked(List<Data> data);
     }
 
     public interface ExpandableAdapterListener {

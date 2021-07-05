@@ -17,12 +17,14 @@
             android:id="@+id/tv_amenities_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notoseriftc_bold"
+            android:fontFamily="@font/notosanstc_bold"
             android:includeFontPadding="false"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:paddingLeft="@dimen/dimen_10"
             android:paddingTop="@dimen/dimen_10"/>
+
+
 
         <TextView
             android:id="@+id/tv_amenities_item_price"
@@ -36,21 +38,40 @@
             android:fontFamily="@font/notoseriftc_regular"
             android:paddingLeft="@dimen/dimen_10"/>
 
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_amenities_item_desc"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_toLeftOf="@+id/lyt_sel"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_amenities_item_price"
+            android:textColor="#8e8e8e"
+            android:textSize="14sp"
+            android:layout_marginRight="@dimen/dimen_5"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/notoseriftc_regular"
+            android:paddingLeft="@dimen/dimen_10"/>
+
 
         <RelativeLayout
             android:layout_marginTop="@dimen/dimen_5"
             android:id="@+id/lyt_sel"
-            android:layout_marginRight="@dimen/dimen_20"
             android:layout_alignParentRight="true"
             android:layout_width="100dp"
             android:layout_height="wrap_content">
 
             <include
-                android:id="@+id/selector"
+                android:visibility="gone"
+                android:id="@+id/bt_housekeeping_single"
                 layout="@layout/toggle_switch"
-                android:layout_alignParentRight="true"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_width="wrap_content" />
+            <include
+                android:visibility="gone"
+                android:id="@+id/bt_housekeeping_multiple"
+                layout="@layout/item_selector"
+                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"/>
 
         </RelativeLayout>

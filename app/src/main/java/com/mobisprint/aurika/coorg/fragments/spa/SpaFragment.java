@@ -115,7 +115,7 @@ public class SpaFragment extends Fragment implements ApiListner {
                 SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
                 Date _24HourDt1 = _24HourSDF.parse(spaList.get(0).getFromTime());
                 Date _24HourDt2 = _24HourSDF.parse(spaList.get(0).getToTime());
-               tv_spa_from_time.setText(_12HourSDF.format(_24HourDt1));
+               tv_spa_from_time.setText(" "+_12HourSDF.format(_24HourDt1));
                tv_spa_to_time.setText(_12HourSDF.format(_24HourDt2));
             }catch (Exception e){
                 e.printStackTrace();

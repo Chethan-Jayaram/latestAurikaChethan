@@ -102,14 +102,30 @@
 
             </LinearLayout>
 
-
-            <include
-                android:id="@+id/item_selector"
+            <RelativeLayout
                 android:layout_alignParentRight="true"
-                layout="@layout/item_selector"
+                android:id="@+id/item_selector"
                 android:layout_marginRight="@dimen/dimen_20"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <include
+                    android:visibility="gone"
+                    android:id="@+id/bt_sleepwell_multiple"
+                    layout="@layout/item_selector"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content" />
+
+                <include
+                    android:visibility="gone"
+                    android:id="@+id/bt_sleepwell_single"
+                    layout="@layout/toggle_switch"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content" />
+            </RelativeLayout>
+
+
 
 
         </RelativeLayout>

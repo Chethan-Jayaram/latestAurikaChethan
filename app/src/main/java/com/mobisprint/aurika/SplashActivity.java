@@ -84,13 +84,13 @@ public class SplashActivity extends Activity {
         super.onResume();
         // Creates instance of the manager.
 
-        Intent startAct = new Intent(getApplicationContext(), UserAuthenticationActivity.class);
+     /*   Intent startAct = new Intent(getApplicationContext(), UserAuthenticationActivity.class);
         startAct.putExtra("notification", notification);
         startActivity(startAct);
-        finish();
+        finish();*/
 
 
-        /*if (GlobalClass.APPDATA.isEmpty()) {
+        if (GlobalClass.APPDATA.isEmpty()) {
             if (!haveNetworkConnection()) {
                 ShowAlet("No Internet Connection", "Turn on your internet and continue");
             } else {
@@ -102,7 +102,7 @@ public class SplashActivity extends Activity {
             } else {
                 handlermethod();
             }
-        }*/
+        }
 
     }
 

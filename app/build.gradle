@@ -52,11 +52,10 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        /*debug {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), "proguard.cfg"
-        }*/
+        debug {
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), "proguard.cfg",'proguard-rules.pro'
+        }
 
     }
     lintOptions {

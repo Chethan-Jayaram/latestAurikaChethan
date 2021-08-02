@@ -9,6 +9,7 @@ import com.mobisprint.aurika.coorg.pojo.login.Login;
 import com.mobisprint.aurika.coorg.pojo.navigation.Navigation;
 import com.mobisprint.aurika.coorg.pojo.petservices.PetServices;
 import com.mobisprint.aurika.coorg.pojo.recreational.Recreational;
+import com.mobisprint.aurika.coorg.pojo.resortmap.ResortMap;
 import com.mobisprint.aurika.coorg.pojo.sightseeing.SightSeeing;
 import com.mobisprint.aurika.coorg.pojo.spa.Spa;
 import com.mobisprint.aurika.coorg.pojo.winedine.WineAndDine;
@@ -133,6 +134,12 @@ public interface APIMethods {
     @GET("aurika/guest/guest-k9-menu/")
     Call<PetServices> k9Menu();
 
+    @Headers({"Content-Type:application/json", "organization-key:80b2f8f25c554f9705bb216c8128ba4f05bb0cfd", "location:aurika-coorg"})
+    @GET("aurika/guest/guest-k9-services/")
+    Call<PetServices> k9Service();
+
+
+
     //Wine And Dine
 
     @Headers({"Content-Type:application/json", "organization-key:80b2f8f25c554f9705bb216c8128ba4f05bb0cfd", "location:aurika-coorg"})
@@ -181,5 +188,11 @@ public interface APIMethods {
     @Headers({"Content-Type:application/json", "organization-key:80b2f8f25c554f9705bb216c8128ba4f05bb0cfd", "location:aurika-coorg"})
     @GET("aurika/guest/guest-dining-subcategory/")
     Call<Dining> diningMenuList(@Query("category_id") Integer category_id);
+
+    //Resort-Map
+
+    @Headers({"Content-Type:application/json", "organization-key:80b2f8f25c554f9705bb216c8128ba4f05bb0cfd", "location:aurika-coorg"})
+    @GET("aurika/guest/resort-map/")
+    Call<ResortMap> resortMap();
 
 }

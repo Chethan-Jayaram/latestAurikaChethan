@@ -318,8 +318,10 @@ public class OtpFragment extends Fragment implements ApiListner {
 
         if (response != null){
             Login login = (Login) response.body();
-            GlobalClass.user_token = login.getData().getToken();
             Fragment fragment = new CreateMpinFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("token",login.getData().getToken());
+            fragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, fragment).commit();
 
         }

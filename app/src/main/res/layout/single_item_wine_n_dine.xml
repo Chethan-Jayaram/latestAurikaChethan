@@ -67,7 +67,7 @@
         <RelativeLayout
 
             android:padding="@dimen/dimen_5"
-            android:background="#d1c2aa "
+            android:background="@drawable/textview_border"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

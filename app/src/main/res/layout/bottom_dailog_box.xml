@@ -8,8 +8,7 @@
 
     <LinearLayout
         android:id="@+id/lyt_select_date"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -17,7 +16,7 @@
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notoseriftc_regular"
+            android:fontFamily="@font/notoseriftc_bold"
             android:includeFontPadding="false"
             android:text="When do you need this?"
             android:textColor="@color/black"
@@ -26,13 +25,16 @@
             android:layout_marginTop="@dimen/dimen_20"/>
 
         <TextView
-            android:layout_marginTop="@dimen/dimen_20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="#a9a9a9"
-            android:text="Date"
-            android:layout_marginLeft="@dimen/dimen_20"/>
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:fontFamily="@font/notosanstc_bold"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="9sp"
+            android:text="DATE"
+            android:textColor="#a5a5a5"
+            android:textSize="14sp" />
 
         <LinearLayout
             android:padding="@dimen/dimen_5"
@@ -44,9 +46,12 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
-                android:layout_margin="5dp"
                 android:padding="@dimen/dimen_5"
-                android:layout_width="wrap_content"
+                android:layout_weight="0.3"
+                android:layout_marginLeft="@dimen/dimen_5"
+                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_marginBottom="@dimen/dimen_5"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/dimen_10">
                 <Button
@@ -54,50 +59,54 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:fontFamily="@font/notoseriftc_regular"
+                    android:fontFamily="@font/notosanstc_medium"
                     android:includeFontPadding="false"
                     android:textAllCaps="false"
                     android:text="Today"
                     android:lineSpacingExtra="@dimen/dimen_10"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textColor="#a5a5a5"
+                    android:textSize="14sp" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:layout_weight="0.4"
                 android:padding="@dimen/dimen_5"
                 android:layout_marginTop="@dimen/dimen_5"
                 android:layout_marginBottom="@dimen/dimen_5"
-                android:layout_marginLeft="@dimen/dimen_20"
-                android:layout_marginRight="@dimen/dimen_20"
-                android:layout_width="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_15"
+                android:layout_marginRight="@dimen/dimen_15"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/dimen_10">
 
                 <Button
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:id="@+id/bt_tomorrow"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:fontFamily="@font/notoseriftc_regular"
+                    android:fontFamily="@font/notosanstc_medium"
                     android:includeFontPadding="false"
                     android:lineSpacingExtra="@dimen/dimen_10"
                     android:padding="@dimen/dimen_10"
                     android:text="Tomorrow"
                     android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textColor="#a5a5a5"
+                    android:textSize="14sp" />
 
 
             </androidx.cardview.widget.CardView>
 
 
             <androidx.cardview.widget.CardView
+                android:layout_weight="0.4"
                 android:layout_gravity="center"
-                android:id="@+id/select_date"
                 android:layout_marginTop="@dimen/dimen_5"
                 android:layout_marginBottom="@dimen/dimen_5"
+                android:id="@+id/select_date"
                 android:layout_marginRight="5dp"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/dimen_10">
 
@@ -108,18 +117,18 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:paddingTop="@dimen/dimen_10"
-                        android:paddingLeft="@dimen/dimen_10"
-                        android:paddingBottom="@dimen/dimen_10"
+                        android:paddingTop="@dimen/dimen_12"
+                        android:paddingLeft="@dimen/dimen_12"
+                        android:paddingBottom="@dimen/dimen_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/notoseriftc_regular"
+                        android:fontFamily="@font/notosanstc_medium"
                         android:includeFontPadding="false"
                         android:textAllCaps="false"
                         android:text="Select Date"
                         android:lineSpacingExtra="@dimen/dimen_10"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textColor="#a5a5a5"
+                        android:textSize="14sp" />
 
                     <ImageView
                         android:layout_gravity="center"
@@ -144,12 +153,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_20"
-            android:layout_marginTop="@dimen/dimen_20"
-            android:text="Time"
-            android:textColor="#a9a9a9"
-            android:textSize="16sp" />
+            android:layout_marginTop="@dimen/dimen_15"
+            android:text="TIME"
+            android:lineSpacingExtra="9sp"
+            android:fontFamily="@font/notosanstc_bold"
+            android:includeFontPadding="false"
+            android:textColor="#a5a5a5"
+            android:textSize="14sp" />
 
         <LinearLayout
+            android:paddingRight="@dimen/dimen_5"
+            android:paddingLeft="@dimen/dimen_5"
             android:layout_marginTop="@dimen/dimen_10"
             android:layout_marginLeft="@dimen/dimen_20"
             android:layout_marginRight="@dimen/dimen_20"
@@ -159,9 +173,11 @@
 
 
             <androidx.cardview.widget.CardView
+                android:layout_marginLeft="@dimen/dimen_5"
+                android:layout_weight="0.4"
                 android:layout_marginTop="@dimen/dimen_5"
                 android:layout_marginBottom="@dimen/dimen_5"
-                android:layout_width="80dp"
+                android:layout_width="0dp"
                 android:background="@color/custom_purple"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/dimen_10">
@@ -179,18 +195,18 @@
                         android:layout_alignParentTop="true"
                         android:id="@+id/img_up_hr"
                         android:layout_centerInParent="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/dimen_25"
+                        android:layout_height="@dimen/dimen_25"
                         app:srcCompat="@drawable/ic_baseline_arrow_drop_up_24"/>
 
                     <TextView
                         android:id="@+id/tv_hr"
-                        android:layout_marginTop="@dimen/dimen_10"
+                        android:layout_marginTop="@dimen/dimen_15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
-                        android:text="09"
-                        android:fontFamily="@font/notosanstc_medium"
+                        android:text="09 h"
+                        android:fontFamily="@font/notosanstc_black"
                         android:includeFontPadding="false"
                         android:textStyle="bold"
                         android:layout_centerInParent="true"
@@ -199,12 +215,12 @@
 
                     <ImageView
                         android:layout_marginBottom="@dimen/dimen_5"
-                        android:layout_marginTop="@dimen/dimen_5"
+                        android:layout_marginTop="@dimen/dimen_10"
                         android:layout_alignParentBottom="true"
                         android:id="@+id/img_down_hr"
                         android:layout_centerVertical="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/dimen_25"
+                        android:layout_height="@dimen/dimen_25"
                         app:srcCompat="@drawable/ccp_down_arrow"/>
 
                 </LinearLayout>
@@ -224,9 +240,10 @@
 
 
             <androidx.cardview.widget.CardView
+                android:layout_weight="0.4"
                 android:layout_marginTop="@dimen/dimen_5"
                 android:layout_marginBottom="@dimen/dimen_5"
-                android:layout_width="80dp"
+                android:layout_width="0dp"
                 android:background="@color/custom_purple"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/dimen_10">
@@ -244,18 +261,18 @@
                         android:layout_alignParentTop="true"
                         android:id="@+id/img_up_min"
                         android:layout_centerInParent="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/dimen_25"
+                        android:layout_height="@dimen/dimen_25"
                         app:srcCompat="@drawable/ic_baseline_arrow_drop_up_24"/>
 
                     <TextView
                         android:id="@+id/tv_min"
-                        android:layout_marginTop="@dimen/dimen_10"
+                        android:layout_marginTop="@dimen/dimen_15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
-                        android:text="30"
-                        android:fontFamily="@font/notosanstc_medium"
+                        android:text="30 m"
+                        android:fontFamily="@font/notosanstc_black"
                         android:includeFontPadding="false"
                         android:textStyle="bold"
                         android:layout_centerInParent="true"
@@ -264,12 +281,12 @@
 
                     <ImageView
                         android:layout_marginBottom="@dimen/dimen_5"
-                        android:layout_marginTop="@dimen/dimen_5"
+                        android:layout_marginTop="@dimen/dimen_10"
                         android:layout_alignParentBottom="true"
                         android:id="@+id/img_down_min"
                         android:layout_centerVertical="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/dimen_25"
+                        android:layout_height="@dimen/dimen_25"
                         app:srcCompat="@drawable/ccp_down_arrow"/>
 
                 </LinearLayout>
@@ -277,10 +294,13 @@
 
 
             <androidx.cardview.widget.CardView
+                android:layout_marginRight="@dimen/dimen_5"
+                android:paddingRight="@dimen/dimen_5"
+                android:layout_weight="0.2"
                 android:layout_marginTop="@dimen/dimen_5"
                 android:layout_marginBottom="@dimen/dimen_5"
                 android:layout_marginLeft="@dimen/dimen_15"
-                android:layout_width="70dp"
+                android:layout_width="0dp"
                 android:background="@color/custom_purple"
                 android:layout_height="match_parent"
                 app:cardCornerRadius="@dimen/dimen_10">
@@ -295,28 +315,30 @@
 
 
                     <TextView
+                        android:id="@+id/tv_am"
                         android:layout_marginTop="@dimen/dimen_5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         android:text="AM"
-                        android:fontFamily="@font/notosanstc_medium"
+                        android:fontFamily="@font/notosanstc_bold"
                         android:includeFontPadding="false"
                         android:textStyle="bold"
                         android:layout_centerInParent="true"
                         android:textColor="@color/black" />
 
                     <TextView
+                        android:id="@+id/tv_pm"
                         android:layout_marginTop="@dimen/dimen_5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         android:text="PM"
-                        android:fontFamily="@font/notosanstc_medium"
+                        android:fontFamily="@font/notosanstc_bold"
                         android:includeFontPadding="false"
                         android:textStyle="bold"
                         android:layout_centerInParent="true"
-                        android:textColor="#A9A9A9" />
+                        android:textColor="#a5a5a5" />
 
 
                 </LinearLayout>
@@ -324,16 +346,93 @@
 
         </LinearLayout>
 
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginRight="@dimen/dimen_20"
+            android:orientation="vertical"
+            android:id="@+id/select_hours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:text="HOURS"
+                android:lineSpacingExtra="9sp"
+                android:fontFamily="@font/notosanstc_bold"
+                android:includeFontPadding="false"
+                android:textColor="#a5a5a5"
+                android:textSize="14sp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginBottom="@dimen/dimen_5"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/custom_purple"
+                app:cardCornerRadius="@dimen/dimen_10">
+
+                <RelativeLayout
+                    android:padding="@dimen/dimen_15"
+                    android:background="#f7e4ff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_hour_minus"
+                        android:layout_centerInParent="true"
+                        android:layout_width="@dimen/dimen_22"
+                        android:layout_height="@dimen/dimen_22"
+                        app:srcCompat="@drawable/bottom_dropdown_remove"
+                        android:layout_alignParentLeft="true"
+                        android:padding="@dimen/dimen_5"/>
+
+                    <TextView
+                        android:id="@+id/tv_hour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 hour"
+                        android:layout_centerInParent="true"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/notosanstc_black"
+                        android:textColor="@color/black"
+                        android:includeFontPadding="false"/>
+
+                    <ImageView
+                        android:id="@+id/img_hour_add"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_width="@dimen/dimen_22"
+                        android:layout_height="@dimen/dimen_22"
+                        app:srcCompat="@drawable/bottom_dropdown_add"
+                        android:padding="@dimen/dimen_5"/>
+
+                </RelativeLayout>
+
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+
+
+
+
+
+
+
         <Button
             android:gravity="center"
-            android:padding="@dimen/dimen_10"
+            android:padding="@dimen/dimen_15"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="@dimen/dimen_20"
             android:id="@+id/bt_save_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/custom_purple"
-            android:fontFamily="@font/notoseriftc__medium"
+            android:fontFamily="@font/notosanstc_bold"
             android:includeFontPadding="false"
             android:textAllCaps="false"
             android:text="Save"
@@ -366,7 +465,7 @@
                 android:id="@+id/bt_back"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:padding="@dimen/dimen_10"
+                android:padding="@dimen/dimen_15"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#a7a7a7"
@@ -382,7 +481,7 @@
                 android:id="@+id/bt_save"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:padding="@dimen/dimen_10"
+                android:padding="@dimen/dimen_15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/custom_purple"
@@ -396,6 +495,110 @@
 
 
         </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/folded_hanger"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Folded or on Hanger?"
+            android:fontFamily="@font/notoseriftc_bold"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginRight="@dimen/dimen_20"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:theme="@style/AppTheme"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/checkbox_folded"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Folded"
+                    android:textColor="@color/black"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/notosanstc_bold"
+                    android:includeFontPadding="false"
+                    android:layout_toRightOf="@+id/checkbox_folded"
+                    android:textSize="16sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/AppTheme"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/checkbox_hanger"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="On Hanger"
+                    android:textColor="@color/black"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/notosanstc_bold"
+                    android:includeFontPadding="false"
+                    android:layout_toRightOf="@+id/checkbox_hanger"
+                    android:textSize="16sp"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/next_order"
+            android:gravity="center"
+            android:padding="@dimen/dimen_15"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/custom_purple"
+            android:fontFamily="@font/notosanstc_bold"
+            android:includeFontPadding="false"
+            android:textAllCaps="false"
+            android:text="Next"
+            android:lineSpacingExtra="@dimen/dimen_11"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -77,7 +78,7 @@ public class SpaFragment extends Fragment implements ApiListner {
         toolbar_title.setText(bundle.getString("title"));
 
         controller.getSpaMenu();
-        tv_coorg_assistance.setText("Please call 2001 for assistance");
+        tv_coorg_assistance.setText("Please call 2011 for assistance");
 
 
 
@@ -127,6 +128,11 @@ public class SpaFragment extends Fragment implements ApiListner {
                 bundle.putString("title",spaList.get(0).getTitle());
                 bundle.putString("image",spaList.get(0).getImage());
                 fragment.setArguments(bundle);
+                /*FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                fragmentTransaction.replace(R.id.fragment_coorg_container, fragment).addToBackStack(null);
+                fragmentTransaction.commit();*/
+
                 getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
             });
 
@@ -136,6 +142,10 @@ public class SpaFragment extends Fragment implements ApiListner {
                 bundle.putString("title",spaList.get(0).getTitle());
                 bundle.putString("image",spaList.get(0).getImage());
                 fragment.setArguments(bundle);
+                /*FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                fragmentTransaction.replace(R.id.fragment_coorg_container, fragment).addToBackStack(null);
+                fragmentTransaction.commit();*/
                 getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
             });
 

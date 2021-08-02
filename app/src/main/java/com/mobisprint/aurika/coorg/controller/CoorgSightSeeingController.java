@@ -16,7 +16,6 @@ public class CoorgSightSeeingController {
     public CoorgSightSeeingController(ApiListner listner) {
         this.listner = listner;
     }
-
     public void getSightSeeing() {
 
         listner.onFetchProgress();

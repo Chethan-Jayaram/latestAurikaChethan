@@ -21,6 +21,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/lyt_img_profile"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_marginTop="@dimen/dimen_40"
@@ -34,11 +35,13 @@
                         android:background="@drawable/circular_imageview_background" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                            android:layout_alignBottom="@+id/img_profile"
-                            android:layout_alignEnd="@+id/img_profile"
-                            android:layout_width="@dimen/dimen_30"
+                        android:layout_marginRight="@dimen/dimen_5"
+                        android:layout_marginBottom="@dimen/dimen_5"
+                        android:layout_alignBottom="@+id/img_profile"
+                        android:layout_alignEnd="@+id/img_profile"
+                        android:layout_width="@dimen/dimen_30"
                         android:background="@drawable/edit_profile_image"
-                            android:layout_height="@dimen/dimen_30" />
+                        android:layout_height="@dimen/dimen_30" />
 
 
                 </RelativeLayout>
@@ -57,7 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="1dp"
                         android:layout_margin="2dp"
-                        android:background="#A9A9A9" />
+                        android:background="#787878" />
 
 
                 </RelativeLayout>
@@ -69,37 +72,47 @@
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
                     android:textSize="18sp"
+                    android:includeFontPadding="false"
+                    android:layout_marginTop="@dimen/dimen_10"
                     android:fontFamily="@font/notoseriftc__medium"
                     android:text="General Details"
-                    android:textStyle="bold"
                     android:textColor="@color/black"/>
 
+
+
                 <LinearLayout
-                    android:layout_marginRight="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_15"
+                    android:layout_marginRight="@dimen/dimen_20"
                     android:layout_marginLeft="@dimen/dimen_20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <RelativeLayout
+                        android:layout_marginTop="@dimen/dimen_5"
                         android:layout_marginRight="@dimen/dimen_15"
                         android:layout_weight="0.5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
+
                         <TextView
                             android:id="@+id/txt_firstname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="First Name"
+                            android:text=" First Name"
                             android:textSize="14sp"
+                            android:textStyle="normal"
                             android:includeFontPadding="false"
                             android:fontFamily="@font/notosanstc_regular"
-                            android:textColor="@color/black"/>
+                            android:textColor="#505050"/>
 
                         <EditText
+                            android:hint="Enter First Name"
                             android:inputType="textCapSentences"
                             android:textSize="16sp"
+                            android:textColorHint="#a7a7a7"
+                            android:backgroundTint="#787878"
                             android:autofillHints="first-name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -110,9 +123,13 @@
                             android:text=""/>
 
 
+
+
+
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:layout_marginTop="@dimen/dimen_5"
                         android:layout_weight="0.5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -121,16 +138,19 @@
                             android:id="@+id/txt_lastname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Last Name"
+                            android:text=" Last Name"
                             android:textSize="14sp"
                             android:includeFontPadding="false"
                             android:fontFamily="@font/notosanstc_regular"
-                            android:textColor="@color/black"/>
+                            android:textColor="#505050"/>
 
                         <EditText
+                            android:hint="Enter Last Name"
                             android:autofillHints="last-name"
                             android:inputType="textCapSentences"
+                            android:backgroundTint="#787878"
                             android:textSize="16sp"
+                            android:textColorHint="#a7a7a7"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/notosanstc_medium"
@@ -146,7 +166,7 @@
 
 
                 <LinearLayout
-                    android:layout_marginRight="@dimen/dimen_10"
+                    android:layout_marginRight="@dimen/dimen_20"
                     android:layout_marginLeft="@dimen/dimen_20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -163,25 +183,26 @@
                             android:id="@+id/txt_gender"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Gender"
+                            android:text=" Gender"
                             android:textSize="14sp"
                             android:includeFontPadding="false"
                             android:fontFamily="@font/notosanstc_regular"
-                            android:textColor="@color/black"/>
+                            android:textColor="#505050"/>
 
                         <Spinner
-
+                            android:layout_marginLeft="@dimen/dimen_1"
                             android:id="@+id/gender_spinner"
                             style="@style/Widget.AppCompat.Spinner.Underlined"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/notosanstc_medium"
                             android:textColor="@color/black"
+                            android:padding="0dp"
                             android:layout_below="@+id/txt_gender"
                             android:includeFontPadding="false" />
 
 
-                    </RelativeLayout>
+                    </RelativeLayout> 
 
                     <RelativeLayout
                         android:layout_marginTop="@dimen/dimen_5"
@@ -193,19 +214,21 @@
                             android:id="@+id/txt_marital_status"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Marital Status"
+                            android:text=" Marital Status"
                             android:textSize="14sp"
                             android:includeFontPadding="false"
                             android:fontFamily="@font/notosanstc_regular"
-                            android:textColor="@color/black"/>
+                            android:textColor="#505050"/>
 
                         <Spinner
+                            android:layout_marginLeft="@dimen/dimen_1"
                             android:id="@+id/maritual_ststus_spinner"
                             style="@style/Widget.AppCompat.Spinner.Underlined"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/notosanstc_medium"
                             android:textColor="@color/black"
+                            android:padding="0dp"
                             android:layout_below="@+id/txt_marital_status"
                             android:includeFontPadding="false"/>
 
@@ -220,33 +243,38 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
+                    android:includeFontPadding="false"
                     android:textSize="18sp"
                     android:fontFamily="@font/notoseriftc__medium"
                     android:text="Contact / Login details"
-                    android:textStyle="bold"
                     android:textColor="@color/black"/>
 
 
 
                 <TextView
+                    android:layout_marginTop="@dimen/dimen_15"
                     android:layout_marginLeft="@dimen/dimen_20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mobile number"
+                    android:text=" Mobile number"
                     android:textSize="14sp"
                     android:includeFontPadding="false"
                     android:fontFamily="@font/notosanstc_regular"
-                    android:textColor="@color/black"/>
+                    android:textColor="#505050"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:hint="Enter Mobile Number"
                         android:id="@+id/mobile_num"
                         android:maxLength="10"
+                        android:textSize="16sp"
+                        android:backgroundTint="#787878"
                         android:inputType="number"
                         android:layout_marginLeft="@dimen/dimen_20"
+                        android:textColorHint="#a7a7a7"
                         android:layout_marginRight="@dimen/dimen_20"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -273,11 +301,11 @@
                     android:layout_marginLeft="@dimen/dimen_20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email Address"
+                    android:text=" Email Address"
                     android:textSize="14sp"
                     android:includeFontPadding="false"
                     android:fontFamily="@font/notosanstc_regular"
-                    android:textColor="@color/black"/>
+                    android:textColor="#505050"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -285,24 +313,28 @@
 
 
                     <EditText
+                        android:hint="Enter Email ID"
                         android:id="@+id/email_id"
                         android:layout_marginLeft="@dimen/dimen_20"
+                        android:textSize="16sp"
+                        android:backgroundTint="#787878"
                         android:layout_marginRight="@dimen/dimen_20"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColorHint="#a7a7a7"
                         android:fontFamily="@font/notosanstc_medium"
                         android:textColor="@color/black"
                         android:includeFontPadding="false"
                         android:text=""/>
 
-                    <ImageView
+                    <!--<ImageView
                         android:id="@+id/img_clear_email"
                         android:layout_marginRight="@dimen/dimen_20"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/img_clear"
                         android:layout_alignParentRight="true"
-                        android:layout_centerInParent="true"/>
+                        android:layout_centerInParent="true"/>-->
 
                 </RelativeLayout>
 
@@ -315,21 +347,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
+                    android:includeFontPadding="false"
                     android:textSize="18sp"
                     android:fontFamily="@font/notoseriftc__medium"
                     android:text="Special Date"
-                    android:textStyle="bold"
                     android:textColor="@color/black"/>
 
                 <TextView
+                    android:layout_marginTop="@dimen/dimen_10"
                     android:layout_marginLeft="@dimen/dimen_20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Occassion and Date"
+                    android:text=" Occassion and Date"
                     android:textSize="14sp"
                     android:includeFontPadding="false"
                     android:fontFamily="@font/notosanstc_regular"
-                    android:textColor="@color/black"/>
+                    android:textColor="#505050"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -338,23 +371,24 @@
 
                     <EditText
                         android:textSize="16sp"
-                        android:layout_marginRight="@dimen/dimen_10"
+                        android:layout_marginRight="@dimen/dimen_20"
                         android:layout_alignParentLeft="true"
                         android:layout_width="match_parent"
                         android:layout_toEndOf="@+id/txt_date"
+                        android:backgroundTint="#787878"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/notosanstc_medium"
                         android:textColor="@color/black"
                         android:includeFontPadding="false"
-                        android:text="My Birthaday"/>
+                        android:text=" My Birthaday"/>
 
 
                     <ImageView
-                        android:layout_marginRight="@dimen/dimen_10"
+                        android:layout_marginRight="@dimen/dimen_25"
                         android:id="@+id/img_callendar"
                         android:layout_centerInParent="true"
-                        android:layout_width="@dimen/dimen_20"
-                        android:layout_height="@dimen/dimen_20"
+                        android:layout_width="@dimen/dimen_15"
+                        android:layout_height="@dimen/dimen_15"
                         android:background="@drawable/calendar"
                         android:layout_alignParentRight="true"/>
 
@@ -379,28 +413,28 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_20"
                     android:layout_marginLeft="@dimen/dimen_20">
 
                     <EditText
                         android:textSize="16sp"
-                        android:layout_marginRight="@dimen/dimen_10"
+                        android:layout_marginRight="@dimen/dimen_20"
                         android:layout_alignParentLeft="true"
                         android:layout_width="match_parent"
                         android:layout_toEndOf="@+id/txt_date1"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="#787878"
                         android:fontFamily="@font/notosanstc_medium"
                         android:textColor="@color/black"
                         android:includeFontPadding="false"
-                        android:text="My Anniversary"/>
+                        android:text=" My Anniversary"/>
 
 
                     <ImageView
-                        android:layout_marginRight="@dimen/dimen_10"
+                        android:layout_marginRight="@dimen/dimen_25"
                         android:id="@+id/img_callendar1"
                         android:layout_centerInParent="true"
-                        android:layout_width="@dimen/dimen_20"
-                        android:layout_height="@dimen/dimen_20"
+                        android:layout_width="@dimen/dimen_15"
+                        android:layout_height="@dimen/dimen_15"
                         android:background="@drawable/calendar"
                         android:layout_alignParentRight="true"/>
 
@@ -410,6 +444,52 @@
                         android:layout_height="wrap_content"
                         android:text="26/06/1995"
                         android:layout_toLeftOf="@+id/img_callendar1"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/notosanstc_medium"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="@dimen/dimen_5"/>
+
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_20"
+                    android:layout_marginLeft="@dimen/dimen_20">
+
+                    <EditText
+                        android:textSize="16sp"
+                        android:layout_marginRight="@dimen/dimen_20"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="match_parent"
+                        android:layout_toEndOf="@+id/txt_date2"
+                        android:backgroundTint="#787878"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosanstc_medium"
+                        android:textColor="@color/black"
+                        android:includeFontPadding="false"
+                        android:text=" Dog's Birthday"/>
+
+
+                    <ImageView
+                        android:layout_marginRight="@dimen/dimen_25"
+                        android:id="@+id/img_callendar2"
+                        android:layout_centerInParent="true"
+                        android:layout_width="@dimen/dimen_15"
+                        android:layout_height="@dimen/dimen_15"
+                        android:background="@drawable/calendar"
+                        android:layout_alignParentRight="true"/>
+
+                    <TextView
+                        android:id="@+id/txt_date2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="26/06/1995"
+                        android:layout_toLeftOf="@+id/img_callendar2"
                         android:textSize="16sp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/notosanstc_medium"

@@ -83,8 +83,17 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
         RelativeLayout lyt_navigation = convertView.findViewById(R.id.lyt_navigation);
         ImageView drop_down_img = convertView.findViewById(R.id.img_navigation_drop_down);
 
+
+            if (GlobalClass.user_token.isEmpty() && navigationList.get(groupPosition).getMobileRoute().getRouteName().equalsIgnoreCase("myprofile-category")){
+                lyt_navigation.setVisibility(View.GONE);
+            }
+
+
         if (navigationList.get(groupPosition).getRoutesSubcategory().size()>0){
             drop_down_img.setVisibility(View.VISIBLE);
+        }else
+        {
+            drop_down_img.setVisibility(View.GONE);
         }
 
         Glide.with(mContext)
@@ -93,7 +102,6 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
 
         TextView listTitleTextView = (TextView) convertView
                 .findViewById(R.id.navigation_bar_text);
-        listTitleTextView.setTypeface(null, Typeface.BOLD);
         listTitleTextView.setText(navigationList.get(groupPosition).getTitle());
 
 
@@ -126,6 +134,8 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
 
 
             tv_sub_items.setText(navigationList.get(groupPosition).getRoutesSubcategory().get(childPosition).getTitle());
+
+
 
             tv_sub_items.setOnClickListener(v -> {
                 mListener.onItemClicked(groupPosition, childPosition,false);

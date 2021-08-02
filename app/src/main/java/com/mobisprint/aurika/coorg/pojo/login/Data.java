@@ -9,6 +9,17 @@ import java.util.List;
 
 public class Data extends General {
 
+    @SerializedName("profile")
+    @Expose
+    private Profile profile;
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
 
     @SerializedName("token")
     @Expose

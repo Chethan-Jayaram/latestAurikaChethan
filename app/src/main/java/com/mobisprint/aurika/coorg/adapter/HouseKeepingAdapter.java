@@ -87,6 +87,7 @@ public  class HouseKeepingAdapter extends RecyclerView.Adapter<HouseKeepingAdapt
 
         if (houseKeepingList.get(position).getItemselectorType().equalsIgnoreCase("single")){
             holder.bt_single.setVisibility(View.VISIBLE);
+            holder.bt_multiple.setVisibility(View.GONE);
             if (houseKeepingList.get(position).getCount()>0){
                 isItemSelected =true;
                 holder.switch4.setOn(true);
@@ -94,6 +95,7 @@ public  class HouseKeepingAdapter extends RecyclerView.Adapter<HouseKeepingAdapt
 
         }else if (houseKeepingList.get(position).getItemselectorType().equalsIgnoreCase("multi")){
             holder.bt_multiple.setVisibility(View.VISIBLE);
+            holder.bt_single.setVisibility(View.GONE);
             if (houseKeepingList.get(position).getCount()>0){
                 isMultipleItemSelected = true;
             }

@@ -74,7 +74,7 @@
             android:paddingStart="@dimen/dimen_10"
             android:paddingTop="@dimen/dimen_5"
             android:paddingBottom="@dimen/dimen_10"
-            android:background="#BBAF98"
+            android:background="@drawable/textview_border"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

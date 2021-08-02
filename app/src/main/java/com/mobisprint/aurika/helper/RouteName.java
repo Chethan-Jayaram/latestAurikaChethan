@@ -34,6 +34,10 @@ public class RouteName {
 
 
 
+    public static final String resort_map = "resort-map";
+
+
+
 
     //Coorg PetServices
 
@@ -41,13 +45,14 @@ public class RouteName {
     public static final String guest_k9_amenities = "guest-k9-amenities";
     public static final String guest_k9_facilities = "guest-k9-facilities";
     public static final String guest_k9_menu = "guest-k9-menu";
-
+    public static final String k9_services = "k9-services";
 
 
     //Coorg profile routes
 
     public static final String myprofile = "myprofile";
     public static final String my_stay = "my-stay";
+
 
     public static String getLocationRoutes(String route){
         switch(route){
@@ -104,6 +109,10 @@ public class RouteName {
                 return COORG_PATH+"fragments.dining.CoorgInRoomDiningFragment";
             case myprofile:
                 return COORG_PATH+"fragments.ProfileFragment";
+            case resort_map:
+                return COORG_PATH+"fragments.ResortMapFragment";
+            case other_assistance:
+                return COORG_PATH+"fragments.services.OtherAssistance";
             default:return "";
 
         }
@@ -117,6 +126,8 @@ public class RouteName {
                 return COORG_PATH+"fragments.petservices.K9Facilities";
             case guest_k9_menu:
                 return COORG_PATH+"fragments.petservices.K9Menu";
+            case k9_services:
+                return COORG_PATH+"fragments.petservices.K9Services";
             default:return "";
         }
     }

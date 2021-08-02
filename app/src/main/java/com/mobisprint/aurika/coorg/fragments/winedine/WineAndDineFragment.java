@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -93,6 +94,13 @@ public class WineAndDineFragment extends Fragment implements ApiListner {
                 bundle.putString("img",((WineAndDine) response.body()).getData().get(Position).getImage());
                 bundle.putString("desc",((WineAndDine) response.body()).getData().get(Position).getDescription());
                 fragment.setArguments(bundle);
+
+
+//                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+//                fragmentTransaction.replace(R.id.fragment_coorg_container, fragment).addToBackStack(null);
+//                fragmentTransaction.commit();
+
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container,fragment).addToBackStack(null).commit();
 
             });

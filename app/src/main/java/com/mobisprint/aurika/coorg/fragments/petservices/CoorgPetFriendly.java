@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -90,6 +91,12 @@ public class CoorgPetFriendly extends Fragment implements ApiListner {
                     bundle.putString("desc",servicesList.get(Position).getDescription());
                     bundle.putString("sub_title",servicesList.get(Position).getTitle());
                     fragment.setArguments(bundle);
+
+                    /*FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                    fragmentTransaction.replace(R.id.fragment_coorg_container, fragment).addToBackStack(null);
+                    fragmentTransaction.commit();*/
+
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
 
                 }catch (Exception e){

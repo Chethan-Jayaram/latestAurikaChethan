@@ -16,8 +16,6 @@ public class Login extends General {
         return data;
     }
 
-
-
     public void setData(Data data) {
         this.data = data;
     }

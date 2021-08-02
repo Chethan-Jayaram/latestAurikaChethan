@@ -10,6 +10,19 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class K9Data implements Parcelable {
+
+    @SerializedName("ishourbounded")
+    @Expose
+    private Boolean ishourbounded;
+
+    public Boolean getIshourbounded() {
+        return ishourbounded;
+    }
+
+    public void setIshourbounded(Boolean ishourbounded) {
+        this.ishourbounded = ishourbounded;
+    }
+
     @SerializedName("max_count")
     @Expose
     private Integer maxCount;

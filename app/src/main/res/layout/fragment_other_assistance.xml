@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginTop="@dimen/dimen_20"
         android:id="@+id/heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,25 +19,26 @@
 
 
 
-
     <EditText
+        android:paddingBottom="@dimen/dimen_15"
         android:id="@+id/txt_assistance"
         android:layout_width="match_parent"
         android:hint="Type the requirement here"
         android:includeFontPadding="false"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/notoseriftc__medium"
+        android:fontFamily="@font/notosanstc_regular"
         android:layout_below="@+id/heading"
         android:backgroundTint="@color/black"
         android:layout_marginLeft="@dimen/dimen_30"
         android:layout_marginRight="@dimen/dimen_30"
+        android:textColorHint="#a7a7a7"
         android:textColor="@color/black"
         android:textSize="16sp"/>
 
 
     <Button
         android:layout_alignParentBottom="true"
-        android:id="@+id/btn_ass_submit"
+        android:id="@+id/btn_assi_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/btn_color"

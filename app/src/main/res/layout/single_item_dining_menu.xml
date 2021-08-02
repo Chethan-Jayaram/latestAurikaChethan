@@ -26,8 +26,7 @@
                     android:layout_marginLeft="@dimen/dimen_10"
                     android:layout_marginTop="@dimen/dimen_6"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_veg"/>
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:layout_toLeftOf="@+id/selector"
@@ -39,7 +38,7 @@
                     android:layout_toRightOf="@+id/img_veg_or_nonveg"
                     android:fontFamily="@font/notosanstc_bold"
                     android:includeFontPadding="false"
-                    android:text="Cereals"
+                    android:text=""
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:textColor="#000000"/>

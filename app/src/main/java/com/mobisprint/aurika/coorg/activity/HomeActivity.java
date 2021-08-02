@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -47,62 +50,93 @@ public class HomeActivity extends AppCompatActivity implements ApiListner  {
     public TextView coorg_toolbar_title,tv_logout;
     public ImageView bt_bck;
     private boolean status= true;
-    private RelativeLayout lyt_notification,lyt_logout;
+    private RelativeLayout lyt_notification,lyt_logout,lyt_notification_tool_bar;
     private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        controller = new HomeActivityController(this);
-        mContext = getApplicationContext();
-        navigationView = findViewById(R.id.nav_view);
-        drawer = findViewById(R.id.drawer_layout);
-        lyt_logout = findViewById(R.id.lyt_logout);
 
-        tv_logout = findViewById(R.id.tv_logout);
-        lyt_notification = findViewById(R.id.lyt_notification);
+        try {
+            controller = new HomeActivityController(this);
+            mContext = getApplicationContext();
+            navigationView = findViewById(R.id.nav_view);
+            drawer = findViewById(R.id.drawer_layout);
+            lyt_logout = findViewById(R.id.lyt_logout);
 
-        coorg_toolbar_title = findViewById(R.id.toolbar_title);
+            tv_logout = findViewById(R.id.tv_logout);
+            lyt_notification = findViewById(R.id.lyt_drawer_notification);
+            lyt_notification_tool_bar = findViewById(R.id.lyt_notification);
 
-        bt_bck = findViewById(R.id.naviagation_hamberger);
+            coorg_toolbar_title = findViewById(R.id.toolbar_title);
 
-        coorg_toolbar_title.setText("Welcome to Aurika, Coorg");
-        fab = findViewById(R.id.fab);
+            bt_bck = findViewById(R.id.naviagation_hamberger);
 
-        bt_bck.setOnClickListener(v -> {
-            onClicked();
-        });
+            coorg_toolbar_title.setText("Welcome to Aurika, Coorg");
+            fab = findViewById(R.id.fab);
 
-        fab.setOnClickListener(view -> {
-            if (drawer.isDrawerOpen(GravityCompat.START)) {
-                drawer.closeDrawer(GravityCompat.START);
-            } else
-                drawer.openDrawer(GravityCompat.START);
-        });
+            bt_bck.setOnClickListener(v -> {
+                onClicked();
+            });
 
-        lyt_notification.setOnClickListener(v -> {
-            Fragment fragment = new CoorgNotificationFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
+            fab.setOnClickListener(view -> {
+                if (drawer.isDrawerOpen(GravityCompat.START)) {
+                    drawer.closeDrawer(GravityCompat.START);
+                } else
+                    drawer.openDrawer(GravityCompat.START);
+            });
 
-        });
+            lyt_notification.setOnClickListener(v -> {
+                Fragment fragment = new CoorgNotificationFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
+                drawer.closeDrawers();
+            });
 
-        if (GlobalClass.sharedPreferences.getBoolean("isMpinSetUpComplete",false)){
-            tv_logout.setText("Logout");
-        }else{
-            tv_logout.setText("Exit");}
+            lyt_notification_tool_bar.setOnClickListener(v -> {
+                Fragment fragment = new CoorgNotificationFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
+            });
 
-        lyt_logout.setOnClickListener(v -> {
-            GlobalClass.editor.clear();
-            GlobalClass.editor.commit();
-            Intent intent = new Intent(this, SelectLocationActivity.class);
-            startActivity(intent);
+            if (GlobalClass.user_token!=null ) {
+                if (GlobalClass.user_token.isEmpty()) {
 
-        });
+                    tv_logout.setText("Exit");
+                } else {
+                    tv_logout.setText("Logout");
+                }
+            }else{
+                tv_logout.setText("Exit");
+            }
+
+            lyt_logout.setOnClickListener(v -> {
+                GlobalClass.user_token = "";
+                Intent intent = new Intent(this, SelectLocationActivity.class);
+                startActivity(intent);
+            /*GlobalClass.editor.clear();
+            GlobalClass.editor.commit();*/
+                /*if (tv_logout.getText().equals("Logout")){
+                 *//* GlobalClass.editor.putBoolean("isMpinSetUpComplete",true);
+                GlobalClass.editor.apply();*//*
+                GlobalClass.user_token = "";
 
 
-        navigation_expandableListView = findViewById(R.id.navigation_expandable_list_view);
-        controller.getNavigationMenu();
+                Intent intent = new Intent(this, SelectLocationActivity.class);
+                startActivity(intent);
+            }else if (tv_logout.getText().equals("Exit")){
+                *//*GlobalClass.editor.putBoolean("isMpinSetUpComplete",false);
+                GlobalClass.editor.apply();*//*
+                GlobalClass.user_token = "";
+                Intent intent = new Intent(this, SelectLocationActivity.class);
+                startActivity(intent);
+            }*/
+
+
+            });
+
+
+            navigation_expandableListView = findViewById(R.id.navigation_expandable_list_view);
+            controller.getNavigationMenu();
       /*  drawer = findViewById(R.id.coorg_drawer_layout);
 
         navigationView = findViewById(R.id.navigation_view);
@@ -125,7 +159,13 @@ public class HomeActivity extends AppCompatActivity implements ApiListner  {
         controller.getNavigationMenu();
 */
 
-        this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, new HomeFragment()).commit();
+            this.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, new HomeFragment()).commit();
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -133,6 +173,8 @@ public class HomeActivity extends AppCompatActivity implements ApiListner  {
         try {
             onResume();
             super.onBackPressed();
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(bt_bck.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -172,6 +214,10 @@ public class HomeActivity extends AppCompatActivity implements ApiListner  {
                             bundle.putString("title", navigationList.get(GroupPosition).getTitle());
                             Fragment fragment = (Fragment) className.newInstance();
                             fragment.setArguments(bundle);
+//                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                            fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+//                            fragmentTransaction.replace(R.id.fragment_coorg_container, fragment).addToBackStack(null);
+//                            fragmentTransaction.commit();
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
                             drawer.closeDrawers();
                         }

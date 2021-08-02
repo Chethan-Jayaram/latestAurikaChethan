@@ -1,6 +1,7 @@
 package com.mobisprint.aurika.coorg.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ public class K9AmenitiesAdapter extends RecyclerView.Adapter<K9AmenitiesAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.amenities_recyclerview,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.k9_amenities_recyclerview,parent,false);
         mContext = parent.getContext();
         return new ViewHolder(view);
     }
@@ -52,6 +53,7 @@ public class K9AmenitiesAdapter extends RecyclerView.Adapter<K9AmenitiesAdapter.
 
         if (amenitiesList.get(position).getItemselectorType().equalsIgnoreCase("single")){
             holder.bt_single.setVisibility(View.VISIBLE);
+            holder.bt_multiple.setVisibility(View.GONE);
             if (amenitiesList.get(position).getCount()>0){
                 isItemSelected =true;
                 holder.switch4.setOn(true);
@@ -59,6 +61,7 @@ public class K9AmenitiesAdapter extends RecyclerView.Adapter<K9AmenitiesAdapter.
 
         }else if (amenitiesList.get(position).getItemselectorType().equalsIgnoreCase("multi")){
             holder.bt_multiple.setVisibility(View.VISIBLE);
+            holder.bt_single.setVisibility(View.GONE);
             if (amenitiesList.get(position).getCount()>0){
                 isMultipleItemSelected = true;
             }
@@ -99,7 +102,10 @@ public class K9AmenitiesAdapter extends RecyclerView.Adapter<K9AmenitiesAdapter.
         }
 
             holder.lyt_items.setVisibility(View.VISIBLE);
-            holder.tv_item_name.setText(amenitiesList.get(position).getTitle() + "(and services)");
+            holder.tv_item_name.setText(amenitiesList.get(position).getTitle());
+
+            /*holder.tv_item_name.setText(Html.fromHtml("<font color=#000000>"+ amenitiesList.get(position).getTitle() +"</font> <font color=#A7A7A7>"+ "(and services)" +"</font>"));*/
+
             holder.tv_item_price.setText("₹"+" "+amenitiesList.get(position).getPrice());
             holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));
 

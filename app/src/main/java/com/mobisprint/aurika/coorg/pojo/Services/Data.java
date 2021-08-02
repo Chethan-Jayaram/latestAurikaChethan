@@ -12,6 +12,18 @@ import com.mobisprint.aurika.udaipur.pojo.GeneralPojo;
 
 public class Data implements Parcelable {
 
+    @SerializedName("ishourbounded")
+    @Expose
+    private Boolean ishourbounded;
+
+    public Boolean getIshourbounded() {
+        return ishourbounded;
+    }
+
+    public void setIshourbounded(Boolean ishourbounded) {
+        this.ishourbounded = ishourbounded;
+    }
+
     @SerializedName("max_count")
     @Expose
     private Integer maxCount;

@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -102,7 +103,13 @@ try {
                         Fragment fragment = (Fragment) className.newInstance();
                         fragment.setArguments(bundle);
 
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
+
+                        /*FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                        fragmentTransaction.replace(R.id.fragment_coorg_container, fragment).addToBackStack(null);
+                        fragmentTransaction.commit();*/
+
+                       getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

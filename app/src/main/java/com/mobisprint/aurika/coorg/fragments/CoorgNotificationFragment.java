@@ -34,10 +34,13 @@ public class CoorgNotificationFragment extends Fragment {
 
        tv_other_assisatance.setOnClickListener(v -> {
 
-         /*  Fragment fragment = new OtherAssistance();
+           Fragment fragment = new OtherAssistance();
+           Bundle bundle = new Bundle();
+           bundle.putString("title","Other Assistance");
+           fragment.setArguments(bundle);
            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container,fragment).addToBackStack(null).commit();
 
-*/       });
+       });
 
        return view;
     }

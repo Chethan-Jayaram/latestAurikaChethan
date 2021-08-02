@@ -60,6 +60,7 @@ public class OrderSummary extends Fragment {
     private double total_price = 0, service_tax = 0;
     private Integer items_count = 0;
     private ExpandableListView expandableListView;
+    private String title;
 
     private List<com.mobisprint.aurika.coorg.pojo.dining.Data> diningArrPackageData;
 
@@ -106,6 +107,7 @@ public class OrderSummary extends Fragment {
 
             Bundle bundle = getArguments();
             order_category = bundle.getString("category");
+            title = bundle.getString("title");
 
             total_price = 0;
 
@@ -365,7 +367,7 @@ public class OrderSummary extends Fragment {
                     order_summary_recyclerview.setVisibility(View.GONE);
 
                     Gson gson1 = new Gson();
-                    String json1 = GlobalClass.sharedPreferences.getString("Dining", "");
+                    String json1 = GlobalClass.sharedPreferences.getString(title, "");
                     if (json1.isEmpty()) {
                         Toast.makeText(mContext, "Something went worng", Toast.LENGTH_LONG).show();
                     } else {
@@ -375,15 +377,15 @@ public class OrderSummary extends Fragment {
                     }
 
 
-                    items_count=GlobalClass.sharedPreferences.getInt(GlobalClass.Dining_count,0);
-                    total_price = GlobalClass.sharedPreferences.getFloat(GlobalClass.Dining_price,0);
+                    items_count=GlobalClass.sharedPreferences.getInt(title+"Count",0);
+                    total_price = GlobalClass.sharedPreferences.getFloat(title + "Price",0);
                     tv_item_total_price.setText("₹" + " " + GlobalClass.round(total_price,2));
                     tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));
 
                     Log.d("dining_size", String.valueOf(diningList.size()));
 
 
-                    ReviewOrderExpandableListAdapter adapter5 = new ReviewOrderExpandableListAdapter(diningList,"dining", mContext, data -> {
+                    ReviewOrderExpandableListAdapter adapter5 = new ReviewOrderExpandableListAdapter(diningList, title, mContext, data -> {
 
                         items_count = 0;
                         total_price = 0;
@@ -405,8 +407,8 @@ public class OrderSummary extends Fragment {
                         }
 
 
-                        GlobalClass.editor.putInt(GlobalClass.Dining_count, items_count);
-                        GlobalClass.editor.putFloat(GlobalClass.Dining_price, (float) total_price);
+                        GlobalClass.editor.putInt(title + "Count", items_count);
+                        GlobalClass.editor.putFloat(title +"Price", (float) total_price);
                         GlobalClass.editor.commit();
                         if (items_count == 0){
                             getActivity().getSupportFragmentManager().popBackStack();

@@ -84,7 +84,7 @@ public class SplashActivity extends Activity {
         super.onResume();
         // Creates instance of the manager.
 
-     /*   Intent startAct = new Intent(getApplicationContext(), UserAuthenticationActivity.class);
+        /*Intent startAct = new Intent(getApplicationContext(), UserAuthenticationActivity.class);
         startAct.putExtra("notification", notification);
         startActivity(startAct);
         finish();*/

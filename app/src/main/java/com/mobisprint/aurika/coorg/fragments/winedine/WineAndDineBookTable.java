@@ -8,11 +8,14 @@ import android.os.Bundle;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -22,6 +25,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.mobisprint.aurika.R;
+import com.mobisprint.aurika.helper.GlobalClass;
 
 import java.util.Calendar;
 
@@ -35,6 +39,8 @@ public class WineAndDineBookTable extends Fragment {
     private ProgressBar progressBar;
     private Context mContext;
     private RelativeLayout img_select_time;
+    private EditText number_of_guest;
+    private Integer count = 0;
 
 
     @Override
@@ -54,6 +60,7 @@ public class WineAndDineBookTable extends Fragment {
         progressBar.setVisibility(View.GONE);
         mContext = getContext();
 
+        number_of_guest = view.findViewById(R.id.number_of_guest);
         toolbar_title.setText("Book a Table");
 
         img_select_time = view.findViewById(R.id.img_select_time);
@@ -66,6 +73,32 @@ public class WineAndDineBookTable extends Fragment {
 
         tv_selected_wine_dine_title.setText(bundle.getString("title"));
         Glide.with(getContext()).load(bundle.getString("img")).centerCrop().into(img_selected_wine_and_dine);
+
+
+        number_of_guest.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                if (editable.length() ==1){
+                    count = Integer.parseInt(number_of_guest.getText().toString());
+                    if (count>7){
+                        GlobalClass.ShowAlert(mContext,"Alert","Guest count cannot exceed more than 7");
+                        number_of_guest.getText().clear();
+                    }
+                }
+
+
+            }
+        });
 
         return view;
     }

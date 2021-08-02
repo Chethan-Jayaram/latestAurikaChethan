@@ -82,6 +82,7 @@ public class K9MenuAdapter extends RecyclerView.Adapter<K9MenuAdapter.ViewHolder
 
         if (menuList.get(position).getItemselectorType().equalsIgnoreCase("single")){
             holder.bt_single.setVisibility(View.VISIBLE);
+            holder.bt_multiple.setVisibility(View.GONE);
             if (menuList.get(position).getCount()>0){
                 isItemSelected =true;
                 holder.switch4.setOn(true);
@@ -89,6 +90,7 @@ public class K9MenuAdapter extends RecyclerView.Adapter<K9MenuAdapter.ViewHolder
 
             }else if (menuList.get(position).getItemselectorType().equalsIgnoreCase("multi")){
             holder.bt_multiple.setVisibility(View.VISIBLE);
+            holder.bt_single.setVisibility(View.GONE);
             if (menuList.get(position).getCount()>0){
                 isMultipleItemSelected = true;
             }

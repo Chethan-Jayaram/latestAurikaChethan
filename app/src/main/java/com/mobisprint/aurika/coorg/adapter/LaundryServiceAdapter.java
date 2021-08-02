@@ -1,4 +1,4 @@
-package com.mobisprint.aurika.coorg.adapter;
+ package com.mobisprint.aurika.coorg.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -24,6 +24,7 @@ import com.mobisprint.aurika.coorg.pojo.Services.Data;
 import com.mobisprint.aurika.coorg.pojo.Services.SleepwellList;
 import com.mobisprint.aurika.helper.GlobalClass;
 import com.mobisprint.aurika.helper.MySwitc;
+import com.mobisprint.aurika.helper.SharedPreferenceVariables;
 
 import org.w3c.dom.Text;
 
@@ -122,7 +123,7 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) this.mContext
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = layoutInflater.inflate(R.layout.amenities_recyclerview, null);
+                convertView = layoutInflater.inflate(R.layout.coorg_laundry_recyclerview, null);
             }
 
             TextView item_name = convertView.findViewById(R.id.tv_amenities_item_name);
@@ -149,8 +150,11 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
                 lyt_counter.setVisibility(View.VISIBLE);
             }
 
+
+
+
             bt_add.setOnClickListener(v -> {
-                if (!(GlobalClass.sharedPreferences.getBoolean("IsItemSelected",false))){
+                if (!(GlobalClass.sharedPreferences.getBoolean("isItemSelected",false))){
                     GlobalClass.editor.putBoolean("isMultipleItemSelected",true);
                     GlobalClass.editor.commit();
                     isMultipleItemSelected = true;
@@ -169,8 +173,9 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
 
                 if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getItemselectorType().equalsIgnoreCase("single")){
                     bt_single.setVisibility(View.VISIBLE);
+                    bt_multiple.setVisibility(View.GONE);
                     if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount()>0){
-                        GlobalClass.editor.putBoolean("IsItemSelected",true);
+                        GlobalClass.editor.putBoolean("isItemSelected",true);
                         GlobalClass.editor.commit();
                         isItemSelected =true;
                         switch4.setOn(true);
@@ -184,6 +189,7 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
 
                     if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getItemselectorType().equalsIgnoreCase("multi")){
                     bt_multiple.setVisibility(View.VISIBLE);
+                    bt_single.setVisibility(View.GONE);
                     if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount()>0){
                         GlobalClass.editor.putBoolean("isMultipleItemSelected",true);
                         GlobalClass.editor.commit();
@@ -195,8 +201,10 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
 
 
             img_add.setOnClickListener(v -> {
+
                 try {
-                    if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getMaxCount() != null){
+                    if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getMaxCount() != null && !GlobalClass.sharedPreferences.getBoolean("isItemSelected",false)
+                    ){
 
                         if (laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount() < laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getMaxCount()){
                             isMultipleItemSelected=true;

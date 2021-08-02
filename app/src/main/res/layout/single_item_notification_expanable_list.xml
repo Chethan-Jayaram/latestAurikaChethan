@@ -15,6 +15,6 @@
         android:textSize="14sp"
         android:includeFontPadding="false"
         android:layout_marginTop="@dimen/dimen_5"
-        android:layout_marginLeft="@dimen/dimen_50" />
+        android:layout_marginLeft="@dimen/dimen_60" />
 
 </RelativeLayout>

@@ -23,6 +23,7 @@ import com.mobisprint.aurika.coorg.pojo.Services.Data;
 import com.mobisprint.aurika.coorg.pojo.Services.SleepwellList;
 import com.mobisprint.aurika.helper.GlobalClass;
 import com.mobisprint.aurika.helper.MySwitc;
+import com.mobisprint.aurika.helper.SharedPreferenceVariables;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -152,6 +153,7 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
 
         if ( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getItemselectorType().equalsIgnoreCase("single")){
             bt_single.setVisibility(View.VISIBLE);
+            bt_multiple.setVisibility(View.GONE);
             if ( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()>0){
                 isItemSelected =true;
                 switch4.setOn(true);
@@ -165,8 +167,11 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
 
         if ( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getItemselectorType().equalsIgnoreCase("multi")){
             bt_multiple.setVisibility(View.VISIBLE);
+            bt_single.setVisibility(View.GONE);
             if ( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()>0){
                 isMultipleItemSelected = true;
+
+                GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsMultipleItemSelected,true);
             }
         }else {
             bt_multiple.setVisibility(View.GONE);
@@ -191,7 +196,8 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
 
 
         bt_add.setOnClickListener(v -> {
-            if (!isItemSelected){
+            if (!GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected,false)){
+                GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsMultipleItemSelected,true);
                 isMultipleItemSelected = true;
                 sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() + 1);
                 tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
@@ -227,6 +233,9 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
 
                         if ( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() < sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getMaxCount()){
 
+                            GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected,true);
+                            GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsMultipleItemSelected,false);
+
                             isMultipleItemSelected=true;
                             isItemSelected = false;
                             sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() + 1);
@@ -261,6 +270,10 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
                 }
                 if( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() ==0){
                     if (GlobalClass.sharedPreferences.getInt(GlobalClass.Laundry_count,0) == 0){
+
+
+                        GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected,false);
+                        GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsMultipleItemSelected,false);
                         isMultipleItemSelected = false;
                         isItemSelected=false;
                     }
@@ -271,18 +284,20 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
 
         switch4.setOnClickListener(v -> {
 
-            if ((isItemSelected && !sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).isItemSelected()) || isMultipleItemSelected) {
+            if ((GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected,false) && !sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).isItemSelected()) || GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsMultipleItemSelected,false)) {
                 switch4.setOn(true);
                 GlobalClass.ShowAlert(mContext, "Alert", "Please place individual orders for individual requests  ");
-            } else if (isItemSelected && sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).isItemSelected() ){
+            } else if (GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected,false) && sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).isItemSelected() ){
                 switch4.setEnabled(false);
+                GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected,false);
                 isItemSelected = false;
                 sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setItemSelected(false);
                 sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()-1);
                 pushData(sleepWellList);
                 mListener.onItemClicked(sleepWellList.get(groupPosition));
-            } else if ((!isItemSelected && !sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).isItemSelected()) || !isMultipleItemSelected) {
+            } else if ((!GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected,false) && !sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).isItemSelected()) || !GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsMultipleItemSelected,false)) {
                 switch4.setEnabled(true);
+                GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected,true);
                 isItemSelected = true;
                 sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setItemSelected(true);
                 sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()+1);

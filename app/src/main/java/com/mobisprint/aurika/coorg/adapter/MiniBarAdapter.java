@@ -101,7 +101,7 @@ public class MiniBarAdapter extends BaseExpandableListAdapter {
             TextView tv_item_quantity = convertView.findViewById(R.id.tv_item_quantity);
             TextView tv_item_price = convertView.findViewById(R.id.tv_item_price);
 
-            tv_item_name.setText(minibarList.get(groupPosition).getMinibarList().get(childPosition).getTitle() + "\n(and services)");
+            tv_item_name.setText(minibarList.get(groupPosition).getMinibarList().get(childPosition).getTitle()+"\n(and services)");
             tv_item_price.setText("₹ " + minibarList.get(groupPosition).getMinibarList().get(childPosition).getPrice());
 
 

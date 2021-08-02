@@ -62,6 +62,7 @@
 
 
             <LinearLayout
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/dimen_10"
@@ -131,7 +132,7 @@
                 <RelativeLayout
 
                     android:padding="@dimen/dimen_5"
-                    android:background="#d1c2aa "
+                    android:background="@drawable/textview_border"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

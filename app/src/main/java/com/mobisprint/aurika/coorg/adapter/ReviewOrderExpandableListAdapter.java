@@ -22,6 +22,7 @@ import com.mobisprint.aurika.coorg.pojo.Services.Data;
 import com.mobisprint.aurika.coorg.pojo.dining.Dining__1;
 import com.mobisprint.aurika.helper.GlobalClass;
 import com.mobisprint.aurika.helper.MySwitc;
+import com.mobisprint.aurika.helper.SharedPreferenceVariables;
 
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -36,6 +37,7 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
     private GlobalClass.ExpandableAdapterListener mListener;
     private GlobalClass.ExpandableAdapterListenerIRD mListenerIRD;
     private Context mContext;
+    private String title;
 
     public ReviewOrderExpandableListAdapter(List<Data> arrPackageData, Context mContext,GlobalClass.ExpandableAdapterListener mListener) {
         this.arrPackageData = arrPackageData;
@@ -44,10 +46,11 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
     }
 
 
-    public ReviewOrderExpandableListAdapter(List<com.mobisprint.aurika.coorg.pojo.dining.Data> diningArrPackageData, String dining, Context mContext,GlobalClass.ExpandableAdapterListenerIRD mListenerIRD) {
+    public ReviewOrderExpandableListAdapter(List<com.mobisprint.aurika.coorg.pojo.dining.Data> diningArrPackageData, String title, Context mContext,GlobalClass.ExpandableAdapterListenerIRD mListenerIRD) {
         this.diningArrPackageData = diningArrPackageData;
         this.mListenerIRD = mListenerIRD;
         this.mContext = mContext;
+        this.title = title;
     }
 
     @Override
@@ -134,8 +137,11 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
 
                 RelativeLayout group_lyt=convertView.findViewById(R.id.group_lyt);
 
+                relativeLayout.setVisibility(View.GONE);
+
                if (groupPosition == 0){
                    lyt_view.setVisibility(View.GONE);
+
                }
 
                 if (arrPackageData.get(groupPosition).getCategory_item().size() != 0) {
@@ -169,8 +175,11 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
                 RelativeLayout group_lyt = convertView.findViewById(R.id.group_lyt);
                 View lyt_view = convertView.findViewById(R.id.lyt_view);
 
-
+                if (groupPosition == 0){
                     lyt_view.setVisibility(View.GONE);
+                }
+
+
 
 
                 title.setText(diningArrPackageData.get(groupPosition).getTitle());
@@ -213,7 +222,7 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) parent.getContext()
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = layoutInflater.inflate(R.layout.amenities_recyclerview, null);
+                convertView = layoutInflater.inflate(R.layout.coorg_laundry_recyclerview, null);
             }
 
             TextView item_name = convertView.findViewById(R.id.tv_amenities_item_name);
@@ -388,7 +397,7 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
 
             img_remove.setOnClickListener(v -> {
                 if (diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getCount() == 1){
-                    AlertIRD(parent.getContext(),groupPosition,childPosition,lyt_view);
+                    AlertIRD(parent.getContext(),groupPosition,childPosition,lyt_view,diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getItemselectorType(),title);
                 }else if (diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getCount() > 0) {
                     diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).setCount(diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getCount() - 1);
                     tv_quantity.setText(Integer.toString(expandedListText.getCount()));
@@ -400,7 +409,7 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
             });
 
             switch4.setOnClickListener(v -> {
-                AlertIRD(parent.getContext(),groupPosition,childPosition,lyt_view);
+                AlertIRD(parent.getContext(),groupPosition,childPosition,lyt_view, diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).getItemselectorType(),title);
             });
 
 
@@ -465,7 +474,7 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
 
 
 
-    private void AlertIRD(Context mContext, int groupPosition, int childPosition, RelativeLayout lyt_items) {
+    private void AlertIRD(Context mContext, int groupPosition, int childPosition, RelativeLayout lyt_items, String itemselectorType,String title) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
         builder.setMessage("Are you sure you want to remove this item from cart?")
@@ -477,6 +486,14 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
                         mListenerIRD.onItemClicked(diningArrPackageData.get(groupPosition));
                         lyt_items.setVisibility(View.GONE);
                         diningArrPackageData.get(groupPosition).getDiningList().get(childPosition).setItemSelected(false);
+
+                        if (itemselectorType.equals("single")){
+                            GlobalClass.editor.putBoolean(title + SharedPreferenceVariables.Dining_IsSingleItemSelected,false);
+                        }else if (itemselectorType.equals("multi")){
+                            GlobalClass.editor.putBoolean(title + SharedPreferenceVariables.Dining_IsMultipleItemSelected,false);
+
+                        }
+                        GlobalClass.editor.commit();
                         pushDataDining(diningArrPackageData);
                         notifyDataSetChanged();
                     }
@@ -507,7 +524,7 @@ public class ReviewOrderExpandableListAdapter extends BaseExpandableListAdapter 
         Set<com.mobisprint.aurika.coorg.pojo.dining.Data> set = new LinkedHashSet<>(diningArrPackageData);
         Gson gson = new Gson();
         String json = gson.toJson(set);
-        GlobalClass.editor.putString("Dining", json);
+        GlobalClass.editor.putString(title, json);
         GlobalClass.editor.commit();
     }
 

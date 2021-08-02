@@ -56,7 +56,7 @@ public class CoorgSpaMenu extends Fragment implements ApiListner {
         progressBar.setVisibility(View.GONE);
         bt_req_appointment = view.findViewById(R.id.bt_request_appointment);
 
-        toolbar_title.setText("Araya Therapies Menu");
+        toolbar_title.setText("Araya Spa Menu");
         mContext = getContext();
         controller.getSpaMenu();
 
@@ -93,11 +93,7 @@ public class CoorgSpaMenu extends Fragment implements ApiListner {
             SpaMenuAdapter adapter = new SpaMenuAdapter(mContext,spaList);
             coorg_spa_menu.setAdapter(adapter);
 
-
-
         }
-
-
 
     }
 

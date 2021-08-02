@@ -54,6 +54,8 @@ public class GlobalClass {
     public static final String UDAIPUR = "UDAIPUR";
     public static final String COORG = "COORG";
 
+
+
     public static Boolean Forgot_Mpin = true;
 
     public static final APIMethods API_COORG = ClientServiceGenerator.getUrlClient(GlobalClass.COORG).create(APIMethods.class);

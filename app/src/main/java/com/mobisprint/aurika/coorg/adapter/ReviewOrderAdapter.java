@@ -356,7 +356,7 @@ public class ReviewOrderAdapter extends RecyclerView.Adapter<ReviewOrderAdapter.
                         k9Amenities.get(position).setCount(k9Amenities.get(position).getCount() - 1);
                         k9Listener.onItemClicked(k9Amenities);
                         k9Amenities.get(position).setItemSelected(false);
-                        pushDataK9Menu(k9Amenities);
+                        pushDataK9(k9Amenities);
                         notifyDataSetChanged();
                     }
 

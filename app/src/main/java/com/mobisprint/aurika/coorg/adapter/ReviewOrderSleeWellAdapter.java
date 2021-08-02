@@ -1,7 +1,6 @@
 package com.mobisprint.aurika.coorg.adapter;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +18,8 @@ import com.mobisprint.aurika.coorg.pojo.Services.Data;
 import com.mobisprint.aurika.coorg.pojo.Services.SleepwellList;
 import com.mobisprint.aurika.helper.GlobalClass;
 import com.mobisprint.aurika.helper.MySwitc;
+import com.mobisprint.aurika.helper.SharedPreferenceVariables;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -209,7 +208,7 @@ public class ReviewOrderSleeWellAdapter extends BaseExpandableListAdapter {
 
             img_remove.setOnClickListener(v -> {
                 if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() == 1){
-                    Alert(parent.getContext(),groupPosition,childPosition,lyt_desc);
+                    Alert(parent.getContext(),groupPosition,childPosition,lyt_desc,sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getItemselectorType());
                 }else if (sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() > 0) {
                     sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() - 1);
                     tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
@@ -221,7 +220,7 @@ public class ReviewOrderSleeWellAdapter extends BaseExpandableListAdapter {
             });
 
             switch4.setOnClickListener(v -> {
-                Alert(parent.getContext(),groupPosition,childPosition,lyt_desc);
+                Alert(parent.getContext(),groupPosition,childPosition,lyt_desc, sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getItemselectorType());
             });
 
         }
@@ -242,7 +241,7 @@ public class ReviewOrderSleeWellAdapter extends BaseExpandableListAdapter {
     }
 
 
-    private void Alert(Context mContext, int groupPosition, int childPosition, RelativeLayout lyt_items) {
+    private void Alert(Context mContext, int groupPosition, int childPosition, RelativeLayout lyt_items, String itemselectorType) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
         builder.setMessage("Are you sure you want to remove this item from cart?")
@@ -253,6 +252,12 @@ public class ReviewOrderSleeWellAdapter extends BaseExpandableListAdapter {
                         mListener.onItemClicked(sleepWellList.get(groupPosition));
                         sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setItemSelected(false);
                         lyt_items.setVisibility(View.GONE);
+                        if (itemselectorType.equals("single")){
+                            GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected,false);
+                        }else if (itemselectorType.equals("multi")){
+                            GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsMultipleItemSelected,false);
+                        }
+                        GlobalClass.editor.commit();
                         pushData(sleepWellList);
                         notifyDataSetChanged();
                     }

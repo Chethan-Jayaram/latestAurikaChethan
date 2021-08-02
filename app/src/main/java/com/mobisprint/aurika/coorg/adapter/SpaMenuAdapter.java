@@ -19,6 +19,7 @@ public class SpaMenuAdapter extends BaseExpandableListAdapter {
 
     private Context mContext;
     private List<Data> spaList;
+    private String price;
 
     public SpaMenuAdapter(Context mContext, List<Data> spaList) {
         this.mContext = mContext;
@@ -109,6 +110,7 @@ public class SpaMenuAdapter extends BaseExpandableListAdapter {
         tv_spa_menu_desc.setText(menu.getDescription());
         tv_spa_menu_price.setVisibility(View.INVISIBLE);
 
+        price = menu.getPrice();
 
         if (menu.getPrice() == null
                 || menu.getPrice().isEmpty()
@@ -116,7 +118,20 @@ public class SpaMenuAdapter extends BaseExpandableListAdapter {
             tv_spa_menu_price.setVisibility(View.INVISIBLE);
         }else{
             tv_spa_menu_price.setVisibility(View.VISIBLE);
-            tv_spa_menu_price.setText("₹"+" "+menu.getPrice());
+
+
+           int a =price.indexOf("|");
+
+           boolean b = price.contains("|");
+
+           if (b){
+               StringBuilder stringBuilder = new StringBuilder(price);
+               stringBuilder.insert(a+1," ₹");
+               tv_spa_menu_price.setText("₹ "+stringBuilder.toString());
+           }else {
+               tv_spa_menu_price.setText("₹"+" "+menu.getPrice());
+           }
+
 
         }
 

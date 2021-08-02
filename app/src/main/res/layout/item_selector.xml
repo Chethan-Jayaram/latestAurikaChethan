@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
+
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/lyt_counter"
         android:layout_width="@dimen/dimen_80"
+        android:background="@color/white"
         android:layout_height="@dimen/dimen_30"
         android:visibility="visible">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-
             android:background="@drawable/purple_border_layout"
             android:orientation="horizontal"
             android:padding="@dimen/dimen_1">
@@ -28,8 +30,8 @@
                 android:background="@color/white"
                 android:paddingLeft="@dimen/dimen_4"
                 android:paddingRight="@dimen/dimen_4"
-                android:tint="@color/black"
-                app:srcCompat="@drawable/img_menu_remove" />
+                app:srcCompat="@drawable/img_menu_remove"
+                app:tint="@color/black" />
 
             <View
                 android:layout_width="1dp"
@@ -68,8 +70,8 @@
                 android:background="@color/white"
                 android:paddingLeft="@dimen/dimen_1"
                 android:paddingRight="@dimen/dimen_1"
-                android:tint="@color/black"
-                app:srcCompat="@drawable/img_menu_add" />
+                app:srcCompat="@drawable/img_menu_add"
+                app:tint="@color/black" />
 
         </LinearLayout>
 
@@ -80,6 +82,7 @@
     <androidx.cardview.widget.CardView
         android:visibility="gone"
         android:id="@+id/lyt_add"
+        android:background="@color/white"
         android:layout_width="@dimen/dimen_80"
         android:layout_height="@dimen/dimen_30">
 

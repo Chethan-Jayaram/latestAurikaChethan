@@ -23,6 +23,7 @@ import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,6 +105,8 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
 
             GlobalClass.Forgot_Mpin = true;
 
+
+
             loginController = new LoginController(this);
 
             init();
@@ -121,6 +124,7 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
             });
 
             skip.setOnClickListener(v -> {
+
                 Intent intent = new Intent(mContext, HomeActivity.class);
                 startActivity(intent);
                 getActivity().finish();
@@ -313,7 +317,7 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
         if (response != null) {
             Login login = (Login) response.body();
-            GlobalClass.user_token = login.getData().getToken();
+            GlobalClass.user_token = login.getData().getProfile().getToken();
             GlobalClass.editor.putBoolean("isMpinSetUpComplete",true);
             GlobalClass.editor.apply();
             Intent intent = new Intent(mContext, HomeActivity.class);
@@ -419,11 +423,17 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
         if (biometricDialogV23.isShowing()){
             biometricDialogV23.dismiss();
         }
-        GlobalClass.editor.putBoolean("isMpinSetUpComplete",true);
+
+
+
+        loginController.checkMpin("", android_id, GlobalClass.sharedPreferences.getString("token",""));
+
+
+        /*GlobalClass.editor.putBoolean("isMpinSetUpComplete",true);
         GlobalClass.editor.apply();
         Intent intent = new Intent(mContext, HomeActivity.class);
         startActivity(intent);
-        getActivity().finish();
+        getActivity().finish();*/
     }
 
     private class FingerprintException extends Exception {

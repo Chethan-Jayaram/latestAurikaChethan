@@ -227,7 +227,13 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner {
                 Log.d("pos my click", String.valueOf(Position));
                 therapy_heading.setText(spaList.get(Position).getTitle());
 
-                therapy_heading.setText(Html.fromHtml("<font color=#000000>"+ spaList.get(Position).getTitle() +"</font> <font color=#A7A7A7>"+"("+spaList.get(Position).getDuration()+" mins)" +"</font>"));
+                if(spaList.get(Position).getDuration() == null || spaList.get(Position).getDuration().isEmpty() || spaList.get(Position).getDuration().equals("0")){
+                    therapy_heading.setText(Html.fromHtml("<font color=#000000>"+ spaList.get(Position).getTitle() +"</font> <font color=#A7A7A7>"));
+                }else{
+                    therapy_heading.setText(Html.fromHtml("<font color=#000000>"+ spaList.get(Position).getTitle() +"</font> <font color=#A7A7A7>"+"("+spaList.get(Position).getDuration()+" mins)" +"</font>"));
+                }
+
+
                /* if (spaList.get(Position).getDuration() == null || spaList.get(Position).getDuration().isEmpty() || spaList.get(Position).getDuration().equals("0")){
                     therapy_time.setVisibility(View.GONE);
                 }else {

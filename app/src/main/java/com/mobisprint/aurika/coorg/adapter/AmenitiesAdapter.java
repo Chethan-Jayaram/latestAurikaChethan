@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -56,8 +58,11 @@ public class AmenitiesAdapter extends RecyclerView.Adapter<AmenitiesAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+
+
         if (amenitiesList.get(position).getItemselectorType().equalsIgnoreCase("single")){
             holder.bt_single.setVisibility(View.VISIBLE);
+            holder.bt_multiple.setVisibility(View.GONE);
             if (amenitiesList.get(position).getCount()>0){
                 isItemSelected =true;
                 holder.switch4.setOn(true);
@@ -65,6 +70,7 @@ public class AmenitiesAdapter extends RecyclerView.Adapter<AmenitiesAdapter.View
 
         }else if (amenitiesList.get(position).getItemselectorType().equalsIgnoreCase("multi")){
             holder.bt_multiple.setVisibility(View.VISIBLE);
+            holder.bt_single.setVisibility(View.GONE);
             if (amenitiesList.get(position).getCount()>0){
                 isMultipleItemSelected = true;
             }

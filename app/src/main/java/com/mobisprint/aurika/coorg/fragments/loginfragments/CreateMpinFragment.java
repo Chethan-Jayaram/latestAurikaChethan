@@ -37,7 +37,6 @@ public class CreateMpinFragment extends Fragment implements ApiListner  {
     private Button btn_confirm_mpin;
     private String android_id;
     private Context mContext;
-
     private String mpin;
 
 
@@ -69,6 +68,8 @@ public class CreateMpinFragment extends Fragment implements ApiListner  {
 
             init();
 
+            Bundle bundle = getArguments();
+
             btn_confirm_mpin.setOnClickListener(v ->{
 
                 String mpin1 = et1_one.getText().toString()+
@@ -80,7 +81,7 @@ public class CreateMpinFragment extends Fragment implements ApiListner  {
                         et2_three.getText().toString()+
                         et2_four.getText().toString();
                 if (createMpinController.compareMpin(mpin1,mpin2)){
-                    createMpinController.saveMpin(mpin1,mpin2,android_id,GlobalClass.user_token);
+                    createMpinController.saveMpin(mpin1,mpin2,android_id,bundle.getString("token"));
                 }else{
                     GlobalClass.ShowAlert(mContext,"Alert","Mpin mismatch");
                 }
@@ -295,18 +296,17 @@ public class CreateMpinFragment extends Fragment implements ApiListner  {
         if (response != null){
 
             Login login = (Login) response.body();
-            GlobalClass.user_token = login.getData().getToken();
             mpin = et1_one.getText().toString()+
                     et1_two.getText().toString()+
                     et1_three.getText().toString()+
                     et1_four.getText().toString();
 
            GlobalClass.editor.clear();
-            GlobalClass.editor.putString("token",GlobalClass.user_token);
-            /*GlobalClass.editor.putBoolean("isMpinSetUpComplete",true);*/
-            GlobalClass.editor.apply();
+            GlobalClass.editor.putString("token",login.getData().getToken());
+            GlobalClass.editor.putBoolean("isMpinSetUpComplete",true);
+            GlobalClass.editor.commit();
             Fragment fragment = new LoginFragment();
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, fragment).addToBackStack(null).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, fragment).commit();
 
         }
 

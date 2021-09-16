@@ -48,7 +48,7 @@ public class ForgotMpinController {
                     if (response.body().getStatus()){
                         listner.onFetchComplete(response);
                     }else {
-                        listner.onFetchError("Something went wrong, please try again later");
+                        listner.onFetchError(response.body().getMessage());
                     }
                 }else {
                     listner.onFetchError("Something went wrong, please try again later");

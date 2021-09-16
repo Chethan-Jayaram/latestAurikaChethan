@@ -511,8 +511,6 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
         bt_save_order.setOnClickListener(v -> {
 
 
-            bt_save_order.setEnabled(false);
-
            /* requestDate = sel_date + " " + reqtime;*/
 
 
@@ -588,9 +586,9 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                             if (trmin){
                                 GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 30 minutes after the current time");
                             }else if (twohr) {
-                                GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 2 hour after the current time");
+                                GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 2 hours after the current time");
                             }else if (frhr){
-                                GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 4 hour after the current time");
+                                GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 4 hours after the current time");
                             }
                         }
                     }else if (date_selected) {
@@ -607,9 +605,9 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                                 if (trmin){
                                     GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 30 minutes after the current time");
                                 }else if (twohr) {
-                                    GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 2 hour after the current time");
+                                    GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 2 hours after the current time");
                                 }else if (frhr){
-                                    GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 4 hour after the current time");
+                                    GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 4 hours after the current time");
                                 }
                             }
                         }else if (select.after(dtt4)){
@@ -620,9 +618,9 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                             if (trmin){
                                 GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 30 minutes after the current time");
                             }else if (twohr) {
-                                GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 2 hour after the current time");
+                                GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 2 hours after the current time");
                             }else if (frhr){
-                                GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 4 hour after the current time");
+                                GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 4 hours after the current time");
                             }
                         }
                     }else{
@@ -666,7 +664,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                             controller.ticketingCreation(sleepWellModle);
                             break;
                         }else{
-                            GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 30m after the current time");
+                            GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 30 minutes after the current time");
                         }
                     }else{
                         sleepWellModle.setRequestDate(requestDate);
@@ -1331,6 +1329,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
 
     @Override
     public void onFetchProgress() {
+        bt_save_order.setEnabled(false);
     }
 
     @Override
@@ -1354,6 +1353,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
     }
     @Override
     public void onFetchError(String error) {
+        bt_save_order.setEnabled(true);
         GlobalClass.ShowAlert(getContext(),"Alert",error);
     }
 }

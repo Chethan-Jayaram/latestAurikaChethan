@@ -86,6 +86,7 @@ public class MyStayMainAdapter extends RecyclerView.Adapter<MyStayMainAdapter.Vi
             e.printStackTrace();
         }
 
+        holder.btn_make_payment.setVisibility(View.GONE);
 
         if (guestList.get(position).getGuestCount() != null){
             holder.tv_nymber_of_guests.setText((Integer) guestList.get(position).getGuestCount());
@@ -143,10 +144,11 @@ public class MyStayMainAdapter extends RecyclerView.Adapter<MyStayMainAdapter.Vi
                             if (response.body().getData().isEmpty()){
                                 holder.lyt_payment.setVisibility(View.GONE);
                             }else{
-                                guestList.get(position).setGrossAmount(response.body().getData().get(0).getBalanceDueAmount());
+                                guestList.get(position).setGrossAmount(response.body().getData().get(0).getGrossAmount());
                                 guestList.get(position).setGuestFolioId(response.body().getData().get(0).getFolioID());
-                                holder.total_price.setText(guestList.get(position).getGrossAmount());
+                                holder.total_price.setText("₹ " + guestList.get(position).getGrossAmount());
                                 holder.lyt_payment.setVisibility(View.VISIBLE);
+
                                 holder.btn_make_payment.setOnClickListener(v1 -> {
                                     mystayListener.onItemClicked(guestList.get(position).getGrossAmount(),guestList.get(position).getGuestFolioId());
                                 });

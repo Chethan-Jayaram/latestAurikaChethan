@@ -181,6 +181,14 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter {
                     /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
                     fragment.show(manager,
                             "fragment_custom_sheet_dailog");
+                    GlobalClass.editor.putBoolean(title + SharedPreferenceVariables.Dining_IsMultipleItemSelected, true);
+                    GlobalClass.editor.commit();
+                    dataList.get(groupPosition).getDiningList().get(childPosition).setCount(expandedListText.getCount() + 1);
+                    tv_quantity.setText(Integer.toString(dataList.get(groupPosition).getDiningList().get(childPosition).getCount()));
+                    mListener.onItemClicked(dataList.get(groupPosition));
+                    pushData(dataList);
+                    lyt_add.setVisibility(View.GONE);
+                    lyt_counter.setVisibility(View.VISIBLE);
 
                 } else {
                     GlobalClass.editor.putBoolean(title + SharedPreferenceVariables.Dining_IsMultipleItemSelected, true);
@@ -270,7 +278,14 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter {
                         /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
                         fragment.show(manager,
                                 "fragment_custom_sheet_dailog");
+                        GlobalClass.editor.putBoolean(title + SharedPreferenceVariables.Dining_IsMultipleItemSelected, true);
+                        GlobalClass.editor.putBoolean(title + SharedPreferenceVariables.Dining_IsSingleItemSelected, false);
+                        GlobalClass.editor.commit();
 
+                        dataList.get(groupPosition).getDiningList().get(childPosition).setCount(dataList.get(groupPosition).getDiningList().get(childPosition).getCount() + 1);
+                        tv_quantity.setText(Integer.toString(dataList.get(groupPosition).getDiningList().get(childPosition).getCount()));
+                        pushData(dataList);
+                        mListener.onItemClicked(dataList.get(groupPosition));
 
                     } else {
                         GlobalClass.editor.putBoolean(title + SharedPreferenceVariables.Dining_IsMultipleItemSelected, true);

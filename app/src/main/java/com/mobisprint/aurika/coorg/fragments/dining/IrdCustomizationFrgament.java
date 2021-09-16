@@ -81,6 +81,9 @@ public class IrdCustomizationFrgament extends BottomSheetDialogFragment {
         img_close.setOnClickListener(v -> {
             this.dismiss();
         });
+        bt_add.setOnClickListener(v->{
+            this.dismiss();
+        });
 
         return view;
     }

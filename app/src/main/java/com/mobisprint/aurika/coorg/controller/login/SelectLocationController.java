@@ -27,7 +27,7 @@ public class SelectLocationController {
                 if (response.isSuccessful() && response.body().getStatus()){
                         listner.onFetchComplete(response);
                 }else {
-                    listner.onFetchError(response.body().getMessage());
+                    listner.onFetchError("Something went wrong, please try again later");
                 }
             }
             @Override

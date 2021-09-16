@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".coorg.fragments.MyStayFragment">
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:background="@color/pale">
+
+       <!--<ExpandableListView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/mystay_expandable_listview"
+           android:layout_marginTop="@dimen/dimen_20"/>-->
+
+       <RelativeLayout
+          android:background="@color/white"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <TextView
+               android:layout_marginTop="@dimen/dimen_20"
+               android:id="@+id/tv_price"
+               android:layout_marginLeft="@dimen/dimen_20"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Your bill date is"
+               android:textSize="16sp"
+               android:fontFamily="@font/notosanstc_regular"
+               android:textColor="@color/black"
+               android:includeFontPadding="false"/>
+           <TextView
+               android:layout_marginTop="@dimen/dimen_20"
+               android:layout_toRightOf="@+id/tv_price"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/total_price"
+               android:text="INR 11,270.50"
+               android:fontFamily="@font/notosanstc_medium"
+               android:textColor="@color/black"
+               android:includeFontPadding="false"
+               android:layout_marginLeft="5dp"
+               android:textSize="16sp"/>
+
+           <EditText
+               android:layout_marginBottom="@dimen/dimen_20"
+               android:layout_marginTop="@dimen/dimen_10"
+               android:layout_marginLeft="@dimen/dimen_20"
+               android:layout_below="@+id/tv_price"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="View summary"
+               android:textSize="16sp"
+               android:fontFamily="@font/notosanstc_medium"
+               android:backgroundTint="@color/custom_purple"
+               android:includeFontPadding="false"
+               android:textColor="@color/custom_purple"/>
+
+           <androidx.cardview.widget.CardView
+               android:layout_marginTop="@dimen/dimen_20"
+               android:layout_marginRight="@dimen/dimen_20"
+               android:layout_width="wrap_content"
+               android:padding="@dimen/dimen_2"
+               android:layout_centerInParent="true"
+               android:layout_height="wrap_content"
+               app:cardCornerRadius="@dimen/dimen_5"
+               android:id="@+id/activity_staus"
+               android:layout_alignParentRight="true">
+
+               <Button
+                   android:id="@+id/btn_make_payment"
+                   android:padding="@dimen/dimen_10"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:text="Make Payment"
+                   android:textAllCaps="false"
+                   android:minHeight="@dimen/dimen_25"
+                   android:textColor="@color/white"
+                   android:background="@color/custom_purple"
+                   android:fontFamily="@font/notosanstc_medium"
+                   android:textSize="16sp"
+                   android:includeFontPadding="false"/>
+
+           </androidx.cardview.widget.CardView>
+
+
+       </RelativeLayout>
+
+   </RelativeLayout>
+
+</FrameLayout>

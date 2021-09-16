@@ -2,13 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/login_bg"
+    android:background="@drawable/login_screen_coorg"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:background="#99f8F1CD"
         android:layout_width="match_parent"
-        android:layout_margin="@dimen/dimen_20"
+        android:layout_margin="@dimen/dimen_40"
         android:layout_gravity="center"
         android:layout_height="350dp"
         android:gravity="center_vertical"
@@ -39,7 +39,7 @@
             app:ccpDialog_backgroundColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dimen_10"
+            android:padding="@dimen/dimen_20"
             android:layout_marginLeft="@dimen/dimen_30"
             android:layout_marginRight="@dimen/dimen_30"
             android:layout_marginBottom="@dimen/dimen_20"/>
@@ -50,14 +50,12 @@
             android:id="@+id/et_email_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dimen_30"
-            android:layout_marginLeft="@dimen/dimen_30"
-            android:layout_marginBottom="@dimen/dimen_20"
+           android:layout_margin="@dimen/dimen_30"
             android:background="@drawable/otp_bg"
             android:fontFamily="@font/notoseriftc__medium"
             android:hint="Enter Phone Number"
             android:includeFontPadding="false"
-            android:padding="@dimen/dimen_10"
+            android:padding="@dimen/dimen_20"
             android:textColor="@color/black"
             android:textColorHint="#A3A3A3"
             android:textCursorDrawable="@color/black"
@@ -75,7 +73,7 @@
             android:text="Login with email?"
             android:textColor="#420052"
             android:textStyle="bold"
-            android:textSize="30sp" />
+            android:textSize="35sp" />
 
 
 
@@ -91,55 +89,69 @@
             android:text="Don't have an account? Register now!"
             android:textColor="#420052"
             android:textStyle="bold"
-            android:textSize="30sp" />
+            android:textSize="35sp" />
 
 
-        <LinearLayout
-            android:layout_marginTop="@dimen/dimen_10"
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dimen_30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <CheckBox
+                android:layout_alignParentLeft="true"
                 android:id="@+id/reset_mpin_checkbox"
-                android:layout_marginTop="@dimen/dimen_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_10"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/dimen_4"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notoseriftc_regular"
+                android:textSize="@dimen/dimen_24"
+                android:buttonTint="@color/custom_purple"
+                android:textStyle="bold"
+                android:paddingTop="6dp"
+                android:textColor="@color/custom_purple"
                 android:includeFontPadding="false"
-                android:text="I agree with the terms and conditions and privacy policy"
-                android:textColor="#420052"
-                android:textSize="25sp" />
-        </LinearLayout>
+                android:gravity="clip_horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/dimen_30"/>
+
+
+        </RelativeLayout>
 
 
         <Button
-            android:layout_marginTop="@dimen/dimen_30"
+            android:layout_marginTop="@dimen/dimen_40"
             android:id="@+id/btn_forgot_pin_otp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_60"
             android:layout_marginRight="@dimen/dimen_60"
-            android:layout_marginBottom="@dimen/dimen_50"
             android:background="@color/btn_color"
             android:fontFamily="@font/notoseriftc__medium"
-            android:paddingTop="@dimen/dimen_10"
+            android:paddingTop="@dimen/dimen_20"
             android:includeFontPadding="false"
             android:textAllCaps="false"
-            android:paddingBottom="@dimen/dimen_10"
+            android:paddingBottom="@dimen/dimen_20"
             android:text="Confirm and send OTP"
             android:lineSpacingExtra="@dimen/dimen_5"
             android:textColor="@color/white"
             android:textSize="40sp" />
 
 
+        <TextView
+            android:id="@+id/skip"
+            android:padding="@dimen/dimen_10"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_40"
+            android:layout_marginBottom="@dimen/dimen_50"
+            android:fontFamily="@font/notoseriftc_semibold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="Skip >"
+            android:textColor="#420052"
+            android:textSize="35sp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 

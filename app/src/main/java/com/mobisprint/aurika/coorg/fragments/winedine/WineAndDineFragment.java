@@ -93,6 +93,7 @@ public class WineAndDineFragment extends Fragment implements ApiListner {
                 bundle.putString("title",((WineAndDine) response.body()).getData().get(Position).getTitle());
                 bundle.putString("img",((WineAndDine) response.body()).getData().get(Position).getImage());
                 bundle.putString("desc",((WineAndDine) response.body()).getData().get(Position).getDescription());
+                bundle.putInt("id",((WineAndDine) response.body()).getData().get(Position).getId());
                 fragment.setArguments(bundle);
 
 

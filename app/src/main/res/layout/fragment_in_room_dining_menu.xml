@@ -44,6 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:background="@color/pale"
+                    android:justificationMode="inter_word"
                     android:fontFamily="@font/notosanstc_light"
                     android:gravity="bottom"
                     android:includeFontPadding="false"

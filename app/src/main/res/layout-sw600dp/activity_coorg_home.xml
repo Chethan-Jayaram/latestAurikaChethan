@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E8E0D4">
+    <include
+        android:id="@+id/cart"
+        android:layout_width="match_parent"
+        layout="@layout/toolbar"
+        android:layout_height="wrap_content" />
+    <FrameLayout
+        android:id="@+id/fragment_coorg_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/cart" />
+
+    <com.mobisprint.aurika.helper.MovableFloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/dimen_40"
+        app:backgroundTint="#E8E0D4"
+        app:srcCompat="@drawable/ic_hambarger" />
+</RelativeLayout>

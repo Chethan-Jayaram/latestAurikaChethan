@@ -1,5 +1,6 @@
 package com.mobisprint.aurika.coorg.fragments.petservices;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,7 @@ import com.mobisprint.aurika.coorg.activity.UserAuthenticationActivity;
 import com.mobisprint.aurika.coorg.adapter.K9MenuAdapter;
 import com.mobisprint.aurika.coorg.adapter.K9ServicesAdapter;
 import com.mobisprint.aurika.coorg.controller.petservices.K9ServicesController;
+import com.mobisprint.aurika.coorg.fragments.BottomDailogFragment;
 import com.mobisprint.aurika.coorg.pojo.petservices.K9Data;
 import com.mobisprint.aurika.coorg.pojo.petservices.PetServices;
 import com.mobisprint.aurika.helper.ApiListner;
@@ -50,8 +53,13 @@ public class K9Services extends Fragment implements ApiListner {
     private CoordinatorLayout k9_Services_lyt;
     private Integer items_count = 0;
     private double total_price = 0;
-    private List<K9Data> selectedList;
     private Boolean hours = false;
+    private int hr,min;
+    private Calendar calendar;
+    private Integer count = 1;
+    private List<K9Data> serviceList;
+    private List<K9Data> selectedList = new ArrayList<>();
+    private Context mContext;
 
 
     @Override
@@ -60,6 +68,7 @@ public class K9Services extends Fragment implements ApiListner {
 
         View view = inflater.inflate(R.layout.fragment_k9_services, container, false);
 
+        mContext = getContext();
         controller = new K9ServicesController(this);
         tv_k9_services_desc = view.findViewById(R.id.tv_k9_services_desc);
         toolbar_title = getActivity().findViewById(R.id.toolbar_title);
@@ -73,12 +82,15 @@ public class K9Services extends Fragment implements ApiListner {
         view_order = view.findViewById(R.id.view_order);
         k9_Services_lyt = view.findViewById(R.id.k9_Services_lyt);
         k9_Services_lyt.setVisibility(View.GONE);
+        calendar = Calendar.getInstance();
+        hr = calendar.get(Calendar.HOUR);
+        min = calendar.get(Calendar.MINUTE);
 
         Bundle bundle = getArguments();
         tv_k9_services_desc.setText(bundle.getString("desc"));
         toolbar_title.setText(bundle.getString("sub_title"));
 
-        controller.getData();
+
 
 
         view_order.setOnClickListener(v -> {
@@ -86,8 +98,27 @@ public class K9Services extends Fragment implements ApiListner {
                 if (GlobalClass.user_token.isEmpty()){
                     alertBox();
 
-                }else{
-                    showBottomSheetDialog();
+                }else if (GlobalClass.user_active_booking){
+                    /*showBottomSheetDialog();*/
+                    selectedList.clear();
+                    for (int i=0;i<serviceList.size();i++){
+                        if (serviceList.get(i).getCount()>0){
+                            serviceList.get(i).setItem_id(serviceList.get(i).getId());
+                            serviceList.get(i).setQuantity(serviceList.get(i).getCount());
+                            selectedList.add(serviceList.get(i));
+                        }
+                    }
+                    BottomDailogFragment fragment = new BottomDailogFragment();
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("Category","k9-services");
+                    bundle1.putBoolean("hours",hours);
+                    bundle1.putParcelableArrayList("List", (ArrayList<? extends Parcelable>) selectedList);
+                    fragment.setArguments(bundle1);
+                    /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
+                    fragment.show(getActivity().getSupportFragmentManager(),
+                            "fragment_bottom_sheet_dailog");
+                }else {
+                    GlobalClass.ShowAlert(mContext,"Alert","You don't have active booking to place order");
                 }
             }
         });
@@ -100,12 +131,15 @@ public class K9Services extends Fragment implements ApiListner {
     public void onResume() {
         super.onResume();
         items_count = 0;
+        tv_num_of_items.setText("0 items");
+        tv_total_price.setText("₹ 0.00");
+        controller.getData();
     }
 
     private void alertBox() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        builder.setMessage("Login to place your order")
+        builder.setMessage("Please login to place your request")
                 .setCancelable(false)
                 .setPositiveButton("Okay", (dialog, id) -> {
                     Intent intent = new Intent(getContext(), UserAuthenticationActivity.class);
@@ -139,16 +173,100 @@ public class K9Services extends Fragment implements ApiListner {
         ImageView img_up_min = bottomSheetDialog.findViewById(R.id.img_up_min);
         ImageView img_down_min = bottomSheetDialog.findViewById(R.id.img_down_min);
 
+        TextView tv_pm = bottomSheetDialog.findViewById(R.id.tv_pm);
+        TextView tv_am = bottomSheetDialog.findViewById(R.id.tv_am);
+
         TextView tv_hr = bottomSheetDialog.findViewById(R.id.tv_hr);
         TextView tv_min = bottomSheetDialog.findViewById(R.id.tv_min);
+
+        ImageView img_hour_add = bottomSheetDialog.findViewById(R.id.img_hour_add);
+        ImageView img_hour_minus = bottomSheetDialog.findViewById(R.id.img_hour_minus);
 
 
         Button bt_back = bottomSheetDialog.findViewById(R.id.bt_back);
         Button bt_save = bottomSheetDialog.findViewById(R.id.bt_save);
 
+        TextView tv_hour = bottomSheetDialog.findViewById(R.id.tv_hour);
+
         CalendarView calendar_view = bottomSheetDialog.findViewById(R.id.calendar_view);
 
+        bt_today.setBackgroundColor(getResources().getColor(R.color.custom_purple));
+        bt_today.setTextColor(Color.WHITE);
 
+        int am = calendar.get(Calendar.HOUR_OF_DAY);
+
+        tv_min.setText(String.valueOf(min) + " m");
+        tv_hr.setText(String.valueOf(am) + " h");
+
+        if (am>12){
+            tv_pm.setTextColor(Color.BLACK);
+            tv_am.setTextColor(Color.parseColor("#a5a5a5"));
+        }else {
+            tv_pm.setTextColor(Color.parseColor("#a5a5a5"));
+            tv_am.setTextColor(Color.BLACK);
+        }
+
+
+        img_up_hr.setOnClickListener(v -> {
+            if (hr<12){
+                hr = hr+1;
+                tv_hr.setText(String.valueOf(hr) + " h");
+            }
+        });
+
+        tv_am.setOnClickListener(v -> {
+            tv_pm.setTextColor(Color.parseColor("#a5a5a5"));
+            tv_am.setTextColor(Color.BLACK);
+        });
+
+        tv_pm.setOnClickListener(v -> {
+            tv_pm.setTextColor(Color.BLACK);
+            tv_am.setTextColor(Color.parseColor("#a5a5a5"));
+        });
+
+        img_down_hr.setOnClickListener(v -> {
+            if (hr>1){
+                hr = hr-1;
+                tv_hr.setText(String.valueOf(hr) + " h");
+            }
+        });
+
+        img_up_min.setOnClickListener(v -> {
+            if (min<60){
+                min = min +1;
+                tv_min.setText(String.valueOf(min) + " m");
+            }
+        });
+
+
+        img_down_min.setOnClickListener(v -> {
+            if (min>1){
+                min = min - 1;
+                tv_min.setText(String.valueOf(min) + " m");
+            }
+        });
+
+        img_hour_add.setOnClickListener(v -> {
+            if (count < 12){
+                count = count+1;
+                if (count ==1){
+                    tv_hour.setText(count + " hour");
+                }else {
+                    tv_hour.setText(count + " hours");
+                }
+            }
+        });
+
+        img_hour_minus.setOnClickListener(v -> {
+            if (count > 1){
+                count = count -1;
+                if (count ==1){
+                    tv_hour.setText(count + " hour");
+                }else {
+                    tv_hour.setText(count + " hours");
+                }
+            }
+        });
 
         bt_back.setOnClickListener(v -> {
             lyt_calendar.setVisibility(View.GONE);
@@ -233,13 +351,13 @@ public class K9Services extends Fragment implements ApiListner {
         k9_Services_lyt.setVisibility(View.VISIBLE);
         if (response!=null){
             PetServices services = (PetServices) response.body();
-            List<K9Data> serviceList = services.getData();
+            serviceList = services.getData();
 
             K9ServicesAdapter k9ServicesAdapter = new K9ServicesAdapter(serviceList,getContext(),Position -> {
                 try {
 
 
-                    selectedList = new ArrayList<>();
+                    /*selectedList = new ArrayList<>();*/
                     items_count= 0;
                     total_price = 0;
                     for (int i = 0; i<= serviceList.size() - 1;i++){
@@ -255,9 +373,9 @@ public class K9Services extends Fragment implements ApiListner {
                         }
 
 
-                        if (serviceList.get(i).getCount() != 0){
+                        /*if (serviceList.get(i).getCount() != 0){
                             selectedList.add(serviceList.get(i));
-                        }
+                        }*/
 
                     }
 

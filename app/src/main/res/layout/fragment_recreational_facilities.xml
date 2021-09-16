@@ -48,6 +48,7 @@
                     android:background="@color/pale"
                     android:fontFamily="@font/notosanstc_light"
                     android:gravity="bottom"
+                    android:justificationMode="inter_word"
                     android:text="Recreational facilities at the resort include the fitness center, the refreshing outdoor swimming pool and the Rumpus Room - children's activity area"
                     android:includeFontPadding="false"
                     android:padding="@dimen/dimen_20"

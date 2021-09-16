@@ -8,6 +8,9 @@ public interface ApiListner {
 
     <ResponseType>  void onFetchComplete(Response<ResponseType> response);
 
+
     void onFetchError(String error);
 
 }
+
+

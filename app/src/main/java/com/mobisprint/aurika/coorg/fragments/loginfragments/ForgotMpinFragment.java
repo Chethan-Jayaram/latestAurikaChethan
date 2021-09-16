@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.biometrics.BiometricPrompt;
 import android.hardware.fingerprint.FingerprintManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -122,11 +123,10 @@ public class ForgotMpinFragment extends Fragment implements ApiListner {
 
             checkBox.setText(Html.fromHtml("<body>\n" +
                     "        <p" +
-                    "          style=\"color:#1e0028\">  I agree with the  <a href=\"https://www.google.com/\" style=\"color:#1e0028\">Terms &amp; Conditions</a>\n" +
-                    "         and  <a href=\"https://www.google.com/\" style=\"color:#1e0028\">Privacy Policy</a>\n" +
+                    "          style=\"color:#1e0028\">  I agree with the  <a href=\"https://www.lemontreehotels.com/term-condition.aspx\" style=\"color:#1e0028\">Terms &amp; Conditions</a>\n" +
+                    "         and  <a href=\"https://www.lemontreehotels.com/privacy-policy.aspx\" style=\"color:#1e0028\">Privacy Policy</a>\n" +
                     "        </p>" +
                     "    </body>"));
-
 
 
             checkBox.setClickable(true);
@@ -167,8 +167,8 @@ public class ForgotMpinFragment extends Fragment implements ApiListner {
 
             skip.setOnClickListener(v -> {
                 Intent intent = new Intent(mContext, HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                getActivity().finish();
             });
 
             tv_login_with_email.setOnClickListener(v -> {
@@ -312,10 +312,12 @@ public class ForgotMpinFragment extends Fragment implements ApiListner {
     @Override
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
         if (response!=null){
+            et_email_or_phnum.getText().clear();
             Login login = (Login) response.body();
             Fragment fragment = new OtpFragment();
             Bundle bundle = new Bundle();
             bundle.putString("request_id",login.getData().getRequest_id());
+
             fragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, fragment).addToBackStack(null).commit();
         }

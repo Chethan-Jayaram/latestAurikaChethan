@@ -14,9 +14,7 @@ public class TokenAutentication extends GeneralPojo {
     @SerializedName("errorCode")
     @Expose
     private String errorCode;
-    @SerializedName("error")
-    @Expose
-    private String error;
+
 
 
 
@@ -36,11 +34,5 @@ public class TokenAutentication extends GeneralPojo {
         this.errorCode = errorCode;
     }
 
-    public String getError() {
-        return error;
-    }
 
-    public void setError(String error) {
-        this.error = error;
-    }
 }

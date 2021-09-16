@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progress_bar"
+            android:layout_centerInParent="true"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:indeterminate="true"/>
+
+    </RelativeLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lyt">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--  app:contentScrim : The Toolbar color when the
+                  collapsing toolbar is collapsed. -->
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <!-- app:layout_collapseMode : parallax means an animation effect,
+                     pin means fixed. -->
+
+                <TextView
+                    android:id="@+id/tv_coorg_ird_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@color/pale"
+                    android:fontFamily="@font/notosanstc_light"
+                    android:gravity="bottom"
+                    android:justificationMode="inter_word"
+                    android:text="The thoughtfully curated menu is available throughout the day, featuring eclectic options to suit every palate. Specialised chef's menus can also be designed for a personalised In-room Dining experience, to be enjoyed in the privacy of your own room. \n \nPlease place your order from the menus below, or call In-room Dining at 2004 for assistance"
+                    android:includeFontPadding="false"
+                    android:padding="@dimen/dimen_40"
+                    android:scaleType="centerCrop"
+                    android:textColor="#000000"
+                    android:textSize="35sp"
+                    app:layout_anchor="@+id/appBarLayout"
+                    app:layout_anchorGravity="center"
+                    app:layout_collapseMode="parallax" />
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
+       <!-- <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/appBarLayout"
+            android:id="@+id/coorg_ird_recycler"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/dimen_40"
+            android:nestedScrollingEnabled="true"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_10"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="@dimen/dimen_30"
+            android:layout_marginLeft="@dimen/dimen_30"
+            android:layout_marginRight="@dimen/dimen_30"
+            android:id="@+id/coorg_ird_recycler"
+            android:layout_marginBottom="@dimen/dimen_40"
+            android:layout_width="match_parent"
+            android:dividerHeight="@dimen/dimen_1"
+            android:divider="@color/gray"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/dimen_20"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+</RelativeLayout>

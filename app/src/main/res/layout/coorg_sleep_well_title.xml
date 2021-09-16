@@ -74,7 +74,9 @@
 
                     <TextView
                         android:visibility="gone"
+                        android:layout_marginRight="@dimen/dimen_10"
                         android:layout_marginLeft="@dimen/dimen_10"
+                        android:justificationMode="inter_word"
                         android:id="@+id/tv_coorg_sleepwell_desc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progress_bar"
+            android:layout_centerInParent="true"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:indeterminate="true"/>
+
+    </RelativeLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lyt">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--  app:contentScrim : The Toolbar color when the
+                  collapsing toolbar is collapsed. -->
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <!-- app:layout_collapseMode : parallax means an animation effect,
+                     pin means fixed. -->
+
+                <TextView
+                    android:id="@+id/tv_wine_and_dine_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@color/pale"
+                    android:fontFamily="@font/notosanstc_light"
+                    android:gravity="bottom"
+                    android:justificationMode="inter_word"
+                    android:text="At our exquisite restaurant, Mirasa, you can relish exclusive gastronomic delights across popular local and global cuisine, while at the stylish bar, Ariva, you can wine and dine at your own pace. \n\nFor group table reservations (more than 6 guests), please call Mirasa at 2005 | Ariva at 2006 | Roast and Red at 2008."
+                    android:includeFontPadding="false"
+                    android:padding="@dimen/dimen_30"
+                    android:scaleType="centerCrop"
+                    android:textColor="#000000"
+                    android:textSize="24sp"
+                    app:layout_anchor="@+id/appBarLayout"
+                    app:layout_anchorGravity="center"
+                    app:layout_collapseMode="parallax" />
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/appBarLayout"
+            android:layout_above="@+id/cart"
+            android:id="@+id/wine_and_dine_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_20"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+</RelativeLayout>

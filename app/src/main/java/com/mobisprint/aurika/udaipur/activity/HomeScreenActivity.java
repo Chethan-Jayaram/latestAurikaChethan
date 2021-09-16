@@ -50,6 +50,7 @@ import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.mobisprint.aurika.R;
+import com.mobisprint.aurika.SelectLocationActivity;
 import com.mobisprint.aurika.udaipur.fragments.HomeGridFragment;
 import com.mobisprint.aurika.notification.NotificationFragment;
 import com.mobisprint.aurika.udaipur.fragments.doorunlockfragments.SendOtpScreenFragment;
@@ -94,9 +95,10 @@ public class HomeScreenActivity extends AppCompatActivity
     private static Boolean hasUpdate = false;
     private AppUpdateManager mAppUpdateManager;
     private static final String TAG = HomeScreenActivity.class.getName();
-    private MobileKeys mobileKeys;
+
     private NavigationView navigationView;
     private DrawerLayout drawer;
+    private MobileKeys mobileKeys;
     private ReaderConnectionCallback readerConnectionCallback;
     private HceConnectionCallback hceConnectionCallback;
     private ReaderConnectionController readerConnectionController;
@@ -255,10 +257,10 @@ public class HomeScreenActivity extends AppCompatActivity
                 super.onBackPressed();
                 // Toast.makeText(this, "Last", Toast.LENGTH_SHORT).show();
             } else {
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent intent = new Intent(this, SelectLocationActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                this.finish();
             }
             if (drawer.isDrawerOpen(GravityCompat.START)) {
                 drawer.closeDrawers();

@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_10"
+        android:layout_margin="@dimen/dimen_30"
         android:background="@drawable/border_layout"
         android:orientation="vertical">
 
@@ -19,7 +19,7 @@
             <ImageView
                 android:id="@+id/img_coorg_sight_seeing"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="440dp"
                 android:layout_gravity="center"
                 android:scaleType="matrix" />
 
@@ -27,12 +27,13 @@
                 android:id="@+id/tv_sight_seeing_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_10"
-                android:layout_marginTop="150dp"
+                android:layout_marginLeft="@dimen/dimen_30"
+                android:layout_marginTop="320dp"
                 android:background="@drawable/border_edges"
                 android:fontFamily="@font/notoseriftc_regular"
                 android:includeFontPadding="false"
-                android:padding="@dimen/dimen_10"
+                android:padding="@dimen/dimen_15"
+                android:textSize="@dimen/dimen_35"
                 android:textColor="@color/white" />
         </RelativeLayout>
 
@@ -40,8 +41,9 @@
             android:id="@+id/tv_sight_seeing_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="30sp"
             android:layout_gravity="center_vertical|end"
-            android:layout_margin="@dimen/dimen_10"
+            android:layout_margin="@dimen/dimen_30"
             android:fontFamily="@font/notosanstc_light"
             android:gravity="center|start|end"
             android:justificationMode="inter_word"

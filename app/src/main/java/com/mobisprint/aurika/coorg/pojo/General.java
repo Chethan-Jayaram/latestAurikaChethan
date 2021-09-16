@@ -14,9 +14,6 @@ public class General {
     @Expose
     private String message;
 
-
-
-
     public Boolean getStatus() {
         return status;
     }
@@ -32,4 +29,5 @@ public class General {
     public void setMessage(String message) {
         this.message = message;
     }
+
 }

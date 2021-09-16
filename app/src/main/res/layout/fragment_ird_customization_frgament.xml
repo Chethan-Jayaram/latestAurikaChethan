@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:background="#e5e5e5">
+
+            <ImageView
+                android:layout_marginRight="@dimen/dimen_30"
+                android:layout_alignParentRight="true"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/close"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:id="@+id/img_close"/>
+
+
+            <LinearLayout
+                android:id="@+id/lyt_title"
+                android:gravity="center"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/img_close"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/icon_nonveg"
+                    android:id="@+id/img_veg_nonveg"/>
+
+
+                <TextView
+                    android:id="@+id/tv_item_name"
+                    android:layout_marginLeft="@dimen/dimen_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:fontFamily="@font/notosanstc_bold"
+                    android:includeFontPadding="false"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:fontFamily="@font/notosanstc_regular"
+                android:layout_below="@+id/lyt_title"
+                android:layout_marginLeft="@dimen/dimen_50"
+                android:textSize="16sp"
+                android:text=""
+                android:id="@+id/price"
+                android:includeFontPadding="false"
+                android:layout_marginTop="@dimen/dimen_5"/>
+
+        </RelativeLayout>
+
+        <ExpandableListView
+            android:id="@+id/sub_category_expandable_list"
+            android:layout_width="match_parent"
+            android:groupIndicator="@null"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"/>
+
+
+        <Button
+            android:id="@+id/bt_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="ADD"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:background="@color/custom_purple"
+            android:fontFamily="@font/notosanstc_medium"
+            android:includeFontPadding="false"/>
+
+
+    </LinearLayout>
+
+</FrameLayout>

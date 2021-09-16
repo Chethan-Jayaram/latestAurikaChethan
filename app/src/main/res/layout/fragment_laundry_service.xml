@@ -48,6 +48,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:background="#f5efe4"
+                        android:justificationMode="inter_word"
                         android:fontFamily="@font/notosanstc_light"
                         android:gravity="bottom"
                         android:includeFontPadding="false"
@@ -126,18 +127,19 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/notosanstc_light"
                             android:includeFontPadding="false"
-                            android:layout_marginRight="@dimen/dimen_10"
+                            android:layout_marginRight="@dimen/dimen_20"
                             android:textSize="16sp"
+                            android:justificationMode="inter_word"
                             android:textColor="@color/black"
-                            android:text="1.   Garments given for ironing are returned folded. Please inform Housekeeping if you would like them delivered on a hanger instead.
-                            \n\n2.   Garments given for laundry or dry-cleaning will also be ironed as a complimentary service.
-                            \n\n3.   The hotel is not responsible for loss of or damage to any personal or non-cleanable items left in the clothing or bags such as money, jewellery, or any other valuables.
-                            \n\n4.   Please call Housekeeping at 2003 to check rate(s) of any item not listed above.
-                            \n\n5.   In case of any discrepancy or undeclared defect(s), damage or discolouration of the garment(s) Housekeeping will process the order only after verification with the guest.
-                            \n\n6.   Should the guest count be omitted or not itemized, the hotel count will be taken as the final count.
-                            \n\n7.   The hotel is not responsible for clothing bleeding, shrinking, or otherwise changing the result from a normal wash.
-                            \n\n8.   The hotel exercises extreme diligence in processing your garments. However, in case of any loss or damage to the garments(s), the reimbursement will not exceed three times the cost of cleaning the lost/damaged garment(s).
-                            \n\n9.   Uncollected/unclaimed garment(s) will be in the hotel's safe keeping for a maximum period of 30 days."
+                            android:text="1.Garments given for ironing are returned folded. Please inform Housekeeping if you would like them delivered on a hanger instead.
+                            \n\n2.Garments given for laundry or dry-cleaning will also be ironed as a complimentary service.
+                            \n\n3.The hotel is not responsible for loss of or damage to any personal or non-cleanable items left in the clothing or bags such as money, jewellery, or any other valuables.
+                            \n\n4.Please call Housekeeping at 2003 to check rate(s) of any item not listed above.
+                            \n\n5.In case of any discrepancy or undeclared defect(s), damage or discolouration of the garment(s) Housekeeping will process the order only after verification with the guest.
+                            \n\n6.Should the guest count be omitted or not itemized, the hotel count will be taken as the final count.
+                            \n\n7.The hotel is not responsible for clothing bleeding, shrinking, or otherwise changing the result from a normal wash.
+                            \n\n8.The hotel exercises extreme diligence in processing your garments. However, in case of any loss or damage to the garments(s), the reimbursement will not exceed three times the cost of cleaning the lost/damaged garment(s).
+                            \n\n9.Uncollected/unclaimed garment(s) will be in the hotel's safe keeping for a maximum period of 30 days."
                             android:layout_marginLeft="@dimen/dimen_20"/>
 
                     </LinearLayout>

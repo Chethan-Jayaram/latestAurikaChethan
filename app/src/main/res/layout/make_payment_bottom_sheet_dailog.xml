@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Make Payment"
+            android:textColor="@color/black"
+            android:fontFamily="@font/notosanstc_medium"
+            android:includeFontPadding="false"
+            android:textSize="20sp"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginTop="@dimen/dimen_20"/>
+
+        <RelativeLayout
+            android:id="@+id/lyt_view"
+            android:paddingLeft="@dimen/dimen_10"
+            android:paddingRight="@dimen/dimen_15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_margin="2dp"
+                android:background="@color/gray" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount to be paid : "
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/notoseriftc__medium"/>
+
+            <TextView
+                android:id="@+id/amount_to_be_paid"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INR 11,105 rs"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/notoseriftc_bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pay amount : "
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/notoseriftc__medium"/>
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/amount_to_pay"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:hint="11,105"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/notoseriftc_bold"/>
+
+        </LinearLayout>
+
+
+        <Button
+            android:layout_marginBottom="@dimen/dimen_20"
+            android:id="@+id/btn_make_payment_continue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Continue"
+            android:background="@drawable/btn_background"
+            android:textColor="@color/white"
+            android:layout_marginRight="@dimen/dimen_80"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:textSize="20sp"
+            android:fontFamily="@font/notosanstc_medium"
+            android:textAllCaps="false"
+            android:includeFontPadding="false"
+            android:paddingTop="@dimen/dimen_5"
+            android:paddingBottom="@dimen/dimen_5"/>
+
+
+    </LinearLayout>
+
+</FrameLayout>

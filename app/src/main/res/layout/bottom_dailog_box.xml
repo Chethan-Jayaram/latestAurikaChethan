@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv__bottomsheet_tittle"
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,13 +22,13 @@
             android:text="When do you need this?"
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginLeft="@dimen/dimen_25"
             android:layout_marginTop="@dimen/dimen_20"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginLeft="@dimen/dimen_25"
             android:layout_marginTop="@dimen/dimen_15"
             android:fontFamily="@font/notosanstc_bold"
             android:includeFontPadding="false"
@@ -39,8 +40,8 @@
         <LinearLayout
             android:padding="@dimen/dimen_5"
             android:layout_marginTop="@dimen/dimen_10"
-            android:layout_marginLeft="@dimen/dimen_20"
-            android:layout_marginRight="@dimen/dimen_20"
+            android:layout_marginLeft="@dimen/dimen_25"
+            android:layout_marginRight="@dimen/dimen_25"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -112,11 +113,15 @@
 
 
                 <LinearLayout
+                    android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <TextView
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center"
+                        android:id="@+id/tv_select_date"
                         android:paddingTop="@dimen/dimen_12"
                         android:paddingLeft="@dimen/dimen_12"
                         android:paddingBottom="@dimen/dimen_12"
@@ -131,7 +136,8 @@
                         android:textSize="14sp" />
 
                     <ImageView
-                        android:layout_gravity="center"
+                        android:id="@+id/img_select_date_arrow"
+                        android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/ccp_down_arrow"/>
@@ -152,7 +158,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginLeft="@dimen/dimen_25"
             android:layout_marginTop="@dimen/dimen_15"
             android:text="TIME"
             android:lineSpacingExtra="9sp"
@@ -165,8 +171,8 @@
             android:paddingRight="@dimen/dimen_5"
             android:paddingLeft="@dimen/dimen_5"
             android:layout_marginTop="@dimen/dimen_10"
-            android:layout_marginLeft="@dimen/dimen_20"
-            android:layout_marginRight="@dimen/dimen_20"
+            android:layout_marginLeft="@dimen/dimen_25"
+            android:layout_marginRight="@dimen/dimen_25"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -349,8 +355,8 @@
 
         <LinearLayout
             android:visibility="gone"
-            android:layout_marginLeft="@dimen/dimen_20"
-            android:layout_marginRight="@dimen/dimen_20"
+            android:layout_marginLeft="@dimen/dimen_25"
+            android:layout_marginRight="@dimen/dimen_25"
             android:orientation="vertical"
             android:id="@+id/select_hours"
             android:layout_width="match_parent"
@@ -605,4 +611,4 @@
 
 
 
-</RelativeLayout>
+</FrameLayout>

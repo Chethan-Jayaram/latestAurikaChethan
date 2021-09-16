@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.LocationManager;
@@ -19,6 +20,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +36,7 @@ import com.assaabloy.mobilekeys.api.ReaderConnectionController;
 import com.google.android.material.navigation.NavigationView;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.bluetooth.ClosestLockTrigger;
+import com.mobisprint.aurika.coorg.fragments.HomeFragment;
 import com.mobisprint.aurika.udaipur.fragments.HomeGridFragment;
 import com.mobisprint.aurika.helper.GlobalClass;
 import com.mobisprint.aurika.notification.UnlockNotification;
@@ -58,6 +62,11 @@ public class DoorUnlockingFragment extends Fragment
     private NavigationView navigationView;
     private Context mContext;
 
+    private String mDestination="";
+
+
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor edit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -92,11 +101,21 @@ public class DoorUnlockingFragment extends Fragment
             registor_status.setBackgroundColor(Color.parseColor("#6e7a75"));
             onRefresh();
             view.clearFocus();
+
+
+            Bundle bundle = getArguments();
+            mDestination=bundle.getString("Key","");
+
             handler = new Handler();
             handler.postDelayed(() -> {
                 try {
-                    getActivity().findViewById(R.id.lyt_notification).setVisibility(View.VISIBLE);
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeGridFragment()).commit();
+                    if (mDestination.equalsIgnoreCase("Udaipur")) {
+                        getActivity().findViewById(R.id.lyt_notification).setVisibility(View.VISIBLE);
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeGridFragment()).commit();
+                    }else{
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, new HomeFragment()).commit();
+                        getActivity().getSupportFragmentManager().popBackStack();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -133,6 +152,7 @@ public class DoorUnlockingFragment extends Fragment
             List<MobileKey> data = null;
             try {
                 data = mobileKeysApiFacade.getMobileKeys().listMobileKeys();
+                Log.d("Mobile_key_size", String.valueOf(data.get(0).isActivated()));
             } catch (MobileKeysException e) {
                 e.printStackTrace();
                 e.getMessage();
@@ -306,24 +326,29 @@ public class DoorUnlockingFragment extends Fragment
             loadKeys();
             toggleOpenButton(false);
             mobileKeysApiFacade.getScanConfiguration().getRootOpeningTrigger().add(closestLockTrigger);
-            navigationView.getMenu().getItem(9).setVisible(false);
-            View headerLayout = navigationView.getHeaderView(0);
-            GlobalClass.SharedPreferences = getActivity().getSharedPreferences("aurika", 0);
-            if (GlobalClass.SharedPreferences.getBoolean("verifed_otp", false)) {
-                navigationView.getMenu().getItem(9).setVisible(true);
-                GlobalClass.user_token = GlobalClass.SharedPreferences.getString("user_token", "");
-                GlobalClass.USER_NAME = GlobalClass.SharedPreferences.getString("UserName", "");
-                TextView name = headerLayout.findViewById(R.id.tv_customer_name);
-                name.setText(GlobalClass.USER_NAME);
-                headerLayout.setVisibility(View.VISIBLE);
-            } else {
-                try {
-                    mobileKeysApiFacade.getMobileKeys().unregisterEndpoint(this);
-                    mobileKeysApiFacade.getMobileKeys().listMobileKeys().clear();
-                } catch (MobileKeysException e) {
-                    e.printStackTrace();
+
+
+
+            if (mDestination.equalsIgnoreCase("Udaipur")) {
+                navigationView.getMenu().getItem(9).setVisible(false);
+                View headerLayout = navigationView.getHeaderView(0);
+                GlobalClass.SharedPreferences = getActivity().getSharedPreferences("aurika", 0);
+                if (GlobalClass.SharedPreferences.getBoolean("verifed_otp", false)) {
+                    navigationView.getMenu().getItem(9).setVisible(true);
+                    GlobalClass.user_token = GlobalClass.SharedPreferences.getString("user_token", "");
+                    GlobalClass.USER_NAME = GlobalClass.SharedPreferences.getString("UserName", "");
+                    TextView name = headerLayout.findViewById(R.id.tv_customer_name);
+                    name.setText(GlobalClass.USER_NAME);
+                    headerLayout.setVisibility(View.VISIBLE);
+                } else {
+                    try {
+                        mobileKeysApiFacade.getMobileKeys().unregisterEndpoint(this);
+                        mobileKeysApiFacade.getMobileKeys().listMobileKeys().clear();
+                    } catch (MobileKeysException e) {
+                        e.printStackTrace();
+                    }
+                    headerLayout.setVisibility(View.GONE);
                 }
-                headerLayout.setVisibility(View.GONE);
             }
         }catch (Exception e){
             e.printStackTrace();

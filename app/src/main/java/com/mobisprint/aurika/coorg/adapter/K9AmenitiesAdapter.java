@@ -104,7 +104,8 @@ public class K9AmenitiesAdapter extends RecyclerView.Adapter<K9AmenitiesAdapter.
             holder.lyt_items.setVisibility(View.VISIBLE);
             holder.tv_item_name.setText(amenitiesList.get(position).getTitle());
 
-            /*holder.tv_item_name.setText(Html.fromHtml("<font color=#000000>"+ amenitiesList.get(position).getTitle() +"</font> <font color=#A7A7A7>"+ "(and services)" +"</font>"));*/
+           /* holder.tv_item_name.setText(amenitiesList.get(position).getTitle()+Html.fromHtml(
+                     "<p style=\"font-family:notosanstc_regular;font-size:2px;\">"+"(and services)</p>"));*/
 
             holder.tv_item_price.setText("₹"+" "+amenitiesList.get(position).getPrice());
             holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));

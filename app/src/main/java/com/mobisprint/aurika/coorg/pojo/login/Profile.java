@@ -6,6 +6,18 @@ import com.google.gson.annotations.SerializedName;
 
 public class Profile {
 
+    @SerializedName("guest_id")
+    @Expose
+    private Integer guestId;
+
+    public Integer getGuestId() {
+        return guestId;
+    }
+
+    public void setGuestId(Integer guestId) {
+        this.guestId = guestId;
+    }
+
     @SerializedName("salutation")
     @Expose
     private String salutation;

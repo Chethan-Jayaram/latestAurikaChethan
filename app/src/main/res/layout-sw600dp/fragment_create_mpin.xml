@@ -2,7 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@drawable/login_bg"
+    android:background="@drawable/login_screen_coorg"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -42,7 +42,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="28dp"
+            android:layout_marginLeft="@dimen/dimen_28"
+            android:layout_marginRight="28dp"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_marginBottom="@dimen/dimen_10"
             android:orientation="horizontal">
 
             <EditText
@@ -50,14 +53,14 @@
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:id="@+id/et1_one"
                 android:layout_width="0dp"
                 android:layout_height="70dp"
                 android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -65,7 +68,7 @@
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:fontFamily="@font/notoseriftc__medium"
                 android:id="@+id/et1_two"
                 android:layout_width="0dp"
@@ -73,7 +76,7 @@
                 android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -81,7 +84,7 @@
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:fontFamily="@font/notoseriftc__medium"
                 android:id="@+id/et1_three"
                 android:layout_width="0dp"
@@ -89,7 +92,7 @@
                 android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -97,7 +100,7 @@
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:fontFamily="@font/notoseriftc__medium"
                 android:id="@+id/et1_four"
                 android:layout_width="0dp"
@@ -105,7 +108,7 @@
                 android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -126,7 +129,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="28dp"
+            android:layout_marginLeft="@dimen/dimen_28"
+            android:layout_marginRight="28dp"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_marginBottom="@dimen/dimen_10"
             android:orientation="horizontal">
 
             <EditText
@@ -134,14 +140,14 @@
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:id="@+id/et2_one"
                 android:layout_width="0dp"
                 android:layout_height="70dp"
                 android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -149,7 +155,7 @@
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:fontFamily="@font/notoseriftc__medium"
                 android:id="@+id/et2_two"
                 android:layout_width="0dp"
@@ -157,7 +163,7 @@
                 android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -165,7 +171,7 @@
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:fontFamily="@font/notoseriftc__medium"
                 android:id="@+id/et2_three"
                 android:layout_width="0dp"
@@ -173,7 +179,7 @@
                 android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -181,7 +187,7 @@
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:fontFamily="@font/notoseriftc__medium"
                 android:id="@+id/et2_four"
                 android:layout_width="0dp"
@@ -189,7 +195,7 @@
                 android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -197,13 +203,14 @@
 
 
         <Button
+            android:layout_marginTop="@dimen/dimen_20"
             android:id="@+id/btn_confirm_mpin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_80"
             android:layout_marginRight="@dimen/dimen_80"
             android:layout_marginBottom="@dimen/dimen_40"
-            android:background="@color/btn_color"
+            android:background="@drawable/btn_background"
             android:fontFamily="@font/notoseriftc__medium"
             android:paddingTop="@dimen/dimen_15"
             android:includeFontPadding="false"

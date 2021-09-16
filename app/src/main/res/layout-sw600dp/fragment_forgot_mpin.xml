@@ -2,13 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/login_bg"
+    android:background="@drawable/login_screen_coorg"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:background="#99f8F1CD"
         android:layout_width="match_parent"
-        android:layout_margin="@dimen/dimen_20"
+        android:layout_margin="@dimen/dimen_30"
         android:layout_gravity="center"
         android:layout_height="350dp"
         android:gravity="center_vertical"
@@ -91,31 +91,30 @@
             android:textSize="24sp" />
 
 
-        <LinearLayout
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dimen_20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <CheckBox
-                android:gravity="center"
-                android:layout_gravity="center_vertical"
+                android:layout_alignParentLeft="true"
                 android:id="@+id/reset_mpin_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_5"
-                android:layout_marginLeft="@dimen/dimen_20" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dimen_4"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notoseriftc_regular"
+                android:textSize="@dimen/dimen_14"
+                android:buttonTint="@color/custom_purple"
+                android:textStyle="bold"
+                android:paddingTop="6dp"
+                android:textColor="@color/custom_purple"
                 android:includeFontPadding="false"
-                android:text="I agree with the terms and conditions and privacy policy"
-                android:textColor="#420052"
-                android:textSize="18sp" />
-        </LinearLayout>
+                android:gravity="clip_horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/dimen_20"/>
+
+
+        </RelativeLayout>
 
         <Button
             android:layout_marginTop="@dimen/dimen_20"
@@ -124,7 +123,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dimen_60"
             android:layout_marginRight="@dimen/dimen_60"
-            android:layout_marginBottom="@dimen/dimen_30"
             android:background="@color/btn_color"
             android:fontFamily="@font/notoseriftc__medium"
             android:paddingTop="@dimen/dimen_15"
@@ -136,7 +134,21 @@
             android:textColor="@color/white"
             android:textSize="24sp" />
 
-
+        <TextView
+            android:id="@+id/skip"
+            android:padding="@dimen/dimen_10"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_marginBottom="@dimen/dimen_30"
+            android:fontFamily="@font/notoseriftc_semibold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="Skip >"
+            android:textColor="#420052"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 

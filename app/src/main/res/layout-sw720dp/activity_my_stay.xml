@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".coorg.fragments.MyStayFragment">
+
+
+
+
+    <include
+        android:id="@+id/cart"
+        android:layout_width="match_parent"
+        layout="@layout/toolbar"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_below="@+id/cart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/mystay_lyt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/pale">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mystay_expandable_listview"
+                android:layout_marginTop="@dimen/dimen_15"/>
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_below="@+id/mystay_expandable_listview"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="@dimen/dimen_20"
+                    android:id="@+id/tv_price"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your bill due is"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/notosanstc_regular"
+                    android:textColor="@color/black"
+                    android:includeFontPadding="false"/>
+                <TextView
+                    android:layout_toLeftOf="@+id/activity_staus"
+                    android:layout_marginTop="@dimen/dimen_20"
+                    android:layout_toRightOf="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/total_price"
+                    android:text="INR 11,270.50"
+                    android:fontFamily="@font/notosanstc_medium"
+                    android:textColor="@color/black"
+                    android:includeFontPadding="false"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="16sp"/>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_marginTop="@dimen/dimen_20"
+                    android:layout_marginRight="@dimen/dimen_20"
+                    android:layout_width="wrap_content"
+                    android:padding="@dimen/dimen_2"
+                    android:layout_centerInParent="true"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/dimen_5"
+                    android:id="@+id/activity_staus"
+                    android:layout_alignParentRight="true">
+
+                    <Button
+                        android:id="@+id/btn_make_payment"
+                        android:padding="@dimen/dimen_10"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Make Payment"
+                        android:textAllCaps="false"
+                        android:minHeight="@dimen/dimen_25"
+                        android:textColor="@color/white"
+                        android:background="@color/custom_purple"
+                        android:fontFamily="@font/notosanstc_medium"
+                        android:textSize="16sp"
+                        android:includeFontPadding="false"/>
+
+                </androidx.cardview.widget.CardView>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/my_stay_progress_bar"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        />
+
+</RelativeLayout>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:openDrawer="start">
+    <include
+        layout="@layout/activity_coorg_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/white"
+        app:itemIconPadding="10dp"
+        android:isScrollContainer="true"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:adjustViewBounds="true"
+        android:scrollbars="vertical"
+        app:itemTextColor="@color/black">
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:paddingLeft="@dimen/dimen_5"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_55"
+                android:layout_gravity="left"
+                android:singleLine="true"
+                android:fontFamily="@font/notoseriftc_bold"
+                android:gravity="left|center_vertical"
+                android:background="@drawable/tool_new"
+                android:includeFontPadding="false"
+                android:text="Welcome to Aurika, Coorg"
+                android:textColor="@color/white"
+                android:textSize="28sp" />
+
+            <ScrollView
+                android:fillViewport="true"
+                android:layout_above="@+id/lyt_bottom"
+                android:layout_below="@+id/toolbar_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ExpandableListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="true"
+                    android:divider="@null"
+                    android:id="@+id/navigation_expandable_list_view"
+                    android:dividerHeight="0dp"
+                    android:groupIndicator="@null"/>
+
+            </ScrollView>
+
+
+
+            <RelativeLayout
+                android:id="@+id/lyt_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+
+
+                    <View
+                        android:id="@+id/lyt_top_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_margin="2dp"
+                        android:background="@color/gray" />
+
+
+                <RelativeLayout
+                    android:layout_below="@id/lyt_top_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lyt_logout"
+                    android:padding="@dimen/dimen_10">
+
+
+                    <ImageView
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/img_logout"
+                        android:layout_width="@dimen/dimen_64"
+                        android:layout_height="@dimen/dimen_64"
+                        android:src="@drawable/ic_logout" />
+
+                    <TextView
+                        android:id="@+id/tv_logout"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:fontFamily="@font/notosanstc_light"
+                        android:textSize="35sp"
+                        android:layout_toRightOf="@+id/img_logout"
+                        android:includeFontPadding="false"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_below="@+id/lyt_logout"
+                    android:id="@+id/lyt_middle_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_margin="2dp"
+                    android:background="@color/gray" />
+
+                <RelativeLayout
+                    android:id="@+id/lyt_drawer_notification"
+                    android:padding="@dimen/dimen_15"
+                    android:layout_below="@+id/lyt_logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/img_notification_bell"
+                        android:layout_width="@dimen/dimen_40"
+                        android:layout_height="@dimen/dimen_40"
+                        android:src="@drawable/icon_bell" />
+
+                    <TextView
+                        android:layout_toLeftOf="@+id/notification_count"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Notifications"
+                        android:singleLine="true"
+                        android:fontFamily="@font/notosanstc_light"
+                        android:textSize="35sp"
+                        android:layout_marginRight="@dimen/dimen_20"
+                        android:layout_toRightOf="@+id/img_notification_bell"
+                        android:includeFontPadding="false"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:textColor="@color/black"
+                        android:textStyle="normal"/>
+
+                    <TextView
+                        android:id="@+id/notification_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/dimen_30"
+                        android:text="1"
+                        android:fontFamily="@font/notoseriftc_semibold"
+                        android:includeFontPadding="false"
+                        android:layout_centerInParent="true"
+                        android:textColor="@color/black"
+                        android:textSize="30sp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/lyt_bottom_notification_view"
+                    android:layout_below="@+id/lyt_drawer_notification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_margin="2dp"
+                        android:background="@color/gray" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lyt_bottom_notification_view">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:fontFamily="@font/notosanstc_light"
+                        android:includeFontPadding="false"
+                        android:text="Privacy Policy  |  Terms &amp; Conditions"
+                        android:textColor="@color/black"
+                        android:layout_centerInParent="true"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/dimen_15"
+                        android:textSize="28sp"/>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </com.google.android.material.navigation.NavigationView>
+</androidx.drawerlayout.widget.DrawerLayout>
+

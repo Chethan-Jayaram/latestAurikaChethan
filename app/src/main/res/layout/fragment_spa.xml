@@ -49,6 +49,7 @@
                     android:gravity="bottom"
                     android:includeFontPadding="false"
                     android:padding="@dimen/dimen_20"
+                    android:justificationMode="inter_word"
                     android:scaleType="centerCrop"
                     android:text="Araya, the serene spa, promises to pamper you with authentic Indian and international therapies. The dedicated therapists offer treatments that integrate the experience of body, mind and soul and leave you rejuvenated at a deep level. \n\nPlease view the full menu and place your request for a spa therapy appointment below."
                     android:textColor="#000000"

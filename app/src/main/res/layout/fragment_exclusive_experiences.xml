@@ -48,9 +48,8 @@
                     android:background="@color/pale"
                     android:fontFamily="@font/notosanstc_light"
                     android:gravity="bottom"
-                    android:text="The resort offers many unique venues where you can host private events and make your celebrations extraordinary. These scenic venues, spread across the resort, are just right for those intimate occasions that you want to celebrate. \n \n
-From greeting the dawn with sunrise breakfasts to champagne toasts and sundown canapés at dusk, from romantic candlelit dinners with your partner to toasty barbeques with friends, our chefs are always at your service to craft unusual experiences and create lasting memories. \n \n
-Please place a request for a call from our chef within the next 60 mins."
+                    android:justificationMode="inter_word"
+                    android:text="The resort offers many unique venues where you can host private events and make your celebrations extraordinary. These scenic venues, spread across the resort, are just right for those intimate occasions that you want to celebrate. \n \nFrom greeting the dawn with sunrise breakfasts to champagne toasts and sundown canapés at dusk, from romantic candlelit dinners with your partner to toasty barbeques with friends, our chefs are always at your service to craft unusual experiences and create lasting memories. \n \nPlease place a request for a call from our chef within the next 60 mins."
                     android:includeFontPadding="false"
                     android:padding="@dimen/dimen_20"
                     android:scaleType="centerCrop"
@@ -72,7 +71,7 @@ Please place a request for a call from our chef within the next 60 mins."
             android:id="@+id/exlusive_experiences_recycler"
             android:layout_above="@+id/bt_exclusive_experiences_call_back"
             android:layout_width="match_parent"
-            android:layout_marginBottom="@dimen/dimen_40"
+            android:layout_marginBottom="@dimen/dimen_50"
             android:layout_height="wrap_content"
             android:padding="@dimen/dimen_10"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />

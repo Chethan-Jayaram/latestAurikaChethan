@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".coorg.fragments.OrderConfirmedFragment">
+
+    <RelativeLayout
+        android:layout_margin="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:background="@color/pale"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_ok"
+            android:layout_marginTop="@dimen/dimen_50"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/order_placed_tick"
+            android:layout_centerHorizontal="true"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thank you for placing your request. Please allow us 30 minutes to update the status"
+            android:textColor="#1c1c1c"
+            android:textSize="16sp"
+            android:layout_below="@+id/img_ok"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:fontFamily="@font/notosanstc_regular"
+            android:includeFontPadding="false"
+            android:layout_marginTop="@dimen/dimen_35"
+            android:layout_marginRight="@dimen/dimen_30"
+            android:layout_marginLeft="@dimen/dimen_30"
+            android:layout_marginBottom="@dimen/dimen_60"/>
+
+
+    </RelativeLayout>
+</FrameLayout>

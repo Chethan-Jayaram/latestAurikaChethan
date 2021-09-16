@@ -29,9 +29,15 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.adapter.SpaDropDownAdapter;
+import com.mobisprint.aurika.coorg.controller.BottomDailogController;
 import com.mobisprint.aurika.coorg.controller.spa.BookAnAppointmentController;
+import com.mobisprint.aurika.coorg.fragments.BottomDailogFragment;
+import com.mobisprint.aurika.coorg.fragments.OrderConfirmedFragment;
+import com.mobisprint.aurika.coorg.modle.TicketModle;
+import com.mobisprint.aurika.coorg.pojo.General;
 import com.mobisprint.aurika.coorg.pojo.spa.Data;
 import com.mobisprint.aurika.coorg.pojo.spa.Spa;
+import com.mobisprint.aurika.coorg.pojo.ticketing.Ticket;
 import com.mobisprint.aurika.helper.ApiListner;
 import com.mobisprint.aurika.helper.GlobalClass;
 
@@ -40,9 +46,9 @@ import java.util.List;
 
 import retrofit2.Response;
 
-public class SpaBookAnAppointment extends Fragment implements ApiListner {
+public class SpaBookAnAppointment extends Fragment implements ApiListner,GlobalClass.FragmentCallback {
 
-    private TextView toolbar_title,tv_spa_title,therapy_heading,therapy_time,therapy_price;
+    private TextView toolbar_title,tv_spa_title,therapy_heading,therapy_time,therapy_price,req_date_time;
     private ImageView img_spa,img_drop_down;
     private Context mContext;
     private BookAnAppointmentController controller;
@@ -50,8 +56,14 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner {
     private RelativeLayout lyt_select_therapy,lyt_main,img_time;
     private LinearLayout linearLayout;
     private ProgressBar progressBar;
-    private Boolean chech_status = true;
+    private Boolean chech_status = true,date_and_time = false;
+    private TicketModle ticketModle;
+    private Button btn_request_booking;
+    private BottomDailogController bottomDailogController;
+    private String price;
 
+    private int hr,min;
+    private Calendar calendar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,6 +72,11 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner {
         toolbar_title = getActivity().findViewById(R.id.toolbar_title);
         toolbar_title.setText("Book an appointment");
 
+        ticketModle = new TicketModle();
+
+        req_date_time =view.findViewById(R.id.req_date_time);
+
+        btn_request_booking = view.findViewById(R.id.btn_request_booking);
         tv_spa_title = view.findViewById(R.id.tv_coorg_spa_title);
         recyclerView = view.findViewById(R.id.spa_therapy_recyclerview);
         lyt_select_therapy = view.findViewById(R.id.lyt_select_therapy);
@@ -75,9 +92,14 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner {
 
         linearLayout = view.findViewById(R.id.lyt);
         linearLayout.setVisibility(View.GONE);
+        calendar = Calendar.getInstance();
+        hr = calendar.get(Calendar.HOUR);
+        min = calendar.get(Calendar.MINUTE);
 
         progressBar = view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
+        bottomDailogController = new BottomDailogController(this);
+
 
 
         Bundle bundle = getArguments();
@@ -105,107 +127,52 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner {
         });
 
         img_time.setOnClickListener(v -> {
-            showBottomSheetDialog();
+
+            if (therapy_heading.getText().toString().equalsIgnoreCase("Select Therapy")){
+                GlobalClass.ShowAlert(this.getContext(),"Alert","Select Therapy");
+            }else{
+                date_and_time = true;
+                /*showBottomSheetDialog();*/
+                BottomDailogFragment fragment = new BottomDailogFragment();
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("Category","spa");
+                bundle1.putString("title",therapy_heading.getText().toString());
+                bundle1.putString("price",price);
+                bundle1.putInt("item_id",bundle.getInt("id"));
+                fragment.setFragmentCallback(this::onDataSent);
+                fragment.setArguments(bundle1);
+                /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
+                fragment.show(getActivity().getSupportFragmentManager(),
+                        "fragment_bottom_sheet_dailog");
+            }
+
+
         });
 
         controller.getTherapyList();
 
+
+        btn_request_booking.setOnClickListener(v -> {
+
+            if (GlobalClass.user_active_booking){
+                if (therapy_heading.getText().toString().equalsIgnoreCase("Select Therapy")){
+                    GlobalClass.ShowAlert(this.getContext(),"Alert","Select Therapy");
+                }else if (!date_and_time){
+                    GlobalClass.ShowAlert(this.getContext(),"Alert","Select Preferred date and time");
+                }else{
+                    bottomDailogController.generalTicket(ticketModle);
+                }
+            }else {
+                GlobalClass.ShowAlert(mContext,"Alert","You don't have active booking to place your request");
+            }
+
+
+        });
+
         return view;
     }
 
-    private void showBottomSheetDialog() {
 
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(mContext);
-        bottomSheetDialog.setContentView(R.layout.bottom_dailog_box);
-
-
-        Button bt_today = bottomSheetDialog.findViewById(R.id.bt_today);
-        Button bt_tomorrow = bottomSheetDialog.findViewById(R.id.bt_tomorrow);
-        CardView select_date = bottomSheetDialog.findViewById(R.id.select_date);
-        ImageView img_up_hr = bottomSheetDialog.findViewById(R.id.img_up_hr);
-        ImageView img_down_hr = bottomSheetDialog.findViewById(R.id.img_down_hr);
-
-        ImageView img_up_min = bottomSheetDialog.findViewById(R.id.img_up_min);
-        ImageView img_down_min = bottomSheetDialog.findViewById(R.id.img_down_min);
-
-        TextView tv_hr = bottomSheetDialog.findViewById(R.id.tv_hr);
-        TextView tv_min = bottomSheetDialog.findViewById(R.id.tv_min);
-
-
-        LinearLayout lyt_calendar = bottomSheetDialog.findViewById(R.id.lyt_calendar);
-        LinearLayout lyt_select_date = bottomSheetDialog.findViewById(R.id.lyt_select_date);
-        lyt_select_date.setVisibility(View.VISIBLE);
-
-        Button bt_back = bottomSheetDialog.findViewById(R.id.bt_back);
-        Button bt_save = bottomSheetDialog.findViewById(R.id.bt_save);
-
-        bt_back.setOnClickListener(v -> {
-            lyt_calendar.setVisibility(View.GONE);
-            lyt_select_date.setVisibility(View.VISIBLE);
-        });
-
-        bt_save.setOnClickListener(v -> {
-            lyt_calendar.setVisibility(View.GONE);
-            lyt_select_date.setVisibility(View.VISIBLE);
-        });
-
-
-
-        bt_today.setOnClickListener(v -> {
-
-            bt_today.setBackgroundColor(getResources().getColor(R.color.custom_purple));
-            bt_today.setTextColor(Color.WHITE);
-            bt_tomorrow.setBackgroundColor(getResources().getColor(R.color.white));
-            bt_tomorrow.setTextColor(Color.BLACK);
-
-
-        });
-
-        bt_tomorrow.setOnClickListener(v -> {
-
-            bt_tomorrow.setBackgroundColor(getResources().getColor(R.color.custom_purple));
-            bt_tomorrow.setTextColor(Color.WHITE);
-            bt_today.setBackgroundColor(getResources().getColor(R.color.white));
-            bt_today.setTextColor(Color.BLACK);
-
-        });
-
-
-        select_date.setOnClickListener(v -> {
-
-            lyt_calendar.setVisibility(View.VISIBLE);
-            lyt_select_date.setVisibility(View.GONE);
-
-            Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-
-
-           /* DatePickerDialog datePickerDialog = new DatePickerDialog(mContext,
-                    new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-
-
-                        }
-                    }, year, month, dayOfMonth);
-            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-            datePickerDialog.show();*/
-
-
-
-            bt_today.setBackgroundColor(getResources().getColor(R.color.white));
-            bt_today.setTextColor(Color.BLACK);
-            bt_tomorrow.setBackgroundColor(getResources().getColor(R.color.white));
-            bt_tomorrow.setTextColor(Color.BLACK);
-
-        });
-
-
-        bottomSheetDialog.show();
-
-    }
 
     @Override
     public void onFetchProgress() {
@@ -219,19 +186,21 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner {
         linearLayout.setVisibility(View.VISIBLE);
 
         if (response!=null){
-            Spa spa = (Spa) response.body();
-            List<Data> spaList = spa.getData();
 
-            SpaDropDownAdapter adapter = new SpaDropDownAdapter(mContext,spaList,Position -> {
+            if (response.body() instanceof Spa){
+                Spa spa = (Spa) response.body();
+                List<Data> spaList = spa.getData();
 
-                Log.d("pos my click", String.valueOf(Position));
-                therapy_heading.setText(spaList.get(Position).getTitle());
+                SpaDropDownAdapter adapter = new SpaDropDownAdapter(mContext,spaList,Position -> {
 
-                if(spaList.get(Position).getDuration() == null || spaList.get(Position).getDuration().isEmpty() || spaList.get(Position).getDuration().equals("0")){
-                    therapy_heading.setText(Html.fromHtml("<font color=#000000>"+ spaList.get(Position).getTitle() +"</font> <font color=#A7A7A7>"));
-                }else{
-                    therapy_heading.setText(Html.fromHtml("<font color=#000000>"+ spaList.get(Position).getTitle() +"</font> <font color=#A7A7A7>"+"("+spaList.get(Position).getDuration()+" mins)" +"</font>"));
-                }
+                    Log.d("pos my click", String.valueOf(Position));
+                    therapy_heading.setText(spaList.get(Position).getTitle());
+
+                    if(spaList.get(Position).getDuration() == null || spaList.get(Position).getDuration().isEmpty() || spaList.get(Position).getDuration().equals("0")){
+                        therapy_heading.setText(Html.fromHtml("<font color=#000000>"+ spaList.get(Position).getTitle() +"</font> <font color=#A7A7A7>"));
+                    }else{
+                        therapy_heading.setText(Html.fromHtml("<font color=#000000>"+ spaList.get(Position).getTitle() +" </font> <font color=#A7A7A7>"+"("+spaList.get(Position).getDuration()+" mins)" +"</font>"));
+                    }
 
 
                /* if (spaList.get(Position).getDuration() == null || spaList.get(Position).getDuration().isEmpty() || spaList.get(Position).getDuration().equals("0")){
@@ -242,26 +211,31 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner {
                 }*/
 
 
-                img_drop_down.setVisibility(View.VISIBLE);
+                    img_drop_down.setVisibility(View.VISIBLE);
 
-                if (spaList.get(Position).getPrice() == null  || spaList.get(Position).getPrice().equals("0.00") ){
-                    therapy_price.setVisibility(View.GONE);
-                }else {
-                    therapy_price.setVisibility(View.VISIBLE);
-                    therapy_price.setText("₹"+" "+spaList.get(Position).getPrice());
-                }
+                    if (spaList.get(Position).getPrice() == null  || spaList.get(Position).getPrice().equals("0.00") ){
+                        therapy_price.setVisibility(View.GONE);
+                    }else {
+                        therapy_price.setVisibility(View.VISIBLE);
+                        therapy_price.setText("₹"+" "+spaList.get(Position).getPrice());
+                        price = spaList.get(Position).getPrice();
+                    }
 
-                recyclerView.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.GONE);
 
 
-            });
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(adapter);
-
+                });
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(adapter);
+            }else if (response.body() instanceof General){
+                Fragment fragment1 = new OrderConfirmedFragment();
+                Bundle bundle = new Bundle();
+                fragment1.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment1).addToBackStack(null).commit();
+            }
 
         }
-
     }
 
     @Override
@@ -269,5 +243,16 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner {
         progressBar.setVisibility(View.GONE);
         GlobalClass.ShowAlert(mContext,"Alert",error);
 
+    }
+
+    @Override
+    public void onDataSent(TicketModle ticketModle) {
+        this.ticketModle = ticketModle;
+        if (ticketModle!=null){
+           /* req_date_time.setText(ticketModle.getRequestDate());*/
+            if (!ticketModle.getPersonalisedTime().isEmpty()) {
+                req_date_time.setText(ticketModle.getPersonalisedTime());
+            }
+        }
     }
 }

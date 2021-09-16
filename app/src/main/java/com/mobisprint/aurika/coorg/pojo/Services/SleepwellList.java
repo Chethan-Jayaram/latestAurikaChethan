@@ -1,10 +1,13 @@
 
 package com.mobisprint.aurika.coorg.pojo.Services;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SleepwellList {
+public class SleepwellList implements Parcelable {
 
     @SerializedName("max_count")
     @Expose
@@ -41,6 +44,18 @@ public class SleepwellList {
     public void setItemselectorType(String itemselectorType) {
         this.itemselectorType = itemselectorType;
     }
+
+    public Integer getItem_id() {
+        return item_id;
+    }
+
+    public void setItem_id(Integer item_id) {
+        this.item_id = item_id;
+    }
+
+    @SerializedName("item_id")
+    @Expose
+    private Integer item_id;
 
     @SerializedName("count")
     @Expose
@@ -166,4 +181,13 @@ public class SleepwellList {
         this.lastActivityBy = lastActivityBy;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
 }

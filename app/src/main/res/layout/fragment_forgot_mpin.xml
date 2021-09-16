@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/login_bg"
+    android:background="@drawable/login_screen_coorg"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -100,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/notoseriftc_regular"
                 android:textSize="@dimen/dimen_12"
+                android:buttonTint="@color/custom_purple"
                 android:textStyle="bold"
                 android:paddingTop="6dp"
                 android:textColor="@color/custom_purple"

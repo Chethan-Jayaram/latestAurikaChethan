@@ -47,8 +47,10 @@ public class SelectLocationActivity extends AppCompatActivity implements ApiList
             controller = new SelectLocationController(this);
             location_recyclerview = findViewById(R.id.location_recyclerviiew);
 
-            txt_location = findViewById(R.id.txt_location);
-            txt_search_loaction = findViewById(R.id.txt_search_location);
+            GlobalClass.user_token = "";
+
+            /*txt_location = findViewById(R.id.txt_location);
+            txt_search_loaction = findViewById(R.id.txt_search_location);*/
 
             back = findViewById(R.id.naviagation_hamberger);
             notification = findViewById(R.id.toolbar_notification_icon);

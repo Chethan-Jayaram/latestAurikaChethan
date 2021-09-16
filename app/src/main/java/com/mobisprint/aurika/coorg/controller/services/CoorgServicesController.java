@@ -29,13 +29,12 @@ public class CoorgServicesController {
                     if (response.body().getStatus()){
                         listner.onFetchComplete(response);
                     }else {
-                        listner.onFetchError(response.body().getMessage());
+                        listner.onFetchError("Something went wrong, please try again later");
                     }
                 }else {
-                    listner.onFetchError(response.message());
+                    listner.onFetchError("Something went wrong, please try again later");
                 }
             }
-
             @Override
             public void onFailure(Call<CoorgServicesPojo> call, Throwable error) {
                 listner.onFetchError(error.getMessage());

@@ -16,6 +16,18 @@ public class Data implements Parcelable {
     @Expose
     private Boolean ishourbounded;
 
+    public Boolean getTimePop() {
+        return IsTimePop;
+    }
+
+    public void setTimePop(Boolean timePop) {
+        IsTimePop = timePop;
+    }
+
+    @SerializedName("IsTimePop")
+    @Expose
+    private Boolean IsTimePop;
+
     public Boolean getIshourbounded() {
         return ishourbounded;
     }
@@ -87,6 +99,18 @@ public class Data implements Parcelable {
     @SerializedName("id")
     @Expose
     private Integer id;
+    @SerializedName("item_id")
+    @Expose
+    private Integer item_id;
+
+    public Integer getItem_id() {
+        return item_id;
+    }
+
+    public void setItem_id(Integer item_id) {
+        this.item_id = item_id;
+    }
+
     @SerializedName("title")
     @Expose
     private String title;

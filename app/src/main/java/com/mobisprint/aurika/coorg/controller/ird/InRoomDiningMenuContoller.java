@@ -25,18 +25,14 @@ public class InRoomDiningMenuContoller {
         call.enqueue(new Callback<Dining>() {
             @Override
             public void onResponse(Call<Dining> call, Response<Dining> response) {
-                Log.d("fetch",response.toString());
                 if (response.isSuccessful()){
-                    Log.d("fetch completed2",response.toString());
                     if (response.body().getStatus()){
-
-                        Log.d("fetch completed3",response.toString());
                         listner.onFetchComplete(response);
                     }else {
-                        listner.onFetchError(response.body().getMessage());
+                        listner.onFetchError("Something went wrong, please try again later");
                     }
                 }else {
-                    listner.onFetchError(response.message());
+                    listner.onFetchError("Something went wrong, please try again later");
                 }
             }
 

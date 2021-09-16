@@ -18,13 +18,14 @@ public class LoginController {
         this.listner = listner;
     }
 
-    public void checkMpin(String mpin, String android_id, String user_token) {
+    public void checkMpin(String mpin, String android_id, String user_token, int i) {
         listner.onFetchProgress();
 
-        HashMap<String, String> map=new HashMap<>();
+        HashMap map=new HashMap<>();
         map.put("mpin",mpin);
         map.put("device_id",android_id);
         map.put("token",user_token);
+        map.put("loginType",i);
         Call<Login> call = GlobalClass.API_COORG.loginWithMpin(map);
         call.enqueue(new Callback<Login>() {
             @Override
@@ -32,7 +33,7 @@ public class LoginController {
                 if (response.isSuccessful() && response.body().getStatus()){
                     listner.onFetchComplete(response);
                 }else {
-                    listner.onFetchError(response.body().getMessage());
+                    listner.onFetchError("Something went wrong, please try again later");
                 }
             }
 

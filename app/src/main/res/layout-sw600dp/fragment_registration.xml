@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/login_bg"
+    android:background="@drawable/login_screen_coorg"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:background="#99f8F1CD"
         android:layout_width="match_parent"
-        android:layout_margin="@dimen/dimen_20"
+        android:layout_margin="@dimen/dimen_30"
         android:layout_gravity="center"
-        android:layout_height="350dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
         <TextView
-            android:layout_marginRight="@dimen/dimen_80"
-            android:layout_marginLeft="@dimen/dimen_80"
-            android:textStyle="bold"
+            android:layout_marginRight="120dp"
+            android:layout_marginLeft="120dp"
             android:id="@+id/top_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_20"
-            android:fontFamily="@font/notoseriftc__medium"
+            android:fontFamily="@font/notoseriftc_semibold"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="Unlock an unforgettable stay"
@@ -31,6 +30,7 @@
 
 
         <LinearLayout
+            android:layout_marginTop="@dimen/dimen_15"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -39,26 +39,28 @@
                 android:id="@+id/salutation_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_12"
                 android:paddingLeft="@dimen/dimen_5"
-                android:paddingRight="@dimen/dimen_5"
                 android:layout_marginTop="@dimen/dimen_15"
-                android:dropDownSelector="@color/white"
+                android:layout_marginLeft="@dimen/dimen_15"
+                android:layout_marginRight="@dimen/dimen_2"
+                android:spinnerMode="dropdown"
+                android:popupBackground="@color/white"
                 android:background="@drawable/otp_bg"
-                android:layout_marginBottom="@dimen/dimen_12"
+                android:layout_marginBottom="@dimen/dimen_6"
                 android:textAlignment="center" />
 
             <EditText
+                android:inputType="textCapSentences"
                 android:id="@+id/et_firstname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen_20"
+                android:layout_margin="@dimen/dimen_15"
                 android:layout_weight="0.8"
                 android:background="@drawable/otp_bg"
-                android:fontFamily="@font/notoseriftc__medium"
+                android:fontFamily="@font/notosanstc_medium"
                 android:hint="First Name"
                 android:includeFontPadding="false"
-                android:padding="@dimen/dimen_15"
+                android:padding="@dimen/dimen_20"
                 android:singleLine="true"
                 android:textColor="@color/black"
                 android:textColorHint="#A3a3a3"
@@ -68,20 +70,21 @@
         </LinearLayout>
 
         <EditText
+            android:inputType="textCapSentences"
                 android:id="@+id/et_lastname"
                 android:singleLine="true"
                 android:textCursorDrawable="@color/black"
                 android:textSize="24sp"
                 android:textColor="@color/black"
                 android:includeFontPadding="false"
-                android:padding="@dimen/dimen_15"
+                android:padding="@dimen/dimen_20"
                 android:textColorHint="#A3a3a3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/otp_bg"
                 android:hint="Last Name"
-                android:fontFamily="@font/notoseriftc__medium"
-                android:layout_margin="@dimen/dimen_20"/>
+                android:fontFamily="@font/notosanstc_medium"
+                android:layout_margin="@dimen/dimen_15"/>
 
 
             <EditText
@@ -91,35 +94,98 @@
                 android:textColor="@color/black"
                 android:textCursorDrawable="@color/black"
                 android:includeFontPadding="false"
-                android:padding="@dimen/dimen_15"
+                android:padding="@dimen/dimen_20"
                 android:textColorHint="#A3a3a3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/otp_bg"
                 android:hint="Email Address"
-                android:fontFamily="@font/notoseriftc__medium"
-                android:layout_margin="@dimen/dimen_20"/>
+                android:fontFamily="@font/notosanstc_medium"
+                android:layout_margin="@dimen/dimen_15"/>
 
-        <com.hbb20.CountryCodePicker
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/dimen_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dimen_12"
+                android:layout_marginRight="@dimen/dimen_10">
+
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/country_code_picker"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/dimen_10"
+                    android:paddingBottom="@dimen/dimen_10"
+                    android:paddingLeft="@dimen/dimen_10"
+                    android:layout_marginBottom="@dimen/dimen_12"
+                    app:ccp_textGravity="LEFT"
+                    app:ccp_arrowColor="#000000"
+                    app:ccp_countryAutoDetectionPref="LOCALE_NETWORK"
+                    app:ccp_showFlag="false"
+                    app:ccp_showNameCode="false"
+                    app:ccpDialog_backgroundColor="@color/white"
+                    android:background="@drawable/otp_bg"
+                    app:ccp_textSize="24sp"
+                    app:ccp_arrowSize="@dimen/dimen_40"
+                    app:ccp_contentColor="@color/black"/>
+
+            </RelativeLayout>
+
+
+
+
+            <EditText
+
+                android:maxLength="10"
+                android:id="@+id/et_ph_num"
+                android:layout_marginLeft="@dimen/dimen_4"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dimen_15"
+                android:layout_marginBottom="@dimen/dimen_15"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:layout_weight="0.8"
+                android:background="@drawable/otp_bg"
+                android:fontFamily="@font/notosanstc_medium"
+                android:hint="Mobile Number"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_20"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="#A3a3a3"
+                android:textCursorDrawable="@color/black"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <!--<com.hbb20.CountryCodePicker
             android:id="@+id/country_code_picker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/dimen_10"
             app:ccp_textGravity="LEFT"
-            android:layout_margin="@dimen/dimen_20"
+            android:layout_margin="@dimen/dimen_12"
             app:ccpDialog_backgroundColor="@color/white"
             android:background="@drawable/otp_bg"
-            app:ccp_textSize="22sp"
-            app:ccp_contentColor="@color/black"/>
+            app:ccp_textSize="16sp"
+            app:ccp_contentColor="@color/black"/>-->
 
 
 
-            <EditText
+            <!--<EditText
                 android:maxLength="10"
                 android:id="@+id/et_ph_num"
                 android:singleLine="true"
                 android:inputType="number"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 android:textColor="@color/black"
                 android:includeFontPadding="false"
                 android:padding="@dimen/dimen_15"
@@ -130,10 +196,34 @@
                 android:hint="Mobile Number"
                 android:textCursorDrawable="@color/black"
                 android:fontFamily="@font/notoseriftc__medium"
-                android:layout_margin="@dimen/dimen_20"/>
+                android:layout_margin="@dimen/dimen_12"/>-->
 
 
-        <LinearLayout
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:layout_alignParentLeft="true"
+                android:id="@+id/reg_check_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notoseriftc_regular"
+                android:textSize="@dimen/dimen_18"
+                android:paddingTop="6dp"
+                android:buttonTint="@color/custom_purple"
+                android:textStyle="bold"
+                android:textColor="@color/custom_purple"
+                android:includeFontPadding="false"
+                android:gravity="clip_horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/dimen_15"/>
+        </RelativeLayout>
+
+
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -145,37 +235,38 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_10"/>
 
-            <TextView
+           &lt;!&ndash; <TextView
+                android:id="@+id/privacy_policy"
                 android:layout_marginTop="@dimen/dimen_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/notoseriftc__medium"
-                android:textSize="16sp"
-                android:textColor="#575656"
-                android:text="I agree with the terms and conditions and privacy policy"
+                android:fontFamily="@font/notoseriftc_light"
+                android:textSize="11sp"
+                android:textColor="#242424"
+                android:text="@string/privacy_policy_reg"
                 android:includeFontPadding="false"
-                android:layout_gravity="center_vertical"/>
-        </LinearLayout>
+                android:layout_gravity="center_vertical"/>&ndash;&gt;
+        </LinearLayout>-->
 
 
         <Button
-            android:layout_marginTop="@dimen/dimen_10"
             android:id="@+id/btn_confirm_and_send_otp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_60"
-            android:layout_marginRight="@dimen/dimen_60"
-            android:layout_marginBottom="@dimen/dimen_30"
-            android:background="@color/btn_color"
+            android:layout_marginLeft="@dimen/dimen_80"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_marginRight="@dimen/dimen_80"
+            android:layout_marginBottom="@dimen/dimen_40"
+            android:background="@drawable/btn_background"
             android:fontFamily="@font/notoseriftc__medium"
-            android:paddingTop="@dimen/dimen_10"
             android:includeFontPadding="false"
-            android:paddingBottom="@dimen/dimen_10"
-            android:text="CONFIRM and send OTP"
             android:lineSpacingExtra="@dimen/dimen_5"
+            android:paddingTop="@dimen/dimen_15"
+            android:paddingBottom="@dimen/dimen_15"
+            android:text="Confirm and send OTP"
+            android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="24sp" />
-
+            android:textSize="26sp" />
 
 
     </LinearLayout>

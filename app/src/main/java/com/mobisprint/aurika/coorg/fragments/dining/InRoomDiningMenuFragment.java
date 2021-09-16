@@ -1,5 +1,6 @@
 package com.mobisprint.aurika.coorg.fragments.dining;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -32,12 +33,18 @@ import com.google.gson.reflect.TypeToken;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.activity.UserAuthenticationActivity;
 import com.mobisprint.aurika.coorg.adapter.InRoomDiningMenuAdapter;
+import com.mobisprint.aurika.coorg.controller.BottomDailogController;
 import com.mobisprint.aurika.coorg.controller.ird.InRoomDiningMenuContoller;
+import com.mobisprint.aurika.coorg.fragments.BottomDailogFragment;
+import com.mobisprint.aurika.coorg.fragments.OrderConfirmedFragment;
 import com.mobisprint.aurika.coorg.fragments.OrderSummary;
+import com.mobisprint.aurika.coorg.modle.DiningModle;
 import com.mobisprint.aurika.coorg.pojo.Services.Category_item;
 import com.mobisprint.aurika.coorg.pojo.dining.Data;
 import com.mobisprint.aurika.coorg.pojo.dining.Dining;
 import com.mobisprint.aurika.coorg.pojo.dining.Dining__1;
+import com.mobisprint.aurika.coorg.pojo.sightseeing.SightSeeing;
+import com.mobisprint.aurika.coorg.pojo.ticketing.Ticket;
 import com.mobisprint.aurika.helper.ApiListner;
 import com.mobisprint.aurika.helper.GlobalClass;
 import com.mobisprint.aurika.helper.SharedPreferenceVariables;
@@ -68,12 +75,21 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
     private List<Data> diningArrPackagedata;
     private Integer items_count = 0;
     private double total_price = 0;
-    private String order_category = "dining";
+    private String order_category = "dining", title;
     private CoordinatorLayout lyt;
     private ProgressBar progressBar;
     private Bundle bundle;
+    private int hr,min;
+    private Calendar calendar;
+    private List<Data> dataList;
+    private List<Dining__1> selectedList = new ArrayList<>();
+    private DiningModle diningModle = new DiningModle();
+    private BottomDailogController ticketController;
+    private String booking = "1";
+    private String requestDate,reqtime;
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,6 +105,7 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
             img_back = getActivity().findViewById(R.id.naviagation_hamberger);
             expandableListView = view.findViewById(R.id.dining_menu_expandable_listview);
             contoller = new InRoomDiningMenuContoller(this);
+            ticketController = new BottomDailogController(this);
             mContext = getContext();
             tv_num_of_items = view.findViewById(R.id.tv_num_items);
             tv_total_price = view.findViewById(R.id.tv_total_price);
@@ -97,17 +114,24 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
             lyt.setVisibility(View.GONE);
             progressBar = view.findViewById(R.id.progress_bar);
             progressBar.setVisibility(View.GONE);
+            calendar = Calendar.getInstance();
+            hr = calendar.get(Calendar.HOUR);
+            min = calendar.get(Calendar.MINUTE);
 
             bundle = getArguments();
             toolbar_title.setText(bundle.getString("title"));
             tv_dining_menu_desc.setText(bundle.getString("desc"));
             category_id = bundle.getInt("category_id");
 
-
+            calendar = Calendar.getInstance();
+            hr = calendar.get(Calendar.HOUR);
+            min = calendar.get(Calendar.MINUTE);
+            reqtime = hr + ":" + min;
+            requestDate = String.valueOf(java.time.LocalDate.now()) + " " + reqtime;
 
             try{
                 SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm");
-                SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
                 Date _24HourDt1 = _24HourSDF.parse(bundle.getString("from_time"));
                 Date _24HourDt2 = _24HourSDF.parse(bundle.getString("to_time"));
                 tv_coorg_dining_start_timing.setText(_12HourSDF.format(_24HourDt1));
@@ -116,7 +140,7 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                 e.printStackTrace();
             }
 
-            contoller.getDiningMenu(category_id);
+
 
 
 
@@ -137,8 +161,42 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                     if (GlobalClass.user_token.isEmpty()){
                         alertBox();
 
-                    }else{
-                        showBottomSheetDialog();
+                    }else if (GlobalClass.user_active_booking){
+                        /*showBottomSheetDialog();*/
+                        selectedList.clear();
+                        for (int i=0;i<dataList.size();i++){
+                            for (int j=0;j<dataList.get(i).getDiningList().size();j++){
+                                if (dataList.get(i).getDiningList().get(j).getCount()>0){
+                                    dataList.get(i).getDiningList().get(j).setItem_id(dataList.get(i).getDiningList().get(j).getId());
+                                    dataList.get(i).getDiningList().get(j).setQuantity(dataList.get(i).getDiningList().get(j).getCount());
+                                    selectedList.add(dataList.get(i).getDiningList().get(j));
+                                }
+                            }
+                        }
+
+                       /* title = "Dining "+bundle.getString("title") + " Ticket";
+
+                        diningModle.setDetails(selectedList);
+                        diningModle.setDepartment("in-room-dining");
+                        diningModle.setTitle(title);
+                        diningModle.setBooking(booking);
+                        diningModle.setRoomNumber(GlobalClass.ROOM_NO);
+                        diningModle.setRequestTime(reqtime);
+                        diningModle.setRequestDate(requestDate);
+                        ticketController.diningTicketCreation(diningModle);*/
+
+                        BottomDailogFragment fragment = new BottomDailogFragment();
+                        Bundle bundle1 = new Bundle();
+                        bundle1.putString("Category","Dining"+bundle.getString("title"));
+                        bundle1.putString("Category","in-room-dining");
+                        bundle1.putParcelableArrayList("List", (ArrayList<? extends Parcelable>) selectedList);
+                        fragment.setArguments(bundle1);
+                        /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
+                        fragment.show(getActivity().getSupportFragmentManager(),
+                                "fragment_bottom_sheet_dailog");
+                    }else {
+                        GlobalClass.ShowAlert(mContext,"Alert","You don't have active booking to place order");
+
                     }
                     /*Log.d("items_count", String.valueOf(items_count));
 
@@ -193,7 +251,7 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
     private void alertBox() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
-        builder.setMessage("Login to place your order")
+        builder.setMessage("Please login to place your request")
                 .setCancelable(false)
                 .setPositiveButton("Okay", (dialog, id) -> {
                     Intent intent = new Intent(mContext, UserAuthenticationActivity.class);
@@ -208,100 +266,7 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
         }
     }
 
-    private void showBottomSheetDialog() {
 
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
-        bottomSheetDialog.setContentView(R.layout.bottom_dailog_box);
-
-
-        Button bt_today = bottomSheetDialog.findViewById(R.id.bt_today);
-        Button bt_tomorrow = bottomSheetDialog.findViewById(R.id.bt_tomorrow);
-        CardView select_date = bottomSheetDialog.findViewById(R.id.select_date);
-        ImageView img_up_hr = bottomSheetDialog.findViewById(R.id.img_up_hr);
-        ImageView img_down_hr = bottomSheetDialog.findViewById(R.id.img_down_hr);
-
-        LinearLayout lyt_calendar = bottomSheetDialog.findViewById(R.id.lyt_calendar);
-        LinearLayout lyt_select_date = bottomSheetDialog.findViewById(R.id.lyt_select_date);
-        lyt_select_date.setVisibility(View.VISIBLE);
-
-        ImageView img_up_min = bottomSheetDialog.findViewById(R.id.img_up_min);
-        ImageView img_down_min = bottomSheetDialog.findViewById(R.id.img_down_min);
-
-        TextView tv_hr = bottomSheetDialog.findViewById(R.id.tv_hr);
-        TextView tv_min = bottomSheetDialog.findViewById(R.id.tv_min);
-
-
-        Button bt_back = bottomSheetDialog.findViewById(R.id.bt_back);
-        Button bt_save = bottomSheetDialog.findViewById(R.id.bt_save);
-
-        CalendarView calendar_view = bottomSheetDialog.findViewById(R.id.calendar_view);
-
-
-
-        bt_back.setOnClickListener(v -> {
-            lyt_calendar.setVisibility(View.GONE);
-            lyt_select_date.setVisibility(View.VISIBLE);
-        });
-
-        bt_save.setOnClickListener(v -> {
-            lyt_calendar.setVisibility(View.GONE);
-            lyt_select_date.setVisibility(View.VISIBLE);
-        });
-
-        bt_today.setOnClickListener(v -> {
-
-            bt_today.setBackgroundColor(getResources().getColor(R.color.custom_purple));
-            bt_today.setTextColor(Color.WHITE);
-            bt_tomorrow.setBackgroundColor(getResources().getColor(R.color.white));
-            bt_tomorrow.setTextColor(Color.parseColor("#a5a5a5"));
-
-
-        });
-
-        bt_tomorrow.setOnClickListener(v -> {
-
-            bt_tomorrow.setBackgroundColor(getResources().getColor(R.color.custom_purple));
-            bt_tomorrow.setTextColor(Color.WHITE);
-            bt_today.setBackgroundColor(getResources().getColor(R.color.white));
-            bt_today.setTextColor(Color.parseColor("#a5a5a5"));
-
-        });
-
-
-        select_date.setOnClickListener(v -> {
-
-
-            lyt_calendar.setVisibility(View.VISIBLE);
-            lyt_select_date.setVisibility(View.GONE);
-
-            Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-
-            long date = calendar.getTime().getTime();
-            calendar_view.setMinDate(date);
-
-            /*DatePickerDialog datePickerDialog = new DatePickerDialog(mContext,
-                    new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        }
-                    }, year, month, dayOfMonth);
-            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-            datePickerDialog.show();*/
-
-
-            bt_today.setBackgroundColor(getResources().getColor(R.color.white));
-            bt_today.setTextColor(Color.parseColor("#a5a5a5"));
-            bt_tomorrow.setBackgroundColor(getResources().getColor(R.color.white));
-            bt_tomorrow.setTextColor(Color.parseColor("#a5a5a5"));
-
-        });
-
-
-        bottomSheetDialog.show();
-    }
 
     @Override
     public void onFetchProgress() {
@@ -313,6 +278,9 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
     public void onResume() {
         super.onResume();
         items_count = 0;
+        tv_num_of_items.setText("0 items");
+        tv_total_price.setText("₹ 0.00");
+        contoller.getDiningMenu(category_id);
     }
 
     @Override
@@ -325,27 +293,30 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
 
 
         if (response!= null){
-            Dining dining = (Dining) response.body();
-            List<Data> dataList = dining.getData();
 
-            if (diningArrPackagedata != null) {
-                diningArrPackagedata.clear();
-            }
+            if (response.body() instanceof Dining){
+
+                Dining dining = (Dining) response.body();
+                dataList = dining.getData();
+
+                if (diningArrPackagedata != null) {
+                    diningArrPackagedata.clear();
+                }
 
 
-            Gson gson = new Gson();
-            String json = GlobalClass.sharedPreferences.getString(bundle.getString("title"), "");
-            if (json.isEmpty()) {
-                //Toast.makeText(mContext, "Something went worng", Toast.LENGTH_LONG).show();
-            } else {
-                Type type = new TypeToken<List<Data>>() {
-                }.getType();
-                diningArrPackagedata = new ArrayList(gson.fromJson(json,type));
-            }
+                Gson gson = new Gson();
+                String json = GlobalClass.sharedPreferences.getString(bundle.getString("title"), "");
+                if (json.isEmpty()) {
+                    //Toast.makeText(mContext, "Something went worng", Toast.LENGTH_LONG).show();
+                } else {
+                    Type type = new TypeToken<List<Data>>() {
+                    }.getType();
+                    diningArrPackagedata = new ArrayList(gson.fromJson(json,type));
+                }
 
-            GlobalClass.editor.putBoolean(bundle.getString("title") + SharedPreferenceVariables.Dining_IsSingleItemSelected,false);
-            GlobalClass.editor.putBoolean(bundle.getString("title") + SharedPreferenceVariables.Dining_IsMultipleItemSelected,false);
-            GlobalClass.editor.commit();
+                GlobalClass.editor.putBoolean(bundle.getString("title") + SharedPreferenceVariables.Dining_IsSingleItemSelected,false);
+                GlobalClass.editor.putBoolean(bundle.getString("title") + SharedPreferenceVariables.Dining_IsMultipleItemSelected,false);
+                GlobalClass.editor.commit();
 
             /*try {
 
@@ -360,7 +331,7 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                                 dataList.remove(i);
                                 dataList.add(i,diningArrPackagedata.get(j));
                             }*//*
-                           *//* if (laundry_service_list.get(i).getCategory_item().get(j).getId().equals(arrPackageData.get(i).getCategory_item().get(j).getId()) ){
+                 *//* if (laundry_service_list.get(i).getCategory_item().get(j).getId().equals(arrPackageData.get(i).getCategory_item().get(j).getId()) ){
                                 laundry_service_list.get(i).getCategory_item().get(j).setCount(arrPackageData.get(i).getCategory_item().get(j).getCount());
                             }*//*
 
@@ -427,46 +398,59 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
             }*/
 
 
-            InRoomDiningMenuAdapter adapter = new InRoomDiningMenuAdapter(mContext,dataList,bundle.getString("title"),data ->{
+                InRoomDiningMenuAdapter adapter = new InRoomDiningMenuAdapter(mContext,dataList,bundle.getString("title"),getActivity().getSupportFragmentManager(),data ->{
 
 
-                try {
+                    try {
 
-                    items_count= 0;
-                    total_price = 0;
-
-
-                    for(int i=0;i<dataList.size() ;i++){
-                        Data data1=dataList.get(i);
-                        List<Dining__1> category_items=new ArrayList<>();
-                        for (int j=0; j<dataList.get(i).getDiningList().size();j++){
-
-                            items_count += dataList.get(i).getDiningList().get(j).getCount();
-                            tv_num_of_items.setText(items_count+" " +"items");
+                        items_count= 0;
+                        total_price = 0;
 
 
-                            if (dataList.get(i).getDiningList().get(j).getCount() >= 0 ){
-                                category_items.add(dataList.get(i).getDiningList().get(j));
-                                total_price +=dataList.get(i).getDiningList().get(j).getCount() * Double.parseDouble(dataList.get(i).getDiningList().get(j).getPrice()) ;
-                                tv_total_price.setText("₹ "+ " "+GlobalClass.round(total_price,2));
+                        for(int i=0;i<dataList.size() ;i++){
+                            Data data1=dataList.get(i);
+                            List<Dining__1> category_items=new ArrayList<>();
+                            for (int j=0; j<dataList.get(i).getDiningList().size();j++){
+
+                                items_count += dataList.get(i).getDiningList().get(j).getCount();
+                                tv_num_of_items.setText(items_count+" " +"items");
+
+
+                                if (dataList.get(i).getDiningList().get(j).getCount() >= 0 ){
+                                    category_items.add(dataList.get(i).getDiningList().get(j));
+                                    total_price +=dataList.get(i).getDiningList().get(j).getCount() * Double.parseDouble(dataList.get(i).getDiningList().get(j).getPrice()) ;
+                                    tv_total_price.setText("₹ "+ " "+GlobalClass.round(total_price,2));
+                                }
                             }
+
                         }
 
+                        GlobalClass.editor.putInt(bundle.getString("title") + "Count", items_count);
+                        GlobalClass.editor.putFloat(bundle.getString("title") + "Price", (float) total_price);
+                        GlobalClass.editor.commit();
+
+
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
 
-                    GlobalClass.editor.putInt(bundle.getString("title") + "Count", items_count);
-                    GlobalClass.editor.putFloat(bundle.getString("title") + "Price", (float) total_price);
-                    GlobalClass.editor.commit();
 
 
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+                });
+                expandableListView.setAdapter(adapter);
+
+            }else if (response.body() instanceof Ticket){
+
+                Fragment fragment1 = new OrderConfirmedFragment();
+                Bundle bundle = new Bundle();
+                fragment1.setArguments(bundle);
+                /*closeBottomSheetFragment();*/
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment1).addToBackStack(null).commit();
+
+            }
 
 
 
-            });
-            expandableListView.setAdapter(adapter);
         }
 
     }

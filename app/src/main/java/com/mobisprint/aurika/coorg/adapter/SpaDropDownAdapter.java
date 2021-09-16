@@ -47,7 +47,7 @@ public class SpaDropDownAdapter extends RecyclerView.Adapter<SpaDropDownAdapter.
             holder.spa_time.setVisibility(View.GONE);
             holder.spa_heading.setText(Html.fromHtml("<font color=#000000>"+ spaList.get(position).getTitle() +"</font> <font color=#A7A7A7>"));
         }else{
-            holder.spa_heading.setText(Html.fromHtml("<font color=#000000>"+ spaList.get(position).getTitle() +"</font> <font color=#A7A7A7>"+"("+spaList.get(position).getDuration()+" mins)" +"</font>"));
+            holder.spa_heading.setText(Html.fromHtml("<font color=#000000>"+ spaList.get(position).getTitle() +"<br> </font> <font color=#A7A7A7>"+"("+spaList.get(position).getDuration()+" mins)" +"</font>"));
         }
            /* holder.spa_heading.setText(spaList.get(position).getTitle());
             holder.spa_time.setText("("+spaList.get(position).getDuration()+ " mins"+")");*/
@@ -56,12 +56,6 @@ public class SpaDropDownAdapter extends RecyclerView.Adapter<SpaDropDownAdapter.
                 "        <p" + spaList.get(position).getTitle() +" style=\"color:#1e0028\">" + spaList.get(position).getDuration()+" mins" + "</a>"+
                 "        </p>" +
                 "    </body>"));*/
-
-
-
-
-
-
 
 
 

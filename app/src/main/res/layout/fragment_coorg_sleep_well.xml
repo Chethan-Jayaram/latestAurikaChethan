@@ -52,6 +52,7 @@
                         android:fontFamily="@font/notosanstc_light"
                         android:gravity="bottom"
                         android:includeFontPadding="false"
+                        android:justificationMode="inter_word"
                         android:padding="@dimen/dimen_20"
                         android:scaleType="centerCrop"
                         android:textColor="#000000"

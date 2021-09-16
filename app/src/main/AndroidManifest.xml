@@ -3,7 +3,7 @@
     package="com.mobisprint.aurika"
     android:installLocation="internalOnly">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,14 +13,13 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- Bluetooth low energy permissions are specified in the SDK -->
-
-
     <!-- NFC permissions and features -->
     <uses-feature
         android:name="android.hardware.nfc.hce"
         android:required="false" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:name=".unlock.Aurika"
         android:allowBackup="true"
         android:icon="@mipmap/launch_icon"
@@ -28,10 +27,12 @@
         android:roundIcon="@mipmap/launch_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".coorg.activity.HomeActivity"
-            android:screenOrientation="portrait"  >
-
-        </activity>
+        <activity
+            android:name=".coorg.activity.MyStayActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".coorg.activity.HomeActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".udaipur.activity.HomeScreenActivity"
             android:screenOrientation="portrait" />
@@ -51,22 +52,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-       <!-- <receiver
+        <!--
+ <receiver
             android:name=".helper.SMSReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
             </intent-filter>
         </receiver>
--->
+        -->
         <meta-data
             android:name="com.onesignal.NotificationOpened.DEFAULT"
             android:value="DISABLE" />
 
         <service
             android:name=".udaipur.services.SchedulerService"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
+            android:permission="android.permission.BIND_JOB_SERVICE" /> <!-- Add your API key here -->
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_kHdWf9jzJMB3eq" />
     </application>
 
 </manifest>

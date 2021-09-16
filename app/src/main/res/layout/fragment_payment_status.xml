@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".coorg.fragments.PaymentStatusFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="@dimen/dimen_60"
+            android:layout_height="@dimen/dimen_60"
+            android:src="@drawable/img_payment_succesful"
+            android:id="@+id/img_payment_status"
+            android:layout_marginTop="100dp"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosanstc_bold"
+            android:text="Payment Sucessful"
+            android:layout_below="@id/img_payment_status"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:includeFontPadding="false"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:id="@+id/tv_payment_status"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosanstc_medium"
+            android:text="Transaction Number : 1234567876"
+            android:layout_below="@id/tv_payment_status"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:includeFontPadding="false"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:id="@+id/tv_transaction_id"/>
+
+        <RelativeLayout
+            android:id="@+id/lyt_payment_details"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_below="@+id/tv_transaction_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/lyt_view"
+                android:paddingLeft="@dimen/dimen_20"
+                android:paddingRight="@dimen/dimen_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_margin="2dp"
+                    android:background="@color/gray" />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount Paid : "
+                android:fontFamily="@font/notosanstc_medium"
+                android:textColor="#9ea4b4"
+                android:textSize="16sp"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:includeFontPadding="false"
+                android:layout_marginTop="@dimen/dimen_20"/>
+
+            <TextView
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dimen_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INR 2,500"
+                android:fontFamily="@font/notosanstc_medium"
+                android:textColor="#9ea4b4"
+                android:textSize="16sp"
+                android:includeFontPadding="false"
+                android:layout_marginTop="@dimen/dimen_20"/>
+
+        </RelativeLayout>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dimen_50"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/dimen_5"
+            android:id="@+id/activity_staus">
+
+            <Button
+                android:paddingTop="@dimen/dimen_15"
+                android:paddingBottom="@dimen/dimen_15"
+                android:paddingRight="@dimen/dimen_10"
+                android:paddingLeft="@dimen/dimen_10"
+                android:id="@+id/btn_make_payment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Go Back"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:background="@color/gray"
+                android:fontFamily="@font/notosanstc_medium"
+                android:textSize="16sp"
+                android:includeFontPadding="false"/>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </RelativeLayout>
+
+</FrameLayout>

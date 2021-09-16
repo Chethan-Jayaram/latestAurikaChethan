@@ -34,6 +34,7 @@ import com.mobisprint.aurika.coorg.activity.UserAuthenticationActivity;
 import com.mobisprint.aurika.coorg.adapter.AmenitiesAdapter;
 import com.mobisprint.aurika.coorg.adapter.HouseKeepingAdapter;
 import com.mobisprint.aurika.coorg.controller.services.HouseKeepingController;
+import com.mobisprint.aurika.coorg.fragments.BottomDailogFragment;
 import com.mobisprint.aurika.coorg.fragments.OrderSummary;
 import com.mobisprint.aurika.coorg.pojo.Services.CoorgServicesPojo;
 import com.mobisprint.aurika.coorg.pojo.Services.Data;
@@ -65,8 +66,14 @@ public class    HouseKeeping extends Fragment implements ApiListner {
     private double total_price = 0;
     private CoordinatorLayout lyt;
     private ProgressBar progressBar;
-    private Boolean hours = false;
+    private Boolean hours = false, timepop = false;
     private Integer count = 1;
+    private int hr,min;
+    private Calendar calendar;
+
+    private List<Data> selectedList = new ArrayList<>();
+    private List<Data> houseKeepingList;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,8 +96,11 @@ public class    HouseKeeping extends Fragment implements ApiListner {
             lyt.setVisibility(View.GONE);
             progressBar = view.findViewById(R.id.progress_bar);
             progressBar.setVisibility(View.GONE);
+            calendar = Calendar.getInstance();
+            hr = calendar.get(Calendar.HOUR);
+            min = calendar.get(Calendar.MINUTE);
 
-            houseKeepingController.getServices();
+
 
             Bundle bundle = getArguments();
 
@@ -109,8 +119,30 @@ public class    HouseKeeping extends Fragment implements ApiListner {
                     if (GlobalClass.user_token.isEmpty()){
                         alertBox();
 
-                    }else{
-                        showBottomSheetDialog();
+                    }else if (GlobalClass.user_active_booking){
+                        /*showBottomSheetDialog();*/
+
+                        selectedList.clear();
+                        for (int i=0;i<houseKeepingList.size();i++){
+                            if (houseKeepingList.get(i).getCount()>0){
+                                houseKeepingList.get(i).setItem_id(houseKeepingList.get(i).getId());
+                                houseKeepingList.get(i).setQuantity(houseKeepingList.get(i).getCount());
+                                selectedList.add(houseKeepingList.get(i));
+                            }
+                        }
+
+                        BottomDailogFragment fragment = new BottomDailogFragment();
+                        Bundle bundle1 = new Bundle();
+                        bundle1.putString("Category","housekeeping");
+                        bundle1.putBoolean("hours",hours);
+                        bundle1.putBoolean("timepop",timepop);
+                        bundle1.putString("item_name",selectedList.get(0).getName());
+                        bundle1.putParcelableArrayList("List", (ArrayList<? extends Parcelable>) selectedList);
+                        fragment.setArguments(bundle1);
+                        fragment.show(getActivity().getSupportFragmentManager(),
+                                "fragment_bottom_sheet_dailog");
+                    }else {
+                        GlobalClass.ShowAlert(mContext,"Alert","You don't have active booking to place order");
                     }
 
                     /*Fragment fragment = new OrderSummary();
@@ -142,7 +174,7 @@ public class    HouseKeeping extends Fragment implements ApiListner {
     private void alertBox() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
-        builder.setMessage("Login to place your order")
+        builder.setMessage("Please login to place your request")
                 .setCancelable(false)
                 .setPositiveButton("Okay", (dialog, id) -> {
                     Intent intent = new Intent(mContext, UserAuthenticationActivity.class);
@@ -161,6 +193,9 @@ public class    HouseKeeping extends Fragment implements ApiListner {
     public void onResume() {
         super.onResume();
         items_count = 0;
+        tv_num_of_items.setText("0 items");
+        tv_total_price.setText("₹ 0.00");
+        houseKeepingController.getServices();
     }
 
     private void showBottomSheetDialog() {
@@ -186,6 +221,9 @@ public class    HouseKeeping extends Fragment implements ApiListner {
         TextView tv_hr = bottomSheetDialog.findViewById(R.id.tv_hr);
         TextView tv_min = bottomSheetDialog.findViewById(R.id.tv_min);
 
+        TextView tv_pm = bottomSheetDialog.findViewById(R.id.tv_pm);
+        TextView tv_am = bottomSheetDialog.findViewById(R.id.tv_am);
+
 
         ImageView img_hour_add = bottomSheetDialog.findViewById(R.id.img_hour_add);
         ImageView img_hour_minus = bottomSheetDialog.findViewById(R.id.img_hour_minus);
@@ -202,18 +240,79 @@ public class    HouseKeeping extends Fragment implements ApiListner {
         CheckBox checkbox_folded = bottomSheetDialog.findViewById(R.id.checkbox_folded);
         CheckBox checkbox_hanger = bottomSheetDialog.findViewById(R.id.checkbox_hanger);
 
+        int am = calendar.get(Calendar.HOUR_OF_DAY);
+
+        bt_today.setBackgroundColor(getResources().getColor(R.color.custom_purple));
+        bt_today.setTextColor(Color.WHITE);
+
+        tv_min.setText(String.valueOf(min) + " m");
+        tv_hr.setText(String.valueOf(am) + " h");
+
+        if (am>12){
+            tv_pm.setTextColor(Color.BLACK);
+            tv_am.setTextColor(Color.parseColor("#a5a5a5"));
+        }else {
+            tv_pm.setTextColor(Color.parseColor("#a5a5a5"));
+            tv_am.setTextColor(Color.BLACK);
+        }
+        img_up_hr.setOnClickListener(v -> {
+            if (hr<12){
+                hr = hr+1;
+                tv_hr.setText(String.valueOf(hr) + " h");
+            }
+        });
+
+        tv_am.setOnClickListener(v -> {
+            tv_pm.setTextColor(Color.parseColor("#a5a5a5"));
+            tv_am.setTextColor(Color.BLACK);
+        });
+
+        tv_pm.setOnClickListener(v -> {
+            tv_pm.setTextColor(Color.BLACK);
+            tv_am.setTextColor(Color.parseColor("#a5a5a5"));
+        });
+
+        img_down_hr.setOnClickListener(v -> {
+            if (hr>1){
+                hr = hr-1;
+                tv_hr.setText(String.valueOf(hr) + " h");
+            }
+        });
+
+        img_up_min.setOnClickListener(v -> {
+            if (min<60){
+                min = min +1;
+                tv_min.setText(String.valueOf(min) + " m");
+            }
+        });
+
+
+        img_down_min.setOnClickListener(v -> {
+            if (min>1){
+                min = min - 1;
+                tv_min.setText(String.valueOf(min) + " m");
+            }
+        });
 
         img_hour_add.setOnClickListener(v -> {
             if (count < 12){
                 count = count+1;
-                tv_hour.setText(count + " hours");
+                if (count ==1){
+                    tv_hour.setText(count + " hour");
+                }else {
+                    tv_hour.setText(count + " hours");
+                }
             }
         });
 
         img_hour_minus.setOnClickListener(v -> {
             if (count > 1){
                 count = count -1;
-                tv_hour.setText(count+" hours");
+                if (count ==1){
+                    tv_hour.setText(count + " hour");
+                }else {
+                    tv_hour.setText(count + " hours");
+                }
             }
         });
 
@@ -253,7 +352,6 @@ public class    HouseKeeping extends Fragment implements ApiListner {
             bt_today.setTextColor(Color.WHITE);
             bt_tomorrow.setBackgroundColor(getResources().getColor(R.color.white));
             bt_tomorrow.setTextColor(Color.parseColor("#a5a5a5"));
-
 
         });
 
@@ -321,7 +419,7 @@ public class    HouseKeeping extends Fragment implements ApiListner {
 
         if (response!=null){
             CoorgServicesPojo servicesPojo = (CoorgServicesPojo) response.body();
-            List<Data> houseKeepingList = servicesPojo.getData();
+            houseKeepingList = servicesPojo.getData();
 
 
             Gson houseKeepingGson = new Gson();
@@ -430,7 +528,14 @@ public class    HouseKeeping extends Fragment implements ApiListner {
 
                         }
 
+                    }
 
+                    if (items_count>0){
+                        if (houseKeepingList.get(Position).getTimePop()){
+                            timepop = true;
+                        }else {
+                            timepop = false;
+                        }
                     }
 
                     if (items_count>0){
@@ -460,7 +565,6 @@ public class    HouseKeeping extends Fragment implements ApiListner {
     @Override
     public void onFetchError(String error) {
         progressBar.setVisibility(View.GONE);
-
         GlobalClass.ShowAlert(mContext,"Alert",error);
 
     }

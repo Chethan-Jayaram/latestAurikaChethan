@@ -4,12 +4,19 @@ buildscript {
     }
     dependencies {
         classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.12.6'
+
     }
 }
 apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 
 repositories {
     maven { url 'https://maven.google.com' }
+}
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
 }
 apply plugin: 'com.android.application'
 
@@ -187,6 +194,19 @@ dependencies {
     implementation 'androidx.biometric:biometric:1.1.0'
 
 
+    implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
+    implementation 'com.jsibbold:zoomage:1.3.1'
+
+    implementation 'com.applandeo:material-calendar-view:1.7.0'
+
+    // Razor pay
+    implementation 'com.razorpay:checkout:1.6.12'
+
+
+    implementation 'commons-codec:commons-codec:1.9'
+
+   // implementation(name:'google-pay-client-api-1.0.0  ', ext:'aar')
+    implementation 'com.google.android.gms:play-services-tasks:15.0.1'
 
 }
 configurations {

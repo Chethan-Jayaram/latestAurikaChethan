@@ -8,31 +8,31 @@
 
     <RelativeLayout
         android:id="@+id/select"
-        android:layout_margin="@dimen/dimen_10"
+        android:layout_margin="@dimen/dimen_30"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/text_bg">
 
         <TextView
+            android:padding="@dimen/dimen_20"
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/dimen_15"
-            android:layout_marginTop="@dimen/dimen_5"
+            android:layout_marginLeft="@dimen/dimen_25"
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Facilities"
             android:textAllCaps="false"
-            android:fontFamily="@font/notoseriftc__medium"
+            android:fontFamily="@font/notoseriftc_bold"
             android:textColor="@color/white"
-            android:textSize="16sp"/>
+            android:textSize="35sp"/>
 
         <ImageView
             android:layout_centerInParent="true"
-            android:layout_marginRight="@dimen/dimen_17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+            android:layout_marginRight="@dimen/dimen_30"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/arrow_1x"
             android:layout_alignParentRight="true" />
 
 

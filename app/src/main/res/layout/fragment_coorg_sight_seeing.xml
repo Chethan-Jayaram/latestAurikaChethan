@@ -51,6 +51,7 @@
                         android:background="@color/pale"
                         android:fontFamily="@font/notosanstc_light"
                         android:gravity="bottom"
+                        android:justificationMode="inter_word"
                         android:text="Spread across 45 acres of land, with panoramic views of the rainforest. From undulating coffee plantations to the black treasures of pepper vines, from the ancient Kodavas culture to their authentic cuisine, explore the unique and unexplored world in the Western ghats of Southern India with Aurika, Coorg. \n \nPlease place a request for a call from our travel desk within the next 60 minutes."
                         android:includeFontPadding="false"
                         android:padding="@dimen/dimen_20"

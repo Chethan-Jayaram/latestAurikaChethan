@@ -2,7 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@drawable/login_bg"
+    android:background="@drawable/login_screen_coorg"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -136,33 +136,43 @@
         </LinearLayout>
 
 
-        <TextView
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_40"
-            android:fontFamily="@font/notoseriftc__medium"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:text="Didn't recieve the verification code?"
-            android:textColor="#373737"
-            android:textStyle="bold"
-            android:textSize="22sp" />
+            android:layout_marginTop="@dimen/dimen_30"
+            android:layout_marginBottom="@dimen/dimen_40">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="@dimen/dimen_50"
-            android:fontFamily="@font/notoseriftc__medium"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:padding="@dimen/dimen_10"
-            android:text="Resend Code"
-            android:textColor="#420052"
-            android:textSize="22sp"
-            android:textStyle="normal" />
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_resend_otp"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/notosanstc_medium"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_15"
+                android:text="Resend OTP"
+                android:textColor="#420052"
+                android:textSize="24sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/tv_resend_otp_timer"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/notosanstc_medium"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_15"
+                android:textColor="#420052"
+                android:textSize="24sp"
+                android:textStyle="normal" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 

@@ -2,18 +2,22 @@ package com.mobisprint.aurika.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.provider.Settings;
+import android.util.Base64;
 import android.widget.Button;
 
 import androidx.appcompat.app.AlertDialog;
 
 import com.mobisprint.aurika.R;
+import com.mobisprint.aurika.coorg.modle.TicketModle;
 import com.mobisprint.aurika.coorg.pojo.Services.Data;
 import com.mobisprint.aurika.coorg.pojo.petservices.K9Data;
 import com.mobisprint.aurika.coorg.services.APIMethods;
 import com.mobisprint.aurika.retrofit.ClientServiceGenerator;
 import com.mobisprint.aurika.unlock.Aurika;
 
+import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DateFormat;
@@ -26,6 +30,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class GlobalClass {
+
+    public static final String BOTTOM_VIEW = "BOTTOM_VIEW";
 
     public static final String Laundry_count = "Laundry_count";
     public static final String Laundry_price = "Laundry_price";
@@ -78,6 +84,14 @@ public class GlobalClass {
     public static String USER_NAME = "";
     public static boolean flow = false;
     public static int previous = 100;
+    public static String check_in = "";
+    public static String check_out = "";
+    public static Integer number_of_guest ;
+    public static String number_of_rooms = "";
+    public static Integer guest_id;
+    public static Integer Guest_Id;
+    public static boolean user_active_booking = false;
+
     ;
     public static String APPDATA = "";
     public static String[] homeNames;
@@ -87,9 +101,34 @@ public class GlobalClass {
     public static String suffix = "20434c";
 
 
+    public static String encodeTobase64(Bitmap image) {
+        String imageEncoded = "";
+        try {
+            Bitmap immagex = image;
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            immagex.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+            byte[] b = byteArrayOutputStream.toByteArray();
+            imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return imageEncoded;
+    }
+
+
     public interface AdapterListener {
         void onItemClicked(int Position);
 
+    }
+
+
+    public interface MystayListener {
+        void onItemClicked(String  Amount, String FolioId);
+
+    }
+
+    public interface RoomNumberListener{
+        void onItemClicked(String RoomNumber);
     }
 
     public interface NavigationListener {
@@ -119,6 +158,10 @@ public class GlobalClass {
     public interface ExpandableAdapterListenerIRD {
         void onItemClicked(com.mobisprint.aurika.coorg.pojo.dining.Data data);
 
+    }
+
+    public interface FragmentCallback {
+        void onDataSent(TicketModle ticketModle);
     }
 
     public static Boolean timeComparator(String fromTime, String toTime) {
@@ -170,10 +213,10 @@ public class GlobalClass {
     }
 
 
-    public static void ShowAlert(Context context, String title, String message) {
+    public static void ShowAlert(Context context, String title, String message){
         try {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle(title);
+            builder.setTitle("Oops!");
             builder.setMessage(message)
                     .setCancelable(false)
                     .setPositiveButton("OK", (dialog, id) -> {

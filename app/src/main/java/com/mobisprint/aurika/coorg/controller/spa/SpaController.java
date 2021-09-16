@@ -30,10 +30,10 @@ public class SpaController {
 
                         listner.onFetchComplete(response);
                     }else {
-                        listner.onFetchError(response.body().getMessage());
+                        listner.onFetchError("Something went wrong, please try again later");
                     }
                 }else {
-                    listner.onFetchError(response.message());
+                    listner.onFetchError("Something went wrong, please try again later");
                 }
             }
 

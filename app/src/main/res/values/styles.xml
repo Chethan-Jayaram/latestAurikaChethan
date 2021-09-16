@@ -22,6 +22,7 @@
 
 
 
+
     <!--<style name="Widget.CalendarView.Custom" parent="android:Widget.CalendarView">
         <item name="android:focusedMonthDateColor">@color/custom_purple</item>
         <item name="android:weekNumberColor">@color/custom_purple</item>

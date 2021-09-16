@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:background="@drawable/table_layout_inner_border"
+                android:id="@+id/tv_item_name"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_column="0"
+                android:layout_weight="1"
+                android:text="Item"
+                android:fontFamily="@font/notosanstc_regular"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_15"
+                android:textSize="25sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:background="@drawable/table_layout_inner_border"
+                android:id="@+id/tv_item_quantity"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_column="1"
+                android:text="Pre-placed Qty"
+                android:fontFamily="@font/notosanstc_regular"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_15"
+                android:textSize="25sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:background="@drawable/table_layout_inner_border"
+                android:id="@+id/tv_item_price"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_column="2"
+                android:text="Price per item"
+                android:fontFamily="@font/notosanstc_regular"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_15"
+                android:textSize="25sp"
+                android:textColor="@color/black"/>
+
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>

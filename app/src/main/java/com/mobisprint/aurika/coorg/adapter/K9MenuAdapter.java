@@ -74,7 +74,7 @@ public class K9MenuAdapter extends RecyclerView.Adapter<K9MenuAdapter.ViewHolder
                 pushDataK9(menuList);
                 mListener.onItemClicked(position);
             }else{
-                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", " Please place individual orders for individual requests");
+                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests");
             }
 
         });

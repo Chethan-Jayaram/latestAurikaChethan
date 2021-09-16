@@ -1,13 +1,10 @@
 package com.mobisprint.aurika.coorg.fragments.loginfragments;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.KeyguardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.hardware.biometrics.BiometricPrompt;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,7 +20,6 @@ import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +31,6 @@ import android.widget.TextView;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.activity.HomeActivity;
 import com.mobisprint.aurika.coorg.controller.login.LoginController;
-import com.mobisprint.aurika.coorg.fragments.loginfragments.ForgotMpinFragment;
-import com.mobisprint.aurika.coorg.fragments.loginfragments.RegistrationFragment;
 import com.mobisprint.aurika.coorg.pojo.login.Login;
 import com.mobisprint.aurika.helper.ApiListner;
 import com.mobisprint.aurika.helper.BiometricDialogV23;
@@ -78,7 +72,7 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
     private Cipher cipher;
     private KeyStore keyStore;
     private KeyGenerator keyGenerator;
-    private static final String KEY_NAME = "RefinaryBioMetric";
+    private static final String KEY_NAME = "AurikaBioMetric";
 
     private FingerprintManager.CryptoObject cryptoObject;
     private FingerprintManager fingerprintManager;
@@ -126,14 +120,12 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
             skip.setOnClickListener(v -> {
 
                 Intent intent = new Intent(mContext, HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                getActivity().finish();
             });
 
             btn_confirm.setOnClickListener(v -> {
-
                 verifyMpin();
-
 
             });
         } catch (Exception e) {
@@ -141,6 +133,8 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
         }
         return view;
     }
+
+
 
     private void verifyMpin() {
 
@@ -150,7 +144,7 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
                 et_four.getText().toString();
         if (mpin.length() == 4) {
 
-            loginController.checkMpin(mpin, android_id, GlobalClass.sharedPreferences.getString("token",""));
+            loginController.checkMpin(mpin, android_id, GlobalClass.sharedPreferences.getString("token",""),1);
 
         }
 
@@ -304,6 +298,27 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
             }
 
 
+            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                mKeyguardManager = (KeyguardManager) mContext.getSystemService(KEYGUARD_SERVICE);
+                mFingerprintManager = (FingerprintManager) mContext.getSystemService(FINGERPRINT_SERVICE);
+                if (mFingerprintManager != null) {
+                    if (mFingerprintManager.isHardwareDetected()) {
+                        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+                            GlobalClass.ShowAlet(mContext, "Alert", "Please enable the fingerprint permission");
+                            //enableBioWithoutBiometric();
+                        } else if(mFingerprintManager.hasEnrolledFingerprints()) {
+                            //  enableBIometric();
+                            mBtn_biometric.setVisibility(View.VISIBLE);
+                            showBio();
+                            m_lyt.setAlpha(0.2f);
+                            initiateFingerprintlistner();
+                        }
+                    }
+                }
+            }*/
+
+
+
         }
 
     }
@@ -316,13 +331,22 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
     @Override
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
         if (response != null) {
+
             Login login = (Login) response.body();
-            GlobalClass.user_token = login.getData().getProfile().getToken();
-            GlobalClass.editor.putBoolean("isMpinSetUpComplete",true);
-            GlobalClass.editor.apply();
-            Intent intent = new Intent(mContext, HomeActivity.class);
-            startActivity(intent);
-            getActivity().finish();
+
+            if (login.getStatus()){
+                GlobalClass.user_token = login.getData().getProfile().getToken();
+                GlobalClass.guest_id = login.getData().getProfile().getGuestId();
+                GlobalClass.editor.putBoolean("isMpinSetUpComplete",true);
+                GlobalClass.editor.apply();
+                Intent intent = new Intent(mContext, HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }else{
+                GlobalClass.ShowAlert(mContext,"Alert",login.getData().getError().get(0));
+            }
+
+
 
         }
 
@@ -424,16 +448,8 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
             biometricDialogV23.dismiss();
         }
 
+        loginController.checkMpin("", android_id, GlobalClass.sharedPreferences.getString("token","1"), 0);
 
-
-        loginController.checkMpin("", android_id, GlobalClass.sharedPreferences.getString("token",""));
-
-
-        /*GlobalClass.editor.putBoolean("isMpinSetUpComplete",true);
-        GlobalClass.editor.apply();
-        Intent intent = new Intent(mContext, HomeActivity.class);
-        startActivity(intent);
-        getActivity().finish();*/
     }
 
     private class FingerprintException extends Exception {

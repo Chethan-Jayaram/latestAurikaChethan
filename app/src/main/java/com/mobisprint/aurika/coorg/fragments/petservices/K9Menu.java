@@ -1,5 +1,6 @@
 package com.mobisprint.aurika.coorg.fragments.petservices;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.activity.UserAuthenticationActivity;
 import com.mobisprint.aurika.coorg.adapter.K9MenuAdapter;
 import com.mobisprint.aurika.coorg.controller.petservices.K9MenuController;
+import com.mobisprint.aurika.coorg.fragments.BottomDailogFragment;
 import com.mobisprint.aurika.coorg.fragments.OrderSummary;
 import com.mobisprint.aurika.coorg.pojo.Services.Data;
 import com.mobisprint.aurika.coorg.pojo.petservices.K9Data;
@@ -65,13 +67,21 @@ public class K9Menu extends Fragment implements ApiListner {
 
     private String order_category = "k9menu" ;
 
-    private List<K9Data> selectedList;
+    private int hr,min;
+    private Calendar calendar;
+    private Boolean isDogCakeSeleected = false;
 
+    private List<K9Data> menuList;
+    private List<K9Data> selectedList = new ArrayList<>();
+
+    private Context mContext;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_k9_menu, container, false);
+
+        mContext = getContext();
 
         tv_k9_menu_desc = view.findViewById(R.id.tv_k9_menu_desc);
         recyclerView = view.findViewById(R.id.k9_menu_recyclerview);
@@ -86,6 +96,9 @@ public class K9Menu extends Fragment implements ApiListner {
         lyt = view.findViewById(R.id.lyt);
         progressBar.setVisibility(View.GONE);
         lyt.setVisibility(View.GONE);
+        calendar = Calendar.getInstance();
+        hr = calendar.get(Calendar.HOUR);
+        min = calendar.get(Calendar.MINUTE);
 
 
         Bundle bundle = getArguments();
@@ -94,7 +107,7 @@ public class K9Menu extends Fragment implements ApiListner {
 
         controller = new K9MenuController(this);
 
-        controller.getMenu();
+
 
         /*items_count=GlobalClass.sharedPreferences.getInt(GlobalClass.K9Menu_count,0);
         tv_num_of_items.setText(items_count+" " +"items");
@@ -112,8 +125,27 @@ public class K9Menu extends Fragment implements ApiListner {
                 if (GlobalClass.user_token.isEmpty()){
                     alertBox();
 
-                }else{
-                    showBottomSheetDialog();
+                }else if (GlobalClass.user_active_booking){
+                    /*showBottomSheetDialog();*/
+                    selectedList.clear();
+                    for (int i=0;i<menuList.size();i++){
+                        if (menuList.get(i).getCount()>0){
+                            menuList.get(i).setItem_id(menuList.get(i).getId());
+                            menuList.get(i).setQuantity(menuList.get(i).getCount());
+                            selectedList.add(menuList.get(i));
+                        }
+                    }
+                    BottomDailogFragment fragment = new BottomDailogFragment();
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("Category","k9-menu");
+                    bundle1.putBoolean("DogCake",isDogCakeSeleected);
+                    bundle1.putParcelableArrayList("List", (ArrayList<? extends Parcelable>) selectedList);
+                    fragment.setArguments(bundle1);
+                    /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
+                    fragment.show(getActivity().getSupportFragmentManager(),
+                            "fragment_bottom_sheet_dailog");
+                }else {
+                    GlobalClass.ShowAlert(mContext,"Alert","You don't have active booking to place order");
                 }
 
                /* Fragment fragment = new OrderSummary();
@@ -143,12 +175,15 @@ public class K9Menu extends Fragment implements ApiListner {
     public void onResume() {
         super.onResume();
         items_count = 0;
+        tv_num_of_items.setText("0 items");
+        tv_total_price.setText("₹ 0.00");
+        controller.getMenu();
     }
 
     private void alertBox() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        builder.setMessage("Login to place your order")
+        builder.setMessage("Please login to place your request")
                 .setCancelable(false)
                 .setPositiveButton("Okay", (dialog, id) -> {
                     Intent intent = new Intent(getContext(), UserAuthenticationActivity.class);
@@ -163,100 +198,7 @@ public class K9Menu extends Fragment implements ApiListner {
         }
     }
 
-    private void showBottomSheetDialog() {
 
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
-        bottomSheetDialog.setContentView(R.layout.bottom_dailog_box);
-
-
-        Button bt_today = bottomSheetDialog.findViewById(R.id.bt_today);
-        Button bt_tomorrow = bottomSheetDialog.findViewById(R.id.bt_tomorrow);
-        CardView select_date = bottomSheetDialog.findViewById(R.id.select_date);
-        ImageView img_up_hr = bottomSheetDialog.findViewById(R.id.img_up_hr);
-        ImageView img_down_hr = bottomSheetDialog.findViewById(R.id.img_down_hr);
-
-        LinearLayout lyt_calendar = bottomSheetDialog.findViewById(R.id.lyt_calendar);
-        LinearLayout lyt_select_date = bottomSheetDialog.findViewById(R.id.lyt_select_date);
-        lyt_select_date.setVisibility(View.VISIBLE);
-
-        ImageView img_up_min = bottomSheetDialog.findViewById(R.id.img_up_min);
-        ImageView img_down_min = bottomSheetDialog.findViewById(R.id.img_down_min);
-
-        TextView tv_hr = bottomSheetDialog.findViewById(R.id.tv_hr);
-        TextView tv_min = bottomSheetDialog.findViewById(R.id.tv_min);
-
-
-        Button bt_back = bottomSheetDialog.findViewById(R.id.bt_back);
-        Button bt_save = bottomSheetDialog.findViewById(R.id.bt_save);
-
-        CalendarView calendar_view = bottomSheetDialog.findViewById(R.id.calendar_view);
-
-
-
-        bt_back.setOnClickListener(v -> {
-            lyt_calendar.setVisibility(View.GONE);
-            lyt_select_date.setVisibility(View.VISIBLE);
-        });
-
-        bt_save.setOnClickListener(v -> {
-            lyt_calendar.setVisibility(View.GONE);
-            lyt_select_date.setVisibility(View.VISIBLE);
-        });
-
-        bt_today.setOnClickListener(v -> {
-
-            bt_today.setBackgroundColor(getResources().getColor(R.color.custom_purple));
-            bt_today.setTextColor(Color.WHITE);
-            bt_tomorrow.setBackgroundColor(getResources().getColor(R.color.white));
-            bt_tomorrow.setTextColor(Color.parseColor("#a5a5a5"));
-
-
-        });
-
-        bt_tomorrow.setOnClickListener(v -> {
-
-            bt_tomorrow.setBackgroundColor(getResources().getColor(R.color.custom_purple));
-            bt_tomorrow.setTextColor(Color.WHITE);
-            bt_today.setBackgroundColor(getResources().getColor(R.color.white));
-            bt_today.setTextColor(Color.parseColor("#a5a5a5"));
-
-        });
-
-
-        select_date.setOnClickListener(v -> {
-
-
-            lyt_calendar.setVisibility(View.VISIBLE);
-            lyt_select_date.setVisibility(View.GONE);
-
-            Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-
-            long date = calendar.getTime().getTime();
-            calendar_view.setMinDate(date);
-
-            /*DatePickerDialog datePickerDialog = new DatePickerDialog(mContext,
-                    new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        }
-                    }, year, month, dayOfMonth);
-            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-            datePickerDialog.show();*/
-
-
-            bt_today.setBackgroundColor(getResources().getColor(R.color.white));
-            bt_today.setTextColor(Color.parseColor("#a5a5a5"));
-            bt_tomorrow.setBackgroundColor(getResources().getColor(R.color.white));
-            bt_tomorrow.setTextColor(Color.parseColor("#a5a5a5"));
-
-        });
-
-
-        bottomSheetDialog.show();
-    }
 
     @Override
     public void onFetchProgress() {
@@ -271,7 +213,7 @@ public class K9Menu extends Fragment implements ApiListner {
         if (response!= null){
 
             PetServices services = (PetServices) response.body();
-            List<K9Data> menuList = services.getData();
+            menuList = services.getData();
 
             Gson amenitiesGson = new Gson();
             String amenitiesJson = GlobalClass.sharedPreferences.getString("K9Menu", "");
@@ -373,10 +315,19 @@ public class K9Menu extends Fragment implements ApiListner {
                 try {
 
 
-                    selectedList = new ArrayList<>();
+                    /*selectedList = new ArrayList<>();*/
                     items_count= 0;
                     total_price = 0;
                     for (int i = 0; i<= menuList.size() - 1;i++){
+
+
+                        if (menuList.get(Position).getTitle().equalsIgnoreCase("Dog Cake")){
+                            if (menuList.get(Position).isItemSelected()){
+                                isDogCakeSeleected = true;
+                            }else
+                                isDogCakeSeleected = false;
+                        }
+
                         items_count+=menuList.get(i).getCount();
                         tv_num_of_items.setText(items_count + " items");
 
@@ -389,11 +340,12 @@ public class K9Menu extends Fragment implements ApiListner {
                         }
 
 
-                        if (menuList.get(i).getCount() != 0){
+                        /*if (menuList.get(i).getCount() != 0){
                             selectedList.add(menuList.get(i));
-                        }
+                        }*/
 
                     }
+
 
                     GlobalClass.editor.putInt(GlobalClass.K9Menu_count, items_count);
                     GlobalClass.editor.putFloat(GlobalClass.K9Menu_price, (float) total_price);

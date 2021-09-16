@@ -2,13 +2,13 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@drawable/login_bg"
+    android:background="@drawable/login_screen_coorg"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:background="#99f8F1CD"
         android:layout_width="match_parent"
-        android:layout_margin="@dimen/dimen_20"
+        android:layout_margin="@dimen/dimen_40"
         android:layout_gravity="center"
         android:layout_height="345dp"
         android:gravity="center_vertical"
@@ -19,30 +19,33 @@
             android:id="@+id/top_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_marginTop="@dimen/dimen_30"
             android:fontFamily="@font/notoseriftc__medium"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="Set your M-PIN"
             android:textColor="#420052"
-            android:textSize="16sp" />
+            android:textSize="40sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_marginTop="@dimen/dimen_30"
             android:fontFamily="@font/notoseriftc__medium"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="Create M-pin?"
             android:textColor="#420052"
             android:textStyle="bold"
-            android:textSize="16sp" />
+            android:textSize="35sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="22dp"
+            android:layout_marginLeft="@dimen/dimen_35"
+            android:layout_marginRight="@dimen/dimen_35"
+            android:layout_marginTop="@dimen/dimen_25"
+            android:layout_marginBottom="@dimen/dimen_10"
             android:orientation="horizontal">
 
             <EditText
@@ -50,14 +53,14 @@
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:id="@+id/et1_one"
                 android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_margin="10dp"
+                android:layout_height="140dp"
+                android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -65,15 +68,15 @@
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:fontFamily="@font/notoseriftc__medium"
                 android:id="@+id/et1_two"
                 android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_margin="10dp"
+                android:layout_height="140dp"
+                android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -81,15 +84,15 @@
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:fontFamily="@font/notoseriftc__medium"
                 android:id="@+id/et1_three"
                 android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_margin="10dp"
+                android:layout_height="140dp"
+                android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -97,15 +100,15 @@
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:fontFamily="@font/notoseriftc__medium"
                 android:id="@+id/et1_four"
                 android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_margin="10dp"
+                android:layout_height="140dp"
+                android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -114,19 +117,22 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_20"
             android:fontFamily="@font/notoseriftc__medium"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="Retype M-pin?"
             android:textColor="#420052"
             android:textStyle="bold"
-            android:textSize="16sp" />
+            android:textSize="35sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="22dp"
+            android:layout_marginLeft="@dimen/dimen_35"
+            android:layout_marginRight="@dimen/dimen_35"
+            android:layout_marginTop="@dimen/dimen_25"
+            android:layout_marginBottom="@dimen/dimen_10"
             android:orientation="horizontal">
 
             <EditText
@@ -134,14 +140,14 @@
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:id="@+id/et2_one"
                 android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_margin="10dp"
+                android:layout_height="140dp"
+                android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -149,15 +155,15 @@
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:fontFamily="@font/notoseriftc__medium"
                 android:id="@+id/et2_two"
                 android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_margin="10dp"
+                android:layout_height="140dp"
+                android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -165,15 +171,15 @@
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:fontFamily="@font/notoseriftc__medium"
                 android:id="@+id/et2_three"
                 android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_margin="10dp"
+                android:layout_height="140dp"
+                android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -181,15 +187,15 @@
                 android:includeFontPadding="false"
                 android:textCursorDrawable="@color/black"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:fontFamily="@font/notoseriftc__medium"
                 android:id="@+id/et2_four"
                 android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_margin="10dp"
+                android:layout_height="140dp"
+                android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -197,22 +203,22 @@
 
 
         <Button
+            android:padding="@dimen/dimen_30"
+            android:layout_marginTop="@dimen/dimen_30"
             android:id="@+id/btn_confirm_mpin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_80"
-            android:layout_marginRight="@dimen/dimen_80"
-            android:layout_marginBottom="@dimen/dimen_30"
-            android:background="@color/btn_color"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginBottom="@dimen/dimen_60"
+            android:background="@drawable/btn_background"
             android:fontFamily="@font/notoseriftc__medium"
-            android:paddingTop="@dimen/dimen_10"
             android:includeFontPadding="false"
-            android:paddingBottom="@dimen/dimen_10"
             android:text="CONFIRM"
             android:lineSpacingExtra="@dimen/dimen_11"
             android:textColor="@color/white"
             android:letterSpacing="0.1"
-            android:textSize="18sp" />
+            android:textSize="45sp" />
 
 
 

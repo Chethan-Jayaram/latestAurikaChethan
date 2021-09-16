@@ -30,7 +30,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.mobisprint.aurika.R;
+import com.mobisprint.aurika.coorg.controller.login.ForgotMpinController;
 import com.mobisprint.aurika.coorg.controller.login.OtpController;
+import com.mobisprint.aurika.coorg.controller.login.RegistrationController;
+import com.mobisprint.aurika.coorg.pojo.General;
 import com.mobisprint.aurika.coorg.pojo.login.Login;
 import com.mobisprint.aurika.helper.ApiListner;
 import com.mobisprint.aurika.helper.GlobalClass;
@@ -45,12 +48,13 @@ import static android.app.Activity.RESULT_OK;
 
 public class OtpFragment extends Fragment implements ApiListner {
 
- private EditText et_one,et_two,et_three,et_four,et_five,et_six;
- private OtpController controller;
- private String request_id;
- private TextView tv_resend_otp,tv_resend_otp_timer;
- private Integer counter;
- private Context mContext;
+    private EditText et_one, et_two, et_three, et_four, et_five, et_six;
+    private OtpController controller;
+    private String request_id,from;
+    private TextView tv_resend_otp, tv_resend_otp_timer;
+    private Integer counter;
+    private Context mContext;
+    private String android_id;
     private static final int REQ_USER_CONSENT = 200;
     private SmsBroadcastReceiver smsBroadcastReceiver;
 
@@ -61,7 +65,6 @@ public class OtpFragment extends Fragment implements ApiListner {
         View view = inflater.inflate(R.layout.fragment_otp, container, false);
 
         controller = new OtpController(this);
-
         et_one = view.findViewById(R.id.et_one);
         et_two = view.findViewById(R.id.et_two);
         et_three = view.findViewById(R.id.et_three);
@@ -73,17 +76,20 @@ public class OtpFragment extends Fragment implements ApiListner {
         tv_resend_otp.setVisibility(View.GONE);
         mContext = view.getContext();
 
+        android_id = GlobalClass.prefix + GlobalClass.android_id + GlobalClass.suffix;
+
         otpTimer();
 
         Bundle bundle = getArguments();
-        if (bundle!= null){
+        if (bundle != null) {
             request_id = bundle.getString("request_id");
+            from = bundle.getString("from");
         }
 
         init();
 
         tv_resend_otp.setOnClickListener(v -> {
-            otpTimer();
+            controller.resendOtp(request_id);
         });
 
 
@@ -105,9 +111,9 @@ public class OtpFragment extends Fragment implements ApiListner {
                     // to parse the string.
                     //  String oneTimeCode = message); // define this function
 
-                    String[] OTP= message.split("OTP",6);
+                    String[] OTP = message.split("OTP", 6);
 
-                    onOTPReceived(OTP[1].trim().substring(0,6).trim());
+                    onOTPReceived(OTP[1].trim().substring(0, 6).trim());
                     // send one time code to the server
                 } else {
                     // Consent canceled, handle the error ...
@@ -132,12 +138,12 @@ public class OtpFragment extends Fragment implements ApiListner {
 
     private void otpTimer() {
         counter = 60;
-        new CountDownTimer(60000,1000){
+        new CountDownTimer(60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 tv_resend_otp.setVisibility(View.GONE);
                 tv_resend_otp_timer.setVisibility(View.VISIBLE);
-                tv_resend_otp_timer.setText("Resend OTP in"+" "+String.valueOf(counter)+" seconds");
+                tv_resend_otp_timer.setText("Resend OTP in" + " " + String.valueOf(counter) + " seconds");
                 counter--;
             }
 
@@ -257,6 +263,7 @@ public class OtpFragment extends Fragment implements ApiListner {
                     et_four.requestFocus();
                 }
             }
+
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
             }
@@ -276,10 +283,11 @@ public class OtpFragment extends Fragment implements ApiListner {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
 
-                if (editable.length() ==1){
+                if (editable.length() == 1) {
                     verifyOtp();
                 }
 
@@ -291,20 +299,18 @@ public class OtpFragment extends Fragment implements ApiListner {
         });
 
 
-
-
     }
 
     private void verifyOtp() {
 
-        String otp=et_one.getText().toString()+
-                et_two.getText().toString()+
-                et_three.getText().toString()+
-                et_four.getText().toString()+
-                et_five.getText().toString()+
+        String otp = et_one.getText().toString() +
+                et_two.getText().toString() +
+                et_three.getText().toString() +
+                et_four.getText().toString() +
+                et_five.getText().toString() +
                 et_six.getText().toString();
-        if(otp.length()==6){
-            controller.verifyOtp(request_id,otp);
+        if (otp.length() == 6) {
+            controller.verifyOtp(request_id, otp, android_id);
         }
     }
 
@@ -316,13 +322,21 @@ public class OtpFragment extends Fragment implements ApiListner {
     @Override
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
 
-        if (response != null){
-            Login login = (Login) response.body();
-            Fragment fragment = new CreateMpinFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("token",login.getData().getToken());
-            fragment.setArguments(bundle);
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, fragment).commit();
+        if (response != null) {
+
+            if (response.body() instanceof Login){
+
+                Login login = (Login) response.body();
+                Fragment fragment = new CreateMpinFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("token", login.getData().getToken());
+                fragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, fragment).commit();
+
+            }else if (response.body() instanceof General){
+                otpTimer();
+                startSMSListener();
+            }
 
         }
 
@@ -331,7 +345,7 @@ public class OtpFragment extends Fragment implements ApiListner {
     @Override
     public void onFetchError(String error) {
 
-        GlobalClass.ShowAlert(getContext(),"Alert",error);
+        GlobalClass.ShowAlert(getContext(), "Alert", error);
 
     }
 
@@ -351,12 +365,11 @@ public class OtpFragment extends Fragment implements ApiListner {
     }
 
 
-
     private void startSMSListener() {
         try {
             Task<Void> task = SmsRetriever.getClient(mContext).startSmsUserConsent(null);
             IntentFilter intentFilter = new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION);
-            getActivity().registerReceiver(smsVerificationReceiver,intentFilter,SmsRetriever.SEND_PERMISSION,null);
+            getActivity().registerReceiver(smsVerificationReceiver, intentFilter, SmsRetriever.SEND_PERMISSION, null);
         } catch (Exception e) {
             e.printStackTrace();
         }

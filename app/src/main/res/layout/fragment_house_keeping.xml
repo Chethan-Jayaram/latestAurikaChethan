@@ -51,6 +51,7 @@
                         android:background="#f5efe4"
                         android:fontFamily="@font/notosanstc_light"
                         android:gravity="bottom"
+                        android:justificationMode="inter_word"
                         android:includeFontPadding="false"
                         android:padding="@dimen/dimen_20"
                         android:scaleType="centerCrop"

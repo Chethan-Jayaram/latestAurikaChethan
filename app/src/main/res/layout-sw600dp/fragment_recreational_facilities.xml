@@ -1,59 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:layout_height="match_parent">
 
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <!--  app:contentScrim : The Toolbar color when the
-              collapsing toolbar is collapsed. -->
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar_layout"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progress_bar"
+            android:layout_centerInParent="true"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:indeterminate="true"/>
+
+    </RelativeLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lyt">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-            <!-- app:layout_collapseMode : parallax means an animation effect,
-                 pin means fixed. -->
-
-            <TextView
-                android:id="@+id/tv_recreational_facilities_desc"
+            android:layout_height="wrap_content">
+            <!--  app:contentScrim : The Toolbar color when the
+                  collapsing toolbar is collapsed. -->
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="#e6decc"
-                android:fontFamily="@font/notosanstc_light"
-                android:gravity="bottom"
-                android:text="Recreational facilities at the resort include the fitness center, the refreshing outdoor swimming pool and the Rumpus Room - children's activity area"
-                android:includeFontPadding="false"
-                android:padding="@dimen/dimen_20"
-                android:scaleType="centerCrop"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                app:layout_anchor="@+id/appBarLayout"
-                app:layout_anchorGravity="center"
-                app:layout_collapseMode="parallax" />
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <!-- app:layout_collapseMode : parallax means an animation effect,
+                     pin means fixed. -->
+
+                <TextView
+                    android:id="@+id/tv_recreational_facilities_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@color/pale"
+                    android:fontFamily="@font/notosanstc_light"
+                    android:gravity="bottom"
+                    android:justificationMode="inter_word"
+                    android:text="Recreational facilities at the resort include the fitness center, the refreshing outdoor swimming pool and the Rumpus Room - children's activity area"
+                    android:includeFontPadding="false"
+                    android:padding="@dimen/dimen_30"
+                    android:scaleType="centerCrop"
+                    android:textColor="#000000"
+                    android:textSize="24sp"
+                    app:layout_anchor="@+id/appBarLayout"
+                    app:layout_anchorGravity="center"
+                    app:layout_collapseMode="parallax" />
 
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
-    </com.google.android.material.appbar.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/appBarLayout"
-        android:id="@+id/coorg_recreation_recycler"
-        android:layout_above="@+id/bt_sight_seeing_call_back"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="@dimen/dimen_40"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dimen_10"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/appBarLayout"
+            android:id="@+id/coorg_recreation_recycler"
+            android:layout_above="@+id/bt_sight_seeing_call_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_20"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</RelativeLayout>
+

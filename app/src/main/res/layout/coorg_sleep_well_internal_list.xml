@@ -75,6 +75,7 @@
                             android:visibility="gone"
                             android:id="@+id/tv_coorg_sleep_well_item_desc"
                             android:layout_width="match_parent"
+                            android:justificationMode="inter_word"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/notosanstc_regular"
                             android:includeFontPadding="false"

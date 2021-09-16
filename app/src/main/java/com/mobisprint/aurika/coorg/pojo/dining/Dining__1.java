@@ -1,9 +1,28 @@
 package com.mobisprint.aurika.coorg.pojo.dining;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Dining__1 {
+import java.util.List;
+
+public class Dining__1 implements Parcelable {
+
+
+    @SerializedName("item_id")
+    @Expose
+    private Integer item_id;
+
+    public Integer getItem_id() {
+        return item_id;
+    }
+
+    public void setItem_id(Integer item_id) {
+        this.item_id = item_id;
+    }
+
     @SerializedName("max_count")
     @Expose
     private Integer maxCount;
@@ -173,4 +192,26 @@ public class Dining__1 {
     @SerializedName("last_activity_by")
     @Expose
     private String lastActivityBy;
+
+    @SerializedName("dining_subcategory")
+    @Expose
+    private List<DiningSubcategory> diningSubcategory = null;
+
+    public List<DiningSubcategory> getDiningSubcategory() {
+        return diningSubcategory;
+    }
+
+    public void setDiningSubcategory(List<DiningSubcategory> diningSubcategory) {
+        this.diningSubcategory = diningSubcategory;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
 }

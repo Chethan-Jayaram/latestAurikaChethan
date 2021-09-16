@@ -79,8 +79,8 @@ public class RegistrationFragment extends Fragment implements ApiListner {
 
             reg_check_box.setText(Html.fromHtml("<body>\n" +
                     "        <p" +
-                    "          style=\"color:#1e0028\">  I agree with the  <a href=\"https://www.google.com/\" style=\"color:#1e0028\">Terms &amp; Conditions</a>\n" +
-                    "         and  <a href=\"https://www.google.com/\" style=\"color:#1e0028\">Privacy Policy</a>\n" +
+                    "          style=\"color:#1e0028\">  I agree with the  <a href=\"https://www.lemontreehotels.com/term-condition.aspx\" style=\"color:#1e0028\">Terms &amp; Conditions</a>\n" +
+                    "         and  <a href=\"https://www.lemontreehotels.com/privacy-policy.aspx\" style=\"color:#1e0028\">Privacy Policy</a>\n" +
                     "        </p>" +
                     "    </body>"));
 
@@ -157,6 +157,7 @@ public class RegistrationFragment extends Fragment implements ApiListner {
 
     }
 
+
     @Override
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
         if (response != null) {
@@ -164,6 +165,7 @@ public class RegistrationFragment extends Fragment implements ApiListner {
             Fragment fragment = new OtpFragment();
             Bundle bundle = new Bundle();
             bundle.putString("request_id",login.getData().getRequest_id());
+
             fragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag, fragment).addToBackStack(null).commit();
         }

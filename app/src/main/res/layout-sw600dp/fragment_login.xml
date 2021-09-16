@@ -2,7 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@drawable/login_bg"
+    android:background="@drawable/login_screen_coorg"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -16,14 +16,15 @@
 
         <TextView
             android:textStyle="bold"
+            android:layout_gravity="center"
             android:id="@+id/top_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_20"
-            android:fontFamily="@font/notoseriftc__medium"
+            android:fontFamily="@font/notoseriftc_semibold"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="@string/login_msg"
+            android:text="Login \n to an unforgatable stay"
             android:textColor="#420052"
             android:textSize="24sp" />
 
@@ -41,11 +42,11 @@
                 android:textSize="25sp"
                 android:id="@+id/et_1"
                 android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_margin="15dp"
+                android:layout_height="80dp"
+                android:layout_margin="12dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -57,11 +58,11 @@
                 android:fontFamily="@font/notoseriftc__medium"
                 android:id="@+id/et_2"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dimen_70"
-                android:layout_margin="15dp"
+                android:layout_height="@dimen/dimen_80"
+                android:layout_margin="12dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -73,11 +74,11 @@
                 android:fontFamily="@font/notoseriftc__medium"
                 android:id="@+id/et_3"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dimen_70"
-                android:layout_margin="15dp"
+                android:layout_height="@dimen/dimen_80"
+                android:layout_margin="12dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -89,11 +90,11 @@
                 android:fontFamily="@font/notoseriftc__medium"
                 android:id="@+id/et_4"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dimen_70"
-                android:layout_margin="15dp"
+                android:layout_height="@dimen/dimen_80"
+                android:layout_margin="12dp"
                 android:layout_weight="1"
                 android:background="@drawable/otp_bg"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textAlignment="center" />
 
@@ -101,16 +102,17 @@
 
 
         <Button
+            android:layout_marginTop="@dimen/dimen_10"
             android:paddingTop="@dimen/dimen_15"
             android:paddingBottom="@dimen/dimen_15"
             android:id="@+id/btn_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_80"
-            android:layout_marginRight="@dimen/dimen_80"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
             android:layout_marginBottom="@dimen/dimen_10"
             android:letterSpacing="0.08"
-            android:background="@color/btn_color"
+            android:background="@drawable/btn_background"
             android:fontFamily="@font/notoseriftc__medium"
             android:includeFontPadding="false"
             android:text="CONFIRM"
@@ -142,16 +144,18 @@
             android:fontFamily="@font/notoseriftc__medium"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:padding="@dimen/dimen_20"
-            android:text="Don't have an account?"
+            android:paddingLeft="@dimen/dimen_15"
+            android:paddingRight="@dimen/dimen_15"
+            android:paddingBottom="@dimen/dimen_10"
+            android:paddingTop="@dimen/dimen_15"
+            android:text="New User?"
             android:textColor="#420052"
             android:textSize="22sp"
             android:textStyle="bold" />
 
         <RelativeLayout
-            android:layout_marginTop="@dimen/dimen_5"
-            android:layout_marginLeft="130dp"
-            android:layout_marginRight="130dp"
+            android:layout_marginLeft="200dp"
+            android:layout_marginRight="200dp"
             android:layout_marginBottom="@dimen/dimen_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -172,11 +176,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_35"
-            android:layout_marginBottom="@dimen/dimen_30"
+            android:layout_marginBottom="@dimen/dimen_40"
             android:fontFamily="@font/notoseriftc__medium"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="Skip >>"
+            android:text="Skip >"
             android:textColor="#420052"
             android:textSize="22sp"
             android:textStyle="bold"/>

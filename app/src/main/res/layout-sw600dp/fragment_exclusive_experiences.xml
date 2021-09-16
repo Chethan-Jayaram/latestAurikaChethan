@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progress_bar"
+            android:layout_centerInParent="true"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:indeterminate="true"/>
+
+    </RelativeLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lyt">
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--  app:contentScrim : The Toolbar color when the
+                  collapsing toolbar is collapsed. -->
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <!-- app:layout_collapseMode : parallax means an animation effect,
+                     pin means fixed. -->
+
+                <TextView
+                    android:id="@+id/tv_exclusive_experience_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@color/pale"
+                    android:fontFamily="@font/notosanstc_light"
+                    android:gravity="bottom"
+                    android:justificationMode="inter_word"
+                    android:text="The resort offers many unique venues where you can host private events and make your celebrations extraordinary. These scenic venues, spread across the resort, are just right for those intimate occasions that you want to celebrate. \n \nFrom greeting the dawn with sunrise breakfasts to champagne toasts and sundown canapés at dusk, from romantic candlelit dinners with your partner to toasty barbeques with friends, our chefs are always at your service to craft unusual experiences and create lasting memories. \n \nPlease place a request for a call from our chef within the next 60 mins."
+                    android:includeFontPadding="false"
+                    android:padding="@dimen/dimen_30"
+                    android:scaleType="centerCrop"
+                    android:textColor="#000000"
+                    android:textSize="24sp"
+                    app:layout_anchor="@+id/appBarLayout"
+                    app:layout_anchorGravity="center"
+                    app:layout_collapseMode="parallax" />
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/appBarLayout"
+            android:id="@+id/exlusive_experiences_recycler"
+            android:layout_above="@+id/bt_exclusive_experiences_call_back"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/dimen_50"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_20"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+        <Button
+            android:gravity="center"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_marginBottom="@dimen/dimen_20"
+            android:id="@+id/bt_exclusive_experiences_call_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_background"
+            android:layout_marginLeft="@dimen/dimen_40"
+            android:layout_marginRight="@dimen/dimen_40"
+            android:fontFamily="@font/notoseriftc__medium"
+            android:includeFontPadding="false"
+            android:textAllCaps="false"
+            android:text="Request call back"
+            android:lineSpacingExtra="@dimen/dimen_11"
+            android:textColor="@color/white"
+            android:textSize="28sp" />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+
+</RelativeLayout>

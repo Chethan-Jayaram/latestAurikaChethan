@@ -17,7 +17,7 @@ public class HomeFragmentController {
         this.listner = listner;
     }
 
-    public void getHomeIcons() {
+    public void getHomeIcons(){
         listner.onFetchProgress();
         Call<Home> call = GlobalClass.API_COORG.homeScreen();
         call.enqueue(new Callback<Home>() {
@@ -28,10 +28,10 @@ public class HomeFragmentController {
 
                         listner.onFetchComplete(response);
                     }else {
-                        listner.onFetchError(response.body().getMessage());
+                        listner.onFetchError("Something went wrong, please try again later");
                     }
                 }else {
-                    listner.onFetchError(response.message());
+                    listner.onFetchError("Something went wrong, please try again later");
                 }
             }
 

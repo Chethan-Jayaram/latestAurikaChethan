@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout
+        android:id="@+id/lyt_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_centerInParent="true"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:indeterminate="true"/>
+    </RelativeLayout>
+
+
+
+
+
+    <LinearLayout
+        android:id="@+id/lyt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_10"
+        android:background="@drawable/border_layout"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_coorg_spa"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:scaleType="matrix" />
+
+            <TextView
+                android:id="@+id/tv_coorg_spa_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:textSize="@dimen/dimen_24"
+                android:layout_marginTop="220dp"
+                android:background="@drawable/border_edges"
+                android:fontFamily="@font/notoseriftc_regular"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_12"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:id="@+id/lyt_select_therapy"
+                android:padding="@dimen/dimen_10"
+                android:layout_margin="@dimen/dimen_15"
+                android:background="@drawable/border_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_alignLeft="@+id/therapy_price"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/therapy_price"
+                    android:layout_marginRight="@dimen/dimen_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+
+                    android:id="@+id/therapy_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select Therapy"
+                    android:textSize="18sp"
+                    android:textColor="#010101"
+                    android:fontFamily="@font/notosanstc_medium"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"/>
+
+                    <TextView
+                        android:id="@+id/therapy_time"
+                        android:layout_toRightOf="@id/therapy_heading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="16sp"
+                        android:layout_marginRight="@dimen/dimen_20"
+                        android:textColor="#A9A9A9"
+                        android:fontFamily="@font/notoseriftc__medium"
+                        android:layout_marginLeft="@dimen/dimen_4"
+                        android:layout_centerInParent="true"/>
+                </RelativeLayout>
+
+
+
+                <ImageView
+                    android:id="@+id/img_drop_down"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/ccp_down_arrow"
+                    android:layout_toLeftOf="@+id/prefered_time_wine_and_dine"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="@dimen/dimen_30"/>
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/therapy_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_toLeftOf="@id/img_drop_down"
+                    android:textSize="18sp"
+                    android:textColor="#010101"
+                    android:fontFamily="@font/notoseriftc__medium"
+                    android:layout_marginRight="@dimen/dimen_20"
+                    android:layout_centerInParent="true"/>
+
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_marginRight="@dimen/dimen_20"
+                android:padding="@dimen/dimen_10"
+                android:id="@+id/spa_therapy_recyclerview"/>
+
+
+
+
+
+       <RelativeLayout
+           android:id="@+id/img_time"
+                android:padding="@dimen/dimen_10"
+                android:layout_margin="@dimen/dimen_15"
+                android:background="@drawable/border_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/req_date_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Preferred date and time"
+                    android:textSize="18sp"
+                    android:textColor="#010101"
+                    android:fontFamily="@font/notosanstc_medium"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"/>
+
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/time"
+                    android:layout_toLeftOf="@+id/prefered_time_wine_and_dine"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="@dimen/dimen_30"/>
+
+            </RelativeLayout>
+
+
+        <Button
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:id="@+id/btn_request_booking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:layout_marginRight="120dp"
+            android:layout_marginBottom="@dimen/dimen_20"
+            android:background="@drawable/button_corner_radius"
+            android:fontFamily="@font/notoseriftc_regular"
+            android:paddingTop="@dimen/dimen_8"
+            android:paddingBottom="@dimen/dimen_8"
+            android:includeFontPadding="false"
+            android:textAllCaps="false"
+            android:text="Request booking"
+            android:lineSpacingExtra="@dimen/dimen_10"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+    </LinearLayout>
+
+</FrameLayout>

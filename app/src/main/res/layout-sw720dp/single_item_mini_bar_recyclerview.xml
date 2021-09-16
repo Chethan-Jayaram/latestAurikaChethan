@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content">
+
+    <TableLayout
+        android:background="@drawable/table_layout_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:id="@+id/table_header"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_minibar_title"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Beverages"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_30"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:fontFamily="@font/notosanstc_bold"/>
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:background="@drawable/table_layout_inner_border"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_column="0"
+                android:layout_weight="1"
+                android:text="ITEM"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/notosanstc_bold"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_15"
+                android:textSize="25sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:background="@drawable/table_layout_inner_border"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_column="1"
+                android:text="PRE-PLACED QTY"
+                android:fontFamily="@font/notosanstc_bold"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_15"
+                android:textSize="24sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:background="@drawable/table_layout_inner_border"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_column="2"
+                android:text="PRICE PER ITEM"
+                android:fontFamily="@font/notosanstc_bold"
+                android:includeFontPadding="false"
+                android:padding="@dimen/dimen_15"
+                android:textSize="24sp"
+                android:textColor="@color/black"/>
+
+        </TableRow>
+
+
+
+
+    </TableLayout>
+
+</LinearLayout>

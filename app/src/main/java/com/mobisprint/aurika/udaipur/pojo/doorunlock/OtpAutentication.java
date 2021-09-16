@@ -8,17 +8,7 @@ import com.mobisprint.aurika.udaipur.pojo.GeneralPojo;
 public class OtpAutentication extends GeneralPojo {
 
 
-    @SerializedName("error")
-    @Expose
-    private String error;
 
-    public String getError() {
-        return error;
-    }
-
-    public void setError(String error) {
-        this.error = error;
-    }
 
     @SerializedName("result")
     @Expose

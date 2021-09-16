@@ -40,11 +40,23 @@
             android:textColor="#000000"/>-->
 
         <TextView
+            android:id="@+id/tv_and_Service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_amenities_item_name"
+            android:text="(and services)"
+            android:fontFamily="@font/notosanstc_bold"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:paddingLeft="@dimen/dimen_10"
+            android:textSize="16sp"/>
+
+        <TextView
             android:id="@+id/tv_amenities_item_price"
             android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_amenities_item_name"
+            android:layout_below="@+id/tv_and_Service"
             android:textColor="#070707"
             android:textSize="14sp"
             android:includeFontPadding="false"
@@ -55,12 +67,14 @@
         <RelativeLayout
             android:layout_marginTop="@dimen/dimen_5"
             android:id="@+id/lyt_sel"
+            android:background="@color/white"
             android:layout_marginRight="@dimen/dimen_20"
             android:layout_alignParentRight="true"
             android:layout_width="100dp"
             android:layout_height="wrap_content">
 
             <include
+
                 android:visibility="gone"
                 android:layout_marginTop="@dimen/dimen_2"
                 android:id="@+id/bt_amen_multiple"

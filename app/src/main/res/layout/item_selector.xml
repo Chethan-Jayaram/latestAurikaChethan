@@ -68,8 +68,8 @@
                 android:layout_gravity="center"
                 android:layout_weight="0.3"
                 android:background="@color/white"
-                android:paddingLeft="@dimen/dimen_1"
-                android:paddingRight="@dimen/dimen_1"
+                android:paddingLeft="@dimen/dimen_2"
+                android:paddingRight="@dimen/dimen_2"
                 app:srcCompat="@drawable/img_menu_add"
                 app:tint="@color/black" />
 
@@ -79,20 +79,25 @@
     </androidx.cardview.widget.CardView>
 
 
+
+
     <androidx.cardview.widget.CardView
         android:visibility="gone"
         android:id="@+id/lyt_add"
-        android:background="@color/white"
+
         android:layout_width="@dimen/dimen_80"
+app:cardCornerRadius="@dimen/dimen_6"
         android:layout_height="@dimen/dimen_30">
 
 
         <TextView
+
             android:id="@+id/bt_add"
+            android:background="@drawable/cardview_border_layout"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/cardview_border_layout"
             android:fontFamily="@font/notosanstc_medium"
             android:gravity="center"
             android:includeFontPadding="false"

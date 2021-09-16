@@ -141,6 +141,7 @@ public class SpaFragment extends Fragment implements ApiListner {
                 Bundle bundle = new Bundle();
                 bundle.putString("title",spaList.get(0).getTitle());
                 bundle.putString("image",spaList.get(0).getImage());
+                bundle.putInt("id",spaList.get(0).getId());
                 fragment.setArguments(bundle);
                 /*FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);

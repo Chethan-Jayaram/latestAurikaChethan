@@ -493,7 +493,11 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
                                 edit.putBoolean("verifed_otp", true);
                                 edit.putString("UserName", GlobalClass.USER_NAME);
                                 edit.apply();
-                                Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DoorUnlockingFragment()).commit();
+                                Fragment fragment = new DoorUnlockingFragment();
+                                Bundle bundle = new Bundle();
+                                bundle.putString("Key","Udaipur");
+                                fragment.setArguments(bundle);
+                                Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
                             } else {
                                 CustomMessageHelper showDialog = new CustomMessageHelper(context);
                                 showDialog.showCustomMessage((Activity) context, "Alert!!", response.body().getError(), false, false);

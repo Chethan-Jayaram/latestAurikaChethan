@@ -37,6 +37,7 @@
         </RelativeLayout>
 
         <TextView
+            android:justificationMode="inter_word"
             android:id="@+id/tv_sight_seeing_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

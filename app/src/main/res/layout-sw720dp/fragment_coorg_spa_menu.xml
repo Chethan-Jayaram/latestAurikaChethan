@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".coorg.fragments.spa.CoorgSpaMenu">
+
+
+
+      <ProgressBar
+          android:visibility="gone"
+          android:id="@+id/progress_bar"
+          android:layout_centerInParent="true"
+          android:layout_width="120dp"
+          android:layout_height="120dp"
+          android:indeterminate="true"/>
+
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+      android:id="@+id/lyt">
+
+      <ExpandableListView
+          android:divider="@null"
+          android:groupIndicator="@null"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_above="@+id/bt_request_appointment"
+          android:id="@+id/coorg_spa_menu_recyclerview"/>
+
+      <Button
+          android:padding="@dimen/dimen_15"
+          android:layout_marginTop="@dimen/dimen_30"
+          android:layout_alignParentBottom="true"
+          android:gravity="center"
+          android:layout_gravity="bottom"
+          android:id="@+id/bt_request_appointment"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@drawable/btn_background"
+          android:layout_marginLeft="@dimen/dimen_60"
+          android:layout_marginRight="@dimen/dimen_60"
+          android:fontFamily="@font/notoseriftc__medium"
+          android:includeFontPadding="false"
+          android:textAllCaps="false"
+          android:layout_marginBottom="@dimen/dimen_30"
+          android:text="Request appointment"
+          android:lineSpacingExtra="@dimen/dimen_11"
+          android:textColor="@color/white"
+          android:textSize="38sp" />
+
+   </RelativeLayout>
+
+
+
+
+</RelativeLayout>

@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,6 +37,7 @@ import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.activity.UserAuthenticationActivity;
 import com.mobisprint.aurika.coorg.adapter.LaundryServiceAdapter;
 import com.mobisprint.aurika.coorg.controller.services.LaundryServiceController;
+import com.mobisprint.aurika.coorg.fragments.BottomDailogFragment;
 import com.mobisprint.aurika.coorg.fragments.OrderSummary;
 import com.mobisprint.aurika.coorg.pojo.Services.Category_item;
 import com.mobisprint.aurika.coorg.pojo.Services.CoorgServicesPojo;
@@ -68,6 +70,10 @@ public class LaundryService extends Fragment implements ApiListner {
     private String order_category = "laundry";
     private CoordinatorLayout lyt;
     private ProgressBar progressBar;
+    private int hr,min;
+    private Calendar calendar;
+    private List<Data> laundry_service_list;
+    private List<Category_item> selectedList = new ArrayList<>();
 
 
    // private List<Data> mlaundryList;
@@ -92,6 +98,9 @@ public class LaundryService extends Fragment implements ApiListner {
         progressBar.setVisibility(View.GONE);
         lyt.setVisibility(View.GONE);
         laundry_instructions = view.findViewById(R.id.laundry_instructions);
+        calendar = Calendar.getInstance();
+        hr = calendar.get(Calendar.HOUR);
+        min = calendar.get(Calendar.MINUTE);
 
         /*String sourceString = "1. " + "<b>" + "Garments returned for ironing are returned folded." + "</b> " + "Please infrom laundry if you would like them delivered on a hanger instead.";
         laundry_instructions.setText(Html.fromHtml(sourceString));*/
@@ -113,7 +122,7 @@ public class LaundryService extends Fragment implements ApiListner {
 
         total_price = GlobalClass.sharedPreferences.getFloat(GlobalClass.Laundry_price,0);
         tv_total_price.setText("₹ "+GlobalClass.round(total_price,2));*/
-       controller.getLaundryServices();
+
 
 
 
@@ -123,8 +132,27 @@ public class LaundryService extends Fragment implements ApiListner {
                 if (GlobalClass.user_token.isEmpty()){
                     alertBox();
 
-                }else{
-                    showBottomSheetDialog();
+                }else if (GlobalClass.user_active_booking) {
+                    /*showBottomSheetDialog();*/
+                    selectedList.clear();
+                    for (int i=0;i<laundry_service_list.size();i++){
+                        for (int j=0;j<laundry_service_list.get(i).getCategory_item().size();j++){
+                            if (laundry_service_list.get(i).getCategory_item().get(j).getCount()>0){
+                                laundry_service_list.get(i).getCategory_item().get(j).setItem_id(laundry_service_list.get(i).getCategory_item().get(j).getId());
+                                laundry_service_list.get(i).getCategory_item().get(j).setQuantity(laundry_service_list.get(i).getCategory_item().get(j).getCount());
+                                selectedList.add(laundry_service_list.get(i).getCategory_item().get(j));
+                            }
+                        }
+                    }
+                    BottomDailogFragment fragment = new BottomDailogFragment();
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("Category","laundry");
+                    bundle1.putParcelableArrayList("List", (ArrayList<? extends Parcelable>) selectedList);
+                    fragment.setArguments(bundle1);
+                    fragment.show(getActivity().getSupportFragmentManager(),
+                            "fragment_bottom_sheet_dailog");
+                } else{
+                    GlobalClass.ShowAlert(mContext,"Alert","You don't have active booking to place order");
                 }
 
                 /*Fragment fragment = new OrderSummary();
@@ -150,7 +178,7 @@ public class LaundryService extends Fragment implements ApiListner {
     private void alertBox() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
-        builder.setMessage("Login to place your order")
+        builder.setMessage("Please login to place your request")
                 .setCancelable(false)
                 .setPositiveButton("Okay", (dialog, id) -> {
                     Intent intent = new Intent(mContext, UserAuthenticationActivity.class);
@@ -184,8 +212,13 @@ public class LaundryService extends Fragment implements ApiListner {
         LinearLayout lyt_select_date = bottomSheetDialog.findViewById(R.id.lyt_select_date);
         lyt_select_date.setVisibility(View.VISIBLE);
 
+        TextView tv__bottomsheet_tittle = bottomSheetDialog.findViewById(R.id.tv__bottomsheet_tittle);
+
         ImageView img_up_min = bottomSheetDialog.findViewById(R.id.img_up_min);
         ImageView img_down_min = bottomSheetDialog.findViewById(R.id.img_down_min);
+
+        TextView tv_pm = bottomSheetDialog.findViewById(R.id.tv_pm);
+        TextView tv_am = bottomSheetDialog.findViewById(R.id.tv_am);
 
         TextView tv_hr = bottomSheetDialog.findViewById(R.id.tv_hr);
         TextView tv_min = bottomSheetDialog.findViewById(R.id.tv_min);
@@ -194,8 +227,76 @@ public class LaundryService extends Fragment implements ApiListner {
         Button bt_back = bottomSheetDialog.findViewById(R.id.bt_back);
         Button bt_save = bottomSheetDialog.findViewById(R.id.bt_save);
 
+        CheckBox checkbox_hanger = bottomSheetDialog.findViewById(R.id.checkbox_hanger);
+        CheckBox checkbox_folded = bottomSheetDialog.findViewById(R.id.checkbox_folded);
+
+
         CalendarView calendar_view = bottomSheetDialog.findViewById(R.id.calendar_view);
 
+        bt_today.setBackgroundColor(getResources().getColor(R.color.custom_purple));
+        bt_today.setTextColor(Color.WHITE);
+
+        tv__bottomsheet_tittle.setText("Preferred pick-up time?");
+
+        int am = calendar.get(Calendar.HOUR_OF_DAY);
+
+        checkbox_folded.setOnClickListener(v -> {
+           checkbox_hanger.setChecked(false);
+        });
+
+        checkbox_hanger.setOnClickListener(v -> {
+            checkbox_folded.setChecked(false);
+        });
+
+        tv_min.setText(String.valueOf(min) + " m");
+        tv_hr.setText(String.valueOf(am) + " h");
+
+        if (am>12){
+            tv_pm.setTextColor(Color.BLACK);
+            tv_am.setTextColor(Color.parseColor("#a5a5a5"));
+        }else {
+            tv_pm.setTextColor(Color.parseColor("#a5a5a5"));
+            tv_am.setTextColor(Color.BLACK);
+        }
+
+        img_up_hr.setOnClickListener(v -> {
+            if (hr<12){
+                hr = hr+1;
+                tv_hr.setText(String.valueOf(hr) + " h");
+            }
+        });
+
+        img_down_hr.setOnClickListener(v -> {
+            if (hr>1){
+                hr = hr-1;
+                tv_hr.setText(String.valueOf(hr) + " h");
+            }
+        });
+
+        img_up_min.setOnClickListener(v -> {
+            if (min<60){
+                min = min +1;
+                tv_min.setText(String.valueOf(min) + " m");
+            }
+        });
+
+        tv_am.setOnClickListener(v -> {
+            tv_pm.setTextColor(Color.parseColor("#a5a5a5"));
+            tv_am.setTextColor(Color.BLACK);
+        });
+
+        tv_pm.setOnClickListener(v -> {
+            tv_pm.setTextColor(Color.BLACK);
+            tv_am.setTextColor(Color.parseColor("#a5a5a5"));
+        });
+
+
+        img_down_min.setOnClickListener(v -> {
+            if (min>1){
+                min = min - 1;
+                tv_min.setText(String.valueOf(min) + " m");
+            }
+        });
 
         bt_save_order.setOnClickListener(v -> {
             lyt_select_date.setVisibility(View.GONE);
@@ -279,6 +380,9 @@ public class LaundryService extends Fragment implements ApiListner {
     public void onResume() {
         super.onResume();
         items_count = 0;
+        tv_num_of_items.setText("0 items");
+        tv_total_price.setText("₹ 0.00");
+        controller.getLaundryServices();
     }
 
     @Override
@@ -288,7 +392,7 @@ public class LaundryService extends Fragment implements ApiListner {
 
         if (response != null){
             CoorgServicesPojo servicesPojo= (CoorgServicesPojo) response.body();
-            List<Data> laundry_service_list = servicesPojo.getData();
+            laundry_service_list = servicesPojo.getData();
 
 
             if (arrPackageData != null) {

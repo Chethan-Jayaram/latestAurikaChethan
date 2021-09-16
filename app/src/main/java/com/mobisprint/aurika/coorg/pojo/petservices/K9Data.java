@@ -11,6 +11,18 @@ import com.google.gson.annotations.SerializedName;
 
 public class K9Data implements Parcelable {
 
+    @SerializedName("item_id")
+    @Expose
+    private Integer item_id;
+
+    public Integer getItem_id() {
+        return item_id;
+    }
+
+    public void setItem_id(Integer item_id) {
+        this.item_id = item_id;
+    }
+
     @SerializedName("ishourbounded")
     @Expose
     private Boolean ishourbounded;

@@ -33,7 +33,6 @@ public class RouteName {
     public  static final String sightseeing = "sightseeing";
 
 
-
     public static final String resort_map = "resort-map";
 
 
@@ -113,6 +112,10 @@ public class RouteName {
                 return COORG_PATH+"fragments.ResortMapFragment";
             case other_assistance:
                 return COORG_PATH+"fragments.services.OtherAssistance";
+            case my_stay:
+                return COORG_PATH+"fragments.MyStayFragment";
+            case assa_abloy_door_unlock:
+                return COORG_PATH+"fragments.DoorUnlockBookings";
             default:return "";
 
         }

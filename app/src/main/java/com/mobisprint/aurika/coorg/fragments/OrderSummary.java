@@ -385,7 +385,7 @@ public class OrderSummary extends Fragment {
                     Log.d("dining_size", String.valueOf(diningList.size()));
 
 
-                    ReviewOrderExpandableListAdapter adapter5 = new ReviewOrderExpandableListAdapter(diningList, title, mContext, data -> {
+                    ReviewOrderExpandableListAdapter adapter5 = new ReviewOrderExpandableListAdapter(diningList, title, mContext, (data) -> {
 
                         items_count = 0;
                         total_price = 0;
@@ -398,6 +398,7 @@ public class OrderSummary extends Fragment {
 
                                 if (diningList.get(i).getDiningList().get(j).getCount() >= 0 ){
                                     category_items.add(diningList.get(i).getDiningList().get(j));
+
                                     total_price +=diningList.get(i).getDiningList().get(j).getCount() * Double.parseDouble(diningList.get(i).getDiningList().get(j).getPrice()) ;
                                     tv_item_total_price.setText("₹" + " " + GlobalClass.round(total_price,2));
                                     tv_total_price.setText("₹" + " " + GlobalClass.round((total_price + service_tax),2));

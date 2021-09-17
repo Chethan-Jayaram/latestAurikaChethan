@@ -4,9 +4,12 @@ package com.mobisprint.aurika.coorg.pojo.dining;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import kotlin.random.AbstractPlatformRandom;
 
 public class DiningSubcategory implements Parcelable {
 
@@ -81,6 +84,16 @@ public class DiningSubcategory implements Parcelable {
     @SerializedName("subcategory_items")
     @Expose
     private List<SubcategoryItem> subcategoryItems = null;
+
+    private List<SubcategoryItem> customisedSubCategoryItems = new ArrayList<>();
+
+    public List<SubcategoryItem> getCustomisedSubCategoryItems() {
+        return customisedSubCategoryItems;
+    }
+
+    public void setCustomisedSubCategoryItems(List<SubcategoryItem> customisedSubCategoryItems) {
+        this.customisedSubCategoryItems = customisedSubCategoryItems;
+    }
 
     public Integer getId() {
         return id;

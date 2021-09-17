@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Dining__1 implements Parcelable {
@@ -196,6 +197,29 @@ public class Dining__1 implements Parcelable {
     @SerializedName("dining_subcategory")
     @Expose
     private List<DiningSubcategory> diningSubcategory = null;
+
+
+    @Expose
+    private List<DiningSubcategory> customisedlist = new ArrayList<>();
+
+   private List<List<DiningSubcategory>> customisedCheckbox=new ArrayList<>();
+
+    public List<List<DiningSubcategory>> getCustomisedCheckbox() {
+        return customisedCheckbox;
+    }
+
+    public void setCustomisedCheckbox(List<List<DiningSubcategory>> customisedCheckbox) {
+        this.customisedCheckbox = customisedCheckbox;
+    }
+
+    public List<DiningSubcategory> getCustomisedlist() {
+        return customisedlist;
+    }
+
+
+    public void setCustomisedlist(List<DiningSubcategory> customisedlist) {
+        this.customisedlist = customisedlist;
+    }
 
     public List<DiningSubcategory> getDiningSubcategory() {
         return diningSubcategory;

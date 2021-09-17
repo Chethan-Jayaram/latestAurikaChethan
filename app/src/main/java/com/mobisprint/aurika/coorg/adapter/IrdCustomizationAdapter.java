@@ -24,11 +24,16 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
 
     private Context mContext;
     private List<DiningSubcategory> diningSubcategory;
+    private GlobalClass.CustomExpandableAdapterListenerIRD listner;
+    private  GlobalClass.CustomExpandableCheckboxListenerIRD checkboxListner;
 
 
-    public IrdCustomizationAdapter(Context mContext, List<DiningSubcategory> diningSubcategory) {
+
+    public IrdCustomizationAdapter(Context mContext, List<DiningSubcategory> diningSubcategory, GlobalClass.CustomExpandableAdapterListenerIRD listner, GlobalClass.CustomExpandableCheckboxListenerIRD checkboxListner) {
         this.diningSubcategory = diningSubcategory;
         this.mContext = mContext;
+        this.listner=listner;
+        this.checkboxListner=checkboxListner;
     }
 
 
@@ -83,11 +88,14 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
         RadioButton radio_btn = convertView.findViewById(R.id.radio_btn);
         CheckBox checkbox_btn = convertView.findViewById(R.id.checkbox_btn);
         TextView sub_category_title = convertView.findViewById(R.id.sub_category_title);
+
         radio_btn.setChecked(diningSubcategory.get(groupPosition)
                 .getRadioSelected());
 
+
         checkbox_btn.setChecked(diningSubcategory.get(groupPosition)
                 .getCheckBoxSelected());
+
 
         if (!diningSubcategory.get(groupPosition).getPrice().isEmpty() && !diningSubcategory.get(groupPosition).getPrice().equalsIgnoreCase("0.00") ){
             price.setText("+"+ " ₹ " + diningSubcategory.get(groupPosition).getPrice());
@@ -128,15 +136,9 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
 
 
             radio_btn.setOnClickListener(v -> {
-                if (diningSubcategory.get(groupPosition)
-                        .getRadioSelected()) {
-                    radio_btn.setChecked(false);
-                    setResetRadiobutton(groupPosition,false);
-                } else {
-                    radio_btn.setChecked(true);
                     setResetRadiobutton(groupPosition,true);
 
-                }
+               // listner.onItemClicked(groupPosition,0,diningSubcategory.get(groupPosition));
 
 
             });
@@ -146,8 +148,8 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
                     diningSubcategory.get(groupPosition).setCheckBoxSelected(false);
                 }else{
                     setResetcheckboxbutton(groupPosition);
-
                 }
+                checkboxListner.onItemClicked(groupPosition,0,diningSubcategory);
             });
 
 
@@ -190,7 +192,7 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
                 .setRadioSelected(value);
         notifyDataSetChanged();
 
-
+         listner.onItemClicked(groupPosition,0,diningSubcategory.get(groupPosition));
     }
 
 
@@ -250,15 +252,9 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
 
 
         radio_btn.setOnClickListener(v -> {
-            if (diningSubcategory.get(groupPosition).getSubcategoryItems().get(childPosition)
-                    .getRadioSelected()) {
-                radio_btn.setChecked(false);
-                setResetChildRadiobutton(groupPosition,childPosition,false);
-            } else {
-                radio_btn.setChecked(true);
+
                 setResetChildRadiobutton(groupPosition,childPosition,true);
 
-            }
 
 
         });
@@ -268,8 +264,8 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
                 diningSubcategory.get(groupPosition).getSubcategoryItems().get(childPosition).setCheckBoxSelected(false);
             }else{
                 setResetChildCheckboxbutton(groupPosition,childPosition);
-
             }
+            checkboxListner.onItemClicked(groupPosition,childPosition,diningSubcategory);
         });
 
 
@@ -295,6 +291,7 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
         }
         notifyDataSetChanged();
 
+
     }
 
     private void setResetChildRadiobutton(int groupPosition , int childPosition, boolean value) {
@@ -305,6 +302,7 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
         diningSubcategory.get(groupPosition).getSubcategoryItems().get(childPosition)
                 .setRadioSelected(value);
         notifyDataSetChanged();
+        listner.onItemClicked(groupPosition,childPosition,diningSubcategory.get(groupPosition));
 
     }
 

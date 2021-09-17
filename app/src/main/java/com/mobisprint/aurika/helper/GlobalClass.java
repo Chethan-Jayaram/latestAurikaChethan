@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.modle.TicketModle;
 import com.mobisprint.aurika.coorg.pojo.Services.Data;
+import com.mobisprint.aurika.coorg.pojo.dining.DiningSubcategory;
 import com.mobisprint.aurika.coorg.pojo.petservices.K9Data;
 import com.mobisprint.aurika.coorg.services.APIMethods;
 import com.mobisprint.aurika.retrofit.ClientServiceGenerator;
@@ -160,9 +161,25 @@ public class GlobalClass {
 
     }
 
+
+    public interface CustomExpandableAdapterListenerIRD {
+        void onItemClicked(int groupPos, int childPos, DiningSubcategory diningSubcategory);
+
+    }
+
+    public interface CustomExpandableCheckboxListenerIRD {
+        void onItemClicked(int groupPos, int childPos, List<DiningSubcategory> diningSubcategory);
+
+    }
+
     public interface FragmentCallback {
         void onDataSent(TicketModle ticketModle);
     }
+
+    public interface IRDFragmentCallback {
+        void onCustomizationAdded(int radiocheck,DiningSubcategory diningSubcategory,List<DiningSubcategory> checkboxSubcategory);
+    }
+
 
     public static Boolean timeComparator(String fromTime, String toTime) {
         try {

@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white">
-
-
         <RelativeLayout
+            android:id="@+id/top_lyt"
             android:layout_width="match_parent"
-            android:layout_height="135dp"
+            android:layout_height="100dp"
             android:background="#e5e5e5">
 
             <ImageView
@@ -31,7 +30,7 @@
                 android:id="@+id/lyt_title"
                 android:gravity="center"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@id/img_close"
+
                 android:layout_marginLeft="@dimen/dimen_20"
                 android:layout_marginTop="@dimen/dimen_15"
                 android:layout_width="wrap_content"
@@ -73,27 +72,41 @@
 
         </RelativeLayout>
 
-        <ExpandableListView
-            android:id="@+id/sub_category_expandable_list"
+        <ScrollView
+            android:layout_below="@+id/top_lyt"
+            android:fillViewport="true"
             android:layout_width="match_parent"
-            android:groupIndicator="@null"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_10"/>
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.mobisprint.aurika.helper.NonScrollExpandableListView
+                    android:nestedScrollingEnabled="false"
+                  android:layout_alignParentTop="true"
+                    android:id="@+id/sub_category_expandable_list"
+                    android:layout_width="match_parent"
+                    android:groupIndicator="@null"
+                    android:layout_height="wrap_content" />
 
 
-        <Button
-            android:id="@+id/bt_add"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="ADD"
-            android:textSize="20dp"
-            android:textColor="@color/white"
-            android:background="@color/custom_purple"
-            android:fontFamily="@font/notosanstc_medium"
-            android:includeFontPadding="false"/>
+                <Button
+                    android:id="@+id/bt_add"
+               android:layout_below="@+id/sub_category_expandable_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:text="ADD"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:background="@color/custom_purple"
+                    android:fontFamily="@font/notosanstc_medium"
+                    android:includeFontPadding="false"/>
 
+            </RelativeLayout>
 
-    </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
 
-</FrameLayout>
+</RelativeLayout>

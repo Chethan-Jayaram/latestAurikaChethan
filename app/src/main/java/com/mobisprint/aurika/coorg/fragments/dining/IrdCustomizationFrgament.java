@@ -3,6 +3,7 @@ package com.mobisprint.aurika.coorg.fragments.dining;
 import android.content.Context;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +13,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.gson.Gson;
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.adapter.IrdCustomizationAdapter;
+import com.mobisprint.aurika.coorg.modle.ServiceModle;
+import com.mobisprint.aurika.coorg.pojo.Services.Data;
 import com.mobisprint.aurika.coorg.pojo.dining.DiningSubcategory;
 import com.mobisprint.aurika.helper.GlobalClass;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import static com.mobisprint.aurika.R.drawable.day_item_background;
 import static com.mobisprint.aurika.R.drawable.icon_nonveg;
 import static com.mobisprint.aurika.R.drawable.icon_veg;
 
@@ -80,21 +88,61 @@ public class IrdCustomizationFrgament extends BottomSheetDialogFragment   {
         adapter = new IrdCustomizationAdapter(mContext, diningSubcategoryList, (groupPos, childPos,DiningSubcategory) -> {
 
             bt_add.setOnClickListener(v -> {
+                List<Data> details=new ArrayList<>();
+                    for(int i=0;i<DiningSubcategory.size();i++) {
+                        Data data = new Data();
+                        List<Data> details1 = new ArrayList<>();
+                        if (DiningSubcategory.get(i).getSubcategoryItems().size()>0) {
+                            for (int j = 0; j < DiningSubcategory.get(i).getSubcategoryItems().size(); j++) {
+                                if(DiningSubcategory.get(i).getSubcategoryItems().get(j).getItemOption().equalsIgnoreCase("radio")){
+                                    if(DiningSubcategory.get(i).getSubcategoryItems().get(j).getRadioSelected()){
+                                        data.setTitle(DiningSubcategory.get(i).getTitle());
+                                        Data data1 = new Data();
+                                        data1.setTitle(DiningSubcategory.get(i).getSubcategoryItems().get(j).getTitle());
+                                        data1.setPrice(DiningSubcategory.get(i).getSubcategoryItems().get(j).getPrice());
+                                        details1.add(data1);
+                                    }
+                                }else if(DiningSubcategory.get(i).getSubcategoryItems().get(j).getItemOption().equalsIgnoreCase("checkbox")){
+                                    if(DiningSubcategory.get(i).getSubcategoryItems().get(j).getCheckBoxSelected()){
+                                        data.setTitle(DiningSubcategory.get(i).getTitle());
+                                        Data data1 = new Data();
+                                        data1.setTitle(DiningSubcategory.get(i).getSubcategoryItems().get(j).getTitle());
+                                        data1.setPrice(DiningSubcategory.get(i).getSubcategoryItems().get(j).getPrice());
+                                        details1.add(data1);
+                                    }
+                                }
 
-                fragmentCallback.onCustomizationAdded(1,DiningSubcategory,null);
+                            }
+                            data.setDetails(details1);
+                            details.add(data);
+                        }else{
+                            if(DiningSubcategory.get(i).getItemOption().equalsIgnoreCase("radio")) {
+                                if (DiningSubcategory.get(i).getRadioSelected()) {
+                                    data.setTitle(DiningSubcategory.get(i).getTitle());
+                                    data.setPrice(DiningSubcategory.get(i).getPrice());
+                                    details.add(data);
+                                }
+                            }else if(DiningSubcategory.get(i).getItemOption().equalsIgnoreCase("checkbox")){
+                                if (DiningSubcategory.get(i).getCheckBoxSelected()) {
+                                    data.setTitle(DiningSubcategory.get(i).getTitle());
+                                    data.setPrice(DiningSubcategory.get(i).getPrice());
+                                    details.add(data);
+                                }
+                            }
+                            // modle.setDetails(details);
+
+                        }
+                    }
+
+                Gson gson = new Gson();
+
+                Log.d("mydata",gson.toJson(details));
+
+
+                fragmentCallback.onCustomizationAdded(1,details,null);
                 this.dismiss();
 
             });
-
-        },(groupPos, childPos,checkbox)->{
-            bt_add.setOnClickListener(v -> {
-
-                fragmentCallback.onCustomizationAdded(0,null,checkbox);
-                this.dismiss();
-
-            });
-
-
         });
         expandableListView.setAdapter(adapter);
 

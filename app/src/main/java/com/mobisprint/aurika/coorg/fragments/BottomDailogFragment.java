@@ -467,6 +467,9 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                 diningModle.setBooking(booking);
                 diningModle.setRoomNumber(GlobalClass.ROOM_NO);
                 diningModle.setRequestTime(reqtime);
+
+
+
                 break;
 
             case "wine-and-dine":

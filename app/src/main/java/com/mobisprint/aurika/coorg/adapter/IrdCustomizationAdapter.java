@@ -25,15 +25,14 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
     private Context mContext;
     private List<DiningSubcategory> diningSubcategory;
     private GlobalClass.CustomExpandableAdapterListenerIRD listner;
-    private  GlobalClass.CustomExpandableCheckboxListenerIRD checkboxListner;
 
 
 
-    public IrdCustomizationAdapter(Context mContext, List<DiningSubcategory> diningSubcategory, GlobalClass.CustomExpandableAdapterListenerIRD listner, GlobalClass.CustomExpandableCheckboxListenerIRD checkboxListner) {
+    public IrdCustomizationAdapter(Context mContext, List<DiningSubcategory> diningSubcategory, GlobalClass.CustomExpandableAdapterListenerIRD listner) {
         this.diningSubcategory = diningSubcategory;
         this.mContext = mContext;
         this.listner=listner;
-        this.checkboxListner=checkboxListner;
+
     }
 
 
@@ -149,7 +148,7 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
                 }else{
                     setResetcheckboxbutton(groupPosition);
                 }
-                checkboxListner.onItemClicked(groupPosition,0,diningSubcategory);
+                listner.onItemClicked(groupPosition,0,diningSubcategory);
             });
 
 
@@ -192,7 +191,7 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
                 .setRadioSelected(value);
         notifyDataSetChanged();
 
-         listner.onItemClicked(groupPosition,0,diningSubcategory.get(groupPosition));
+         listner.onItemClicked(groupPosition,0,diningSubcategory);
     }
 
 
@@ -265,7 +264,7 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
             }else{
                 setResetChildCheckboxbutton(groupPosition,childPosition);
             }
-            checkboxListner.onItemClicked(groupPosition,childPosition,diningSubcategory);
+            listner.onItemClicked(groupPosition,childPosition,diningSubcategory);
         });
 
 
@@ -302,12 +301,8 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
         diningSubcategory.get(groupPosition).getSubcategoryItems().get(childPosition)
                 .setRadioSelected(value);
         notifyDataSetChanged();
-        listner.onItemClicked(groupPosition,childPosition,diningSubcategory.get(groupPosition));
-
+        listner.onItemClicked(groupPosition,childPosition,diningSubcategory);
     }
-
-
-
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {

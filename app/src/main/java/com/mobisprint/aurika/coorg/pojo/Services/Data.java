@@ -282,4 +282,16 @@ public class Data implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
 
     }
+
+    @SerializedName("details")
+    @Expose
+    private List<Data> details = null;
+
+    public List<Data> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<Data> details) {
+        this.details = details;
+    }
 }

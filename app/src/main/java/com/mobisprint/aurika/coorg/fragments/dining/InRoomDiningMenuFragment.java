@@ -42,6 +42,7 @@ import com.mobisprint.aurika.coorg.modle.DiningModle;
 import com.mobisprint.aurika.coorg.pojo.Services.Category_item;
 import com.mobisprint.aurika.coorg.pojo.dining.Data;
 import com.mobisprint.aurika.coorg.pojo.dining.Dining;
+import com.mobisprint.aurika.coorg.pojo.dining.DiningSubcategory;
 import com.mobisprint.aurika.coorg.pojo.dining.Dining__1;
 import com.mobisprint.aurika.coorg.pojo.sightseeing.SightSeeing;
 import com.mobisprint.aurika.coorg.pojo.ticketing.Ticket;
@@ -55,6 +56,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -165,10 +167,14 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                                 if (dataList.get(i).getDiningList().get(j).getCount() > 0) {
                                     dataList.get(i).getDiningList().get(j).setItem_id(dataList.get(i).getDiningList().get(j).getId());
                                     dataList.get(i).getDiningList().get(j).setQuantity(dataList.get(i).getDiningList().get(j).getCount());
+
                                     selectedList.add(dataList.get(i).getDiningList().get(j));
                                 }
                             }
                         }
+
+
+                        //  filterSeleteData(selectedList);
 
                        /* title = "Dining "+bundle.getString("title") + " Ticket";
 
@@ -180,7 +186,6 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                         diningModle.setRequestTime(reqtime);
                         diningModle.setRequestDate(requestDate);
                         ticketController.diningTicketCreation(diningModle);*/
-
                         BottomDailogFragment fragment = new BottomDailogFragment();
                         Bundle bundle1 = new Bundle();
                         bundle1.putString("Category", "Dining" + bundle.getString("title"));
@@ -243,6 +248,49 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
         return view;
     }
 
+    /*
+        private void filterSeleteData(List<Dining__1> selectedList) {
+
+            for (int i = 0; i < selectedList.size(); i++) {
+                if(selectedList.get(i).getCustomisedlist().size()>0) {
+                    for (int j = 0; j < selectedList.get(i).getCustomisedlist().size(); j++) {
+                        removeUnsetvalues(selectedList.get(i).getDiningSubcategory());
+                        }
+                }
+                if(selectedList.get(i).getCustomisedCheckbox().size()>0){
+                    for (int j = 0; j < selectedList.get(i).getCustomisedCheckbox().size(); j++) {
+                        removeUnsetCheckBoxValues(selectedList.get(i).getCustomisedCheckbox());
+                    }
+                }
+
+            }
+
+        }*/
+    private void removeUnsetvalues(List<DiningSubcategory> diningSubcategory) {
+        for (int k = 0; k < diningSubcategory.size(); k++) {
+            for (int i = 0; i < diningSubcategory.get(k).getCustomisedSubCategoryItems().size(); i++) {
+                if (diningSubcategory.get(k).getCustomisedSubCategoryItems().get(i).getItemOption().equalsIgnoreCase("radio")) {
+                    if (!diningSubcategory.get(k).getCustomisedSubCategoryItems().get(i).getRadioSelected()) {
+                        diningSubcategory.get(k).getCustomisedSubCategoryItems().remove(i);
+                    }
+                }
+            }
+        }
+
+    }
+
+    private void removeUnsetCheckBoxValues(List<List<DiningSubcategory>> checkbox) {
+        for (int k = 0; k < checkbox.size(); k++) {
+            for (int i = 0; i < checkbox.get(k).size(); i++) {
+                if (checkbox.get(k).get(i).getItemOption().equalsIgnoreCase("checkbox")) {
+                    if (!checkbox.get(k).get(i).getCheckBoxSelected()) {
+                        checkbox.get(k).remove(i);
+                    }
+                }
+            }
+        }
+    }
+
 
     private void alertBox() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -273,8 +321,8 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
     public void onResume() {
         super.onResume();
         items_count = 0;
-        tv_num_of_items.setText( GlobalClass.sharedPreferences.getInt(bundle.getString("title") + "Count",0)+" items");
-        tv_total_price.setText("₹ "+GlobalClass.sharedPreferences.getFloat(bundle.getString("title") + "Price",0.00f)+"");
+        tv_num_of_items.setText(GlobalClass.sharedPreferences.getInt(bundle.getString("title") + "Count", 0) + " items");
+        tv_total_price.setText("₹ " + GlobalClass.sharedPreferences.getFloat(bundle.getString("title") + "Price", 0.00f) + "");
     }
 
     @Override
@@ -295,7 +343,7 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                 }
 
 
-                Gson gson = new Gson();
+              /*  Gson gson = new Gson();
                 String json = GlobalClass.sharedPreferences.getString(bundle.getString("title"), "");
                 if (json.isEmpty()) {
                     //Toast.makeText(mContext, "Something went worng", Toast.LENGTH_LONG).show();
@@ -303,91 +351,11 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                     Type type = new TypeToken<List<Data>>() {
                     }.getType();
                     diningArrPackagedata = new ArrayList(gson.fromJson(json, type));
-                }
+                }*/
 
                 GlobalClass.editor.putBoolean(bundle.getString("title") + SharedPreferenceVariables.Dining_IsSingleItemSelected, false);
                 GlobalClass.editor.putBoolean(bundle.getString("title") + SharedPreferenceVariables.Dining_IsMultipleItemSelected, false);
                 GlobalClass.editor.commit();
-
-            /*try {
-
-                if (diningArrPackagedata !=null){
-
-                    items_count = 0;
-                    total_price = 0;
-
-                    for (int i =0; i<dataList.size();i++){
-                        for (int j = 0;j<diningArrPackagedata.size();j++){
-                            *//*if(dataList.get(i).getId().equals(diningArrPackagedata.get(j).getId())){
-                                dataList.remove(i);
-                                dataList.add(i,diningArrPackagedata.get(j));
-                            }*//*
-                 *//* if (laundry_service_list.get(i).getCategory_item().get(j).getId().equals(arrPackageData.get(i).getCategory_item().get(j).getId()) ){
-                                laundry_service_list.get(i).getCategory_item().get(j).setCount(arrPackageData.get(i).getCategory_item().get(j).getCount());
-                            }*//*
-
-
-                            for (int x=0; x<dataList.get(i).getDiningList().size(); x++){
-                                for (int y=0; y<diningArrPackagedata.get(j).getDiningList().size(); y++){
-                                    if (dataList.get(i).getDiningList().get(x).getId().equals(diningArrPackagedata.get(j).getDiningList().get(y).getId())){
-
-                                        if (!(diningArrPackagedata.get(j).getDiningList().get(y).getItemselectorType().equalsIgnoreCase(dataList.get(i).getDiningList().get(x).getItemselectorType()))){
-                                            diningArrPackagedata.clear();
-                                            GlobalClass.editor.putBoolean(bundle.getString("title") + SharedPreferenceVariables.Dining_IsSingleItemSelected,false);
-                                            GlobalClass.editor.putBoolean(bundle.getString("title") + SharedPreferenceVariables.Dining_IsMultipleItemSelected,false);
-                                            GlobalClass.editor.commit();
-                                        }else if (diningArrPackagedata.get(j).getDiningList().get(y).getItemselectorType().equalsIgnoreCase(dataList.get(i).getDiningList().get(x).getItemselectorType())
-                                                && diningArrPackagedata.get(j).getDiningList().get(y).getCount()>0){
-                                            dataList.get(i).getDiningList().get(x).setCount(diningArrPackagedata.get(j).getDiningList().get(y).getCount());
-                                            dataList.get(i).getDiningList().get(x).setItemSelected(true);
-
-                                            if (diningArrPackagedata.get(j).getDiningList().get(y).getItemselectorType().equalsIgnoreCase("single")){
-
-
-                                                GlobalClass.editor.putBoolean(bundle.getString("title") + SharedPreferenceVariables.Dining_IsSingleItemSelected,true);
-                                                GlobalClass.editor.putBoolean(bundle.getString("title") + SharedPreferenceVariables.Dining_IsMultipleItemSelected,false);
-                                                GlobalClass.editor.commit();
-
-                                            }else if (diningArrPackagedata.get(j).getDiningList().get(y).getItemselectorType().equalsIgnoreCase("multi")){
-
-
-                                                GlobalClass.editor.putBoolean(bundle.getString("title") + SharedPreferenceVariables.Dining_IsSingleItemSelected,false);
-                                                GlobalClass.editor.putBoolean(bundle.getString("title") + SharedPreferenceVariables.Dining_IsMultipleItemSelected,true);
-                                                GlobalClass.editor.commit();
-
-                                            }
-
-                                            items_count += dataList.get(i).getDiningList().get(x).getCount();
-                                            tv_num_of_items.setText(items_count+" " +"items");
-
-
-                                            if (dataList.get(i).getDiningList().get(x).getCount() >= 0 ){
-                                                total_price +=dataList.get(i).getDiningList().get(x).getCount() * Double.parseDouble(dataList.get(i).getDiningList().get(x).getPrice()) ;
-                                                tv_total_price.setText("₹ "+ " "+GlobalClass.round(total_price,2));
-                                            }
-
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    GlobalClass.editor.putInt(bundle.getString("title") + "Count", items_count);
-                    GlobalClass.editor.putFloat(bundle.getString("title") + "Price", (float) total_price);
-                    Set<Data> set = new LinkedHashSet<>(dataList);
-                    Gson diningGson = new Gson();
-                    String diningJson = diningGson.toJson(set);
-                    GlobalClass.editor.putString(bundle.getString("title"), diningJson);
-                    GlobalClass.editor.commit();
-
-                }
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }*/
-
 
                 InRoomDiningMenuAdapter adapter = new InRoomDiningMenuAdapter(mContext, dataList, bundle.getString("title"), getActivity().getSupportFragmentManager(), (data) -> {
 
@@ -396,7 +364,6 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
 
                         items_count = 0;
                         total_price = 0;
-
 
                         for (int i = 0; i < dataList.size(); i++) {
                             Data data1 = dataList.get(i);
@@ -410,61 +377,42 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                                 if (dataList.get(i).getDiningList().get(j).getCount() >= 0) {
                                     category_items.add(dataList.get(i).getDiningList().get(j));
 
-                                    total_price += dataList.get(i).getDiningList().get(j).getCount() * Double.parseDouble(dataList.get(i).getDiningList().get(j).getPrice());
-                                    //  for(int i=0;i<dataList.get(i).getDiningList().get(j))
+                                    if (!(dataList.get(i).getDiningList().get(j).getCustomisedList().size() > 0)) {
+                                        total_price += dataList.get(i).getDiningList().get(j).getCount() * Double.parseDouble(dataList.get(i).getDiningList().get(j).getPrice());
 
+                                    } else {
+                                        total_price += dataList.get(i).getDiningList().get(j).getCount() *
+                                                Double.parseDouble(dataList.get(i).getDiningList().get(j).getPrice());
 
-
-
-                                        if(dataList.get(i).getDiningList().get(j).getCustomisedlist().size()>0) {
-
-                                            for (int k = 0; k < dataList.get(i).getDiningList().get(j).getCustomisedlist().size(); k++) {
-                                                if (dataList.get(i).getDiningList().get(j).getCustomisedlist().get(k).getSubcategoryItems().size() > 0) {
-                                                    for (int l = 0; l < dataList.get(i).getDiningList().get(j).getCustomisedlist().get(k).getSubcategoryItems().size(); l++) {
-                                                        if (dataList.get(i).getDiningList().get(j).getCustomisedlist().get(k).getSubcategoryItems().get(l).getItemOption().equalsIgnoreCase("radio")) {
-                                                            if (dataList.get(i).getDiningList().get(j).getCustomisedlist().get(k).getSubcategoryItems().get(l).getRadioSelected()) {
-                                                                double additioncharges = Double.parseDouble(dataList.get(i).getDiningList().get(j).getCustomisedlist().get(k).getSubcategoryItems().get(l).getPrice());
-                                                                total_price += additioncharges;
-                                                            }
-                                                        }
-                                                    }
-                                                } else {
-                                                    if (dataList.get(i).getDiningList().get(j).getCustomisedlist().get(k).getItemOption().equalsIgnoreCase("radio")) {
-                                                        if (dataList.get(i).getDiningList().get(j).getCustomisedlist().get(k).getRadioSelected()) {
-                                                            double additioncharges = Double.parseDouble(dataList.get(i).getDiningList().get(j).getCustomisedlist().get(k).getPrice());
+                                        for (int k = 0; k < dataList.get(i).getDiningList().get(j).getCustomisedList().size(); k++) {
+                                            if(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails()!=null) {
+                                                for (int l = 0; l < dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().size(); l++) {
+                                                    double additioncharges = Double.parseDouble(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getPrice());
+                                                    total_price += additioncharges;
+                                                   /* if (dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getDetails()!=null) {
+                                                       *//* for (int m = 0; m < dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getDetails().size(); m++) {
+                                                            double additioncharges = Double.parseDouble(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getDetails().get(m).getPrice());
                                                             total_price += additioncharges;
-                                                        }
-                                                    }
+                                                        }*//*
+                                                    } else {
+
+                                                    }*/
                                                 }
 
 
+                                            } else {
+                                                double additioncharges = Double.parseDouble(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getPrice());
+                                                total_price += additioncharges;
                                             }
                                         }
-
-                                            /*else {
-                                            if (diningSubcategoryList.get(groupPos).getItemOption().equalsIgnoreCase("radio")) {
-                                                if (diningSubcategoryList.get(groupPos).getRadioSelected()) {
-
-                                                    fragmentCallback.onCustomizationAdded(groupPos, childPos);
-                                                    this.dismiss();
-
-                                                    break;
-                                                } else {
-                                                    GlobalClass.ShowAlert(mContext, "", "Please select any one item from the list");
-
-                                                }
-                                            }else{
-                                                fragmentCallback.onCustomizationAdded(groupPos, childPos);
-                                                this.dismiss();
-                                            }
-
-                                        }*/
-
 
 
                                     }
 
+
                                 }
+
+                            }
 
 
                             tv_total_price.setText("₹ " + " " + GlobalClass.round(total_price, 2));
@@ -473,8 +421,6 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                             GlobalClass.editor.commit();
 
                         }
-
-
 
 
                     } catch (Exception e) {
@@ -499,6 +445,7 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
         }
 
     }
+
 
     @Override
     public void onFetchError(String error) {

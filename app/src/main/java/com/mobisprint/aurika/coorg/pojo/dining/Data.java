@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Data implements Parcelable {
@@ -67,6 +68,7 @@ public class Data implements Parcelable {
     public List<Dining__1> getDiningList() {
         return diningList;
     }
+
 
     public void setDiningList(List<Dining__1> diningList) {
         this.diningList = diningList;

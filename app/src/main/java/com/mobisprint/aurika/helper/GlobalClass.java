@@ -28,6 +28,7 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class GlobalClass {
@@ -163,21 +164,18 @@ public class GlobalClass {
 
 
     public interface CustomExpandableAdapterListenerIRD {
-        void onItemClicked(int groupPos, int childPos, DiningSubcategory diningSubcategory);
-
-    }
-
-    public interface CustomExpandableCheckboxListenerIRD {
         void onItemClicked(int groupPos, int childPos, List<DiningSubcategory> diningSubcategory);
 
     }
+
+
 
     public interface FragmentCallback {
         void onDataSent(TicketModle ticketModle);
     }
 
     public interface IRDFragmentCallback {
-        void onCustomizationAdded(int radiocheck,DiningSubcategory diningSubcategory,List<DiningSubcategory> checkboxSubcategory);
+        void onCustomizationAdded(int radiocheck,List<Data> data , List<DiningSubcategory> checkboxSubcategory);
     }
 
 

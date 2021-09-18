@@ -7,10 +7,23 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Dining__1 implements Parcelable {
 
+    @SerializedName("details")
+    @Expose
+    public List<com.mobisprint.aurika.coorg.pojo.Services.Data> customisedList =new ArrayList<>();
+
+    public List<com.mobisprint.aurika.coorg.pojo.Services.Data> getCustomisedList() {
+        return customisedList;
+    }
+
+    public void setCustomisedList(List<com.mobisprint.aurika.coorg.pojo.Services.Data> customisedList) {
+        this.customisedList = customisedList;
+    }
 
     @SerializedName("item_id")
     @Expose
@@ -198,29 +211,6 @@ public class Dining__1 implements Parcelable {
     @Expose
     private List<DiningSubcategory> diningSubcategory = null;
 
-
-    @Expose
-    private List<DiningSubcategory> customisedlist = new ArrayList<>();
-
-   private List<List<DiningSubcategory>> customisedCheckbox=new ArrayList<>();
-
-    public List<List<DiningSubcategory>> getCustomisedCheckbox() {
-        return customisedCheckbox;
-    }
-
-    public void setCustomisedCheckbox(List<List<DiningSubcategory>> customisedCheckbox) {
-        this.customisedCheckbox = customisedCheckbox;
-    }
-
-    public List<DiningSubcategory> getCustomisedlist() {
-        return customisedlist;
-    }
-
-
-    public void setCustomisedlist(List<DiningSubcategory> customisedlist) {
-        this.customisedlist = customisedlist;
-    }
-
     public List<DiningSubcategory> getDiningSubcategory() {
         return diningSubcategory;
     }
@@ -238,4 +228,6 @@ public class Dining__1 implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
 
     }
+
+
 }

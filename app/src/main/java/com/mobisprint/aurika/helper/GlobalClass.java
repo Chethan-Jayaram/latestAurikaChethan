@@ -175,7 +175,7 @@ public class GlobalClass {
     }
 
     public interface IRDFragmentCallback {
-        void onCustomizationAdded(int radiocheck,List<Data> data , List<DiningSubcategory> checkboxSubcategory);
+        void onCustomizationAdded(List<Data> data );
     }
 
 

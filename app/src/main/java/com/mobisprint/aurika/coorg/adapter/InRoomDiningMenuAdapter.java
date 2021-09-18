@@ -435,14 +435,17 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter implement
     }
 
     @Override
-    public void onCustomizationAdded(int radiocheck, List<com.mobisprint.aurika.coorg.pojo.Services.Data> data, List<DiningSubcategory> mCustomisedCheckitem) {
+    public void onCustomizationAdded( List<com.mobisprint.aurika.coorg.pojo.Services.Data> data) {
 
-        if (radiocheck == 1) {
 
-            dataList.get(this.groupPos).getDiningList().get(this.childPos).setCustomisedList(data);
-        } else if (radiocheck == 0) {
+            com.mobisprint.aurika.coorg.pojo.Services.Data data1=new com.mobisprint.aurika.coorg.pojo.Services.Data();
+            data1.setTitle( dataList.get(this.groupPos).getDiningList().get(this.childPos).getTitle());
+            data1.setQuantity(1);
+            data1.setPrice(dataList.get(this.groupPos).getDiningList().get(this.childPos).getPrice());
+            data1.setItem_id(dataList.get(this.groupPos).getDiningList().get(this.childPos).getItem_id());
+            data1.setDetails(data);
+            dataList.get(this.groupPos).getDiningList().get(this.childPos).getCustomisedList().add(data1);
 
-        }
         GlobalClass.editor.putBoolean(title + SharedPreferenceVariables.Dining_IsMultipleItemSelected, true);
         GlobalClass.editor.commit();
         dataList.get(this.groupPos).getDiningList().get(this.childPos).setCount(ListTextexpanded.getCount() + 1);

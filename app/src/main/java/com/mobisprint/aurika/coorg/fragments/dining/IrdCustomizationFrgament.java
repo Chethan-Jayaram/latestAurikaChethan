@@ -134,12 +134,8 @@ public class IrdCustomizationFrgament extends BottomSheetDialogFragment   {
                         }
                     }
 
-                Gson gson = new Gson();
 
-                Log.d("mydata",gson.toJson(details));
-
-
-                fragmentCallback.onCustomizationAdded(1,details,null);
+                fragmentCallback.onCustomizationAdded(details);
                 this.dismiss();
 
             });

@@ -321,6 +321,7 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
     public void onResume() {
         super.onResume();
         items_count = 0;
+        items_count=GlobalClass.sharedPreferences.getInt(bundle.getString("title") + "Count", 0);
         tv_num_of_items.setText(GlobalClass.sharedPreferences.getInt(bundle.getString("title") + "Count", 0) + " items");
         tv_total_price.setText("₹ " + GlobalClass.sharedPreferences.getFloat(bundle.getString("title") + "Price", 0.00f) + "");
     }
@@ -387,16 +388,14 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                                         for (int k = 0; k < dataList.get(i).getDiningList().get(j).getCustomisedList().size(); k++) {
                                             if(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails()!=null) {
                                                 for (int l = 0; l < dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().size(); l++) {
-                                                    double additioncharges = Double.parseDouble(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getPrice());
-                                                    total_price += additioncharges;
-                                                   /* if (dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getDetails()!=null) {
-                                                       *//* for (int m = 0; m < dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getDetails().size(); m++) {
+                                                   /* double additioncharges = Double.parseDouble(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getPrice());
+                                                    total_price += additioncharges;*/
+                                                    if (dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getDetails()!=null) {
+                                                        for (int m = 0; m < dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getDetails().size(); m++) {
                                                             double additioncharges = Double.parseDouble(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getDetails().get(m).getPrice());
                                                             total_price += additioncharges;
-                                                        }*//*
-                                                    } else {
-
-                                                    }*/
+                                                        }
+                                                    }
                                                 }
 
 

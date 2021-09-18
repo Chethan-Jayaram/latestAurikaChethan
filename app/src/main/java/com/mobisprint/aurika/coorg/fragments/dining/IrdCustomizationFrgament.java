@@ -113,8 +113,10 @@ public class IrdCustomizationFrgament extends BottomSheetDialogFragment   {
                                 }
 
                             }
-                            data.setDetails(details1);
-                            details.add(data);
+                            if(details1.size()>0) {
+                                data.setDetails(details1);
+                                details.add(data);
+                            }
                         }else{
                             if(DiningSubcategory.get(i).getItemOption().equalsIgnoreCase("radio")) {
                                 if (DiningSubcategory.get(i).getRadioSelected()) {
@@ -133,6 +135,7 @@ public class IrdCustomizationFrgament extends BottomSheetDialogFragment   {
 
                         }
                     }
+
 
 
                 fragmentCallback.onCustomizationAdded(details);

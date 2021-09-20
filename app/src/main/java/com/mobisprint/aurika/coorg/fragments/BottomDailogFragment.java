@@ -97,7 +97,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
     private Detail detail = new Detail();
     private GlobalClass.FragmentCallback fragmentCallback;
     private Date date,selected_time,current_time,date1;
-    private DateFormat formatter = new SimpleDateFormat("hh:mm a");
+    private SimpleDateFormat formatter = new SimpleDateFormat("hh:mm aa");
     private DateTimeFormatter dtf1;
     private DateFormat fr = new SimpleDateFormat("hh:mm");
     private EditText et_special_instruction;
@@ -106,7 +106,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
 
     private Calendar mindate1,mindate2, checkout_date;
 
-    private String sel_date="",c_time,item_name, ticketType;
+    private String sel_date="",c_time,item_name, ticketType,final_reqTime;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -206,11 +206,6 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
              item_name = bundle.getString("item_name");
         }
 
-
-
-
-
-
         if (category.equalsIgnoreCase("laundry") || category.equalsIgnoreCase("wine-and-dine")){
             calendar.add(Calendar.HOUR,1);
             calendar.add(Calendar.MINUTE,1);
@@ -232,7 +227,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                 calendar.add(Calendar.HOUR,2);
                 calendar.add(Calendar.MINUTE,1);
 
-            }if (item_name.equalsIgnoreCase("Baby Sitting Service (Per Hour)")){
+            }else if (item_name.equalsIgnoreCase("Baby Sitting Service (Per Hour)")){
                 trmin = false;
                 twohr = false;
                 frhr = true;
@@ -318,7 +313,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                 serviceModle.setTitle(title);
                 serviceModle.setBooking(booking);
                 serviceModle.setRoomNumber(GlobalClass.ROOM_NO);
-                serviceModle.setRequestTime(reqtime);
+
                 break;
 
             case "k9-services":
@@ -338,10 +333,9 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                 petServicesModle.setTitle(title);
                 petServicesModle.setBooking(booking);
                 petServicesModle.setRoomNumber(GlobalClass.ROOM_NO);
-
-                petServicesModle.setRequestTime(reqtime);
                 break;
             case "laundry":
+                tv__bottomsheet_tittle.setText("When do you need the pickup?");
                 tv_sub_heading.setVisibility(View.VISIBLE);
                 today = true;
                 laundryList.clear();
@@ -355,8 +349,6 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                 laundryModle.setTitle(title);
                 laundryModle.setBooking(booking);
                 laundryModle.setRoomNumber(GlobalClass.ROOM_NO);
-
-                laundryModle.setRequestTime(reqtime);
                 break;
 
             case "k9-menu":
@@ -386,7 +378,6 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                 petServicesModle.setTitle(title);
                 petServicesModle.setBooking(booking);
                 petServicesModle.setRoomNumber(GlobalClass.ROOM_NO);
-                petServicesModle.setRequestTime(reqtime);
 
                 break;
             case "amenities":
@@ -403,8 +394,6 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                 serviceModle.setBooking(booking);
 
                 serviceModle.setRoomNumber(GlobalClass.ROOM_NO);
-
-                serviceModle.setRequestTime(reqtime);
 
                 break;
 
@@ -432,8 +421,6 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                 sleepWellModle.setBooking(booking);
 
                 sleepWellModle.setRoomNumber(GlobalClass.ROOM_NO);
-
-                sleepWellModle.setRequestTime(reqtime);
                 break;
 
             case "k9-amenities":
@@ -450,7 +437,6 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
 
                 petServicesModle.setRoomNumber(GlobalClass.ROOM_NO);
 
-                petServicesModle.setRequestTime(reqtime);
                 break;
 
 
@@ -466,8 +452,6 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                 diningModle.setTitle(title);
                 diningModle.setBooking(booking);
                 diningModle.setRoomNumber(GlobalClass.ROOM_NO);
-                diningModle.setRequestTime(reqtime);
-
 
 
                 break;
@@ -487,7 +471,6 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
 
                 ticketModle.setRoomNumber(GlobalClass.ROOM_NO);
 
-                ticketModle.setRequestTime(reqtime);
 
                 break;
 
@@ -507,14 +490,25 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                 ticketModle.setTitle(title);
                 ticketModle.setBooking(booking);
                 ticketModle.setRoomNumber(GlobalClass.ROOM_NO);
-                ticketModle.setRequestTime(reqtime);
+
         }
 
 
         bt_save_order.setOnClickListener(v -> {
 
 
-           /* requestDate = sel_date + " " + reqtime;*/
+            String timeeee = reqtime + " " + am_or_pm;
+            SimpleDateFormat dateFormat2 = new SimpleDateFormat("hh:mm aa");
+            SimpleDateFormat dateFormat4 = new SimpleDateFormat("HH:mm:ss");
+            try {
+                Date datez = dateFormat2.parse(timeeee);
+
+                final_reqTime = dateFormat4.format(datez);
+            } catch (ParseException e) {
+            }
+
+
+            /* requestDate = sel_date + " " + reqtime;*/
 
 
             special_instruction = et_special_instruction.getText().toString();
@@ -533,8 +527,10 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                 }else if (item_name.equalsIgnoreCase("Baby Cot") || item_name.equalsIgnoreCase("Extra Bed")){
                     calendar1.add(Calendar.HOUR,2);
 
-                }if (item_name.equalsIgnoreCase("Baby Sitting Service (Per Hour)")){
+                }else if (item_name.equalsIgnoreCase("Baby Sitting Service (Per Hour)")){
                     calendar1.add(Calendar.HOUR,4);
+                }else{
+                    calendar1.add(Calendar.MINUTE,30);
                 }
             }else{
                 calendar1.add(Calendar.MINUTE,30);
@@ -582,6 +578,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
 
                     if (today){
                         if (date.after(current_time)){
+                            serviceModle.setRequestTime(final_reqTime);
                             serviceModle.setRequestDate(requestDate);
                             controller.ticketingCreation(serviceModle);
                             break;
@@ -601,6 +598,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
 
                         if (format.format(select).equals(format.format(dtt4))){
                             if (date.after(current_time)){
+                                serviceModle.setRequestTime(final_reqTime);
                                 serviceModle.setRequestDate(requestDate);
                                 controller.ticketingCreation(serviceModle);
                                 break;
@@ -614,6 +612,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                                 }
                             }
                         }else if (select.after(dtt4)){
+                            serviceModle.setRequestTime(final_reqTime);
                             serviceModle.setRequestDate(requestDate);
                             controller.ticketingCreation(serviceModle);
                             break;
@@ -627,6 +626,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                             }
                         }
                     }else{
+                        serviceModle.setRequestTime(final_reqTime);
                         serviceModle.setRequestDate(requestDate);
                         controller.ticketingCreation(serviceModle);
                         break;
@@ -635,6 +635,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
 
                 case "amenities":
 
+                    serviceModle.setRequestTime(final_reqTime);
                     requestDate = null;
                     serviceModle.setSpecial_instructions(special_instruction);
                     serviceModle.setRequestDate(requestDate);
@@ -657,6 +658,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                     break;
 
                 case "sleepwell":
+                    sleepWellModle.setRequestTime(final_reqTime);
                     requestDate = sel_date + " " + reqtime;
 
                     sleepWellModle.setSpecial_instructions(special_instruction);
@@ -683,6 +685,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
 
                     if (today){
                         if (date.after(current_time)){
+                            laundryModle.setRequestTime(final_reqTime);
                             laundryModle.setRequestDate(requestDate);
                             controller.ticketingCreation(laundryModle);
                             break;
@@ -696,12 +699,14 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
 
                         if (format.format(select).equals(format.format(dtt1))){
                             if (date.after(current_time)){
+                                laundryModle.setRequestTime(final_reqTime);
                                 laundryModle.setRequestDate(requestDate);
                                 controller.ticketingCreation(laundryModle);
                             }else {
                                 GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 1 hour after the current time");
                             }
                         }else if (select.after(dtt1)){
+                            laundryModle.setRequestTime(final_reqTime);
                             laundryModle.setRequestDate(requestDate);
                             controller.ticketingCreation(laundryModle);
                         }else{
@@ -709,6 +714,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                         }
 
                     }else{
+                        laundryModle.setRequestTime(final_reqTime);
                         laundryModle.setRequestDate(requestDate);
                         controller.ticketingCreation(laundryModle);
                         break;
@@ -716,6 +722,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                     break;
 
                 case "k9-amenities":
+                    petServicesModle.setRequestTime(final_reqTime);
                     requestDate = sel_date + " " + reqtime;
                     petServicesModle.setSpecial_instructions(special_instruction);
                     if (today){
@@ -738,6 +745,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
 
                     if (today){
                         if (date.after(current_time)){
+                            petServicesModle.setRequestTime(final_reqTime);
                             petServicesModle.setRequestDate(requestDate);
                             controller.k9TicketCreation(petServicesModle);
                             break;
@@ -745,6 +753,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                             GlobalClass.ShowAlert(getContext(),"Alert","Please select above 30 minutes from current time");
                         }
                     }else{
+                        petServicesModle.setRequestTime(final_reqTime);
                         petServicesModle.setRequestDate(requestDate);
                         controller.k9TicketCreation(petServicesModle);
                         break;
@@ -753,6 +762,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
 
 
                 case "in-room-dining":
+                    diningModle.setRequestTime(final_reqTime);
                     diningModle.setSpecial_instructions(special_instruction);
                     requestDate = sel_date + " " + reqtime;
                     diningModle.setRequestDate(requestDate);
@@ -762,6 +772,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
 
 
                 case "k9-menu":
+                    petServicesModle.setRequestTime(final_reqTime);
 
                     petServicesModle.setSpecial_instructions(special_instruction);
 
@@ -804,6 +815,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                     break;
 
                 case "wine-and-dine":
+                    ticketModle.setRequestTime(final_reqTime);
                     ticketModle.setSpecial_instructions(special_instruction);
                     requestDate = sel_date + " " + reqtime;
                     ticketModle.setRequestDate(requestDate);
@@ -860,6 +872,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                     break;
 
                 case "spa":
+                    ticketModle.setRequestTime(final_reqTime);
                     ticketModle.setSpecial_instructions(special_instruction);
                     requestDate = sel_date + " " + reqtime;
                     preferredRequestDate = "";

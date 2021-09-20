@@ -37,8 +37,13 @@ import com.mobisprint.aurika.coorg.pojo.ticketing.Ticket;
 import com.mobisprint.aurika.helper.ApiListner;
 import com.mobisprint.aurika.helper.GlobalClass;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Response;
@@ -46,7 +51,7 @@ import retrofit2.Response;
 
 public class ExclusiveExperiences extends Fragment implements ApiListner {
 
-    private TextView tv_exclusive_experience_desc,toolbar_title;
+    private TextView tv_exclusive_experience_desc, toolbar_title;
     private RecyclerView recyclerView;
     private Button bt_call_back;
     private Context mContext;
@@ -58,9 +63,9 @@ public class ExclusiveExperiences extends Fragment implements ApiListner {
     private BottomDailogController bottomDailogController;
     private List<Detail> list = new ArrayList<>();
     private Detail detail = new Detail();
-    private String category,title;
+    private String category, title;
     private String booking = "1";
-    private String requestDate,reqtime,str_special_instruction;
+    private String requestDate, reqtime, str_special_instruction;
     private int hr, min;
     private Calendar calendar;
     private Boolean buttonClicked = true;
@@ -70,58 +75,63 @@ public class ExclusiveExperiences extends Fragment implements ApiListner {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       View view = inflater.inflate(R.layout.fragment_exclusive_experiences, container, false);
+        View view = inflater.inflate(R.layout.fragment_exclusive_experiences, container, false);
 
-       tv_exclusive_experience_desc = view.findViewById(R.id.tv_exclusive_experience_desc);
-       recyclerView = view.findViewById(R.id.exlusive_experiences_recycler);
-       bt_call_back = view.findViewById(R.id.bt_exclusive_experiences_call_back);
-       mContext = getContext();
-       toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-       img_back = getActivity().findViewById(R.id.naviagation_hamberger);
-       img_back.setVisibility(View.VISIBLE);
+        tv_exclusive_experience_desc = view.findViewById(R.id.tv_exclusive_experience_desc);
+        recyclerView = view.findViewById(R.id.exlusive_experiences_recycler);
+        bt_call_back = view.findViewById(R.id.bt_exclusive_experiences_call_back);
+        mContext = getContext();
+        toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+        img_back = getActivity().findViewById(R.id.naviagation_hamberger);
+        img_back.setVisibility(View.VISIBLE);
 
         calendar = Calendar.getInstance();
         hr = calendar.get(Calendar.HOUR);
         min = calendar.get(Calendar.MINUTE);
-        reqtime = hr + ":" + min;
 
-       requestDate = String.valueOf(java.time.LocalDate.now()) + " " + reqtime;
-       ticketModle = new TicketModle();
-       bottomDailogController = new BottomDailogController(this);
 
-       coordinatorLayout = view.findViewById(R.id.lyt);
-       coordinatorLayout.setVisibility(View.GONE);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        reqtime = dtf.format(now);
 
-       progressBar = view.findViewById(R.id.progress_bar);
-       progressBar.setVisibility(View.GONE);
 
-       category = "exclusive-experience";
+        requestDate = String.valueOf(java.time.LocalDate.now()) + " " + reqtime;
+        ticketModle = new TicketModle();
+        bottomDailogController = new BottomDailogController(this);
 
-       Bundle bundle = getArguments();
+        coordinatorLayout = view.findViewById(R.id.lyt);
+        coordinatorLayout.setVisibility(View.GONE);
 
-       toolbar_title.setText(bundle.getString("title"));
+        progressBar = view.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
 
-       controller = new ExclusiveExperiencesController(this);
+        category = "exclusive-experience";
 
-       controller.getExperiencesMenu();
+        Bundle bundle = getArguments();
+
+        toolbar_title.setText(bundle.getString("title"));
+
+        controller = new ExclusiveExperiencesController(this);
+
+        controller.getExperiencesMenu();
 
         title = category + " Ticket";
 
 
-       bt_call_back.setOnClickListener(v -> {
+        bt_call_back.setOnClickListener(v -> {
 
-           if (GlobalClass.user_active_booking){
-               if (buttonClicked){
-                   showBottomSheet();
-               }else {
-                   GlobalClass.ShowAlert(this.getContext(),"Alert","Ticket have already been raised");
-               }
+            if (GlobalClass.user_active_booking) {
+                if (buttonClicked) {
+                    showBottomSheet();
+                } else {
+                    GlobalClass.ShowAlert(this.getContext(), "Alert", "Ticket have already been raised");
+                }
 
-           }else{
-               GlobalClass.ShowAlert(mContext,"Alert","You don't have active booking to place request");
-           }
+            } else {
+                GlobalClass.ShowAlert(mContext, "Alert", "You don't have active booking to place request");
+            }
 
-       });
+        });
 
 
         return view;
@@ -136,9 +146,9 @@ public class ExclusiveExperiences extends Fragment implements ApiListner {
         bt_confirm.setOnClickListener(v -> {
             str_special_instruction = special_instruction.getText().toString();
             list.clear();
-//           detail.setTitle("exclusive-experience");
-//           list.add(detail);
-//           ticketModle.setDetails(list);
+            detail.setTitle("exclusive-experience");
+            list.add(detail);
+            ticketModle.setDetails(list);
             ticketModle.setDepartment(category);
             ticketModle.setTitle(title);
             ticketModle.setBooking(String.valueOf(GlobalClass.Guest_Id));
@@ -168,16 +178,16 @@ public class ExclusiveExperiences extends Fragment implements ApiListner {
         progressBar.setVisibility(View.GONE);
         coordinatorLayout.setVisibility(View.VISIBLE);
 
-        if (response!=null){
+        if (response != null) {
 
-            if (response.body() instanceof Experiences){
+            if (response.body() instanceof Experiences) {
                 Experiences experiences = (Experiences) response.body();
                 List<Data> experiencesData = experiences.getData();
-                ExclusiveExperiencesAdapter adapter = new ExclusiveExperiencesAdapter(mContext,experiencesData);
+                ExclusiveExperiencesAdapter adapter = new ExclusiveExperiencesAdapter(mContext, experiencesData);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
-            }else if (response.body() instanceof General){
+            } else if (response.body() instanceof General) {
                 bt_call_back.setBackground(getResources().getDrawable(R.drawable.btn_clicked_background));
                 bt_call_back.setText("Call back scheduled");
                 bt_call_back.setTextColor(Color.parseColor("#a5a5a5"));
@@ -193,7 +203,7 @@ public class ExclusiveExperiences extends Fragment implements ApiListner {
     public void onFetchError(String error) {
 
         progressBar.setVisibility(View.GONE);
-        GlobalClass.ShowAlert(mContext,"Alert",error);
+        GlobalClass.ShowAlert(mContext, "Alert", error);
 
     }
 

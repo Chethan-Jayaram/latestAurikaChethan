@@ -243,7 +243,7 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter implement
             img_veg_or_nonveg.setVisibility(View.VISIBLE);
         }
 
-        if (dataList.get(groupPosition).getDiningList().get(childPosition).getItemType().equals("Veg")) {
+        if (dataList.get(groupPosition).getDiningList().get(childPosition).getItemType().equalsIgnoreCase("Veg")) {
             img_veg_or_nonveg.setImageDrawable(mContext.getResources().getDrawable(icon_veg));
         } else {
             img_veg_or_nonveg.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_nonveg));

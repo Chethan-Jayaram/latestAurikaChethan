@@ -116,7 +116,7 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
                 img_veg_nonveg.setVisibility(View.VISIBLE);
             }
 
-            if (diningSubcategory.get(groupPosition).getItemType().equals("veg")) {
+            if (diningSubcategory.get(groupPosition).getItemType().equalsIgnoreCase("veg")) {
                 img_veg_nonveg.setImageDrawable(mContext.getResources().getDrawable(icon_veg));
             } else {
                 img_veg_nonveg.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_nonveg));
@@ -230,7 +230,7 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
 
 
 
-        if (diningSubcategory.get(groupPosition).getSubcategoryItems().get(childPosition).getItemType().equals("veg")) {
+        if (diningSubcategory.get(groupPosition).getSubcategoryItems().get(childPosition).getItemType().equalsIgnoreCase("veg")) {
             img_veg_nonveg.setImageDrawable(mContext.getResources().getDrawable(icon_veg));
         } else {
             img_veg_nonveg.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_nonveg));

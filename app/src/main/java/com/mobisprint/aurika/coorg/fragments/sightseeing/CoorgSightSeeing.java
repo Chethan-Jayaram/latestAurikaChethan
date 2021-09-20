@@ -35,6 +35,8 @@ import com.mobisprint.aurika.coorg.pojo.ticketing.Ticket;
 import com.mobisprint.aurika.helper.ApiListner;
 import com.mobisprint.aurika.helper.GlobalClass;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -43,8 +45,7 @@ import retrofit2.Response;
 
 public class CoorgSightSeeing extends Fragment implements ApiListner {
 
-
-    private TextView tv_sight_seeing_desc,toolbar_title;
+    private TextView tv_sight_seeing_desc, toolbar_title;
     private RecyclerView sight_seeing_recycler;
     private Button bt_sight_seeing_call_back;
     private CoorgSightSeeingController controller;
@@ -57,8 +58,8 @@ public class CoorgSightSeeing extends Fragment implements ApiListner {
     private List<Detail> list = new ArrayList<>();
     private Detail detail = new Detail();
     private String category;
-    private String booking = "1",str_special_instruction;
-    private String requestDate,reqtime;
+    private String booking = "1", str_special_instruction;
+    private String requestDate, reqtime;
     private int hr, min;
     private Calendar calendar;
     private Boolean buttonClicked = true;
@@ -68,60 +69,61 @@ public class CoorgSightSeeing extends Fragment implements ApiListner {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       View view = inflater.inflate(R.layout.fragment_coorg_sight_seeing, container, false);
+        View view = inflater.inflate(R.layout.fragment_coorg_sight_seeing, container, false);
 
-       try {
+        try {
 
-           tv_sight_seeing_desc = view.findViewById(R.id.tv_sight_seeing_desc);
-           sight_seeing_recycler = view.findViewById(R.id.sight_seeing_recycler);
-           bt_sight_seeing_call_back = view.findViewById(R.id.bt_sight_seeing_call_back);
-           controller = new CoorgSightSeeingController(this);
-           toolbar_title = getActivity().findViewById(R.id.toolbar_title);
-           mContext = getContext();
-           img_back = getActivity().findViewById(R.id.naviagation_hamberger);
-           img_back.setVisibility(View.VISIBLE);
-           ticketModle = new TicketModle();
-           bottomDailogController = new BottomDailogController(this);
-           coordinatorLayout = view.findViewById(R.id.lyt);
-           coordinatorLayout.setVisibility(View.GONE);
+            tv_sight_seeing_desc = view.findViewById(R.id.tv_sight_seeing_desc);
+            sight_seeing_recycler = view.findViewById(R.id.sight_seeing_recycler);
+            bt_sight_seeing_call_back = view.findViewById(R.id.bt_sight_seeing_call_back);
+            controller = new CoorgSightSeeingController(this);
+            toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+            mContext = getContext();
+            img_back = getActivity().findViewById(R.id.naviagation_hamberger);
+            img_back.setVisibility(View.VISIBLE);
+            ticketModle = new TicketModle();
+            bottomDailogController = new BottomDailogController(this);
+            coordinatorLayout = view.findViewById(R.id.lyt);
+            coordinatorLayout.setVisibility(View.GONE);
 
-           progressBar = view.findViewById(R.id.progress_bar);
-           progressBar.setVisibility(View.GONE);
+            progressBar = view.findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.GONE);
 
 
-           calendar = Calendar.getInstance();
-           hr = calendar.get(Calendar.HOUR);
-           min = calendar.get(Calendar.MINUTE);
-           reqtime = hr + ":" + min;
+            calendar = Calendar.getInstance();
+            hr = calendar.get(Calendar.HOUR);
+            min = calendar.get(Calendar.MINUTE);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            reqtime = dtf.format(now);
 
-           requestDate = String.valueOf(java.time.LocalDate.now()) + " " + reqtime;
-           ticketModle = new TicketModle();
+            requestDate = String.valueOf(java.time.LocalDate.now()) + " " + reqtime;
+            ticketModle = new TicketModle();
 
-           Bundle bundle = getArguments();
-           toolbar_title.setText(bundle.getString("title"));
+            Bundle bundle = getArguments();
+            toolbar_title.setText(bundle.getString("title"));
 
-           category = "sightseeing";
-           controller.getSightSeeing();
+            category = "sightseeing";
+            controller.getSightSeeing();
 
-           bt_sight_seeing_call_back.setOnClickListener(v -> {
+            bt_sight_seeing_call_back.setOnClickListener(v -> {
 
-               if (GlobalClass.user_active_booking){
-                   if (buttonClicked){
-                       showBottomSheet();
-                   }else {
-                       GlobalClass.ShowAlert(this.getContext(),"Alert","Ticket have already been raised");
-                   }
+                if (GlobalClass.user_active_booking) {
+                    if (buttonClicked) {
+                        showBottomSheet();
+                    } else {
+                        GlobalClass.ShowAlert(this.getContext(), "Alert", "Ticket have already been raised");
+                    }
 
-               }else{
-                   GlobalClass.ShowAlert(mContext,"Alert","You don't have active booking to place request");
-               }
+                } else {
+                    GlobalClass.ShowAlert(mContext, "Alert", "You don't have active booking to place request");
+                }
 
-           });
+            });
 
-       }catch (Exception e){
-           e.printStackTrace();
-       }
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         return view;
@@ -134,19 +136,19 @@ public class CoorgSightSeeing extends Fragment implements ApiListner {
         Button bt_confirm = bottomSheetDialog.findViewById(R.id.bt_confirm_order);
 
         bt_confirm.setOnClickListener(v -> {
-                str_special_instruction = special_instruction.getText().toString();
-//               list.clear();
-//               detail.setTitle("sightseeing");
-//               list.add(detail);
-//               ticketModle.setDetails(list);
-                ticketModle.setDepartment(category);
-                ticketModle.setTitle(category + " Ticket");
-                ticketModle.setBooking(String.valueOf(GlobalClass.Guest_Id));
-                ticketModle.setRequestDate(requestDate);
-                ticketModle.setRoomNumber(GlobalClass.ROOM_NO);
-                ticketModle.setRequestTime(reqtime);
-                ticketModle.setSpecial_instructions(str_special_instruction);
-                bottomDailogController.generalTicket(ticketModle);
+            str_special_instruction = special_instruction.getText().toString();
+            list.clear();
+            detail.setTitle("sightseeing");
+            list.add(detail);
+            ticketModle.setDetails(list);
+            ticketModle.setDepartment(category);
+            ticketModle.setTitle(category + " Ticket");
+            ticketModle.setBooking(String.valueOf(GlobalClass.Guest_Id));
+            ticketModle.setRequestDate(requestDate);
+            ticketModle.setRoomNumber(GlobalClass.ROOM_NO);
+            ticketModle.setRequestTime(reqtime);
+            ticketModle.setSpecial_instructions(str_special_instruction);
+            bottomDailogController.generalTicket(ticketModle);
 
             bottomSheetDialog.dismiss();
         });
@@ -168,24 +170,23 @@ public class CoorgSightSeeing extends Fragment implements ApiListner {
         progressBar.setVisibility(View.GONE);
         coordinatorLayout.setVisibility(View.VISIBLE);
 
-        if (response!= null){
+        if (response != null) {
 
-            if (response.body() instanceof SightSeeing){
+            if (response.body() instanceof SightSeeing) {
                 SightSeeing service = (SightSeeing) response.body();
                 List<Data> dataList = service.getData();
 
-                CoorgSightSeeingAdapter adapter = new CoorgSightSeeingAdapter(mContext,dataList);
+                CoorgSightSeeingAdapter adapter = new CoorgSightSeeingAdapter(mContext, dataList);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
                 sight_seeing_recycler.setLayoutManager(layoutManager);
                 sight_seeing_recycler.setAdapter(adapter);
 
-            }else if (response.body() instanceof General){
+            } else if (response.body() instanceof General) {
                 bt_sight_seeing_call_back.setBackground(getResources().getDrawable(R.drawable.btn_clicked_background));
                 bt_sight_seeing_call_back.setText("Call back scheduled");
                 bt_sight_seeing_call_back.setTextColor(Color.parseColor("#a5a5a5"));
                 buttonClicked = false;
             }
-
 
 
         }
@@ -198,7 +199,7 @@ public class CoorgSightSeeing extends Fragment implements ApiListner {
 
         progressBar.setVisibility(View.GONE);
 
-        GlobalClass.ShowAlert(getContext(),"Alert",error);
+        GlobalClass.ShowAlert(getContext(), "Alert", error);
 
     }
 }

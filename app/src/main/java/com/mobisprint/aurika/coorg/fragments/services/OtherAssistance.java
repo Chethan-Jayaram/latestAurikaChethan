@@ -27,6 +27,8 @@ import com.mobisprint.aurika.coorg.pojo.ticketing.Ticket;
 import com.mobisprint.aurika.helper.ApiListner;
 import com.mobisprint.aurika.helper.GlobalClass;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -67,7 +69,9 @@ public class OtherAssistance extends Fragment implements ApiListner {
         calendar = Calendar.getInstance();
         hr = calendar.get(Calendar.HOUR);
         min = calendar.get(Calendar.MINUTE);
-        reqtime = hr + ":" + min;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        reqtime = dtf.format(now);
 
         requestDate = String.valueOf(java.time.LocalDate.now()) + " " + reqtime;
 

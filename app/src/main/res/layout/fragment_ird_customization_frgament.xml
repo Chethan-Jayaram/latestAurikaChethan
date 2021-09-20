@@ -27,10 +27,11 @@
 
 
             <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginRight="@dimen/dimen_20"
+                android:layout_toLeftOf="@+id/img_close"
                 android:id="@+id/lyt_title"
-                android:gravity="center"
                 android:layout_alignParentLeft="true"
-
                 android:layout_marginLeft="@dimen/dimen_20"
                 android:layout_marginTop="@dimen/dimen_15"
                 android:layout_width="wrap_content"

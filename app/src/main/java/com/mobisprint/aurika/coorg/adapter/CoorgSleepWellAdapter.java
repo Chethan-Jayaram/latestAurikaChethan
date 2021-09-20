@@ -233,8 +233,8 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
 
                         if ( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() < sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getMaxCount()){
 
-                            GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected,true);
-                            GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsMultipleItemSelected,false);
+                            GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected,false);
+                            GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsMultipleItemSelected,true);
 
                             isMultipleItemSelected=true;
                             isItemSelected = false;

@@ -20,6 +20,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.assaabloy.mobilekeys.api.EndpointSetupConfiguration;
@@ -84,6 +86,8 @@ public class DoorUnlockBookings extends Fragment implements ApiListner, MobileKe
     private TextView toolbar_title;
     private ImageView bt_bck;
     private GuestReservationController guestReservationController;
+    private ProgressBar progressBar;
+    private RelativeLayout lyt_content;
 
 
     @Override
@@ -101,6 +105,10 @@ public class DoorUnlockBookings extends Fragment implements ApiListner, MobileKe
         dialog = new ProgressDialog(mContext);
         snackbarFactory = new SnackbarFactory(container);
         toolbar_title = getActivity().findViewById(R.id.toolbar_title);
+        progressBar = view.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
+        lyt_content = view.findViewById(R.id.lyt_content);
+        lyt_content.setVisibility(View.GONE);
 
         Bundle bundle = getArguments();
 
@@ -114,23 +122,33 @@ public class DoorUnlockBookings extends Fragment implements ApiListner, MobileKe
 
         /*controller.getDetails(GlobalClass.user_token);*/
 
-        guestReservationController.checkReservation(GlobalClass.user_token);
+
 
         return view;
     }
 
     @Override
     public void onFetchProgress() {
-
+        progressBar.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        guestReservationController.checkReservation(GlobalClass.user_token);
+    }
 
     @Override
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
 
         if (response != null) {
 
+            progressBar.setVisibility(View.GONE);
+            lyt_content.setVisibility(View.VISIBLE);
+
             if (response.body() instanceof GuestReservation) {
+
+
                 GuestReservation guestReservation = (GuestReservation) response.body();
 
                     guestList = guestReservation.getData().getActiveBookings();
@@ -228,6 +246,7 @@ public class DoorUnlockBookings extends Fragment implements ApiListner, MobileKe
     @Override
     public void onFetchError(String error) {
 
+        progressBar.setVisibility(View.GONE);
         GlobalClass.ShowAlert(mContext, "Alert", error);
 
 

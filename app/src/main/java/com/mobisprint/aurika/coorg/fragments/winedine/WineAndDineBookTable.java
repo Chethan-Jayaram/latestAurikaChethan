@@ -1,6 +1,7 @@
 package com.mobisprint.aurika.coorg.fragments.winedine;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -59,6 +60,7 @@ public class WineAndDineBookTable extends Fragment implements GlobalClass.Fragme
     private Button btn_reserve_table;
     private BottomDailogController controller;
     private Boolean date_time = false;
+    private ProgressDialog dialog;
 
 
     @Override
@@ -85,6 +87,7 @@ public class WineAndDineBookTable extends Fragment implements GlobalClass.Fragme
         toolbar_title.setText("Book a Table");
 
         img_select_time = view.findViewById(R.id.img_select_time);
+        dialog = new ProgressDialog(mContext);
 
         Bundle bundle = getArguments();
 
@@ -147,6 +150,9 @@ public class WineAndDineBookTable extends Fragment implements GlobalClass.Fragme
                 }else if (!date_time){
                     GlobalClass.ShowAlert(this.getContext(),"Alert","Select Preferred date and time");
                 }else{
+                    dialog.setMessage("Please wait while we are processing your request.");
+                    dialog.setCancelable(false);
+                    dialog.show();
                     controller.wineDineTicket(ticketModle);
                 }
             }else {
@@ -188,6 +194,7 @@ public class WineAndDineBookTable extends Fragment implements GlobalClass.Fragme
                 Fragment fragment1 = new OrderConfirmedFragment();
                 Bundle bundle = new Bundle();
                 fragment1.setArguments(bundle);
+                dismissDialog();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment1).addToBackStack(null).commit();
             }
 
@@ -199,5 +206,11 @@ public class WineAndDineBookTable extends Fragment implements GlobalClass.Fragme
     @Override
     public void onFetchError(String error) {
         GlobalClass.ShowAlert(mContext,"Alert",error);
+    }
+
+    public void dismissDialog() {
+        if (dialog.isShowing()) {
+            dialog.dismiss();
+        }
     }
 }

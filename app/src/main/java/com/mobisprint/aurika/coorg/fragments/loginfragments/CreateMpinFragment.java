@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.mobisprint.aurika.coorg.controller.login.CreateMpinController;
 import com.mobisprint.aurika.coorg.pojo.login.Login;
 import com.mobisprint.aurika.helper.ApiListner;
 import com.mobisprint.aurika.helper.GlobalClass;
+import com.onesignal.OneSignal;
 
 import retrofit2.Response;
 
@@ -37,7 +39,7 @@ public class CreateMpinFragment extends Fragment implements ApiListner  {
     private Button btn_confirm_mpin;
     private String android_id;
     private Context mContext;
-    private String mpin;
+    private String mpin,UUID;
 
 
     @RequiresApi(api = Build.VERSION_CODES.P)
@@ -48,6 +50,9 @@ public class CreateMpinFragment extends Fragment implements ApiListner  {
 
         try {
 
+
+              UUID = OneSignal.getPermissionSubscriptionState().getSubscriptionStatus().getUserId();
+            Log.d("player_id",UUID);
 
 
             et1_one = view.findViewById(R.id.et1_one);

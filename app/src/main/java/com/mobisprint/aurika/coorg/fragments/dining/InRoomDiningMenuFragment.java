@@ -161,7 +161,7 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
 
                     } else if (GlobalClass.user_active_booking) {
                         /*showBottomSheetDialog();*/
-                        selectedList.clear();
+                     /*   selectedList.clear();
                         for (int i = 0; i < dataList.size(); i++) {
                             for (int j = 0; j < dataList.get(i).getDiningList().size(); j++) {
                                 if (dataList.get(i).getDiningList().get(j).getCount() > 0) {
@@ -172,7 +172,46 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                                 }
                             }
                         }
+*/
 
+
+                        selectedList.clear();
+                        for (int i = 0; i < dataList.size(); i++) {
+                            for (int j = 0; j < dataList.get(i).getDiningList().size(); j++) {
+                                if (dataList.get(i).getDiningList().get(j).getCount() > 0) {
+
+                                    if (dataList.get(i).getDiningList().get(j).getCustomisedList().size() > 0) {
+                                        for (int k = 0; k < dataList.get(i).getDiningList().get(j).getCustomisedList().size(); k++) {
+                                            Dining__1 selectedList = new Dining__1();
+                                            List<com.mobisprint.aurika.coorg.pojo.Services.Data> mydata = new ArrayList<>();
+                                            selectedList.setQuantity(1);
+                                            selectedList.setItem_id(dataList.get(i).getDiningList().get(j).getId());
+                                            selectedList.setTitle(dataList.get(i).getDiningList().get(j).getTitle());
+                                            selectedList.setPrice(dataList.get(i).getDiningList().get(j).getPrice());
+                                            if(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().size()>0){
+                                                for(int l=0;l<dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().size();l++){
+                                                    mydata.add(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l));
+                                                }
+                                            }else{
+                                                mydata.add(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k));
+
+                                            }
+
+                                            selectedList.setCustomisedList(mydata);
+                                            this.selectedList.add(selectedList);
+                                        }
+
+                                        /// dataList.get(i).getDiningList().get(j).setCustomisedList(mydata);
+                                    } else {
+                                        dataList.get(i).getDiningList().get(j).setItem_id(dataList.get(i).getDiningList().get(j).getId());
+                                        dataList.get(i).getDiningList().get(j).setQuantity(dataList.get(i).getDiningList().get(j).getCount());
+                                        selectedList.add(dataList.get(i).getDiningList().get(j));
+                                    }
+
+
+                                }
+                            }
+                        }
 
                         //  filterSeleteData(selectedList);
 

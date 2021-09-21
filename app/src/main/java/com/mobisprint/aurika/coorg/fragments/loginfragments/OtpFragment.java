@@ -111,7 +111,7 @@ public class OtpFragment extends Fragment implements ApiListner {
                     // to parse the string.
                     //  String oneTimeCode = message); // define this function
 
-                    String[] OTP = message.split("OTP", 6);
+                    String[] OTP = message.split("OTP is ", 6);
 
                     onOTPReceived(OTP[1].trim().substring(0, 6).trim());
                     // send one time code to the server

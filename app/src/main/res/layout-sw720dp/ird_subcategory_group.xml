@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <RelativeLayout
+
+            android:layout_marginLeft="@dimen/dimen_40"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lyt_item">
+
+
+
+            <ImageView
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:id="@+id/img_veg_nonveg"/>
+
+                <RadioButton
+                    android:buttonTint="@color/custom_purple"
+                    android:id="@+id/radio_btn"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_toRightOf="@id/img_veg_nonveg"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="32sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/notosanstc_bold"
+                    android:includeFontPadding="true"/>
+
+            <CheckBox
+                android:id="@+id/checkbox_btn"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_toRightOf="@id/img_veg_nonveg"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/custom_purple"
+                android:text=""
+                android:textSize="32sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/notosanstc_bold"
+                android:includeFontPadding="true"/>
+
+
+            <TextView
+                android:id="@+id/sub_category_price"
+                android:layout_marginRight="@dimen/dimen_40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notoseriftc_regular"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text=""/>
+
+
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/sub_category_title"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add on Bevrages"
+            android:fontFamily="@font/notosanstc_bold"
+            android:layout_marginLeft="@dimen/dimen_40"
+            android:layout_marginTop="@dimen/dimen_40"
+            android:textColor="@color/black"
+            android:textSize="36sp"
+            android:includeFontPadding="false"/>
+
+
+    </RelativeLayout>
+
+</FrameLayout>

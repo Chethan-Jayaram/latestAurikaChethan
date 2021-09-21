@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+        <RelativeLayout
+            android:id="@+id/top_lyt"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#e5e5e5">
+
+            <ImageView
+                android:layout_marginRight="@dimen/dimen_60"
+                android:layout_alignParentRight="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/close"
+                android:layout_marginTop="@dimen/dimen_40"
+                android:layout_marginLeft="@dimen/dimen_40"
+                android:id="@+id/img_close"/>
+
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginRight="@dimen/dimen_40"
+                android:layout_toLeftOf="@+id/img_close"
+                android:id="@+id/lyt_title"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/dimen_40"
+                android:layout_marginTop="@dimen/dimen_50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/icon_nonveg"
+                    android:id="@+id/img_veg_nonveg"/>
+
+
+                <TextView
+                    android:id="@+id/tv_item_name"
+                    android:layout_marginLeft="@dimen/dimen_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:fontFamily="@font/notosanstc_bold"
+                    android:includeFontPadding="false"
+                    android:textSize="32sp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:fontFamily="@font/notosanstc_regular"
+                android:layout_below="@+id/lyt_title"
+                android:layout_marginLeft="100dp"
+                android:textSize="32sp"
+                android:text=""
+                android:id="@+id/price"
+                android:includeFontPadding="false"
+                android:layout_marginTop="@dimen/dimen_5"/>
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_below="@+id/top_lyt"
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.mobisprint.aurika.helper.NonScrollExpandableListView
+                    android:nestedScrollingEnabled="false"
+                  android:layout_alignParentTop="true"
+                    android:id="@+id/sub_category_expandable_list"
+                    android:layout_width="match_parent"
+                    android:groupIndicator="@null"
+                    android:layout_height="wrap_content" />
+
+
+                <Button
+                    android:id="@+id/bt_add"
+                    android:paddingTop="@dimen/dimen_20"
+                    android:paddingBottom="@dimen/dimen_20"
+                    android:layout_below="@+id/sub_category_expandable_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:text="ADD"
+                    android:textSize="40dp"
+                    android:textColor="@color/white"
+                    android:background="@color/custom_purple"
+                    android:fontFamily="@font/notosanstc_medium"
+                    android:includeFontPadding="false"/>
+
+            </RelativeLayout>
+
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

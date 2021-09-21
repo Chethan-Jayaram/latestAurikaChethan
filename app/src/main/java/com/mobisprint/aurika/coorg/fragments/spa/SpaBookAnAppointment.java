@@ -1,6 +1,7 @@
 package com.mobisprint.aurika.coorg.fragments.spa;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -61,6 +62,8 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner,GlobalC
     private Button btn_request_booking;
     private BottomDailogController bottomDailogController;
     private String price;
+    private ProgressDialog dialog;
+
 
     private int hr,min;
     private Calendar calendar;
@@ -101,6 +104,7 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner,GlobalC
         bottomDailogController = new BottomDailogController(this);
 
 
+        dialog = new ProgressDialog(mContext);
 
         Bundle bundle = getArguments();
 
@@ -160,12 +164,14 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner,GlobalC
                 }else if (!date_and_time){
                     GlobalClass.ShowAlert(this.getContext(),"Alert","Select Preferred date and time");
                 }else{
+                    dialog.setMessage("Please wait while we are processing your request.");
+                    dialog.setCancelable(false);
+                    dialog.show();
                     bottomDailogController.generalTicket(ticketModle);
                 }
             }else {
                 GlobalClass.ShowAlert(mContext,"Alert","You don't have active booking to place your request");
             }
-
 
         });
 
@@ -232,6 +238,7 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner,GlobalC
                 Fragment fragment1 = new OrderConfirmedFragment();
                 Bundle bundle = new Bundle();
                 fragment1.setArguments(bundle);
+                dismissDialog();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment1).addToBackStack(null).commit();
             }
 
@@ -253,6 +260,13 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner,GlobalC
             if (!ticketModle.getPersonalisedTime().isEmpty()) {
                 req_date_time.setText(ticketModle.getPersonalisedTime());
             }
+        }
+    }
+
+
+    public void dismissDialog() {
+        if (dialog.isShowing()) {
+            dialog.dismiss();
         }
     }
 }

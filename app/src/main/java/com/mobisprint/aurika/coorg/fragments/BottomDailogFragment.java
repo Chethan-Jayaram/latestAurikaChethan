@@ -1,5 +1,7 @@
 package com.mobisprint.aurika.coorg.fragments;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -102,6 +104,9 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
     private DateFormat fr = new SimpleDateFormat("hh:mm");
     private EditText et_special_instruction;
 
+    private Context mContext;
+    private ProgressDialog dialog;
+
     private boolean trmin = false, twohr = false, frhr = false;
 
     private Calendar mindate1,mindate2, checkout_date;
@@ -119,6 +124,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
         controller = new BottomDailogController(this);
         lyt_time_popup = view.findViewById(R.id.lyt_time_popup);
 
+        mContext = getContext();
 
         booking = String.valueOf(GlobalClass.Guest_Id);
 
@@ -131,6 +137,10 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        dialog = new ProgressDialog(mContext);
+        dialog.setMessage("Please wait while we are processing your request.");
+
 
         Date dd = new Date();
         mindate1 = Calendar.getInstance();
@@ -313,7 +323,6 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                 serviceModle.setTitle(title);
                 serviceModle.setBooking(booking);
                 serviceModle.setRoomNumber(GlobalClass.ROOM_NO);
-
                 break;
 
             case "k9-services":
@@ -580,6 +589,8 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                         if (date.after(current_time)){
                             serviceModle.setRequestTime(final_reqTime);
                             serviceModle.setRequestDate(requestDate);
+                            dialog.setCancelable(false);
+                            dialog.show();
                             controller.ticketingCreation(serviceModle);
                             break;
                         }else{
@@ -600,6 +611,8 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                             if (date.after(current_time)){
                                 serviceModle.setRequestTime(final_reqTime);
                                 serviceModle.setRequestDate(requestDate);
+                                dialog.setCancelable(false);
+                                dialog.show();
                                 controller.ticketingCreation(serviceModle);
                                 break;
                             }else {
@@ -614,6 +627,8 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                         }else if (select.after(dtt4)){
                             serviceModle.setRequestTime(final_reqTime);
                             serviceModle.setRequestDate(requestDate);
+                            dialog.setCancelable(false);
+                            dialog.show();
                             controller.ticketingCreation(serviceModle);
                             break;
                         }else{
@@ -628,6 +643,8 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                     }else{
                         serviceModle.setRequestTime(final_reqTime);
                         serviceModle.setRequestDate(requestDate);
+                        dialog.setCancelable(false);
+                        dialog.show();
                         controller.ticketingCreation(serviceModle);
                         break;
                     }
@@ -639,6 +656,8 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                     requestDate = null;
                     serviceModle.setSpecial_instructions(special_instruction);
                     serviceModle.setRequestDate(requestDate);
+                    dialog.setCancelable(false);
+                    dialog.show();
                     controller.ticketingCreation(serviceModle);
 
 
@@ -666,6 +685,8 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                     if (today){
                         if (date.after(current_time)){
                             sleepWellModle.setRequestDate(null);
+                            dialog.setCancelable(false);
+                            dialog.show();
                             controller.ticketingCreation(sleepWellModle);
                             break;
                         }else{
@@ -673,6 +694,8 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                         }
                     }else{
                         sleepWellModle.setRequestDate(requestDate);
+                        dialog.setCancelable(false);
+                        dialog.show();
                         controller.ticketingCreation(sleepWellModle);
                         break;
                     }
@@ -687,6 +710,8 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                         if (date.after(current_time)){
                             laundryModle.setRequestTime(final_reqTime);
                             laundryModle.setRequestDate(requestDate);
+                            dialog.setCancelable(false);
+                            dialog.show();
                             controller.ticketingCreation(laundryModle);
                             break;
                         }else{
@@ -701,6 +726,8 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                             if (date.after(current_time)){
                                 laundryModle.setRequestTime(final_reqTime);
                                 laundryModle.setRequestDate(requestDate);
+                                dialog.setCancelable(false);
+                                dialog.show();
                                 controller.ticketingCreation(laundryModle);
                             }else {
                                 GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 1 hour after the current time");
@@ -708,6 +735,8 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                         }else if (select.after(dtt1)){
                             laundryModle.setRequestTime(final_reqTime);
                             laundryModle.setRequestDate(requestDate);
+                            dialog.setCancelable(false);
+                            dialog.show();
                             controller.ticketingCreation(laundryModle);
                         }else{
                             GlobalClass.ShowAlert(getContext(),"Alert","Order time should be 1 hour after the current time");
@@ -716,6 +745,8 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                     }else{
                         laundryModle.setRequestTime(final_reqTime);
                         laundryModle.setRequestDate(requestDate);
+                        dialog.setCancelable(false);
+                        dialog.show();
                         controller.ticketingCreation(laundryModle);
                         break;
                     }
@@ -728,6 +759,8 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                     if (today){
                         if (date.after(current_time)){
                             petServicesModle.setRequestDate(null);
+                            dialog.setCancelable(false);
+                            dialog.show();
                             controller.k9TicketCreation(petServicesModle);
                             break;
                         }else{
@@ -735,6 +768,8 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                         }
                     }else{
                         petServicesModle.setRequestDate(requestDate);
+                        dialog.setCancelable(false);
+                        dialog.show();
                         controller.k9TicketCreation(petServicesModle);
                         break;
                     }
@@ -747,6 +782,8 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                         if (date.after(current_time)){
                             petServicesModle.setRequestTime(final_reqTime);
                             petServicesModle.setRequestDate(requestDate);
+                            dialog.setCancelable(false);
+                            dialog.show();
                             controller.k9TicketCreation(petServicesModle);
                             break;
                         }else{
@@ -755,6 +792,8 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                     }else{
                         petServicesModle.setRequestTime(final_reqTime);
                         petServicesModle.setRequestDate(requestDate);
+                        dialog.setCancelable(false);
+                        dialog.show();
                         controller.k9TicketCreation(petServicesModle);
                         break;
                     }
@@ -766,6 +805,8 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                     diningModle.setSpecial_instructions(special_instruction);
                     requestDate = sel_date + " " + reqtime;
                     diningModle.setRequestDate(requestDate);
+                    dialog.setCancelable(false);
+                    dialog.show();
                     controller.diningTicketCreation(diningModle);
                     break;
 
@@ -784,6 +825,8 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
 
                     if (bundle.getBoolean("DogCake") && tomorrow){
                         if (date.after(selected_time)){
+                            dialog.setCancelable(false);
+                            dialog.show();
                             controller.k9TicketCreation(petServicesModle);
                         }else {
                             GlobalClass.ShowAlert(getContext(),"Alert","Selected time cannot be less than 24 hours for Dog cake");
@@ -796,11 +839,15 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
 
                          if (format.format(select).equals(format.format(dtt))){
                             if (date.after(selected_time)){
+                                dialog.setCancelable(false);
+                                dialog.show();
                                 controller.k9TicketCreation(petServicesModle);
                             }else {
                                 GlobalClass.ShowAlert(getContext(),"Alert","Selected time cannot be less than 24 hours for Dog cake");
                             }
                         }else if (select.after(dtt)){
+                             dialog.setCancelable(false);
+                             dialog.show();
                              controller.k9TicketCreation(petServicesModle);
                          }else{
                             GlobalClass.ShowAlert(getContext(),"Alert","Selected time cannot be less than 24 hours for Dog cake");
@@ -1023,7 +1070,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
 
 
         img_down_min.setOnClickListener(v -> {
-            if (min > 1) {
+            if (min > 0) {
                 min = min - 1;
                 tv_min.setText(String.valueOf(min));
                 pr_min = String.valueOf(min);
@@ -1360,6 +1407,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                 fragment1.setArguments(bundle);
                 /*closeBottomSheetFragment();*/
                 this.dismiss();
+                dismissDialog();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment1).addToBackStack(null).commit();
             }catch (Exception e){
                 e.printStackTrace();
@@ -1372,4 +1420,11 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
         bt_save_order.setEnabled(true);
         GlobalClass.ShowAlert(getContext(),"Alert",error);
     }
+
+    public void dismissDialog() {
+        if (dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
+
 }

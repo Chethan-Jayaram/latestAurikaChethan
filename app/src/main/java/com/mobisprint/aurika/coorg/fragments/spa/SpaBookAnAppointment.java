@@ -63,8 +63,6 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner,GlobalC
     private BottomDailogController bottomDailogController;
     private String price;
     private ProgressDialog dialog;
-
-
     private int hr,min;
     private Calendar calendar;
     @Override
@@ -76,9 +74,7 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner,GlobalC
         toolbar_title.setText("Book an appointment");
 
         ticketModle = new TicketModle();
-
         req_date_time =view.findViewById(R.id.req_date_time);
-
         btn_request_booking = view.findViewById(R.id.btn_request_booking);
         tv_spa_title = view.findViewById(R.id.tv_coorg_spa_title);
         recyclerView = view.findViewById(R.id.spa_therapy_recyclerview);
@@ -248,6 +244,7 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner,GlobalC
     @Override
     public void onFetchError(String error) {
         progressBar.setVisibility(View.GONE);
+        dismissDialog();
         GlobalClass.ShowAlert(mContext,"Alert",error);
 
     }

@@ -34,8 +34,12 @@ public class RegistrationController {
         call.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
-                if (response.isSuccessful() && response.body().getStatus()){
-                    listner.onFetchComplete(response);
+                if (response.isSuccessful()){
+                    if (response.body().getStatus()){
+                        listner.onFetchComplete(response);
+                    }else {
+                        listner.onFetchError(response.body().getMessage());
+                    }
                 }else {
                     listner.onFetchError("Something went wrong, please try again later");
                 }

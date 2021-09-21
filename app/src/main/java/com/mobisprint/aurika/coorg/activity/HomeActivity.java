@@ -9,11 +9,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -79,7 +81,7 @@ public class HomeActivity extends AppCompatActivity implements ApiListner, Mobil
     private Context mContext;
     private NavigationView navigationView;
     private DrawerLayout drawer;
-    public TextView coorg_toolbar_title, tv_logout;
+    public TextView coorg_toolbar_title, tv_logout,tv_privacy,tv_conditions;
     public ImageView bt_bck;
     private boolean status = true;
     private RelativeLayout lyt_notification, lyt_logout, lyt_notification_tool_bar;
@@ -106,6 +108,9 @@ public class HomeActivity extends AppCompatActivity implements ApiListner, Mobil
         setContentView(R.layout.activity_home);
 
         try {
+            /*txt1 = findViewById(R.id.txt1);*/
+            tv_privacy = findViewById(R.id.txt1);
+            tv_conditions = findViewById(R.id.txt3);
             controller = new HomeActivityController(this);
             mContext = getApplicationContext();
             navigationView = findViewById(R.id.nav_view);
@@ -128,6 +133,25 @@ public class HomeActivity extends AppCompatActivity implements ApiListner, Mobil
 
             onCreated();
             readCallBack();
+
+            /*txt1.setText(Html.fromHtml("<body>\n" +
+                    "        <p" +
+                    "          style=\"color:#000000\"><a href=\"https://www.lemontreehotels.com/term-condition.aspx\" style=\"color:#000000\">Terms &amp; Conditions</a>\n" +
+                    "         and  <a href=\"https://www.lemontreehotels.com/privacy-policy.aspx\" style=\"color:#000000\">Privacy Policy</a>\n" +
+                    "        </p>" +
+                    "    </body>"));*/
+
+
+            tv_privacy.setOnClickListener(v -> {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.lemontreehotels.com/privacy-policy.aspx"));
+                startActivity(browserIntent);
+            });
+
+
+            tv_conditions.setOnClickListener(v -> {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.lemontreehotels.com/term-condition.aspx"));
+                startActivity(browserIntent);
+            });
 
             bt_bck.setOnClickListener(v -> {
                 onBackPressed();

@@ -86,7 +86,7 @@ public class CreateMpinFragment extends Fragment implements ApiListner  {
                         et2_three.getText().toString()+
                         et2_four.getText().toString();
                 if (createMpinController.compareMpin(mpin1,mpin2)){
-                    createMpinController.saveMpin(mpin1,mpin2,android_id,bundle.getString("token"));
+                    createMpinController.saveMpin(mpin1,mpin2,android_id,bundle.getString("token"),UUID);
                 }else{
                     GlobalClass.ShowAlert(mContext,"Alert","Mpin mismatch");
                 }
@@ -106,7 +106,6 @@ public class CreateMpinFragment extends Fragment implements ApiListner  {
 
 
     private void init() {
-
 
         et1_one.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {

@@ -13,7 +13,7 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
+        android:layout_width="600dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/white"
@@ -34,7 +34,7 @@
                 android:id="@+id/toolbar_title"
                 android:paddingLeft="@dimen/dimen_5"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dimen_55"
+                android:layout_height="100dp"
                 android:layout_gravity="left"
                 android:singleLine="true"
                 android:fontFamily="@font/notoseriftc_bold"
@@ -43,7 +43,7 @@
                 android:includeFontPadding="false"
                 android:text="Welcome to Aurika, Coorg"
                 android:textColor="@color/white"
-                android:textSize="28sp" />
+                android:textSize="35sp" />
 
             <ScrollView
                 android:fillViewport="true"
@@ -180,22 +180,52 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/lyt_bottom_notification_view">
 
                     <TextView
+                        android:id="@+id/txt1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:fontFamily="@font/notosanstc_light"
                         android:includeFontPadding="false"
-                        android:text="Privacy Policy  |  Terms &amp; Conditions"
+                        android:text="Privacy Policy"
                         android:textColor="@color/black"
-                        android:layout_centerInParent="true"
-                        android:gravity="center_horizontal"
                         android:padding="@dimen/dimen_15"
                         android:textSize="28sp"/>
+
+
+                    <TextView
+                        android:id="@+id/txt2"
+                        android:layout_toRightOf="@id/txt1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:fontFamily="@font/notosanstc_light"
+                        android:includeFontPadding="false"
+                        android:text=" | "
+                        android:textColor="@color/black"
+                        android:padding="@dimen/dimen_15"
+                        android:textSize="28sp"/>
+
+
+
+                    <TextView
+                        android:id="@+id/txt3"
+                        android:layout_toRightOf="@id/txt2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:fontFamily="@font/notosanstc_light"
+                        android:includeFontPadding="false"
+                        android:text="Terms &amp; Conditions"
+                        android:textColor="@color/black"
+                        android:padding="@dimen/dimen_15"
+                        android:textSize="28sp"/>
+
                 </RelativeLayout>
 
             </RelativeLayout>

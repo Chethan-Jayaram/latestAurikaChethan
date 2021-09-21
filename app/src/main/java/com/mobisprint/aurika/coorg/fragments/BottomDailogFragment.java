@@ -1418,6 +1418,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
     @Override
     public void onFetchError(String error) {
         bt_save_order.setEnabled(true);
+        dismissDialog();
         GlobalClass.ShowAlert(getContext(),"Alert",error);
     }
 

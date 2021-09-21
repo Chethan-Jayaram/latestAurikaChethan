@@ -205,6 +205,7 @@ public class WineAndDineBookTable extends Fragment implements GlobalClass.Fragme
 
     @Override
     public void onFetchError(String error) {
+        dismissDialog();
         GlobalClass.ShowAlert(mContext,"Alert",error);
     }
 

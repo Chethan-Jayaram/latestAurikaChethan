@@ -175,20 +175,45 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/lyt_bottom_notification_view">
 
                     <TextView
+                        android:id="@+id/txt1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/notosanstc_light"
                         android:includeFontPadding="false"
-                        android:text="Privacy Policy  |  Terms &amp; Conditions"
+                        android:text="Privacy Policy"
+                        android:textColor="@color/black"
+                        android:padding="@dimen/dimen_10"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/txt2"
+                        android:layout_toRightOf="@id/txt1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosanstc_light"
+                        android:includeFontPadding="false"
+                        android:text=" | "
+                        android:textColor="@color/black"
+                        android:padding="@dimen/dimen_10"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/txt3"
+                        android:layout_toRightOf="@id/txt2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosanstc_light"
+                        android:includeFontPadding="false"
+                        android:text="Terms &amp; Conditions"
                         android:textColor="@color/black"
                         android:layout_centerInParent="true"
-                        android:gravity="center_horizontal"
-                        android:padding="@dimen/dimen_10"
+
                         android:textSize="14sp"/>
                 </RelativeLayout>
 

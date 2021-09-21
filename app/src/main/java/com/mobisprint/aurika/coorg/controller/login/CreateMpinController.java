@@ -27,13 +27,14 @@ public class CreateMpinController {
         return false;
     }
 
-    public void saveMpin(String mpin1, String mpin2, String android_id, String user_token) {
+    public void saveMpin(String mpin1, String mpin2, String android_id, String user_token, String UUID) {
         listner.onFetchProgress();
         HashMap<String, String> map=new HashMap<>();
         map.put("mpin",mpin1);
         map.put("confirm_mpin",mpin2);
         map.put("device_id",android_id);
         map.put("token",user_token);
+        map.put("player_id",UUID);
         Call<Login> call = GlobalClass.API_COORG.createMpin(map);
         call.enqueue(new Callback<Login>() {
             @Override

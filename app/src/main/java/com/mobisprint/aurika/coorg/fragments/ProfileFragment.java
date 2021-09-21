@@ -2,6 +2,7 @@ package com.mobisprint.aurika.coorg.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -84,6 +85,7 @@ public class ProfileFragment extends Fragment implements ProfileApiListener {
     private Uri uri;
     private String stringUri;
     private ArrayAdapter arrayAdapter,arrayAdapter1;
+    private ProgressDialog dialog;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -91,6 +93,7 @@ public class ProfileFragment extends Fragment implements ProfileApiListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
 
 
         tv_my_birthday = view.findViewById(R.id.txt_date);
@@ -131,6 +134,7 @@ public class ProfileFragment extends Fragment implements ProfileApiListener {
 
         profileController = new ProfileController(this);
 
+        dialog = new ProgressDialog(mContext);
 
         email_id.setEnabled(false);
         mobile_num.setEnabled(false);
@@ -208,6 +212,9 @@ public class ProfileFragment extends Fragment implements ProfileApiListener {
                 profileModle.setImage(stringUri);
                 Log.d("sent_image",stringUri);
             }
+            dialog.setMessage("Please wait while we are processing your request.");
+            dialog.setCancelable(false);
+            dialog.show();
             profileController.updateProfile(profileModle);
 
 
@@ -397,6 +404,7 @@ public class ProfileFragment extends Fragment implements ProfileApiListener {
             if (responseType.equalsIgnoreCase("getProfile")){
                 getProfile(response);
             }else if (responseType.equalsIgnoreCase("updateProfile")){
+                dismissDialog();
                 getProfile(response);
                 GlobalClass.ShowAlert(getContext(),"Alert","Profile updated");
                 /*Fragment fragment1 = new HomeFragment();
@@ -459,6 +467,8 @@ public class ProfileFragment extends Fragment implements ProfileApiListener {
 
     @Override
     public void onFetchError(String error) {
+        dismissDialog();
+        GlobalClass.ShowAlert(mContext,"",error);
 
     }
 
@@ -470,6 +480,11 @@ public class ProfileFragment extends Fragment implements ProfileApiListener {
         }catch(Exception e){
             e.getMessage();
             return null;
+        }
+    }
+    public void dismissDialog() {
+        if (dialog.isShowing()) {
+            dialog.dismiss();
         }
     }
 }

@@ -2,6 +2,7 @@ package com.mobisprint.aurika.coorg.fragments.loginfragments;
 
 import android.Manifest;
 import android.app.KeyguardManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -79,6 +80,7 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
     private KeyguardManager keyguardManager;
     private CancellationSignal cancellationSignal;
     private BiometricDialogV23 biometricDialogV23;
+    private ProgressDialog dialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,6 +98,7 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
             et_three = view.findViewById(R.id.et_3);
             et_four = view.findViewById(R.id.et_4);
             android_id = GlobalClass.prefix + GlobalClass.android_id + GlobalClass.suffix;
+            dialog = new ProgressDialog(mContext);
 
             GlobalClass.Forgot_Mpin = true;
 
@@ -144,6 +147,9 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
                 et_four.getText().toString();
         if (mpin.length() == 4) {
 
+            dialog.setMessage("Please wait while we are processing your request.");
+            dialog.setCancelable(false);
+            dialog.show();
             loginController.checkMpin(mpin, android_id, GlobalClass.sharedPreferences.getString("token",""),1);
 
         }
@@ -332,6 +338,8 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
     public <ResponseType> void onFetchComplete(Response<ResponseType> response) {
         if (response != null) {
 
+            dismissDialog();
+
             Login login = (Login) response.body();
 
             if (login.getStatus()){
@@ -354,6 +362,7 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
 
     @Override
     public void onFetchError(String error) {
+        dismissDialog();
         GlobalClass.ShowAlert(getContext(), "Alert", error);
     }
 
@@ -448,6 +457,9 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
             biometricDialogV23.dismiss();
         }
 
+        dialog.setMessage("Please wait while we are processing your request.");
+        dialog.setCancelable(false);
+        dialog.show();
         loginController.checkMpin("", android_id, GlobalClass.sharedPreferences.getString("token","1"), 0);
 
     }
@@ -477,6 +489,12 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
     public void stopFingerAuth(){
         if(cancellationSignal != null && !cancellationSignal.isCanceled()){
             cancellationSignal.cancel();
+        }
+    }
+
+    public void dismissDialog() {
+        if (dialog.isShowing()) {
+            dialog.dismiss();
         }
     }
 

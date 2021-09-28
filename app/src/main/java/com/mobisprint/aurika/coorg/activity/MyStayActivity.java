@@ -1,6 +1,7 @@
 package com.mobisprint.aurika.coorg.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +27,7 @@ import com.mobisprint.aurika.coorg.adapter.MyStayExpandableListAdapter;
 import com.mobisprint.aurika.coorg.adapter.MyStayMainAdapter;
 import com.mobisprint.aurika.coorg.controller.MakePaymentController;
 import com.mobisprint.aurika.coorg.controller.MyStayController;
+import com.mobisprint.aurika.coorg.fragments.CoorgNotificationFragment;
 import com.mobisprint.aurika.coorg.modle.PaymentModle;
 import com.mobisprint.aurika.coorg.pojo.General;
 import com.mobisprint.aurika.coorg.pojo.guestbooking.ActiveBooking;
@@ -67,7 +69,7 @@ public class MyStayActivity extends AppCompatActivity implements   ApiListner, P
     private MyStayController myStayController;
     private List<ActiveBooking> guestList ;
     private ProgressBar progressBar;
-    private RelativeLayout lyt;
+    private RelativeLayout lyt,lyt_notification_tool_bar;
     private String folio_id,order_reciept,total_amount,user_name,email_id,ph_num,desc;
 
     @Override
@@ -87,6 +89,7 @@ public class MyStayActivity extends AppCompatActivity implements   ApiListner, P
             lyt = findViewById(R.id.mystay_lyt);
             lyt.setVisibility(View.GONE);
 
+            lyt_notification_tool_bar = findViewById(R.id.lyt_notification);
             mystay_expandable_listview = findViewById(R.id.mystay_expandable_listview);
             toolbar_title = findViewById(R.id.toolbar_title);
             toolbar_title.setText("My Stay");
@@ -103,6 +106,8 @@ public class MyStayActivity extends AppCompatActivity implements   ApiListner, P
             btn_make_payment.setOnClickListener(v -> {
                 /*startPayment();*/
             });
+
+            lyt_notification_tool_bar.setVisibility(View.GONE);
 
         } catch (Exception e) {
             e.printStackTrace();

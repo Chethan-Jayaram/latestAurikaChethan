@@ -343,6 +343,7 @@ public class LoginFragment extends Fragment implements ApiListner,GlobalClass.On
             Login login = (Login) response.body();
 
             if (login.getStatus()){
+                GlobalClass.logged_in = true;
                 GlobalClass.user_token = login.getData().getProfile().getToken();
                 GlobalClass.guest_id = login.getData().getProfile().getGuestId();
                 GlobalClass.editor.putBoolean("isMpinSetUpComplete",true);

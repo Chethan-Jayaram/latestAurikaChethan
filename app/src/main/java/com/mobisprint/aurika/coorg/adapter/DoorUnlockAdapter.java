@@ -50,6 +50,8 @@ public class DoorUnlockAdapter extends RecyclerView.Adapter<DoorUnlockAdapter.Vi
         /*holder.check_in.setText(guestList.get(position).getCheckinDateTime());*/
         holder.room_num.setText(guestList.get(0).getRoom().get(position).getRoom().getRoomNo());
 
+        /*holder.room_num.setText("227");*/
+
 
         try {
             Date checkoutDate=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(guestList.get(position).getCheckoutDateTime());

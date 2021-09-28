@@ -88,6 +88,7 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
         CheckBox checkbox_btn = convertView.findViewById(R.id.checkbox_btn);
         TextView sub_category_title = convertView.findViewById(R.id.sub_category_title);
 
+
         radio_btn.setChecked(diningSubcategory.get(groupPosition)
                 .getRadioSelected());
 
@@ -215,6 +216,7 @@ public class IrdCustomizationAdapter extends BaseExpandableListAdapter {
 
         checkbox_btn.setChecked(diningSubcategory.get(groupPosition)
                 .getSubcategoryItems().get(childPosition).getCheckBoxSelected());
+
 
         if (diningSubcategory.get(groupPosition).getSubcategoryItems().get(childPosition).getItemType().isEmpty()) {
             img_veg_nonveg.setVisibility(View.INVISIBLE);

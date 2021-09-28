@@ -107,9 +107,17 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter implement
             convertView = layoutInflater.inflate(R.layout.dining_menu_heading, null);
         }
 
+        RelativeLayout group_lyt = convertView.findViewById(R.id.group_lyt);
         View lyt_view = convertView.findViewById(R.id.lyt_view);
         RelativeLayout lyt = convertView.findViewById(R.id.lyt);
 
+        if (dataList.get(groupPosition).isItemDisabled()){
+            group_lyt.setVisibility(View.GONE);
+            lyt_view.setVisibility(View.GONE);
+            lyt.setVisibility(View.GONE);
+        }else {
+            group_lyt.setVisibility(View.VISIBLE);
+        }
 
         if (groupPosition == 0) {
             lyt_view.setVisibility(View.GONE);
@@ -153,7 +161,20 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter implement
         ImageView img_add = convertView.findViewById(R.id.img_add);
         ImageView img_remove = convertView.findViewById(R.id.img_remove);
         RelativeLayout lyt_desc = convertView.findViewById(R.id.lyt_desc);
+        RelativeLayout lyt_item_view = convertView.findViewById(R.id.lyt_item_view);
         lyt_desc.setVisibility(View.GONE);
+
+        if (dataList.get(groupPosition).isItemDisabled()){
+            lyt_item_view.setVisibility(View.GONE);
+        }else{
+            lyt_item_view.setVisibility(View.VISIBLE);
+            if (dataList.get(groupPosition).getDiningList().get(childPosition).isItemDisabled()){
+                lyt_item_view.setVisibility(View.GONE);
+            }else{
+                lyt_item_view.setVisibility(View.VISIBLE);
+            }
+        }
+
 
 
         CardView lyt_counter = convertView.findViewById(R.id.lyt_counter);

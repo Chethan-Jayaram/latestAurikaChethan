@@ -92,6 +92,7 @@ public class OtherAssistance extends Fragment implements ApiListner {
                     detail.setDescription(txt_assistance.getText().toString());
                     list.add(detail);
                     ticketModle.setDetails(list);
+                    ticketModle.setSpecial_instructions(txt_assistance.getText().toString());
                     ticketModle.setTitle("other-assistance Ticket");
                     ticketModle.setDepartment("other-assistance");
                     ticketModle.setBooking(String.valueOf(GlobalClass.Guest_Id));

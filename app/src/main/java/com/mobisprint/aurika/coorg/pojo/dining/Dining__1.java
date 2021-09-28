@@ -13,6 +13,18 @@ import java.util.Map;
 
 public class Dining__1 implements Parcelable {
 
+    @SerializedName("IsItemDisabled")
+    @Expose
+    private boolean IsItemDisabled;
+
+    public boolean isItemDisabled() {
+        return IsItemDisabled;
+    }
+
+    public void setItemDisabled(boolean itemDisabled) {
+        IsItemDisabled = itemDisabled;
+    }
+
     @SerializedName("details")
     @Expose
     public List<com.mobisprint.aurika.coorg.pojo.Services.Data> customisedList =new ArrayList<>();

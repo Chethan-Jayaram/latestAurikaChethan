@@ -93,6 +93,7 @@ public class GlobalClass {
     public static Integer guest_id;
     public static Integer Guest_Id;
     public static boolean user_active_booking = false;
+    public static boolean logged_in = false;
 
     ;
     public static String APPDATA = "";

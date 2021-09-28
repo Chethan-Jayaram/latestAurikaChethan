@@ -12,6 +12,18 @@ import java.util.List;
 
 public class Data implements Parcelable {
 
+    public boolean isItemDisabled() {
+        return IsItemDisabled;
+    }
+
+    public void setItemDisabled(boolean itemDisabled) {
+        IsItemDisabled = itemDisabled;
+    }
+
+    @SerializedName("IsItemDisabled")
+    @Expose
+    private boolean IsItemDisabled;
+
     public Integer getItem_id() {
         return item_id;
     }

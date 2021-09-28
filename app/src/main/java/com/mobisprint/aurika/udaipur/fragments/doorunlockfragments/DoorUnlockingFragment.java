@@ -152,7 +152,6 @@ public class DoorUnlockingFragment extends Fragment
             List<MobileKey> data = null;
             try {
                 data = mobileKeysApiFacade.getMobileKeys().listMobileKeys();
-                Log.d("Mobile_key_size", String.valueOf(data.get(0).isActivated()));
             } catch (MobileKeysException e) {
                 e.printStackTrace();
                 e.getMessage();

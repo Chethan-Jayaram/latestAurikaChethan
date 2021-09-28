@@ -28,7 +28,7 @@ public class ClientServiceGenerator {
     private static final String ROOT_URL_UDAIPUR_APP_CONTENT = "https://demo.mobisprint.com/";
 
 
-    private static final String ROOT_URL_COORG = "https://dev.mobisprint.com:8006/api/v1/";
+    private static final String ROOT_URL_COORG = "https://exoneapi.aurikahotels.com:9001/api/v1/";
 
 
     private static HttpLoggingInterceptor logging = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);

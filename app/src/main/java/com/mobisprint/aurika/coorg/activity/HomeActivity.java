@@ -175,7 +175,7 @@ public class HomeActivity extends AppCompatActivity implements ApiListner, Mobil
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
             });
 
-            if (GlobalClass.user_token != null) {
+            /*if (GlobalClass.user_token != null) {
                 if (GlobalClass.user_token.isEmpty()) {
 
                     tv_logout.setText("Exit");
@@ -184,12 +184,20 @@ public class HomeActivity extends AppCompatActivity implements ApiListner, Mobil
                 }
             } else {
                 tv_logout.setText("Exit");
+            }*/
+
+
+            if (GlobalClass.logged_in){
+                tv_logout.setText("Logout");
+            }else{
+                tv_logout.setText("Exit");
             }
 
             lyt_logout.setOnClickListener(v -> {
-                GlobalClass.user_token = "";
+               /* GlobalClass.user_token = "";*/
+                GlobalClass.logged_in = false;
                 GlobalClass.editor.putBoolean("isMobileKeyDownloaded",false);
-                GlobalClass.editor.clear().commit();
+                GlobalClass.editor.commit();
 
                 Intent intent = new Intent(this, SelectLocationActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

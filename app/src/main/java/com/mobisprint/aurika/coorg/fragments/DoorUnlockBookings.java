@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -122,7 +124,11 @@ public class DoorUnlockBookings extends Fragment implements ApiListner, MobileKe
 
         /*controller.getDetails(GlobalClass.user_token);*/
 
-
+        if (!sharedPreferences.getBoolean("requestedRuntimePermission", false)) {
+            edit.putBoolean("requestedRuntimePermission", true);
+            edit.commit();
+            GlobalClass.showPermissionDialoug(getActivity());
+        }
 
         return view;
     }
@@ -336,5 +342,9 @@ public class DoorUnlockBookings extends Fragment implements ApiListner, MobileKe
             dialog.dismiss();
         }
     }
+
+
+
+
 
 }

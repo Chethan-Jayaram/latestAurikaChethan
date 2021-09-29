@@ -20,7 +20,11 @@
         <item name="android:background">@drawable/bg_bottom_sheet</item>
     </style>
 
-
+    <style name="Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">#00000000</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
 
 
     <!--<style name="Widget.CalendarView.Custom" parent="android:Widget.CalendarView">

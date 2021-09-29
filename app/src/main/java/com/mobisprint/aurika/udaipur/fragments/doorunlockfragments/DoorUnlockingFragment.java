@@ -182,7 +182,13 @@ public class DoorUnlockingFragment extends Fragment
                 startReading();
             }
         } else {
-            requestLocationPermission();
+            if (!sharedPreferences.getBoolean("requestedRuntimePermission", false)) {
+                GlobalClass.editor.putBoolean("requestedRuntimePermission", true);
+                GlobalClass.editor.apply();
+                GlobalClass.showPermissionDialoug(getActivity());
+            }else {
+                requestLocationPermission();
+            }
         }
     }
 

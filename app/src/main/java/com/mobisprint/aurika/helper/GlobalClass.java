@@ -1,13 +1,21 @@
 package com.mobisprint.aurika.helper;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.provider.Settings;
 import android.util.Base64;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.modle.TicketModle;
@@ -32,6 +40,9 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class GlobalClass {
+
+    public static AlertDialog mLocationPermission;
+    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     public static final String BOTTOM_VIEW = "BOTTOM_VIEW";
 
@@ -279,6 +290,71 @@ public class GlobalClass {
     public interface OnBiometricAuthSucess { // create an interface
         void onSucessfullBiometricAuth(); // create callback function
     }
+
+
+    public static void showPermissionDialoug( Activity activity) {
+        try {
+            Button btn_enable, btn_deny;
+            //before inflating the custom alert dialog layout, we will get the current activity viewgroup
+            ViewGroup viewGroup = activity.findViewById(android.R.id.content);
+
+
+            //then we will inflate the custom alert dialog xml that we created
+            View dialogView = LayoutInflater.from(activity).inflate(R.layout.location_dailoug, viewGroup, false);
+
+            //Now we need an AlertDialog.Builder object
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.Dialog);
+
+            //setting the view of the builder to our custom view that we already inflated
+            builder.setView(dialogView);
+
+            //finally creating the alert dialog and displaying it
+            mLocationPermission = builder.create();
+            btn_enable = dialogView.findViewById(R.id.btn_enable);
+            // btn_deny= dialogView.findViewById(R.id.btn_deny);
+          /*  btn_deny.setOnClickListener(v ->{
+
+                try {
+                    mLocationPermission.dismiss();
+
+                    Intent intent = new Intent(view.getContext(), BookingDetailsListActivity.class);
+                    view.getContext().startActivity(intent);
+                    activity.finish();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } );*/
+
+            btn_enable.setOnClickListener(v -> {
+                try {
+                    ActivityCompat.requestPermissions(activity,
+                            getPermissions(),
+                            MY_PERMISSIONS_REQUEST_LOCATION);
+                    mLocationPermission.dismiss();
+                } catch (Exception e) {
+                    Log.d("permission exception", "exception");
+                }
+
+            });
+            mLocationPermission.show();
+
+            mLocationPermission.setCancelable(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getMessage();
+        }
+    }
+    public static String[] getPermissions() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+
+            return new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION};
+        } else {
+
+            return new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION};
+        }
+    }
+
 
 
 }

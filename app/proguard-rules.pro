@@ -11,6 +11,7 @@
 -optimizations !method/inlining/*
 
 -keep public class com.mobisprint.aurika.coorg.pojo.**
+-keep public class com.mobisprint.aurika.coorg.modle.** {*;}
 -keep public class com.mobisprint.aurika.coorg.fragments.**
 
 

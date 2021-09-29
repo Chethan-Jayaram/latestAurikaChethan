@@ -65,6 +65,7 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner,GlobalC
     private ProgressDialog dialog;
     private int hr,min;
     private Calendar calendar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

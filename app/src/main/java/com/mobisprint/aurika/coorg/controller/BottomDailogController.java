@@ -32,6 +32,7 @@ public class BottomDailogController {
                 if (response.isSuccessful() && response.body().getStatus()){
                     listner.onFetchComplete(response);
                 }else {
+                    Log.d("response",response.message() + response.body());
                     listner.onFetchError("Something went wrong, please try again later");
                 }
             }

@@ -12,6 +12,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.CertificatePinner;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -31,13 +32,26 @@ public class ClientServiceGenerator {
     private static final String ROOT_URL_COORG = "https://exoneapi.aurikahotels.com:9001/api/v1/";
 
 
-    private static HttpLoggingInterceptor logging = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+    private static CertificatePinner pinner=new CertificatePinner.Builder().add(
+            "exoneapi.aurikahotels.com",
+            "sha256/grX4Ta9HpZx6tSHkmCrvpApTQGo67CYDnvprLg5yRME="
+    ).build();
 
-    private static OkHttpClient httpClient = new OkHttpClient.Builder()
-            .addInterceptor(logging).connectTimeout(60, TimeUnit.SECONDS)
+
+   // private static HttpLoggingInterceptor logging = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+
+    private static OkHttpClient udaipurhttpClient = new OkHttpClient.Builder()
+           .connectTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS).build();
     ;
+    private static OkHttpClient coorghttpClient = new OkHttpClient.Builder()
+            .cache(null)
+            .certificatePinner(pinner)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS).build();
+
 
 
     private static Retrofit UDAIPUR_UNLOCK_BUILDER =
@@ -46,7 +60,7 @@ public class ClientServiceGenerator {
                     .addConverterFactory(new NullOnEmptyConverterFactory())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addConverterFactory(new ToStringConverterFactory())
-                    .client(httpClient).build();
+                    .client(udaipurhttpClient).build();
 
     private static Retrofit UDAIPUR_APP_CONTENT_BUILDER =
             new Retrofit.Builder()
@@ -54,7 +68,7 @@ public class ClientServiceGenerator {
                     .addConverterFactory(new NullOnEmptyConverterFactory())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addConverterFactory(new ToStringConverterFactory())
-                    .client(httpClient).build();
+                    .client(udaipurhttpClient).build();
 
 
     private static Retrofit COORG_BUILDER =
@@ -63,7 +77,7 @@ public class ClientServiceGenerator {
                     .addConverterFactory(new NullOnEmptyConverterFactory())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addConverterFactory(new ToStringConverterFactory())
-                    .client(httpClient).build();
+                    .client(coorghttpClient).build();
 
 
     //   private static Retrofit retrofit = builder.build();

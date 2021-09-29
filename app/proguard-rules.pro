@@ -10,6 +10,10 @@
 
 -optimizations !method/inlining/*
 
+-keep public class com.mobisprint.aurika.coorg.pojo.**
+-keep public class com.mobisprint.aurika.coorg.fragments.**
+
+
 -keepclasseswithmembers class * {
   public void onPayment*(...);
 }

@@ -76,7 +76,7 @@
     <string name="privacy_policy_reg">I agree with the terms and conditions and privacy policy</string>
 
     <string name="max_count">Maximum count for this item has been reached</string>
-    <string name="location_permission_msg">AURIKA Mobile Door Key collects location data in background to identify nearby door lock via Bluetooth(BLE), only while the door unlock feature is being used.
+    <string name="location_permission_msg">AURIKA Mobile Door Key access location in background to identify nearby door lock via Bluetooth(BLE), only while the door unlock feature is being used.
     <br/> The location data is solemnly used to unlock the door and not to support any ads.</string>
 
 

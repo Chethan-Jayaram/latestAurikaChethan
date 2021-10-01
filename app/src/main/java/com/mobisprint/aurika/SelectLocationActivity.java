@@ -1,5 +1,6 @@
 package com.mobisprint.aurika;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -36,6 +37,8 @@ public class SelectLocationActivity extends AppCompatActivity implements ApiList
     private ImageView back,notification,img_notification;
     private TextView toolbar_title;
     private RelativeLayout lyt_notification;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor edit;
 
     private  SelectLocationController controller;
     @Override
@@ -74,7 +77,13 @@ public class SelectLocationActivity extends AppCompatActivity implements ApiList
 
 
             controller.getLocations();
-
+            sharedPreferences = this.getSharedPreferences("aurika", 0);
+            edit = sharedPreferences.edit();
+            if (!sharedPreferences.getBoolean("requestedRuntimePermission", false)) {
+                edit.putBoolean("requestedRuntimePermission", true);
+                edit.commit();
+                GlobalClass.showPermissionDialoug(this);
+            }
 
         }catch ( Exception e){
             e.printStackTrace();

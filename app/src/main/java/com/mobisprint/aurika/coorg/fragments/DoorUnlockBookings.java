@@ -124,11 +124,7 @@ public class DoorUnlockBookings extends Fragment implements ApiListner, MobileKe
 
         /*controller.getDetails(GlobalClass.user_token);*/
 
-        if (!sharedPreferences.getBoolean("requestedRuntimePermission", false)) {
-            edit.putBoolean("requestedRuntimePermission", true);
-            edit.commit();
-            GlobalClass.showPermissionDialoug(getActivity());
-        }
+
 
         return view;
     }

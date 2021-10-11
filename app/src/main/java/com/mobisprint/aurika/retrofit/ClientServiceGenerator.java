@@ -29,19 +29,19 @@ public class ClientServiceGenerator {
     private static final String ROOT_URL_UDAIPUR_APP_CONTENT = "https://demo.mobisprint.com/";
 
 
-    private static final String ROOT_URL_COORG = "https://exoneapi.aurikahotels.com:9001/api/v1/";
+    //  private static final String ROOT_URL_COORG = "https://exoneapi.aurikahotels.com:9001/api/v1/";
+    private static final String ROOT_URL_COORG = "https://dev.mobisprint.com:8006/api/v1/";
 
-
-    private static CertificatePinner pinner=new CertificatePinner.Builder().add(
+    private static CertificatePinner pinner = new CertificatePinner.Builder().add(
             "exoneapi.aurikahotels.com",
             "sha256/grX4Ta9HpZx6tSHkmCrvpApTQGo67CYDnvprLg5yRME="
     ).build();
 
 
-   // private static HttpLoggingInterceptor logging = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+    // private static HttpLoggingInterceptor logging = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
 
     private static OkHttpClient udaipurhttpClient = new OkHttpClient.Builder()
-           .connectTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS).build();
     ;
@@ -51,7 +51,6 @@ public class ClientServiceGenerator {
             .connectTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS).build();
-
 
 
     private static Retrofit UDAIPUR_UNLOCK_BUILDER =
@@ -84,7 +83,6 @@ public class ClientServiceGenerator {
     public static Retrofit getUrlClient(String location) {
 
 
-
         switch (location) {
             case GlobalClass.UDAIPUR_DOOR_UNLOCK:
                 return UDAIPUR_UNLOCK_BUILDER;
@@ -93,7 +91,7 @@ public class ClientServiceGenerator {
             case GlobalClass.COORG:
                 return COORG_BUILDER;
             default:
-               return UDAIPUR_APP_CONTENT_BUILDER;
+                return UDAIPUR_APP_CONTENT_BUILDER;
         }
 
     }

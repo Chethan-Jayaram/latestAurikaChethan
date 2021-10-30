@@ -7,12 +7,15 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.provider.Settings;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
@@ -295,6 +298,7 @@ public class GlobalClass {
     public static void showPermissionDialoug( Activity activity) {
         try {
             Button btn_enable, btn_deny;
+            TextView privacy_policy;
             //before inflating the custom alert dialog layout, we will get the current activity viewgroup
             ViewGroup viewGroup = activity.findViewById(android.R.id.content);
 
@@ -311,6 +315,18 @@ public class GlobalClass {
             //finally creating the alert dialog and displaying it
             mLocationPermission = builder.create();
             btn_enable = dialogView.findViewById(R.id.btn_enable);
+            privacy_policy = dialogView.findViewById(R.id.tv_privacy_policy);
+
+
+            privacy_policy.setText(Html.fromHtml("<body>\n" +
+                    "        <a href=\"https://www.lemontreehotels.com/privacy-policy.aspx\" style=\"color:#1e0028\">Click here</a>\n" +
+                    "         to read more about Terms &amp Conditions and Privacy Policy\n" +
+                    "        </p>" +
+                    "    </body>"));
+
+            privacy_policy.setClickable(true);
+            privacy_policy.setMovementMethod(LinkMovementMethod.getInstance());
+
             // btn_deny= dialogView.findViewById(R.id.btn_deny);
           /*  btn_deny.setOnClickListener(v ->{
 

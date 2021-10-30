@@ -49,7 +49,7 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
+        try { 
             context = this;
             setContentView(R.layout.activity_splash);
 

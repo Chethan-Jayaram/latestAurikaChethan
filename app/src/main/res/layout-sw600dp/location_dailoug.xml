@@ -8,7 +8,7 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:layout_width="450dp"
-        android:layout_height="500dp"
+        android:layout_height="600dp"
         android:background="@color/white">
 
         <ImageView
@@ -59,25 +59,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/welcome_txt"
-
             android:includeFontPadding="false"
-
             android:layout_margin="40dp"
             android:lineSpacingExtra="5sp"
             android:textAlignment="center"
-
-
-
             android:text="@string/location_permission_msg"
             android:textColor="@color/black"
             android:fontFamily="@font/notosanstc_regular"
             android:textSize="18sp" />
 
+
+        <TextView
+            android:layout_above="@+id/btn_enable"
+            android:id="@+id/tv_privacy_policy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/desciption"
+            android:includeFontPadding="false"
+            android:layout_margin="40dp"
+            android:lineSpacingExtra="5sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:fontFamily="@font/notosanstc_regular"
+            android:textSize="18sp" />
+
         <Button
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="@dimen/dimen_10"
             android:id="@+id/btn_enable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
            android:layout_marginRight="20dp"
             android:layout_marginTop="40dp"
             android:alpha="0.85"

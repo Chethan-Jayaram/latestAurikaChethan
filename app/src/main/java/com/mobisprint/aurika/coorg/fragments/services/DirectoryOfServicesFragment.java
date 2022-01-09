@@ -68,6 +68,8 @@ public class DirectoryOfServicesFragment extends Fragment implements ApiListner 
 
             directoryOfServicesAdapter = new DirectoryOfServicesAdapter(getContext(),directory_of_service_list);
             expandableListView.setAdapter(directoryOfServicesAdapter);
+
+
         }
 
     }

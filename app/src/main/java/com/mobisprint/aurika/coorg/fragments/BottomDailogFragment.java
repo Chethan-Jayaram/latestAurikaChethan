@@ -434,7 +434,6 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
 
             case "k9-amenities":
                 tv_sub_heading.setVisibility(View.GONE);
-
                 today = true;
                 lyt_time_popup.setVisibility(View.GONE);
                 k9SelectedItemList.clear();
@@ -443,7 +442,6 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                 petServicesModle.setDepartment(category);
                 petServicesModle.setTitle(title);
                 petServicesModle.setBooking(booking);
-
                 petServicesModle.setRoomNumber(GlobalClass.ROOM_NO);
 
                 break;
@@ -451,7 +449,6 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
 
             case "in-room-dining":
                 tv_sub_heading.setVisibility(View.GONE);
-
                 today = true;
                 lyt_time_popup.setVisibility(View.GONE);
                 diningSelectedItemList.clear();

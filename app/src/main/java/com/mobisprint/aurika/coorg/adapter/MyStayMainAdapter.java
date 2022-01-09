@@ -147,7 +147,7 @@ public class MyStayMainAdapter extends RecyclerView.Adapter<MyStayMainAdapter.Vi
                                 guestList.get(position).setGrossAmount(response.body().getData().get(0).getGrossAmount());
                                 guestList.get(position).setGuestFolioId(response.body().getData().get(0).getFolioID());
                                 holder.total_price.setText("₹ " + guestList.get(position).getGrossAmount());
-                                holder.lyt_payment.setVisibility(View.GONE);
+                                holder.lyt_payment.setVisibility(View.VISIBLE);
 
                                 holder.btn_make_payment.setOnClickListener(v1 -> {
                                     mystayListener.onItemClicked(guestList.get(position).getGrossAmount(),guestList.get(position).getGuestFolioId());

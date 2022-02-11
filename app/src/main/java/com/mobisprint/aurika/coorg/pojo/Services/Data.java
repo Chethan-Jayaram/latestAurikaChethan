@@ -136,10 +136,10 @@ public class Data implements Parcelable {
 
     @SerializedName("price")
     @Expose
-    private String price;
+    private String price="0.0";
     @SerializedName("quantity")
     @Expose
-    private Integer quantity;
+    private Integer quantity=1;
 
     public String getPrice() {
         return price;
@@ -281,6 +281,41 @@ public class Data implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 
+    }
+    @SerializedName("itemcode")
+    @Expose
+    private String itemCode;
+
+    @SerializedName("ItemType")
+    @Expose
+    private String Item_Type;
+
+    @SerializedName("SubMenuCode")
+    @Expose
+    private String SubMenuCode;
+
+    public String getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
+    }
+
+    public String getItem_Type() {
+        return Item_Type;
+    }
+
+    public void setItem_Type(String item_Type) {
+        Item_Type = item_Type;
+    }
+
+    public String getSubMenuCode() {
+        return SubMenuCode;
+    }
+
+    public void setSubMenuCode(String subMenuCode) {
+        SubMenuCode = subMenuCode;
     }
 
     @SerializedName("details")

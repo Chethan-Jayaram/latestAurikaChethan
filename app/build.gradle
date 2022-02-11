@@ -30,12 +30,12 @@ android {
         applicationId "com.mobisprint.aurika"
         minSdkVersion 19
         targetSdkVersion 31
-        versionCode 21
+        versionCode 23
         versionName "2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         manifestPlaceholders = [
-                onesignal_app_id               : 'cc328b3a-7b1f-414c-bd94-8dbee25a8bf0',
+                onesignal_app_id  : 'cc328b3a-7b1f-414c-bd94-8dbee25a8bf0',
                 // Project number pulled from dashboard, local value is ignored.
                 onesignal_google_project_number: 'REMOTE'
         ]
@@ -60,17 +60,16 @@ android {
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        debug {
+ /*       debug {
             minifyEnabled true
             shrinkResources true
             debuggable true
             proguardFiles getDefaultProguardFile('proguard-android.txt'),  'proguard-rules.pro'
-        }
+        }*/
 
     }
     lintOptions {
         checkReleaseBuilds false
-
         abortOnError false
     }
     testOptions {

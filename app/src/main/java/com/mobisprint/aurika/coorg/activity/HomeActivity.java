@@ -337,8 +337,7 @@ public class HomeActivity extends AppCompatActivity implements ApiListner, Mobil
 
                     if (reservation.getData().getActiveBookings().isEmpty()){
                         GlobalClass.user_active_booking = false;
-                    }else{
-
+                    }else{      
                         GlobalClass.user_active_booking = true;
                         room = reservation.getData().getActiveBookings().get(0).getRoom().get(0).getRoom().getRoomNo();
 

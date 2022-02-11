@@ -25,6 +25,7 @@ public class Dining__1 implements Parcelable {
         IsItemDisabled = itemDisabled;
     }
 
+
     @SerializedName("details")
     @Expose
     public List<com.mobisprint.aurika.coorg.pojo.Services.Data> customisedList =new ArrayList<>();
@@ -83,6 +84,44 @@ public class Dining__1 implements Parcelable {
 
     public void setItemSelected(boolean itemSelected) {
         isItemSelected = itemSelected;
+    }
+
+    @SerializedName("itemcode")
+    @Expose
+    private String itemCode;
+
+    @SerializedName("ItemType")
+    @Expose
+    private String Item_Type;
+
+    @SerializedName("SubMenuCode")
+    @Expose
+    private String SubMenuCode;
+
+
+    public String getSubMenuCode() {
+        return SubMenuCode;
+    }
+
+
+    public String getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
+    }
+
+    public void setSubMenuCode(String subMenuCode) {
+        SubMenuCode = subMenuCode;
+    }
+
+    public String getItem_Type() {
+        return Item_Type;
+    }
+
+    public void setItem_Type(String item_Type) {
+        Item_Type = item_Type;
     }
 
     @SerializedName("count")

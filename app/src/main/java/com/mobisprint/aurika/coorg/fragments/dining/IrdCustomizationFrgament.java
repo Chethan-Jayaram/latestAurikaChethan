@@ -100,6 +100,10 @@ public class IrdCustomizationFrgament extends BottomSheetDialogFragment   {
                                         Data data1 = new Data();
                                         data1.setTitle(DiningSubcategory.get(i).getSubcategoryItems().get(j).getTitle());
                                         data1.setPrice(DiningSubcategory.get(i).getSubcategoryItems().get(j).getPrice());
+                                        data1.setItem_Type(DiningSubcategory.get(i).getSubcategoryItems().get(j).getItem_Type());
+                                        data1.setSubMenuCode(DiningSubcategory.get(i).getSubcategoryItems().get(j).getSubMenuCode());
+                                        data1.setItemCode(DiningSubcategory.get(i).getSubcategoryItems().get(j).getItemCode());
+
                                         details1.add(data1);
                                     }
                                 }else if(DiningSubcategory.get(i).getSubcategoryItems().get(j).getItemOption().equalsIgnoreCase("checkbox")){
@@ -108,6 +112,9 @@ public class IrdCustomizationFrgament extends BottomSheetDialogFragment   {
                                         Data data1 = new Data();
                                         data1.setTitle(DiningSubcategory.get(i).getSubcategoryItems().get(j).getTitle());
                                         data1.setPrice(DiningSubcategory.get(i).getSubcategoryItems().get(j).getPrice());
+                                        data1.setItem_Type(DiningSubcategory.get(i).getSubcategoryItems().get(j).getItem_Type());
+                                        data1.setSubMenuCode(DiningSubcategory.get(i).getSubcategoryItems().get(j).getSubMenuCode());
+                                        data1.setItemCode(DiningSubcategory.get(i).getSubcategoryItems().get(j).getItemCode());
                                         details1.add(data1);
                                     }
                                 }
@@ -122,12 +129,19 @@ public class IrdCustomizationFrgament extends BottomSheetDialogFragment   {
                                 if (DiningSubcategory.get(i).getRadioSelected()) {
                                     data.setTitle(DiningSubcategory.get(i).getTitle());
                                     data.setPrice(DiningSubcategory.get(i).getPrice());
+                                    data.setItemCode(DiningSubcategory.get(i).getItemCode());
+                                    data.setSubMenuCode(DiningSubcategory.get(i).getSubMenuCode());
+                                    data.setItem_Type(DiningSubcategory.get(i).getItem_Type());
+
                                     details.add(data);
                                 }
                             }else if(DiningSubcategory.get(i).getItemOption().equalsIgnoreCase("checkbox")){
                                 if (DiningSubcategory.get(i).getCheckBoxSelected()) {
                                     data.setTitle(DiningSubcategory.get(i).getTitle());
                                     data.setPrice(DiningSubcategory.get(i).getPrice());
+                                    data.setItemCode(DiningSubcategory.get(i).getItemCode());
+                                    data.setSubMenuCode(DiningSubcategory.get(i).getSubMenuCode());
+                                    data.setItem_Type(DiningSubcategory.get(i).getItem_Type());
                                     details.add(data);
                                 }
                             }

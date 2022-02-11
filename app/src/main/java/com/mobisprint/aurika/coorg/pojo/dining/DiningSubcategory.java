@@ -9,8 +9,6 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import kotlin.random.AbstractPlatformRandom;
-
 public class DiningSubcategory implements Parcelable {
 
 
@@ -18,6 +16,42 @@ public class DiningSubcategory implements Parcelable {
     @Expose
     private Boolean isCheckBoxSelected=false;
 
+
+    @SerializedName("itemcode")
+    @Expose
+    private String itemCode;
+
+    @SerializedName("ItemType")
+    @Expose
+    private String Item_Type;
+
+    @SerializedName("SubMenuCode")
+    @Expose
+    private String SubMenuCode;
+
+    public String getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode;
+    }
+
+    public String getItem_Type() {
+        return Item_Type;
+    }
+
+    public void setItem_Type(String item_Type) {
+        Item_Type = item_Type;
+    }
+
+    public String getSubMenuCode() {
+        return SubMenuCode;
+    }
+
+    public void setSubMenuCode(String subMenuCode) {
+        SubMenuCode = subMenuCode;
+    }
 
     @SerializedName("isRadioSelected")
     @Expose

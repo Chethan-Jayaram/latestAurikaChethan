@@ -69,6 +69,7 @@ public class Data implements Parcelable {
     @Expose
     private Integer categoryId;
 
+
     public Integer getCategoryId() {
         return categoryId;
     }

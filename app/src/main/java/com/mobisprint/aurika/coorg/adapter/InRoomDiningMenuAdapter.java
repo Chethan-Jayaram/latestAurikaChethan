@@ -111,11 +111,11 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter implement
         View lyt_view = convertView.findViewById(R.id.lyt_view);
         RelativeLayout lyt = convertView.findViewById(R.id.lyt);
 
-        if (dataList.get(groupPosition).isItemDisabled()){
+        if (dataList.get(groupPosition).isItemDisabled()) {
             group_lyt.setVisibility(View.GONE);
             lyt_view.setVisibility(View.GONE);
             lyt.setVisibility(View.GONE);
-        }else {
+        } else {
             group_lyt.setVisibility(View.VISIBLE);
         }
 
@@ -164,17 +164,16 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter implement
         RelativeLayout lyt_item_view = convertView.findViewById(R.id.lyt_item_view);
         lyt_desc.setVisibility(View.GONE);
 
-        if (dataList.get(groupPosition).isItemDisabled()){
+        if (dataList.get(groupPosition).isItemDisabled()) {
             lyt_item_view.setVisibility(View.GONE);
-        }else{
+        } else {
             lyt_item_view.setVisibility(View.VISIBLE);
-            if (dataList.get(groupPosition).getDiningList().get(childPosition).isItemDisabled()){
+            if (dataList.get(groupPosition).getDiningList().get(childPosition).isItemDisabled()) {
                 lyt_item_view.setVisibility(View.GONE);
-            }else{
+            } else {
                 lyt_item_view.setVisibility(View.VISIBLE);
             }
         }
-
 
 
         CardView lyt_counter = convertView.findViewById(R.id.lyt_counter);
@@ -233,7 +232,9 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter implement
             }
         });
 
-        if (dataList.get(groupPosition).getDiningList().get(childPosition).getItemselectorType().equalsIgnoreCase("single")) {
+        if (
+                dataList.get(groupPosition).getDiningList().get(childPosition)
+                        .getItemselectorType().equalsIgnoreCase("single")) {
             bt_single.setVisibility(View.VISIBLE);
             if (dataList.get(groupPosition).getDiningList().get(childPosition).getCount() > 0) {
                 GlobalClass.editor.putBoolean(title + SharedPreferenceVariables.Dining_IsSingleItemSelected, true);
@@ -247,7 +248,9 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter implement
             bt_single.setVisibility(View.GONE);
         }
 
-        if (dataList.get(groupPosition).getDiningList().get(childPosition).getItemselectorType().equalsIgnoreCase("multi")) {
+        if (
+                dataList.get(groupPosition).getDiningList().get(childPosition).
+                        getItemselectorType().equalsIgnoreCase("multi")) {
             bt_multiple.setVisibility(View.VISIBLE);
             if (dataList.get(groupPosition).getDiningList().get(childPosition).getCount() > 0) {
                 GlobalClass.editor.putBoolean(title + SharedPreferenceVariables.Dining_IsMultipleItemSelected, true);
@@ -347,7 +350,7 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter implement
                 lyt_add.setVisibility(View.VISIBLE);
                 lyt_counter.setVisibility(View.GONE);
                 dataList.get(groupPosition).getDiningList().get(childPosition).setCount(dataList.get(groupPosition).getDiningList().get(childPosition).getCount() - 1);
-                if(dataList.get(groupPosition).getDiningList().get(childPosition).getCustomisedList().size()>0) {
+                if (dataList.get(groupPosition).getDiningList().get(childPosition).getCustomisedList().size() > 0) {
                     dataList.get(groupPosition).getDiningList().get(childPosition).getCustomisedList()
                             .remove(dataList.get(groupPosition).getDiningList().get(childPosition).getCustomisedList().size() - 1);
                 }
@@ -358,7 +361,7 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter implement
                 tv_quantity.setText(Integer.toString(dataList.get(groupPosition).getDiningList().get(childPosition).getCount()));
                 pushData(dataList);
 
-                if(dataList.get(groupPosition).getDiningList().get(childPosition).getCustomisedList().size()>0) {
+                if (dataList.get(groupPosition).getDiningList().get(childPosition).getCustomisedList().size() > 0) {
                     dataList.get(groupPosition).getDiningList().get(childPosition).getCustomisedList()
                             .remove(dataList.get(groupPosition).getDiningList().get(childPosition).getCustomisedList().size() - 1);
                 }
@@ -415,7 +418,7 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter implement
 
     private void resetvalues(int groupPosition, int childPosition) {
         for (int i = 0; i < dataList.get(groupPosition).getDiningList().get(childPosition).getDiningSubcategory().size(); i++) {
-            if (dataList.get(groupPosition).getDiningList().get(childPosition).getDiningSubcategory().get(i).getItemOption().equalsIgnoreCase("radio") ) {
+            if (dataList.get(groupPosition).getDiningList().get(childPosition).getDiningSubcategory().get(i).getItemOption().equalsIgnoreCase("radio")) {
                 dataList.get(groupPosition).getDiningList().get(childPosition).getDiningSubcategory().get(i).setRadioSelected(false);
 
             } else if (dataList.get(groupPosition).getDiningList().get(childPosition).getDiningSubcategory().get(i).getItemOption().equalsIgnoreCase("checkbox")) {
@@ -425,7 +428,7 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter implement
             }
 
             for (int j = 0; j < dataList.get(groupPosition).getDiningList().get(childPosition).getDiningSubcategory().get(i).getSubcategoryItems().size(); j++) {
-                if (dataList.get(groupPosition).getDiningList().get(childPosition).getDiningSubcategory().get(i).getSubcategoryItems().get(j).getItemOption().equalsIgnoreCase("radio") ) {
+                if (dataList.get(groupPosition).getDiningList().get(childPosition).getDiningSubcategory().get(i).getSubcategoryItems().get(j).getItemOption().equalsIgnoreCase("radio")) {
                     dataList.get(groupPosition).getDiningList().get(childPosition).getDiningSubcategory().get(i).getSubcategoryItems().get(j).setRadioSelected(false);
 
                 } else if (dataList.get(groupPosition).getDiningList().get(childPosition).getDiningSubcategory().get(i).getSubcategoryItems().get(j).getItemOption().equalsIgnoreCase("checkbox")) {
@@ -456,16 +459,18 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter implement
     }
 
     @Override
-    public void onCustomizationAdded( List<com.mobisprint.aurika.coorg.pojo.Services.Data> data) {
+    public void onCustomizationAdded(List<com.mobisprint.aurika.coorg.pojo.Services.Data> data) {
 
-
-            com.mobisprint.aurika.coorg.pojo.Services.Data data1=new com.mobisprint.aurika.coorg.pojo.Services.Data();
-            data1.setTitle( dataList.get(this.groupPos).getDiningList().get(this.childPos).getTitle());
-            data1.setQuantity(1);
-            data1.setPrice(dataList.get(this.groupPos).getDiningList().get(this.childPos).getPrice());
-            data1.setItem_id(dataList.get(this.groupPos).getDiningList().get(this.childPos).getItem_id());
-            data1.setDetails(data);
-            dataList.get(this.groupPos).getDiningList().get(this.childPos).getCustomisedList().add(data1);
+        com.mobisprint.aurika.coorg.pojo.Services.Data data1 = new com.mobisprint.aurika.coorg.pojo.Services.Data();
+        data1.setTitle(dataList.get(this.groupPos).getDiningList().get(this.childPos).getTitle());
+        data1.setQuantity(1);
+        data1.setPrice(dataList.get(this.groupPos).getDiningList().get(this.childPos).getPrice());
+        data1.setItem_id(dataList.get(this.groupPos).getDiningList().get(this.childPos).getItem_id());
+        data1.setItemCode(dataList.get(this.groupPos).getDiningList().get(this.childPos).getItemCode());
+        data1.setSubMenuCode(dataList.get(this.groupPos).getDiningList().get(this.childPos).getSubMenuCode());
+        data1.setItem_Type(dataList.get(this.groupPos).getDiningList().get(this.childPos).getItem_Type());
+        data1.setDetails(data);
+        dataList.get(this.groupPos).getDiningList().get(this.childPos).getCustomisedList().add(data1);
 
         GlobalClass.editor.putBoolean(title + SharedPreferenceVariables.Dining_IsMultipleItemSelected, true);
         GlobalClass.editor.commit();

@@ -173,8 +173,6 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                             }
                         }
 */
-
-
                         selectedList.clear();
                         for (int i = 0; i < dataList.size(); i++) {
                             for (int j = 0; j < dataList.get(i).getDiningList().size(); j++) {
@@ -188,6 +186,9 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                                             selectedList.setItem_id(dataList.get(i).getDiningList().get(j).getId());
                                             selectedList.setTitle(dataList.get(i).getDiningList().get(j).getTitle());
                                             selectedList.setPrice(dataList.get(i).getDiningList().get(j).getPrice());
+                                            selectedList.setItem_Type(dataList.get(i).getDiningList().get(j).getItem_Type());
+                                            selectedList.setSubMenuCode(dataList.get(i).getDiningList().get(j).getSubMenuCode());
+                                            selectedList.setItemCode(dataList.get(i).getDiningList().get(j).getItemCode());
                                             if(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().size()>0){
                                                 for(int l=0;l<dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().size();l++){
                                                     mydata.add(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l));
@@ -413,28 +414,19 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                                 items_count += dataList.get(i).getDiningList().get(j).getCount();
                                 tv_num_of_items.setText(items_count + " " + "items");
 
-
                                 if (dataList.get(i).getDiningList().get(j).getCount() >= 0) {
                                     category_items.add(dataList.get(i).getDiningList().get(j));
-
                                     if (!(dataList.get(i).getDiningList().get(j).getCustomisedList().size() > 0)) {
                                         total_price += dataList.get(i).getDiningList().get(j).getCount() * Double.parseDouble(dataList.get(i).getDiningList().get(j).getPrice());
-
                                     } else {
                                         total_price += dataList.get(i).getDiningList().get(j).getCount() *
                                                 Double.parseDouble(dataList.get(i).getDiningList().get(j).getPrice());
-
                                         for (int k = 0; k < dataList.get(i).getDiningList().get(j).getCustomisedList().size(); k++) {
 
-
-
-
                                             if(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails()!=null) {
-
                                                     for (int l = 0; l < dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().size(); l++) {
                                                    /* double additioncharges = Double.parseDouble(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getPrice());
                                                     total_price += additioncharges;*/
-
                                                         if (dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getDetails() != null) {
                                                             for (int m = 0; m < dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getDetails().size(); m++) {
                                                                 double additioncharges = Double.parseDouble(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getDetails().get(m).getPrice());
@@ -444,7 +436,6 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                                                             double additioncharges = Double.parseDouble(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getPrice());
                                                             total_price += additioncharges;
                                                         }
-
                                                 }
                                             }
 

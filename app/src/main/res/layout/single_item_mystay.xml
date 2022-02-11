@@ -189,7 +189,7 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_marginTop="@dimen/dimen_5"
             android:id="@+id/lyt_payment"
             android:layout_below="@+id/lytt"

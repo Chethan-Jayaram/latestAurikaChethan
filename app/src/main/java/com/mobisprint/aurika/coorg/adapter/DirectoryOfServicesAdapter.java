@@ -45,6 +45,7 @@ public class DirectoryOfServicesAdapter extends BaseExpandableListAdapter {
         return directory_of_service_list.get(groupPosition);
     }
 
+
     @Override
     public Object getChild(int groupPosition, int childPosition) {
         return directory_of_service_list.get(groupPosition).getDescription();

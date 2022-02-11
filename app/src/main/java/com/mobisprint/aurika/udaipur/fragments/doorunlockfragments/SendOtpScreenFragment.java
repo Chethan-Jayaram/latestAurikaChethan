@@ -1,4 +1,4 @@
-package com.mobisprint.aurika.udaipur.fragments.doorunlockfragments;
+ package com.mobisprint.aurika.udaipur.fragments.doorunlockfragments;
 
 
 import android.app.Activity;

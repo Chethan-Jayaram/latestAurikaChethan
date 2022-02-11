@@ -4,6 +4,8 @@ package com.mobisprint.aurika.coorg.pojo.guestfoilos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Data {
 
     @SerializedName("id")
@@ -20,7 +22,7 @@ public class Data {
     private String balanceDueAmount;
     @SerializedName("RevenueDetails")
     @Expose
-    private RevenueDetails revenueDetails;
+    private List<RevenueDetails> revenueDetails;
     @SerializedName("totalTax")
     @Expose
     private String totalTax;
@@ -75,11 +77,11 @@ public class Data {
         this.balanceDueAmount = balanceDueAmount;
     }
 
-    public RevenueDetails getRevenueDetails() {
+    public List<RevenueDetails> getRevenueDetails() {
         return revenueDetails;
     }
 
-    public void setRevenueDetails(RevenueDetails revenueDetails) {
+    public void setRevenueDetails(List<RevenueDetails> revenueDetails) {
         this.revenueDetails = revenueDetails;
     }
 

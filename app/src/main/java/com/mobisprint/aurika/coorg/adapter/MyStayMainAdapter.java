@@ -86,7 +86,7 @@ public class MyStayMainAdapter extends RecyclerView.Adapter<MyStayMainAdapter.Vi
             e.printStackTrace();
         }
 
-        holder.btn_make_payment.setVisibility(View.GONE);
+        //holder.btn_make_payment.setVisibility(View.GONE);
 
         if (guestList.get(position).getGuestCount() != null){
             holder.tv_nymber_of_guests.setText((Integer) guestList.get(position).getGuestCount());
@@ -190,6 +190,8 @@ public class MyStayMainAdapter extends RecyclerView.Adapter<MyStayMainAdapter.Vi
                         GlobalClass.ShowAlert(mContext,"Alert","The request timed out.");
 
                     } else {
+                        Log.d("message",t.getCause().toString());
+                        Log.d("message",t.getLocalizedMessage());
 
                         GlobalClass.ShowAlert(mContext,"Alert","Please check your internet connection and try again.");
 

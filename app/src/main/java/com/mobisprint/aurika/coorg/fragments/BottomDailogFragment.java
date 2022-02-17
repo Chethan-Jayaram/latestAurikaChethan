@@ -804,6 +804,7 @@ public class BottomDailogFragment extends BottomSheetDialogFragment implements A
                     diningModle.setRequestDate(requestDate);
                     dialog.setCancelable(false);
                     dialog.show();
+                    Log.d("diningList", String.valueOf(diningSelectedItemList));
                     controller.diningTicketCreation(diningModle);
                     break;
 

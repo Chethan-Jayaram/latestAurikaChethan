@@ -109,13 +109,13 @@ public class IrdCustomizationFrgament extends BottomSheetDialogFragment   {
                                 }else if(DiningSubcategory.get(i).getSubcategoryItems().get(j).getItemOption().equalsIgnoreCase("checkbox")){
                                     if(DiningSubcategory.get(i).getSubcategoryItems().get(j).getCheckBoxSelected()){
                                      //   data.setTitle(DiningSubcategory.get(i).getTitle());
-                                      //  Data data1 = new Data();
-                                        data.setTitle(DiningSubcategory.get(i).getSubcategoryItems().get(j).getTitle());
-                                        data.setPrice(DiningSubcategory.get(i).getSubcategoryItems().get(j).getPrice());
-                                        data.setItem_Type(DiningSubcategory.get(i).getSubcategoryItems().get(j).getItem_Type());
-                                        data.setSubMenuCode(DiningSubcategory.get(i).getSubcategoryItems().get(j).getSubMenuCode());
-                                        data.setItemCode(DiningSubcategory.get(i).getSubcategoryItems().get(j).getItemCode());
-                                        details.add(data);
+                                        Data data1 = new Data();
+                                        data1.setTitle(DiningSubcategory.get(i).getSubcategoryItems().get(j).getTitle());
+                                        data1.setPrice(DiningSubcategory.get(i).getSubcategoryItems().get(j).getPrice());
+                                        data1.setItem_Type(DiningSubcategory.get(i).getSubcategoryItems().get(j).getItem_Type());
+                                        data1.setSubMenuCode(DiningSubcategory.get(i).getSubcategoryItems().get(j).getSubMenuCode());
+                                        data1.setItemCode(DiningSubcategory.get(i).getSubcategoryItems().get(j).getItemCode());
+                                        details.add(data1);
                                     }
                                 }
 

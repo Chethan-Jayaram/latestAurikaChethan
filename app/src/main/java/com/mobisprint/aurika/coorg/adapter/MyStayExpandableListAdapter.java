@@ -1,6 +1,7 @@
 package com.mobisprint.aurika.coorg.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,6 +97,8 @@ public class MyStayExpandableListAdapter extends BaseExpandableListAdapter imple
         TextView total_price = convertView.findViewById(R.id.total_price);
         Button btn_make_payment= convertView.findViewById(R.id.btn_make_payment);
 
+
+
         if (isExpanded){
             drop_img.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_down_arrow));
         }else {
@@ -137,6 +140,9 @@ public class MyStayExpandableListAdapter extends BaseExpandableListAdapter imple
                 elv.expandGroup(groupPosition);
 
                 if (guestList.get(groupPosition).getReservationStatus().equalsIgnoreCase("INHOUSE")){
+
+                    Log.d("amounttt",String.valueOf(guestList.get(0).getBalanaceAmount()));
+
                     lyt_payment.setVisibility(View.VISIBLE);
 
                     myStayController.getGuestFoilos(guestList.get(0).getBookingNumber());

@@ -168,7 +168,6 @@ public class MyStayActivity extends AppCompatActivity implements   ApiListner, P
          */
         checkout.setKeyID("rzp_test_kHdWf9jzJMB3eq");
 
-
         try {
             JSONObject options = new JSONObject();
 
@@ -239,7 +238,6 @@ public class MyStayActivity extends AppCompatActivity implements   ApiListner, P
                     mystay_expandable_listview.setLayoutManager(layoutManager);
                     mystay_expandable_listview.setAdapter(adapter);
                 }
-
 
 
 

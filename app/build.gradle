@@ -1,4 +1,4 @@
-buildscript {
+  buildscript {
     repositories {
         maven { url 'https://plugins.gradle.org/m2/' }
     }
@@ -30,7 +30,7 @@ android {
         applicationId "com.mobisprint.aurika"
         minSdkVersion 19
         targetSdkVersion 31
-        versionCode 23
+        versionCode 25
         versionName "2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -130,19 +130,19 @@ dependencies {
 
     // implementation project(path: ':mobilekeys-android-sdk-debug-7.3.0')
     implementation files('docs/javadoc/mobilekeys-android-sdk-7.3.0-javadoc.jar')
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.5.0'
 
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
 
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
 
     //retrofit
@@ -156,17 +156,17 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
 //auto read
-    implementation 'com.google.android.gms:play-services-base:17.1.0'
-    implementation 'com.google.android.gms:play-services-identity:17.0.0'
-    implementation 'com.google.android.gms:play-services-auth:17.0.0'
-    implementation 'com.google.android.gms:play-services-auth-api-phone:17.3.0'
-    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+    implementation 'com.google.android.gms:play-services-base:18.0.1'
+    implementation 'com.google.android.gms:play-services-identity:18.0.1'
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.1'
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
     //library
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.annotation:annotation:1.3.0'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
 
     //notification dependency
     implementation 'com.onesignal:OneSignal:3.12.2'
@@ -174,12 +174,12 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation project(path: ':mobilekeys-android-sdk-release-7.4.7')
 
-    implementation 'com.google.android.play:core:1.9.1'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.google.android.play:core:1.10.3'
+    implementation 'com.google.android.material:material:1.5.0'
 
     //bottom dailog box
 
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.google.android.material:material:1.5.0'
 
     //toggle button
 
@@ -187,13 +187,13 @@ dependencies {
 
     //Auto read SMS
 
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
-    implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.1'
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.1'
 
 
     // Biometric auth
 
-    implementation 'androidx.biometric:biometric:1.2.0-alpha03'
+    implementation 'androidx.biometric:biometric:1.2.0-alpha04'
     implementation 'androidx.biometric:biometric:1.1.0'
 
 
@@ -203,13 +203,13 @@ dependencies {
     implementation 'com.applandeo:material-calendar-view:1.7.0'
 
     // Razor pay
-    implementation 'com.razorpay:checkout:1.6.12'
+    implementation 'com.razorpay:checkout:1.6.19'
 
 
     implementation 'commons-codec:commons-codec:1.9'
 
    // implementation(name:'google-pay-client-api-1.0.0  ', ext:'aar')
-    implementation 'com.google.android.gms:play-services-tasks:15.0.1'
+    implementation 'com.google.android.gms:play-services-tasks:18.0.1'
 
 }
 configurations {

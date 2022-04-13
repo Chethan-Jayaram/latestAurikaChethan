@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mobisprint.aurika"
+    android:exported="true"
     android:installLocation="internalOnly">
 
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
@@ -24,6 +25,7 @@
         android:required="false" />
 
     <application
+        android:exported="true"
         android:usesCleartextTraffic="true"
         android:name=".unlock.Aurika"
         android:allowBackup="true"
@@ -33,28 +35,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:exported="true"
             android:name=".coorg.activity.MyStayActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            />
         <activity
+            android:exported="true"
             android:name=".coorg.activity.HomeActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
+            android:exported="true"
             android:name=".udaipur.activity.HomeScreenActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="true"
             android:name=".SelectLocationActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:exported="true"
             android:name=".coorg.activity.UserAuthenticationActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SplashActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
         <!--
@@ -72,10 +82,35 @@
 
         <service
             android:name=".udaipur.services.SchedulerService"
-            android:permission="android.permission.BIND_JOB_SERVICE" /> <!-- Add your API key here -->
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="false"/> <!-- Add your API key here -->
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_kHdWf9jzJMB3eq" />
+
+
+        <!--<receiver
+            android:name="com.razorpay.RzpTokenReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="rzp.device_token.share" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.razorpay.CheckoutActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@style/CheckoutTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <data
+                    android:host="rzp.io"
+                    android:scheme="io.rzp" />
+            </intent-filter>
+        </activity>-->
+
+
     </application>
 
 </manifest>

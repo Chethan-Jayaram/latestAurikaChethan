@@ -84,6 +84,7 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
     private int hr, min;
     private Calendar calendar;
     private List<Data> dataList;
+    private List<Data> new_dataList;
     private List<Dining__1> selectedList = new ArrayList<>();
     private DiningModle diningModle = new DiningModle();
     private BottomDailogController ticketController;
@@ -378,6 +379,14 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
 
                 Dining dining = (Dining) response.body();
                 dataList = dining.getData();
+
+//                for(int i=0; i<=dataList.size(); i++){
+//                    for (int j=0; j<= dataList.get(i).getDiningList().size(); j++){
+//
+//                    }
+//                }
+//
+//                dataList.get().getDiningList().get().getDiningSubcategory().get().getCustomisedSubCategoryItems().get().
 
                 if (diningArrPackagedata != null) {
                     diningArrPackagedata.clear();

@@ -27,17 +27,17 @@
 
 
         <TextView
-            android:textSize="16sp"
-            android:layout_marginLeft="@dimen/dimen_5"
-            android:layout_marginTop="@dimen/dimen_20"
+            android:id="@+id/service_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/service_title"
-            android:text="Lunch at Mirasa"
+            android:layout_marginLeft="@dimen/dimen_5"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_toRightOf="@+id/img_icon"
             android:fontFamily="@font/notoseriftc_bold"
-            android:textColor="@color/black"
             android:includeFontPadding="false"
-            android:layout_toRightOf="@+id/img_icon"/>
+            android:text="Lunch at Mirasa"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
         <androidx.cardview.widget.CardView
             android:layout_marginTop="@dimen/dimen_20"

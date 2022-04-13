@@ -47,26 +47,26 @@ public class InRoomDiningFragment extends Fragment {
             parsejson();
             TextView break_fast_menu = view.findViewById(R.id.break_fast_menu);
             break_fast_menu.setOnClickListener(view1 -> {
-               // ChangeFragment(0);
+               ChangeFragment(0);
             });
             dining_menu.setOnClickListener(view1 -> {
-               // ChangeFragment(1);
+               ChangeFragment(1);
 
             });
             children_menu.setOnClickListener(view1 -> {
-              //  ChangeFragment(2);
+               ChangeFragment(2);
 
             });
             wine_menu.setOnClickListener(view1 -> {
-              //  ChangeFragment(3);
+               ChangeFragment(3);
 
             });
             midnigt_menu.setOnClickListener(view1 -> {
-               // ChangeFragment(4);
+                ChangeFragment(4);
 
             });
             beverage_menu.setOnClickListener(view1 -> {
-               // ChangeFragment(5);
+                ChangeFragment(5);
             });
             getActivity().findViewById(R.id.lyt_notification).setVisibility(View.VISIBLE);
         } catch (Exception e) {

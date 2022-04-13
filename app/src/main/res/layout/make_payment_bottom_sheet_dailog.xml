@@ -67,7 +67,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
+       <!-- <LinearLayout
             android:layout_marginLeft="@dimen/dimen_20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                 android:includeFontPadding="false"
                 android:fontFamily="@font/notoseriftc_bold"/>
 
-        </LinearLayout>
+        </LinearLayout>-->
 
 
         <Button

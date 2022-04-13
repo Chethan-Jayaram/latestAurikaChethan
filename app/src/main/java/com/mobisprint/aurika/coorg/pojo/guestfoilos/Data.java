@@ -20,9 +20,9 @@ public class Data {
     @SerializedName("BalanceDueAmount")
     @Expose
     private String balanceDueAmount;
-    @SerializedName("RevenueDetails")
+   /* @SerializedName("RevenueDetails")
     @Expose
-    private List<RevenueDetails> revenueDetails;
+    private RevenueDetails revenueDetails;*/
     @SerializedName("totalTax")
     @Expose
     private String totalTax;
@@ -77,13 +77,13 @@ public class Data {
         this.balanceDueAmount = balanceDueAmount;
     }
 
-    public List<RevenueDetails> getRevenueDetails() {
+   /* public RevenueDetails getRevenueDetails() {
         return revenueDetails;
     }
 
-    public void setRevenueDetails(List<RevenueDetails> revenueDetails) {
+    public void setRevenueDetails(RevenueDetails revenueDetails) {
         this.revenueDetails = revenueDetails;
-    }
+    }*/
 
     public String getTotalTax() {
         return totalTax;

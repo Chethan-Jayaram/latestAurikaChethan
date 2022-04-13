@@ -236,6 +236,7 @@
                 android:layout_alignParentRight="true">
 
                 <Button
+                    android:visibility="gone"
                     android:clickable="false"
                     android:id="@+id/btn_make_payment"
                     android:padding="@dimen/dimen_10"

@@ -127,18 +127,19 @@ public class MyStayActivity extends AppCompatActivity implements   ApiListner, P
 
         Button bt_make_payment = bottomSheetDialog.findViewById(R.id.btn_make_payment_continue);
         TextView tv_amount_to_be_paid = bottomSheetDialog.findViewById(R.id.amount_to_be_paid);
-        EditText amount_to_pay = bottomSheetDialog.findViewById(R.id.amount_to_pay);
-        tv_amount_to_be_paid.setText("INR " + String.valueOf(amount) + " rs");
-        amount_to_pay.setHint(String.valueOf(amount));
+     //   EditText amount_to_pay = bottomSheetDialog.findViewById(R.id.amount_to_pay);
+        tv_amount_to_be_paid.setText("INR " + String.valueOf(amount));
+      //  amount_to_pay.setHint(String.valueOf(amount));
 
         bt_make_payment.setOnClickListener(v -> {
-            if (amount_to_pay.getText().toString().trim().isEmpty()){
+            /*if (amount_to_pay.getText().toString().trim().isEmpty()){
                 total_amount =amount;
                 controller.generateOrderId(String.valueOf(amount));
             }else{
                 total_amount = amount_to_pay.getText().toString().trim();
                 controller.generateOrderId(amount_to_pay.getText().toString().trim());
-            }
+            }*/
+            controller.generateOrderId(String.valueOf(amount));
         });
 
         bottomSheetDialog.show();
@@ -277,7 +278,7 @@ public class MyStayActivity extends AppCompatActivity implements   ApiListner, P
     @Override
     public void onPaymentSuccess(String s, PaymentData paymentData) {
 
-        Integer amount = paymentModle.getAmount()/100;
+        Double amount = paymentModle.getAmount()/100;
 
         try {
 

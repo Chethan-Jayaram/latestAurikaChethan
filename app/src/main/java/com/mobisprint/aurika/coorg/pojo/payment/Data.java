@@ -15,7 +15,7 @@ public class Data {
     private String entity;
     @SerializedName("amount")
     @Expose
-    private Integer amount;
+    private Double amount;
     @SerializedName("amount_paid")
     @Expose
     private Integer amountPaid;
@@ -60,11 +60,11 @@ public class Data {
         this.entity = entity;
     }
 
-    public Integer getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

@@ -6,6 +6,7 @@
 -keepattributes *Annotation*
 
 -dontwarn com.razorpay.**
+-dontwarn okhttp3.internal.platform.ConscryptPlatform
 -keep class com.razorpay.** {*;}
 
 -optimizations !method/inlining/*

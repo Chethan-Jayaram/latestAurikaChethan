@@ -6,6 +6,7 @@ import com.mobisprint.aurika.coorg.pojo.ticketing.Ticket;
 import com.mobisprint.aurika.helper.ApiListner;
 import com.mobisprint.aurika.helper.GlobalClass;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -47,13 +48,19 @@ public class MakePaymentController {
     public void paymentSuccess(String signature, String orderId, String paymentId, String order_reciept, String folio_id, String amount) {
         HashMap map=new HashMap<>();
 
+        DecimalFormat df = new DecimalFormat("0.00");
+        df.setMaximumFractionDigits(2);
+        Float amount_updated=Float.parseFloat(amount);
+        amount = df.format(amount_updated);
+
+
         map.put("token",GlobalClass.user_token);
         map.put("razorpay_payment_id",paymentId);
         map.put("razorpay_order_id",orderId);
         map.put("razorpay_signature",signature);
         map.put("folioID",folio_id);
         map.put("order_receipt",order_reciept);
-        map.put("order_amount",amount);
+        map.put("order_amount",String.valueOf(amount));
         Call<General> call = GlobalClass.API_COORG.verifySignature(map);
         call.enqueue(new Callback<General>() {
             @Override

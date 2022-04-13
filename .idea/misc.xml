@@ -9,12 +9,17 @@
         <entry key="..\:/AndroidStudioProjects/Aurika/aurika-mobile-android/app/src/main/res/layout/fragment_coorg_services.xml" value="0.2151268115942029" />
         <entry key="..\:/AndroidStudioProjects/Aurika/aurika-mobile-android/app/src/main/res/layout/fragment_directory_of_services.xml" value="0.20092592592592592" />
         <entry key="..\:/AndroidStudioProjects/Aurika/aurika-mobile-android/app/src/main/res/layout/single_item_main_screen.xml" value="0.27291666666666664" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_all_day_dining_menu.xml" value="0.27291666666666664" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_beverage_menu.xml" value="0.27291666666666664" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_in_room_dining.xml" value="0.27291666666666664" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_in_room_dining_menu.xml" value="0.26871794871794874" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/inner_single_item_mystay.xml" value="0.14270833333333333" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/make_payment_bottom_sheet_dailog.xml" value="0.27291666666666664" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/single_item_mystay.xml" value="0.26871794871794874" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

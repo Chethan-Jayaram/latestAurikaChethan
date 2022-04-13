@@ -32,7 +32,6 @@
                 android:textStyle="normal" />
 
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_15">
@@ -42,10 +41,13 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                     android:layout_margin="@dimen/dimen_10"
                         android:id="@+id/break_fast_menu"
                         android:layout_width="110dp"
                         android:layout_height="110dp"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:layout_marginEnd="@dimen/dimen_10"
+                        android:layout_marginBottom="@dimen/dimen_10"
                         android:background="@drawable/round_shape"
                         android:fontFamily="@font/notoseriftc_regular"
                         android:gravity="center"
@@ -68,12 +70,15 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:layout_margin="@dimen/dimen_10"
                         android:id="@+id/children_menu"
                         android:layout_width="110dp"
                         android:layout_height="110dp"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="right"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:layout_marginEnd="@dimen/dimen_10"
+                        android:layout_marginBottom="@dimen/dimen_10"
                         android:background="@drawable/round_shape"
                         android:fontFamily="@font/notoseriftc_regular"
                         android:gravity="center"
@@ -85,7 +90,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_15">
@@ -124,8 +128,11 @@
                         android:id="@+id/midnigt_menu"
                         android:layout_width="110dp"
                         android:layout_height="110dp"
-                        android:layout_margin="@dimen/dimen_10"
                         android:layout_alignParentRight="true"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:layout_marginEnd="@dimen/dimen_10"
+                        android:layout_marginBottom="@dimen/dimen_10"
                         android:background="@drawable/round_shape"
                         android:fontFamily="@font/notoseriftc_regular"
                         android:gravity="center"
@@ -135,11 +142,11 @@
                 </RelativeLayout>
 
             </LinearLayout>
-            <ImageView
+           <!-- <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/dinning" />
+                android:src="@drawable/dinning" />-->
 
         </LinearLayout>
 

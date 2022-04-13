@@ -144,11 +144,35 @@ public class MyStayMainAdapter extends RecyclerView.Adapter<MyStayMainAdapter.Vi
                             if (response.body().getData().isEmpty()){
                                 holder.lyt_payment.setVisibility(View.GONE);
                             }else{
-                                guestList.get(position).setGrossAmount(response.body().getData().get(0).getGrossAmount());
-                                guestList.get(position).setGuestFolioId(response.body().getData().get(0).getFolioID());
-                                holder.total_price.setText("₹ " + guestList.get(position).getGrossAmount());
 
-                                if (!guestList.get(position).getGrossAmount().equalsIgnoreCase("0")) {
+                                if(!response.body(). getData().get(0).getGrossAmount().equalsIgnoreCase("0.00")){
+                                    guestList.get(position).setGrossAmount(response.body().getData().get(0).getBalanceDueAmount());
+                                    guestList.get(position).setGuestFolioId(response.body().getData().get(0).getFolioID());
+                                    holder.total_price.setText("₹ " + guestList.get(position).getGrossAmount());
+                                }else{
+                                    guestList.get(position).setGrossAmount(response.body().getData().get(1).getBalanceDueAmount());
+                                    guestList.get(position).setGuestFolioId(response.body().getData().get(1).getFolioID());
+                                    holder.total_price.setText("₹ " + guestList.get(position).getGrossAmount());
+                                }
+
+
+
+                                /*for (int i = 0; i< response.body().getData().size(); i++){
+                                    if (!response.body().getData().get(i).getGrossAmount().equalsIgnoreCase("0.00")){
+                                        guestList.get(position).setGrossAmount(response.body().getData().get(i).getGrossAmount());
+                                        guestList.get(position).setGuestFolioId(response.body().getData().get(i).getFolioID());
+                                        holder.total_price.setText("₹ " + guestList.get(position).getGrossAmount());
+                                    }
+                                }*/
+
+                                /*guestList.get(position).setGrossAmount(response.body().getData().get(0).getGrossAmount());
+                                guestList.get(position).setGuestFolioId(response.body().getData().get(0).getFolioID());
+                                holder.total_price.setText("₹ " + guestList.get(position).getGrossAmount());*/
+
+
+                                // Note :  Make Payment disabled
+
+                                if (!guestList.get(position).getGrossAmount().equalsIgnoreCase("0.00") || !guestList.get(position).getGrossAmount().equalsIgnoreCase("0")) {
                                     holder.lyt_payment.setVisibility(View.VISIBLE);
                                 }else{
                                     holder.lyt_payment.setVisibility(View.GONE);
@@ -197,13 +221,9 @@ public class MyStayMainAdapter extends RecyclerView.Adapter<MyStayMainAdapter.Vi
                     } else {
                         Log.d("message",t.getCause().toString());
                         Log.d("message",t.getLocalizedMessage());
-
                         GlobalClass.ShowAlert(mContext,"Alert","Please check your internet connection and try again.");
-
                     }
                 } catch (Exception e) {
-
-
                     e.printStackTrace();
                 }
             }

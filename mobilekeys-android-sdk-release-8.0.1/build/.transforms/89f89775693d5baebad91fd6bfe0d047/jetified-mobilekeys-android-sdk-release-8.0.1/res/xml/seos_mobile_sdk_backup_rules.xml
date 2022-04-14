@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <exclude domain="sharedpref" path="soft-se.xml"/>
+    <exclude domain="sharedpref" path="mobileKeysProperties.xml"/>
+    <exclude domain="sharedpref" path="mobileKeysPropertiesEnc.xml"/>
+    <exclude domain="file" path="wrappingKey"/>
+</full-backup-content>

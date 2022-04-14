@@ -55,11 +55,10 @@ public class Aurika extends Application implements MobileKeysApiFactory
         mInstance=this;
         context=getApplicationContext();
         initializeMobileKeysApi();
-        OneSignal.startInit(this)
-                .setNotificationOpenedHandler(new AurikaNotificationHandler())
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
+
+
+        OneSignal.initWithContext(this);
+
         try {
             // Google Play will install latest OpenSSL
             ProviderInstaller.installIfNeeded(getApplicationContext());

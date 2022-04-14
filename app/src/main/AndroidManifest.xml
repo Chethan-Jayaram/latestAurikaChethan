@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mobisprint.aurika"
-    android:exported="true"
     android:installLocation="internalOnly">
 
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
@@ -35,24 +34,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:exported="true"
+            android:exported="false"
             android:name=".coorg.activity.MyStayActivity"
             android:screenOrientation="portrait"
             />
         <activity
-            android:exported="true"
+            android:exported="false"
             android:name=".coorg.activity.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:exported="true"
+            android:exported="false"
             android:name=".udaipur.activity.HomeScreenActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:exported="true"
+            android:exported="false"
             android:name=".SelectLocationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:exported="true"
+            android:exported="false"
             android:name=".coorg.activity.UserAuthenticationActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -109,7 +108,26 @@
                     android:scheme="io.rzp" />
             </intent-filter>
         </activity>-->
+        <receiver
+            android:name="com.razorpay.RzpTokenReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="rzp.device_token.share" />
+            </intent-filter>
+        </receiver>
 
+        <activity
+            android:name="com.razorpay.CheckoutActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@style/CheckoutTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <data
+                    android:host="rzp.io"
+                    android:scheme="io.rzp" />
+            </intent-filter>
+        </activity>
 
     </application>
 

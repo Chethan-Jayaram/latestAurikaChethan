@@ -1,1 +1,2 @@
+include ':mobilekeys-android-sdk-release-8.0.1'
 include ':app', ':mobilekeys-android-sdk-release-7.4.7'

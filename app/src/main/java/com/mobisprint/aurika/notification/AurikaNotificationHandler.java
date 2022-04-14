@@ -4,14 +4,15 @@ import android.content.Intent;
 
 import com.mobisprint.aurika.SplashActivity;
 import com.mobisprint.aurika.unlock.Aurika;
-import com.onesignal.OSNotificationOpenResult;
+import com.onesignal.OSNotificationOpenedResult;
 import com.onesignal.OneSignal;
 
 
-public class AurikaNotificationHandler implements OneSignal.NotificationOpenedHandler {
+public class AurikaNotificationHandler implements OneSignal.OSNotificationOpenedHandler {
+
 
     @Override
-    public void notificationOpened(OSNotificationOpenResult result) {
+    public void notificationOpened(OSNotificationOpenedResult osNotificationOpenedResult) {
         try {
             Context context = Aurika.getAppContext();
             Intent intent = new Intent(context, SplashActivity.class);

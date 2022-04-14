@@ -51,7 +51,7 @@ public class CreateMpinFragment extends Fragment implements ApiListner  {
         try {
 
 
-              UUID = OneSignal.getPermissionSubscriptionState().getSubscriptionStatus().getUserId();
+              UUID = OneSignal.getDeviceState().getUserId();
             Log.d("player_id",UUID);
 
 

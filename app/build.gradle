@@ -28,7 +28,7 @@ android {
     compileSdkVersion 31
     defaultConfig {
         applicationId "com.mobisprint.aurika"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 31
         versionCode 25
         versionName "2.0"
@@ -128,8 +128,7 @@ dependencies {
     testImplementation 'org.hamcrest:hamcrest-all:1.3'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    // implementation project(path: ':mobilekeys-android-sdk-debug-7.3.0')
-    implementation files('docs/javadoc/mobilekeys-android-sdk-7.3.0-javadoc.jar')
+
     implementation 'com.google.android.material:material:1.5.0'
 
 
@@ -169,10 +168,10 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
 
     //notification dependency
-    implementation 'com.onesignal:OneSignal:3.12.2'
+    implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
 
     implementation 'com.android.support:multidex:1.0.3'
-    implementation project(path: ':mobilekeys-android-sdk-release-7.4.7')
+    implementation project(path: ':mobilekeys-android-sdk-release-8.0.1')
 
     implementation 'com.google.android.play:core:1.10.3'
     implementation 'com.google.android.material:material:1.5.0'
@@ -203,7 +202,7 @@ dependencies {
     implementation 'com.applandeo:material-calendar-view:1.7.0'
 
     // Razor pay
-    implementation 'com.razorpay:checkout:1.6.19'
+    implementation 'com.razorpay:checkout:1.6.13'
 
 
     implementation 'commons-codec:commons-codec:1.9'

@@ -194,41 +194,47 @@ public class InRoomDiningMenuAdapter extends BaseExpandableListAdapter implement
         }
 
         bt_add.setOnClickListener(v -> {
-            if (!GlobalClass.sharedPreferences.getBoolean(title + SharedPreferenceVariables.Dining_IsSingleItemSelected, false)) {
-                if (dataList.get(groupPosition).getDiningList().get(childPosition).getDiningSubcategory().size() > 0) {
-                    resetvalues(groupPosition, childPosition);
-                    fragment = new IrdCustomizationFrgament();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("item_name", dataList.get(groupPosition).getDiningList().get(childPosition).getTitle());
-                    bundle.putString("item_type", dataList.get(groupPosition).getDiningList().get(childPosition).getItemType());
-                    bundle.putString("item_price", dataList.get(groupPosition).getDiningList().get(childPosition).getPrice());
-                    bundle.putParcelableArrayList("Sub-category", (ArrayList<? extends Parcelable>) dataList.get(groupPosition).getDiningList().get(childPosition).getDiningSubcategory());
-                    fragment.setFragmentCallback(this::onCustomizationAdded);
-                    fragment.setArguments(bundle);
-                    fragment.setCancelable(false);
-                    /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
-                    fragment.show(manager,
-                            "fragment_custom_sheet_dailog");
-                    ListTextexpanded = expandedListText;
-                    groupPos = groupPosition;
-                    childPos = childPosition;
-                    quantity = tv_quantity;
-                    addlyt = lyt_add;
-                    counterlyt = lyt_counter;
+
+            if (GlobalClass.user_active_booking) {
+
+                if (!GlobalClass.sharedPreferences.getBoolean(title + SharedPreferenceVariables.Dining_IsSingleItemSelected, false)) {
+                    if (dataList.get(groupPosition).getDiningList().get(childPosition).getDiningSubcategory().size() > 0) {
+                        resetvalues(groupPosition, childPosition);
+                        fragment = new IrdCustomizationFrgament();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("item_name", dataList.get(groupPosition).getDiningList().get(childPosition).getTitle());
+                        bundle.putString("item_type", dataList.get(groupPosition).getDiningList().get(childPosition).getItemType());
+                        bundle.putString("item_price", dataList.get(groupPosition).getDiningList().get(childPosition).getPrice());
+                        bundle.putParcelableArrayList("Sub-category", (ArrayList<? extends Parcelable>) dataList.get(groupPosition).getDiningList().get(childPosition).getDiningSubcategory());
+                        fragment.setFragmentCallback(this::onCustomizationAdded);
+                        fragment.setArguments(bundle);
+                        fragment.setCancelable(false);
+                        /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
+                        fragment.show(manager,
+                                "fragment_custom_sheet_dailog");
+                        ListTextexpanded = expandedListText;
+                        groupPos = groupPosition;
+                        childPos = childPosition;
+                        quantity = tv_quantity;
+                        addlyt = lyt_add;
+                        counterlyt = lyt_counter;
+
+                    } else {
+                        GlobalClass.editor.putBoolean(title + SharedPreferenceVariables.Dining_IsMultipleItemSelected, true);
+                        GlobalClass.editor.commit();
+                        dataList.get(groupPosition).getDiningList().get(childPosition).setCount(expandedListText.getCount() + 1);
+                        tv_quantity.setText(Integer.toString(dataList.get(groupPosition).getDiningList().get(childPosition).getCount()));
+                        mListener.onItemClicked(dataList.get(groupPosition));
+                        pushData(dataList);
+                        lyt_add.setVisibility(View.GONE);
+                        lyt_counter.setVisibility(View.VISIBLE);
+                    }
 
                 } else {
-                    GlobalClass.editor.putBoolean(title + SharedPreferenceVariables.Dining_IsMultipleItemSelected, true);
-                    GlobalClass.editor.commit();
-                    dataList.get(groupPosition).getDiningList().get(childPosition).setCount(expandedListText.getCount() + 1);
-                    tv_quantity.setText(Integer.toString(dataList.get(groupPosition).getDiningList().get(childPosition).getCount()));
-                    mListener.onItemClicked(dataList.get(groupPosition));
-                    pushData(dataList);
-                    lyt_add.setVisibility(View.GONE);
-                    lyt_counter.setVisibility(View.VISIBLE);
+                    GlobalClass.ShowAlert(mContext, "Alert", "Please place individual orders for individual requests  ");
                 }
-
-            } else {
-                GlobalClass.ShowAlert(mContext, "Alert", "Please place individual orders for individual requests  ");
+            }else{
+                GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");
             }
         });
 

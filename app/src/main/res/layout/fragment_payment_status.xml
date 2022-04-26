@@ -12,42 +12,67 @@
         android:background="@color/white">
 
         <ImageView
+            android:id="@+id/img_payment_status"
             android:layout_width="@dimen/dimen_60"
             android:layout_height="@dimen/dimen_60"
-            android:src="@drawable/img_payment_succesful"
-            android:id="@+id/img_payment_status"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="100dp"
-            android:layout_centerHorizontal="true"/>
+            android:src="@drawable/img_payment_failure" />
 
         <TextView
+            android:id="@+id/tv_payment_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notosanstc_bold"
-            android:text="Payment Sucessful"
             android:layout_below="@id/img_payment_status"
-            android:gravity="center"
-            android:textSize="22sp"
-            android:includeFontPadding="false"
             android:layout_marginTop="@dimen/dimen_10"
-            android:id="@+id/tv_payment_status"/>
+            android:fontFamily="@font/notosanstc_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="Payment Sucessful"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
 
 
-        <TextView
+        <LinearLayout
+            android:layout_marginLeft="@dimen/dimen_20"
+            android:layout_marginRight="@dimen/dimen_20"
+            android:id="@+id/lyt_trans_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notosanstc_medium"
-            android:text="Transaction Number : 1234567876"
             android:layout_below="@id/tv_payment_status"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:includeFontPadding="false"
-            android:layout_marginTop="@dimen/dimen_10"
-            android:id="@+id/tv_transaction_id"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="#9ea4b4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:fontFamily="@font/notosanstc_medium"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="Transaction Number : "
+                android:textSize="18sp" />
+
+            <TextView
+                android:textColor="#9ea4b4"
+                android:id="@+id/tv_transaction_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:fontFamily="@font/notosanstc_medium"
+                android:includeFontPadding="false"
+                android:text=""
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+
+
 
         <RelativeLayout
             android:id="@+id/lyt_payment_details"
             android:layout_marginTop="@dimen/dimen_20"
-            android:layout_below="@+id/tv_transaction_id"
+            android:layout_below="@+id/lyt_trans_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -67,28 +92,29 @@
 
 
             <TextView
-                android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amount Paid : "
-                android:fontFamily="@font/notosanstc_medium"
-                android:textColor="#9ea4b4"
-                android:textSize="16sp"
+                android:layout_alignParentLeft="true"
                 android:layout_marginLeft="@dimen/dimen_20"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:fontFamily="@font/notosanstc_medium"
                 android:includeFontPadding="false"
-                android:layout_marginTop="@dimen/dimen_20"/>
+                android:text="Amount Paid : "
+                android:textColor="#9ea4b4"
+                android:textSize="16sp" />
 
             <TextView
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/dimen_20"
+                android:id="@+id/tv_amount_paid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="INR 2,500"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_marginRight="@dimen/dimen_20"
                 android:fontFamily="@font/notosanstc_medium"
-                android:textColor="#9ea4b4"
-                android:textSize="16sp"
                 android:includeFontPadding="false"
-                android:layout_marginTop="@dimen/dimen_20"/>
+                android:text="INR 2,500"
+                android:textColor="#9ea4b4"
+                android:textSize="16sp" />
 
         </RelativeLayout>
 
@@ -105,17 +131,17 @@
             android:id="@+id/activity_staus">
 
             <Button
+                android:background="@drawable/btn_background"
                 android:paddingTop="@dimen/dimen_15"
                 android:paddingBottom="@dimen/dimen_15"
                 android:paddingRight="@dimen/dimen_10"
                 android:paddingLeft="@dimen/dimen_10"
-                android:id="@+id/btn_make_payment"
+                android:id="@+id/btn_back"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Go Back"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:background="@color/gray"
                 android:fontFamily="@font/notosanstc_medium"
                 android:textSize="16sp"
                 android:includeFontPadding="false"/>

@@ -128,7 +128,7 @@ public class ExclusiveExperiences extends Fragment implements ApiListner {
                 }
 
             } else {
-                GlobalClass.ShowAlert(mContext, "Alert", "You don't have active booking to place request");
+                GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");
             }
 
         });

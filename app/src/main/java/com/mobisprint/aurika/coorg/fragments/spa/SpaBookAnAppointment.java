@@ -155,19 +155,25 @@ public class SpaBookAnAppointment extends Fragment implements ApiListner,GlobalC
 
         btn_request_booking.setOnClickListener(v -> {
 
-            if (GlobalClass.user_active_booking){
-                if (therapy_heading.getText().toString().equalsIgnoreCase("Select Therapy")){
-                    GlobalClass.ShowAlert(this.getContext(),"Alert","Select Therapy");
-                }else if (!date_and_time){
-                    GlobalClass.ShowAlert(this.getContext(),"Alert","Select Preferred date and time");
-                }else{
-                    dialog.setMessage("Please wait while we are processing your request.");
-                    dialog.setCancelable(false);
-                    dialog.show();
-                    bottomDailogController.generalTicket(ticketModle);
+            if (GlobalClass.user_active_booking) {
+
+                if (GlobalClass.user_active_booking) {
+                    if (therapy_heading.getText().toString().equalsIgnoreCase("Select Therapy")) {
+                        GlobalClass.ShowAlert(this.getContext(), "Alert", "Select Therapy");
+                    } else if (!date_and_time) {
+                        GlobalClass.ShowAlert(this.getContext(), "Alert", "Select Preferred date and time");
+                    } else {
+                        dialog.setMessage("Please wait while we are processing your request.");
+                        dialog.setCancelable(false);
+                        dialog.show();
+                        bottomDailogController.generalTicket(ticketModle);
+                    }
+                } else {
+                    GlobalClass.ShowAlert(mContext, "Alert", "You don't have active booking to place your request");
                 }
-            }else {
-                GlobalClass.ShowAlert(mContext,"Alert","You don't have active booking to place your request");
+            }else{
+                GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
             }
 
         });

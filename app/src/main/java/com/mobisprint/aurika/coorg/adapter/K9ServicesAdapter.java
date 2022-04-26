@@ -75,16 +75,23 @@ public class K9ServicesAdapter extends RecyclerView.Adapter<K9ServicesAdapter.Vi
             }
         }
         holder.bt_add.setOnClickListener(v -> {
-            if (!isItemSelected){
-                isMultipleItemSelected = true;
-                serviceList.get(position).setCount( serviceList.get(position).getCount()+1);
-                holder.tv_quantity.setText(Integer.toString(serviceList.get(position).getCount()));
-                holder.lyt_add.setVisibility(View.GONE);
-                holder.lyt_counter.setVisibility(View.VISIBLE);
-                pushDataK9(serviceList);
-                mListener.onItemClicked(position);
+
+            if (GlobalClass.user_active_booking) {
+
+                if (!isItemSelected) {
+                    isMultipleItemSelected = true;
+                    serviceList.get(position).setCount(serviceList.get(position).getCount() + 1);
+                    holder.tv_quantity.setText(Integer.toString(serviceList.get(position).getCount()));
+                    holder.lyt_add.setVisibility(View.GONE);
+                    holder.lyt_counter.setVisibility(View.VISIBLE);
+                    pushDataK9(serviceList);
+                    mListener.onItemClicked(position);
+                } else {
+                    GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", " Please place individual orders for individual requests");
+                }
             }else{
-                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", " Please place individual orders for individual requests");
+                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
             }
 
         });
@@ -137,23 +144,30 @@ public class K9ServicesAdapter extends RecyclerView.Adapter<K9ServicesAdapter.Vi
 
         holder.switch4.setOnClickListener(v -> {
 
-            if ((isItemSelected && !serviceList.get(position).isItemSelected()) || isMultipleItemSelected) {
+            if (GlobalClass.user_active_booking) {
+
+                if ((isItemSelected && !serviceList.get(position).isItemSelected()) || isMultipleItemSelected) {
+                    holder.switch4.setOn(true);
+                    GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests");
+                } else if (isItemSelected && serviceList.get(position).isItemSelected()) {
+                    holder.switch4.setEnabled(false);
+                    isItemSelected = false;
+                    serviceList.get(position).setItemSelected(false);
+                    serviceList.get(position).setCount(serviceList.get(position).getCount() - 1);
+                    pushDataK9(serviceList);
+                    mListener.onItemClicked(position);
+                } else if ((!isItemSelected && !serviceList.get(position).isItemSelected()) || !isMultipleItemSelected) {
+                    holder.switch4.setEnabled(true);
+                    isItemSelected = true;
+                    serviceList.get(position).setItemSelected(true);
+                    serviceList.get(position).setCount(serviceList.get(position).getCount() + 1);
+                    pushDataK9(serviceList);
+                    mListener.onItemClicked(position);
+                }
+            }else {
                 holder.switch4.setOn(true);
-                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests");
-            } else if (isItemSelected && serviceList.get(position).isItemSelected() ){
-                holder.switch4.setEnabled(false);
-                isItemSelected = false;
-                serviceList.get(position).setItemSelected(false);
-                serviceList.get(position).setCount( serviceList.get(position).getCount()-1);
-                pushDataK9(serviceList);
-                mListener.onItemClicked(position);
-            } else if ((!isItemSelected && !serviceList.get(position).isItemSelected()) || !isMultipleItemSelected) {
-                holder.switch4.setEnabled(true);
-                isItemSelected = true;
-                serviceList.get(position).setItemSelected(true);
-                serviceList.get(position).setCount( serviceList.get(position).getCount()+1);
-                pushDataK9(serviceList);
-                mListener.onItemClicked(position);
+                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
             }
 
                 /*if (isMultipleItemSelected){

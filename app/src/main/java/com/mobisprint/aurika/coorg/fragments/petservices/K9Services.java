@@ -94,32 +94,39 @@ public class K9Services extends Fragment implements ApiListner {
 
 
         view_order.setOnClickListener(v -> {
-            if (items_count>0){
-                if (GlobalClass.user_token.isEmpty()){
-                    alertBox();
 
-                }else if (GlobalClass.user_active_booking){
-                    /*showBottomSheetDialog();*/
-                    selectedList.clear();
-                    for (int i=0;i<serviceList.size();i++){
-                        if (serviceList.get(i).getCount()>0){
-                            serviceList.get(i).setItem_id(serviceList.get(i).getId());
-                            serviceList.get(i).setQuantity(serviceList.get(i).getCount());
-                            selectedList.add(serviceList.get(i));
+            if (GlobalClass.user_active_booking) {
+
+                if (items_count > 0) {
+                    if (GlobalClass.user_token.isEmpty()) {
+                        alertBox();
+
+                    } else if (GlobalClass.user_active_booking) {
+                        /*showBottomSheetDialog();*/
+                        selectedList.clear();
+                        for (int i = 0; i < serviceList.size(); i++) {
+                            if (serviceList.get(i).getCount() > 0) {
+                                serviceList.get(i).setItem_id(serviceList.get(i).getId());
+                                serviceList.get(i).setQuantity(serviceList.get(i).getCount());
+                                selectedList.add(serviceList.get(i));
+                            }
                         }
+                        BottomDailogFragment fragment = new BottomDailogFragment();
+                        Bundle bundle1 = new Bundle();
+                        bundle1.putString("Category", "k9-services");
+                        bundle1.putBoolean("hours", hours);
+                        bundle1.putParcelableArrayList("List", (ArrayList<? extends Parcelable>) selectedList);
+                        fragment.setArguments(bundle1);
+                        /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
+                        fragment.show(getActivity().getSupportFragmentManager(),
+                                "fragment_bottom_sheet_dailog");
+                    } else {
+                        GlobalClass.ShowAlert(mContext, "Alert", "You don't have active booking to place order");
                     }
-                    BottomDailogFragment fragment = new BottomDailogFragment();
-                    Bundle bundle1 = new Bundle();
-                    bundle1.putString("Category","k9-services");
-                    bundle1.putBoolean("hours",hours);
-                    bundle1.putParcelableArrayList("List", (ArrayList<? extends Parcelable>) selectedList);
-                    fragment.setArguments(bundle1);
-                    /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
-                    fragment.show(getActivity().getSupportFragmentManager(),
-                            "fragment_bottom_sheet_dailog");
-                }else {
-                    GlobalClass.ShowAlert(mContext,"Alert","You don't have active booking to place order");
                 }
+            }else{
+                GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
             }
         });
 

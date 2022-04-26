@@ -109,14 +109,20 @@ public class CoorgSightSeeing extends Fragment implements ApiListner {
             bt_sight_seeing_call_back.setOnClickListener(v -> {
 
                 if (GlobalClass.user_active_booking) {
-                    if (buttonClicked) {
-                        showBottomSheet();
-                    } else {
-                        GlobalClass.ShowAlert(this.getContext(), "Alert", "Ticket have already been raised");
-                    }
 
-                } else {
-                    GlobalClass.ShowAlert(mContext, "Alert", "You don't have active booking to place request");
+                    if (GlobalClass.user_active_booking) {
+                        if (buttonClicked) {
+                            showBottomSheet();
+                        } else {
+                            GlobalClass.ShowAlert(this.getContext(), "Alert", "Ticket have already been raised");
+                        }
+
+                    } else {
+                        GlobalClass.ShowAlert(mContext, "Alert", "You don't have active booking to place request");
+                    }
+                }else{
+                    GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
                 }
 
             });

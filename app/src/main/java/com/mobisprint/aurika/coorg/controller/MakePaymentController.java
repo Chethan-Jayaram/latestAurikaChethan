@@ -3,6 +3,7 @@ package com.mobisprint.aurika.coorg.controller;
 import com.mobisprint.aurika.coorg.pojo.General;
 import com.mobisprint.aurika.coorg.pojo.payment.GenerateOrderId;
 import com.mobisprint.aurika.coorg.pojo.ticketing.Ticket;
+import com.mobisprint.aurika.coorg.pojo.verifysignature.VerifyPaymentSignature;
 import com.mobisprint.aurika.helper.ApiListner;
 import com.mobisprint.aurika.helper.GlobalClass;
 
@@ -61,10 +62,10 @@ public class MakePaymentController {
         map.put("folioID",folio_id);
         map.put("order_receipt",order_reciept);
         map.put("order_amount",String.valueOf(amount));
-        Call<General> call = GlobalClass.API_COORG.verifySignature(map);
-        call.enqueue(new Callback<General>() {
+        Call<VerifyPaymentSignature> call = GlobalClass.API_COORG.verifySignature(map);
+        call.enqueue(new Callback<VerifyPaymentSignature>() {
             @Override
-            public void onResponse(Call<General> call, Response<General> response) {
+            public void onResponse(Call<VerifyPaymentSignature> call, Response<VerifyPaymentSignature> response) {
 
                 try{
                     if (response.isSuccessful() && response.body().getStatus()){
@@ -79,7 +80,7 @@ public class MakePaymentController {
             }
 
             @Override
-            public void onFailure(Call<General> call, Throwable error) {
+            public void onFailure(Call<VerifyPaymentSignature> call, Throwable error) {
                 listner.onFetchError(error.getMessage());
             }
         });

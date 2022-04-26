@@ -86,16 +86,23 @@ public class AmenitiesAdapter extends RecyclerView.Adapter<AmenitiesAdapter.View
         }
 
         holder.bt_add.setOnClickListener(v -> {
-            if (!isItemSelected){
-                isMultipleItemSelected = true;
-                amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()+1);
-                holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));
-                holder.lyt_add.setVisibility(View.GONE);
-                holder.lyt_counter.setVisibility(View.VISIBLE);
-                pushData(amenitiesList);
-                mListener.onItemClicked(position);
-            }else {
-                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests  ");
+
+            if (GlobalClass.user_active_booking) {
+
+                if (!isItemSelected) {
+                    isMultipleItemSelected = true;
+                    amenitiesList.get(position).setCount(amenitiesList.get(position).getCount() + 1);
+                    holder.tv_quantity.setText(Integer.toString(amenitiesList.get(position).getCount()));
+                    holder.lyt_add.setVisibility(View.GONE);
+                    holder.lyt_counter.setVisibility(View.VISIBLE);
+                    pushData(amenitiesList);
+                    mListener.onItemClicked(position);
+                } else {
+                    GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests  ");
+                }
+            }else{
+                GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
             }
 
         });
@@ -111,23 +118,30 @@ public class AmenitiesAdapter extends RecyclerView.Adapter<AmenitiesAdapter.View
 
         holder.switch4.setOnClickListener(v -> {
 
-            if ((isItemSelected && !amenitiesList.get(position).isItemSelected()) || isMultipleItemSelected) {
+            if (GlobalClass.user_active_booking) {
+
+                if ((isItemSelected && !amenitiesList.get(position).isItemSelected()) || isMultipleItemSelected) {
+                    holder.switch4.setOn(true);
+                    GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests  ");
+                } else if (isItemSelected && amenitiesList.get(position).isItemSelected()) {
+                    holder.switch4.setEnabled(false);
+                    isItemSelected = false;
+                    amenitiesList.get(position).setItemSelected(false);
+                    amenitiesList.get(position).setCount(amenitiesList.get(position).getCount() - 1);
+                    pushData(amenitiesList);
+                    mListener.onItemClicked(position);
+                } else if ((!isItemSelected && !amenitiesList.get(position).isItemSelected()) || !isMultipleItemSelected) {
+                    holder.switch4.setEnabled(true);
+                    isItemSelected = true;
+                    amenitiesList.get(position).setItemSelected(true);
+                    amenitiesList.get(position).setCount(amenitiesList.get(position).getCount() + 1);
+                    pushData(amenitiesList);
+                    mListener.onItemClicked(position);
+                }
+            }else{
                 holder.switch4.setOn(true);
-                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests  ");
-            } else if (isItemSelected && amenitiesList.get(position).isItemSelected()){
-                holder.switch4.setEnabled(false);
-                isItemSelected = false;
-                amenitiesList.get(position).setItemSelected(false);
-                amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()-1);
-                pushData(amenitiesList);
-                mListener.onItemClicked(position);
-            } else if ((!isItemSelected && !amenitiesList.get(position).isItemSelected()) || !isMultipleItemSelected) {
-                holder.switch4.setEnabled(true);
-                isItemSelected = true;
-                amenitiesList.get(position).setItemSelected(true);
-                amenitiesList.get(position).setCount( amenitiesList.get(position).getCount()+1);
-                pushData(amenitiesList);
-                mListener.onItemClicked(position);
+                GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
             }
 
         });

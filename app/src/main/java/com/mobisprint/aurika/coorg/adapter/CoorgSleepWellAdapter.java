@@ -196,17 +196,24 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
 
 
         bt_add.setOnClickListener(v -> {
-            if (!GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected,false)){
-                GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsMultipleItemSelected,true);
-                isMultipleItemSelected = true;
-                sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() + 1);
-                tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
-                mListener.onItemClicked(sleepWellList.get(groupPosition));
-                pushData(sleepWellList);
-                lyt_add.setVisibility(View.GONE);
-                lyt_counter.setVisibility(View.VISIBLE);
-            }else {
-                GlobalClass.ShowAlert(mContext, "Alert", "Please place individual orders for individual requests  ");
+
+            if (GlobalClass.user_active_booking) {
+
+                if (!GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected, false)) {
+                    GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsMultipleItemSelected, true);
+                    isMultipleItemSelected = true;
+                    sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() + 1);
+                    tv_quantity.setText(Integer.toString(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()));
+                    mListener.onItemClicked(sleepWellList.get(groupPosition));
+                    pushData(sleepWellList);
+                    lyt_add.setVisibility(View.GONE);
+                    lyt_counter.setVisibility(View.VISIBLE);
+                } else {
+                    GlobalClass.ShowAlert(mContext, "Alert", "Please place individual orders for individual requests  ");
+                }
+            }else{
+                GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
             }
 
         });
@@ -284,25 +291,32 @@ public class CoorgSleepWellAdapter extends BaseExpandableListAdapter {
 
         switch4.setOnClickListener(v -> {
 
-            if ((GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected,false) && !sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).isItemSelected()) || GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsMultipleItemSelected,false)) {
+            if (GlobalClass.user_active_booking) {
+
+                if ((GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected, false) && !sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).isItemSelected()) || GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsMultipleItemSelected, false)) {
+                    switch4.setOn(true);
+                    GlobalClass.ShowAlert(mContext, "Alert", "Please place individual orders for individual requests  ");
+                } else if (GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected, false) && sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).isItemSelected()) {
+                    switch4.setEnabled(false);
+                    GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected, false);
+                    isItemSelected = false;
+                    sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setItemSelected(false);
+                    sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() - 1);
+                    pushData(sleepWellList);
+                    mListener.onItemClicked(sleepWellList.get(groupPosition));
+                } else if ((!GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected, false) && !sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).isItemSelected()) || !GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsMultipleItemSelected, false)) {
+                    switch4.setEnabled(true);
+                    GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected, true);
+                    isItemSelected = true;
+                    sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setItemSelected(true);
+                    sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount(sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount() + 1);
+                    pushData(sleepWellList);
+                    mListener.onItemClicked(sleepWellList.get(groupPosition));
+                }
+            }else{
                 switch4.setOn(true);
-                GlobalClass.ShowAlert(mContext, "Alert", "Please place individual orders for individual requests  ");
-            } else if (GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected,false) && sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).isItemSelected() ){
-                switch4.setEnabled(false);
-                GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected,false);
-                isItemSelected = false;
-                sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setItemSelected(false);
-                sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()-1);
-                pushData(sleepWellList);
-                mListener.onItemClicked(sleepWellList.get(groupPosition));
-            } else if ((!GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected,false) && !sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).isItemSelected()) || !GlobalClass.sharedPreferences.getBoolean(SharedPreferenceVariables.SleepWell_IsMultipleItemSelected,false)) {
-                switch4.setEnabled(true);
-                GlobalClass.editor.putBoolean(SharedPreferenceVariables.SleepWell_IsSingleItemSelected,true);
-                isItemSelected = true;
-                sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setItemSelected(true);
-                sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).setCount( sleepWellList.get(groupPosition).getSleepwellList().get(childPosition).getCount()+1);
-                pushData(sleepWellList);
-                mListener.onItemClicked(sleepWellList.get(groupPosition));
+                GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
             }
 
                 /*if (isMultipleItemSelected){

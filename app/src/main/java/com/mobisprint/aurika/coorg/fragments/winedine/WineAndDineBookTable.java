@@ -144,19 +144,25 @@ public class WineAndDineBookTable extends Fragment implements GlobalClass.Fragme
 
         btn_reserve_table.setOnClickListener(v -> {
 
-            if (GlobalClass.user_active_booking){
-                if (number_of_guest.getText().toString().isEmpty() || number_of_guest.getText().toString().equalsIgnoreCase("0") || number_of_guest.getText().toString().trim().equalsIgnoreCase("")){
-                    GlobalClass.ShowAlert(this.getContext(),"Alert","Enter number of guests");
-                }else if (!date_time){
-                    GlobalClass.ShowAlert(this.getContext(),"Alert","Select Preferred date and time");
-                }else{
-                    dialog.setMessage("Please wait while we are processing your request.");
-                    dialog.setCancelable(false);
-                    dialog.show();
-                    controller.wineDineTicket(ticketModle);
+            if (GlobalClass.user_active_booking) {
+
+                if (GlobalClass.user_active_booking) {
+                    if (number_of_guest.getText().toString().isEmpty() || number_of_guest.getText().toString().equalsIgnoreCase("0") || number_of_guest.getText().toString().trim().equalsIgnoreCase("")) {
+                        GlobalClass.ShowAlert(this.getContext(), "Alert", "Enter number of guests");
+                    } else if (!date_time) {
+                        GlobalClass.ShowAlert(this.getContext(), "Alert", "Select Preferred date and time");
+                    } else {
+                        dialog.setMessage("Please wait while we are processing your request.");
+                        dialog.setCancelable(false);
+                        dialog.show();
+                        controller.wineDineTicket(ticketModle);
+                    }
+                } else {
+                    GlobalClass.ShowAlert(mContext, "Alert", "You don't have active booking to place your request");
                 }
-            }else {
-                GlobalClass.ShowAlert(mContext,"Alert","You don't have active booking to place your request");
+            }else{
+                GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
             }
 
 

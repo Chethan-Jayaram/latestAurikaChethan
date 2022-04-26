@@ -2,6 +2,7 @@ package com.mobisprint.aurika.coorg.controller;
 
 import android.util.Log;
 
+import com.mobisprint.aurika.coorg.pojo.guestbooking.GuestBooking;
 import com.mobisprint.aurika.coorg.pojo.invitationcode.InvitationCode;
 import com.mobisprint.aurika.coorg.pojo.mobilekey.MobileKey;
 import com.mobisprint.aurika.coorg.pojo.reservation.GuestReservation;
@@ -25,10 +26,10 @@ public class DoorUnlockController {
     public void getDetails(String user_token) {
         HashMap<String, String> map=new HashMap<>();
         map.put("token",user_token);
-        Call<GuestReservation> call = GlobalClass.API_COORG.guest(map);
-        call.enqueue(new Callback<GuestReservation>() {
+        Call<GuestBooking> call = GlobalClass.API_COORG.guest(map);
+        call.enqueue(new Callback<GuestBooking>() {
             @Override
-            public void onResponse(Call<GuestReservation> call, Response<GuestReservation> response) {
+            public void onResponse(Call<GuestBooking> call, Response<GuestBooking> response) {
                 if (response.isSuccessful()){
                     if (response.body().getStatus()){
                         listner.onFetchComplete(response);
@@ -41,7 +42,7 @@ public class DoorUnlockController {
             }
 
             @Override
-            public void onFailure(Call<GuestReservation> call, Throwable error) {
+            public void onFailure(Call<GuestBooking> call, Throwable error) {
                 listner.onFetchError(error.getMessage());
             }
         });
@@ -58,7 +59,10 @@ public class DoorUnlockController {
                 if (response.isSuccessful()){
                     if (response.body().getStatus()){
 
+
                         listner.onFetchComplete(response);
+
+
                     }else {
                         listner.onFetchError("Something went wrong, please try again later");
                     }

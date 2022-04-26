@@ -87,6 +87,7 @@ public class HomeActivity extends AppCompatActivity implements ApiListner, Mobil
     private RelativeLayout lyt_notification, lyt_logout, lyt_notification_tool_bar;
     private FloatingActionButton fab;
     private GuestReservationController guestReservationController;
+    private MyStayController myStayController;
     private List<com.mobisprint.aurika.coorg.pojo.guestbooking.ActiveBooking> guestList ;
 
     private String room;
@@ -117,6 +118,7 @@ public class HomeActivity extends AppCompatActivity implements ApiListner, Mobil
             drawer = findViewById(R.id.drawer_layout);
             lyt_logout = findViewById(R.id.lyt_logout);
             guestReservationController = new GuestReservationController(this);
+            myStayController = new MyStayController(this);
 
             tv_logout = findViewById(R.id.tv_logout);
             lyt_notification = findViewById(R.id.lyt_drawer_notification);
@@ -218,7 +220,8 @@ public class HomeActivity extends AppCompatActivity implements ApiListner, Mobil
 
             navigation_expandableListView = findViewById(R.id.navigation_expandable_list_view);
             if (!GlobalClass.user_token.isEmpty()) {
-                guestReservationController.checkReservation(GlobalClass.user_token);
+                myStayController.getGuestBooking(GlobalClass.user_token);
+               // guestReservationController.checkReservation(GlobalClass.user_token);
             }
             controller.getNavigationMenu();
 
@@ -329,22 +332,22 @@ public class HomeActivity extends AppCompatActivity implements ApiListner, Mobil
             List<Data> navigationList = navigation.getData();
             NavigationAdapter adapter = new NavigationAdapter(mContext,navigationList);
             navigation_expandableListView.setAdapter(adapter);*/
-            if (response.body() instanceof GuestReservation) {
+            if (response.body() instanceof GuestBooking) {
 
                 try {
 
-                    GuestReservation reservation = (GuestReservation) response.body();
+                    GuestBooking reservation = (GuestBooking) response.body();
 
-                    if (reservation.getData().getActiveBookings().isEmpty()){
+                    if (reservation.getData().getActiveBooking().isEmpty()){
                         GlobalClass.user_active_booking = false;
                     }else{      
                         GlobalClass.user_active_booking = true;
-                        room = reservation.getData().getActiveBookings().get(0).getRoom().get(0).getRoom().getRoomNo();
+                        room = reservation.getData().getActiveBooking().get(0).getRoom().get(0).getRoom().getRoomNo();
 
                         GlobalClass.ROOM_NO = room;
 
-                        GlobalClass.Guest_Id = reservation.getData().getActiveBookings().get(0).getId();
-                        GlobalClass.check_out = reservation.getData().getActiveBookings().get(0).getCheckoutDateTime();
+                        GlobalClass.Guest_Id = reservation.getData().getActiveBooking().get(0).getId();
+                        GlobalClass.check_out = reservation.getData().getActiveBooking().get(0).getCheckoutDateTime();
 
                     }
 
@@ -457,7 +460,7 @@ public class HomeActivity extends AppCompatActivity implements ApiListner, Mobil
                     .getSupportFragmentManager()
                     .beginTransaction().replace(R.id.fragment_coorg_container,
                     new HomeFragment()).commit();
-           getSupportFragmentManager().popBackStack();
+            getSupportFragmentManager().popBackStack();
         } catch (Exception e) {
             e.printStackTrace();
         }

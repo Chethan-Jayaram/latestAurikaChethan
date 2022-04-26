@@ -116,37 +116,40 @@ public class K9Menu extends Fragment implements ApiListner {
         tv_total_price.setText("₹ "+GlobalClass.round(total_price,2));*/
 
         view_order.setOnClickListener(v -> {
-            if (items_count >0) {
+
+            if (GlobalClass.user_active_booking) {
+
+                if (items_count > 0) {
 
                     /*String json =gson.toJson(selectedList);
                     editor.putString("selected_list",json);
                     editor.commit();*/
 
-                if (GlobalClass.user_token.isEmpty()){
-                    alertBox();
+                    if (GlobalClass.user_token.isEmpty()) {
+                        alertBox();
 
-                }else if (GlobalClass.user_active_booking){
-                    /*showBottomSheetDialog();*/
-                    selectedList.clear();
-                    for (int i=0;i<menuList.size();i++){
-                        if (menuList.get(i).getCount()>0){
-                            menuList.get(i).setItem_id(menuList.get(i).getId());
-                            menuList.get(i).setQuantity(menuList.get(i).getCount());
-                            selectedList.add(menuList.get(i));
+                    } else if (GlobalClass.user_active_booking) {
+                        /*showBottomSheetDialog();*/
+                        selectedList.clear();
+                        for (int i = 0; i < menuList.size(); i++) {
+                            if (menuList.get(i).getCount() > 0) {
+                                menuList.get(i).setItem_id(menuList.get(i).getId());
+                                menuList.get(i).setQuantity(menuList.get(i).getCount());
+                                selectedList.add(menuList.get(i));
+                            }
                         }
+                        BottomDailogFragment fragment = new BottomDailogFragment();
+                        Bundle bundle1 = new Bundle();
+                        bundle1.putString("Category", "k9-menu");
+                        bundle1.putBoolean("DogCake", isDogCakeSeleected);
+                        bundle1.putParcelableArrayList("List", (ArrayList<? extends Parcelable>) selectedList);
+                        fragment.setArguments(bundle1);
+                        /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
+                        fragment.show(getActivity().getSupportFragmentManager(),
+                                "fragment_bottom_sheet_dailog");
+                    } else {
+                        GlobalClass.ShowAlert(mContext, "Alert", "You don't have active booking to place order");
                     }
-                    BottomDailogFragment fragment = new BottomDailogFragment();
-                    Bundle bundle1 = new Bundle();
-                    bundle1.putString("Category","k9-menu");
-                    bundle1.putBoolean("DogCake",isDogCakeSeleected);
-                    bundle1.putParcelableArrayList("List", (ArrayList<? extends Parcelable>) selectedList);
-                    fragment.setArguments(bundle1);
-                    /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
-                    fragment.show(getActivity().getSupportFragmentManager(),
-                            "fragment_bottom_sheet_dailog");
-                }else {
-                    GlobalClass.ShowAlert(mContext,"Alert","You don't have active booking to place order");
-                }
 
                /* Fragment fragment = new OrderSummary();
                 Bundle bundle1 = new Bundle();
@@ -160,9 +163,12 @@ public class K9Menu extends Fragment implements ApiListner {
 
                 fragment.setArguments(bundle1);
                 getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
-            }else
-            {
-                GlobalClass.ShowAlert(getContext(),"Alert","Select atleast one item");
+                } else {
+                    GlobalClass.ShowAlert(getContext(), "Alert", "Select atleast one item");
+                }
+            }else{
+                GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
             }
 
 

@@ -154,14 +154,17 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
 
 
             view_order.setOnClickListener(v -> {
-                if (items_count > 0) {
+
+                if (GlobalClass.user_active_booking) {
+
+                    if (items_count > 0) {
 
 
-                    if (GlobalClass.user_token.isEmpty()) {
-                        alertBox();
+                        if (GlobalClass.user_token.isEmpty()) {
+                            alertBox();
 
-                    } else if (GlobalClass.user_active_booking) {
-                        /*showBottomSheetDialog();*/
+                        } else if (GlobalClass.user_active_booking) {
+                            /*showBottomSheetDialog();*/
                      /*   selectedList.clear();
                         for (int i = 0; i < dataList.size(); i++) {
                             for (int j = 0; j < dataList.get(i).getDiningList().size(); j++) {
@@ -174,48 +177,48 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                             }
                         }
 */
-                        selectedList.clear();
-                        for (int i = 0; i < dataList.size(); i++) {
-                            for (int j = 0; j < dataList.get(i).getDiningList().size(); j++) {
-                                if (dataList.get(i).getDiningList().get(j).getCount() > 0) {
+                            selectedList.clear();
+                            for (int i = 0; i < dataList.size(); i++) {
+                                for (int j = 0; j < dataList.get(i).getDiningList().size(); j++) {
+                                    if (dataList.get(i).getDiningList().get(j).getCount() > 0) {
 
-                                    if (dataList.get(i).getDiningList().get(j).getCustomisedList().size() > 0) {
-                                        for (int k = 0; k < dataList.get(i).getDiningList().get(j).getCustomisedList().size(); k++) {
-                                            Dining__1 selectedList = new Dining__1();
-                                            List<com.mobisprint.aurika.coorg.pojo.Services.Data> mydata = new ArrayList<>();
-                                            selectedList.setQuantity(1);
-                                            selectedList.setItem_id(dataList.get(i).getDiningList().get(j).getId());
-                                            selectedList.setTitle(dataList.get(i).getDiningList().get(j).getTitle());
-                                            selectedList.setPrice(dataList.get(i).getDiningList().get(j).getPrice());
-                                            selectedList.setItem_Type(dataList.get(i).getDiningList().get(j).getItem_Type());
-                                            selectedList.setSubMenuCode(dataList.get(i).getDiningList().get(j).getSubMenuCode());
-                                            selectedList.setItemCode(dataList.get(i).getDiningList().get(j).getItemCode());
-                                            if(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().size()>0){
-                                                for(int l=0;l<dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().size();l++){
-                                                    mydata.add(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l));
+                                        if (dataList.get(i).getDiningList().get(j).getCustomisedList().size() > 0) {
+                                            for (int k = 0; k < dataList.get(i).getDiningList().get(j).getCustomisedList().size(); k++) {
+                                                Dining__1 selectedList = new Dining__1();
+                                                List<com.mobisprint.aurika.coorg.pojo.Services.Data> mydata = new ArrayList<>();
+                                                selectedList.setQuantity(1);
+                                                selectedList.setItem_id(dataList.get(i).getDiningList().get(j).getId());
+                                                selectedList.setTitle(dataList.get(i).getDiningList().get(j).getTitle());
+                                                selectedList.setPrice(dataList.get(i).getDiningList().get(j).getPrice());
+                                                selectedList.setItem_Type(dataList.get(i).getDiningList().get(j).getItem_Type());
+                                                selectedList.setSubMenuCode(dataList.get(i).getDiningList().get(j).getSubMenuCode());
+                                                selectedList.setItemCode(dataList.get(i).getDiningList().get(j).getItemCode());
+                                                if (dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().size() > 0) {
+                                                    for (int l = 0; l < dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().size(); l++) {
+                                                        mydata.add(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l));
+                                                    }
+                                                } else {
+                                                    mydata.add(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k));
+
                                                 }
-                                            }else{
-                                                mydata.add(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k));
 
+                                                selectedList.setCustomisedList(mydata);
+                                                this.selectedList.add(selectedList);
                                             }
 
-                                            selectedList.setCustomisedList(mydata);
-                                            this.selectedList.add(selectedList);
+                                            /// dataList.get(i).getDiningList().get(j).setCustomisedList(mydata);
+                                        } else {
+                                            dataList.get(i).getDiningList().get(j).setItem_id(dataList.get(i).getDiningList().get(j).getId());
+                                            dataList.get(i).getDiningList().get(j).setQuantity(dataList.get(i).getDiningList().get(j).getCount());
+                                            selectedList.add(dataList.get(i).getDiningList().get(j));
                                         }
 
-                                        /// dataList.get(i).getDiningList().get(j).setCustomisedList(mydata);
-                                    } else {
-                                        dataList.get(i).getDiningList().get(j).setItem_id(dataList.get(i).getDiningList().get(j).getId());
-                                        dataList.get(i).getDiningList().get(j).setQuantity(dataList.get(i).getDiningList().get(j).getCount());
-                                        selectedList.add(dataList.get(i).getDiningList().get(j));
+
                                     }
-
-
                                 }
                             }
-                        }
 
-                        //  filterSeleteData(selectedList);
+                            //  filterSeleteData(selectedList);
 
                        /* title = "Dining "+bundle.getString("title") + " Ticket";
 
@@ -227,22 +230,22 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                         diningModle.setRequestTime(reqtime);
                         diningModle.setRequestDate(requestDate);
                         ticketController.diningTicketCreation(diningModle);*/
-                        BottomDailogFragment fragment = new BottomDailogFragment();
-                        Bundle bundle1 = new Bundle();
-                        bundle1.putString("Category", "Dining" + bundle.getString("title"));
-                        bundle1.putString("Category", "in-room-dining");
-                        bundle1.putParcelableArrayList("List", (ArrayList<? extends Parcelable>) selectedList);
-                        fragment.setArguments(bundle1);
-                        /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
-                        fragment.show(getActivity().getSupportFragmentManager(),
-                                "fragment_bottom_sheet_dailog");
-                    } else {
-                        GlobalClass.ShowAlert(mContext, "Alert", "You don't have active booking to place order");
+                            BottomDailogFragment fragment = new BottomDailogFragment();
+                            Bundle bundle1 = new Bundle();
+                            bundle1.putString("Category", "Dining" + bundle.getString("title"));
+                            bundle1.putString("Category", "in-room-dining");
+                            bundle1.putParcelableArrayList("List", (ArrayList<? extends Parcelable>) selectedList);
+                            fragment.setArguments(bundle1);
+                            /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
+                            fragment.show(getActivity().getSupportFragmentManager(),
+                                    "fragment_bottom_sheet_dailog");
+                        } else {
+                            GlobalClass.ShowAlert(mContext, "Alert", "You don't have active booking to place order");
 
-                    }
-                    /*Log.d("items_count", String.valueOf(items_count));
+                        }
+                        /*Log.d("items_count", String.valueOf(items_count));
 
-                     *//*String json =gson.toJson(selectedList);
+                         *//*String json =gson.toJson(selectedList);
                     editor.putString("selected_list",json);
                     editor.commit();*//*
 
@@ -271,9 +274,11 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
 
                     fragment.setArguments(bundle1);
                     getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
-                } else {
-                    GlobalClass.ShowAlert(mContext, "Alert", "Select atleast one item");
-                }
+                    } else {
+                        GlobalClass.ShowAlert(mContext, "Alert", "Select atleast one item");
+                    }
+                }else{
+                    GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");                }
 
 
             });

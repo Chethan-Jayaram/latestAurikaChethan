@@ -128,32 +128,34 @@ public class LaundryService extends Fragment implements ApiListner {
 
         view_order.setOnClickListener(v -> {
 
-            if (items_count>0)  {
-                if (GlobalClass.user_token.isEmpty()){
-                    alertBox();
+            if (GlobalClass.user_active_booking) {
 
-                }else if (GlobalClass.user_active_booking) {
-                    /*showBottomSheetDialog();*/
-                    selectedList.clear();
-                    for (int i=0;i<laundry_service_list.size();i++){
-                        for (int j=0;j<laundry_service_list.get(i).getCategory_item().size();j++){
-                            if (laundry_service_list.get(i).getCategory_item().get(j).getCount()>0){
-                                laundry_service_list.get(i).getCategory_item().get(j).setItem_id(laundry_service_list.get(i).getCategory_item().get(j).getId());
-                                laundry_service_list.get(i).getCategory_item().get(j).setQuantity(laundry_service_list.get(i).getCategory_item().get(j).getCount());
-                                selectedList.add(laundry_service_list.get(i).getCategory_item().get(j));
+                if (items_count > 0) {
+                    if (GlobalClass.user_token.isEmpty()) {
+                        alertBox();
+
+                    } else if (GlobalClass.user_active_booking) {
+                        /*showBottomSheetDialog();*/
+                        selectedList.clear();
+                        for (int i = 0; i < laundry_service_list.size(); i++) {
+                            for (int j = 0; j < laundry_service_list.get(i).getCategory_item().size(); j++) {
+                                if (laundry_service_list.get(i).getCategory_item().get(j).getCount() > 0) {
+                                    laundry_service_list.get(i).getCategory_item().get(j).setItem_id(laundry_service_list.get(i).getCategory_item().get(j).getId());
+                                    laundry_service_list.get(i).getCategory_item().get(j).setQuantity(laundry_service_list.get(i).getCategory_item().get(j).getCount());
+                                    selectedList.add(laundry_service_list.get(i).getCategory_item().get(j));
+                                }
                             }
                         }
+                        BottomDailogFragment fragment = new BottomDailogFragment();
+                        Bundle bundle1 = new Bundle();
+                        bundle1.putString("Category", "laundry");
+                        bundle1.putParcelableArrayList("List", (ArrayList<? extends Parcelable>) selectedList);
+                        fragment.setArguments(bundle1);
+                        fragment.show(getActivity().getSupportFragmentManager(),
+                                "fragment_bottom_sheet_dailog");
+                    } else {
+                        GlobalClass.ShowAlert(mContext, "Alert", "You don't have active booking to place order");
                     }
-                    BottomDailogFragment fragment = new BottomDailogFragment();
-                    Bundle bundle1 = new Bundle();
-                    bundle1.putString("Category","laundry");
-                    bundle1.putParcelableArrayList("List", (ArrayList<? extends Parcelable>) selectedList);
-                    fragment.setArguments(bundle1);
-                    fragment.show(getActivity().getSupportFragmentManager(),
-                            "fragment_bottom_sheet_dailog");
-                } else{
-                    GlobalClass.ShowAlert(mContext,"Alert","You don't have active booking to place order");
-                }
 
                 /*Fragment fragment = new OrderSummary();
                 Bundle bundle1 = new Bundle();
@@ -165,9 +167,12 @@ public class LaundryService extends Fragment implements ApiListner {
                 bundle1.putString("category",order_category);
                 fragment.setArguments(bundle1);
                 getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
-            }else
-            {
-                GlobalClass.ShowAlert(mContext,"Alert","Select atleast one item");
+                } else {
+                    GlobalClass.ShowAlert(mContext, "Alert", "Select atleast one item");
+                }
+            }else{
+                GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
             }
 
         });

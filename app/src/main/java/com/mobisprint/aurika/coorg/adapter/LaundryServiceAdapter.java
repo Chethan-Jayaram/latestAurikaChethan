@@ -153,18 +153,24 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
 
 
             bt_add.setOnClickListener(v -> {
-                if (!(GlobalClass.sharedPreferences.getBoolean("isItemSelected",false))){
-                    GlobalClass.editor.putBoolean("isMultipleItemSelected",true);
-                    GlobalClass.editor.commit();
-                    isMultipleItemSelected = true;
-                    laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount(expandedListText.getCount() + 1);
-                    tv_quantity.setText(Integer.toString(laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount()));
-                    mListener.onItemClicked(laundry_service_list.get(groupPosition));
-                    pushData(laundry_service_list);
-                    lyt_add.setVisibility(View.GONE);
-                    lyt_counter.setVisibility(View.VISIBLE);
-                }else {
-                    GlobalClass.ShowAlert(mContext, "Alert", "Please place individual orders for individual requests  ");
+
+                if (GlobalClass.user_active_booking) {
+
+                    if (!(GlobalClass.sharedPreferences.getBoolean("isItemSelected", false))) {
+                        GlobalClass.editor.putBoolean("isMultipleItemSelected", true);
+                        GlobalClass.editor.commit();
+                        isMultipleItemSelected = true;
+                        laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount(expandedListText.getCount() + 1);
+                        tv_quantity.setText(Integer.toString(laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount()));
+                        mListener.onItemClicked(laundry_service_list.get(groupPosition));
+                        pushData(laundry_service_list);
+                        lyt_add.setVisibility(View.GONE);
+                        lyt_counter.setVisibility(View.VISIBLE);
+                    } else {
+                        GlobalClass.ShowAlert(mContext, "Alert", "Please place individual orders for individual requests  ");
+                    }
+                }else{
+                    GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");
                 }
 
             });
@@ -254,27 +260,34 @@ public class LaundryServiceAdapter extends BaseExpandableListAdapter {
 
             switch4.setOnClickListener(v -> {
 
-                if (((GlobalClass.sharedPreferences.getBoolean("isItemSelected",false)) && !laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).isItemSelected()) || (GlobalClass.sharedPreferences.getBoolean("isMultipleItemSelected",false))) {
+                if (GlobalClass.user_active_booking) {
+
+                    if (((GlobalClass.sharedPreferences.getBoolean("isItemSelected", false)) && !laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).isItemSelected()) || (GlobalClass.sharedPreferences.getBoolean("isMultipleItemSelected", false))) {
+                        switch4.setOn(true);
+                        GlobalClass.ShowAlert(mContext, "Alert", "Please place individual orders for individual requests  ");
+                    } else if (GlobalClass.sharedPreferences.getBoolean("isItemSelected", false) && laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).isItemSelected()) {
+                        switch4.setEnabled(false);
+                        GlobalClass.editor.putBoolean("isItemSelected", false);
+                        GlobalClass.editor.commit();
+                        isItemSelected = false;
+                        laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setItemSelected(false);
+                        laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount(laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount() - 1);
+                        pushData(laundry_service_list);
+                        mListener.onItemClicked(laundry_service_list.get(groupPosition));
+                    } else if ((!(GlobalClass.sharedPreferences.getBoolean("isItemSelected", false)) && !laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).isItemSelected()) || !(GlobalClass.sharedPreferences.getBoolean("isMultipleItemSelected", false))) {
+                        switch4.setEnabled(true);
+                        isItemSelected = true;
+                        GlobalClass.editor.putBoolean("isItemSelected", true);
+                        GlobalClass.editor.commit();
+                        laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setItemSelected(true);
+                        laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount(laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount() + 1);
+                        pushData(laundry_service_list);
+                        mListener.onItemClicked(laundry_service_list.get(groupPosition));
+                    }
+                }else{
                     switch4.setOn(true);
-                    GlobalClass.ShowAlert(mContext, "Alert", "Please place individual orders for individual requests  ");
-                } else if (GlobalClass.sharedPreferences.getBoolean("isItemSelected",false) && laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).isItemSelected() ){
-                    switch4.setEnabled(false);
-                    GlobalClass.editor.putBoolean("isItemSelected",false);
-                    GlobalClass.editor.commit();
-                    isItemSelected = false;
-                    laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setItemSelected(false);
-                    laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount( laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount()-1);
-                    pushData(laundry_service_list);
-                    mListener.onItemClicked(laundry_service_list.get(groupPosition));
-                } else if ((!(GlobalClass.sharedPreferences.getBoolean("isItemSelected",false)) && !laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).isItemSelected()) || !(GlobalClass.sharedPreferences.getBoolean("isMultipleItemSelected",false))) {
-                    switch4.setEnabled(true);
-                    isItemSelected = true;
-                    GlobalClass.editor.putBoolean("isItemSelected",true);
-                    GlobalClass.editor.commit();
-                    laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setItemSelected(true);
-                    laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).setCount( laundry_service_list.get(groupPosition).getCategory_item().get(childPosition).getCount()+1);
-                    pushData(laundry_service_list);
-                    mListener.onItemClicked(laundry_service_list.get(groupPosition));
+                    GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
                 }
 
                 /*if (isMultipleItemSelected){

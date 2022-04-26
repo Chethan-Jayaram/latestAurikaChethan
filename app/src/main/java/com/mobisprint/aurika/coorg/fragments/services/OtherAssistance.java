@@ -80,30 +80,36 @@ public class OtherAssistance extends Fragment implements ApiListner {
 
         btn_assi_submit.setOnClickListener(v -> {
 
-            if (GlobalClass.user_token.isEmpty()){
+            if (GlobalClass.user_active_booking) {
 
-                alertBox();
+                if (GlobalClass.user_token.isEmpty()) {
 
-            }else  if(GlobalClass.user_active_booking){
-                if (txt_assistance.getText().toString().isEmpty()) {
-                    GlobalClass.ShowAlert(this.getContext(), "Alert", "Type the requirement");
+                    alertBox();
+
+                } else if (GlobalClass.user_active_booking) {
+                    if (txt_assistance.getText().toString().isEmpty()) {
+                        GlobalClass.ShowAlert(this.getContext(), "Alert", "Type the requirement");
+                    } else {
+                        list.clear();
+                        detail.setDescription(txt_assistance.getText().toString());
+                        list.add(detail);
+                        ticketModle.setDetails(list);
+                        ticketModle.setSpecial_instructions(txt_assistance.getText().toString());
+                        ticketModle.setTitle("other-assistance Ticket");
+                        ticketModle.setDepartment("other-assistance");
+                        ticketModle.setBooking(String.valueOf(GlobalClass.Guest_Id));
+                        ticketModle.setRequestDate(requestDate);
+                        ticketModle.setRequestTime(reqtime);
+                        ticketModle.setRoomNumber(GlobalClass.ROOM_NO);
+                        bottomDailogController.generalTicket(ticketModle);
+
+                    }
                 } else {
-                    list.clear();
-                    detail.setDescription(txt_assistance.getText().toString());
-                    list.add(detail);
-                    ticketModle.setDetails(list);
-                    ticketModle.setSpecial_instructions(txt_assistance.getText().toString());
-                    ticketModle.setTitle("other-assistance Ticket");
-                    ticketModle.setDepartment("other-assistance");
-                    ticketModle.setBooking(String.valueOf(GlobalClass.Guest_Id));
-                    ticketModle.setRequestDate(requestDate);
-                    ticketModle.setRequestTime(reqtime);
-                    ticketModle.setRoomNumber(GlobalClass.ROOM_NO);
-                    bottomDailogController.generalTicket(ticketModle);
+                    GlobalClass.ShowAlert(mContext, "Alert", "You don't have active booking to place order");
 
                 }
-            }else{
-                GlobalClass.ShowAlert(mContext,"Alert","You don't have active booking to place order");
+            }else {
+                GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");
 
             }
 

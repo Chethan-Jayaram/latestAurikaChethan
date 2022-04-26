@@ -139,22 +139,25 @@ public class Amenities extends Fragment implements ApiListner {
 
 
             view_order.setOnClickListener(v -> {
-                if (items_count > 0) {
 
-                    if (GlobalClass.user_token.isEmpty()){
+                if (GlobalClass.user_active_booking) {
 
-                        alertBox();
+                    if (items_count > 0) {
 
-                    }else if(GlobalClass.user_active_booking){
-                        /*showBottomSheetDialog();*/
-                        selectedList.clear();
-                        for (int i=0;i<amenitiesList.size();i++){
-                            if (amenitiesList.get(i).getCount()>0){
-                                amenitiesList.get(i).setItem_id(amenitiesList.get(i).getId());
-                                amenitiesList.get(i).setQuantity(amenitiesList.get(i).getCount());
-                                selectedList.add(amenitiesList.get(i));
+                        if (GlobalClass.user_token.isEmpty()) {
+
+                            alertBox();
+
+                        } else if (GlobalClass.user_active_booking) {
+                            /*showBottomSheetDialog();*/
+                            selectedList.clear();
+                            for (int i = 0; i < amenitiesList.size(); i++) {
+                                if (amenitiesList.get(i).getCount() > 0) {
+                                    amenitiesList.get(i).setItem_id(amenitiesList.get(i).getId());
+                                    amenitiesList.get(i).setQuantity(amenitiesList.get(i).getCount());
+                                    selectedList.add(amenitiesList.get(i));
+                                }
                             }
-                        }
 
                         /*serviceModle.setDetails(selectedList);
                         serviceModle.setDepartment("amenities");
@@ -165,18 +168,18 @@ public class Amenities extends Fragment implements ApiListner {
                         serviceModle.setRequestDate(requestDate);
                         controller.ticketingCreation(serviceModle);*/
 
-                        BottomDailogFragment fragment = new BottomDailogFragment();
-                        Bundle bundle1 = new Bundle();
-                        bundle1.putString("Category","amenities");
-                        bundle1.putParcelableArrayList("List", (ArrayList<? extends Parcelable>) selectedList);
-                        fragment.setArguments(bundle1);
-                        /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
-                        fragment.show(getActivity().getSupportFragmentManager(),
-                                "fragment_bottom_sheet_dailog");
-                    }  else{
-                        GlobalClass.ShowAlert(mContext,"Alert","You don't have active booking to place order");
+                            BottomDailogFragment fragment = new BottomDailogFragment();
+                            Bundle bundle1 = new Bundle();
+                            bundle1.putString("Category", "amenities");
+                            bundle1.putParcelableArrayList("List", (ArrayList<? extends Parcelable>) selectedList);
+                            fragment.setArguments(bundle1);
+                            /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
+                            fragment.show(getActivity().getSupportFragmentManager(),
+                                    "fragment_bottom_sheet_dailog");
+                        } else {
+                            GlobalClass.ShowAlert(mContext, "Alert", "You don't have active booking to place order");
 
-                    }
+                        }
 
                    /* Fragment fragment = new OrderSummary();
                     Bundle bundle1 = new Bundle();
@@ -191,9 +194,12 @@ public class Amenities extends Fragment implements ApiListner {
                     getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
 
 
+                    } else {
+                        GlobalClass.ShowAlert(mContext, "Alert", "Select atleast one item");
+                    }
+                }else{
+                    GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");
 
-                } else {
-                    GlobalClass.ShowAlert(mContext, "Alert", "Select atleast one item");
                 }
 
 

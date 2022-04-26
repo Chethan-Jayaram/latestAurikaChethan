@@ -65,16 +65,23 @@ public class K9MenuAdapter extends RecyclerView.Adapter<K9MenuAdapter.ViewHolder
         }
 
         holder.bt_add.setOnClickListener(v -> {
-            if (!isItemSelected){
-                isMultipleItemSelected = true;
-                menuList.get(position).setCount( menuList.get(position).getCount()+1);
-                holder.tv_quantity.setText(Integer.toString(menuList.get(position).getCount()));
-                holder.lyt_add.setVisibility(View.GONE);
-                holder.lyt_counter.setVisibility(View.VISIBLE);
-                pushDataK9(menuList);
-                mListener.onItemClicked(position);
+
+            if (GlobalClass.user_active_booking) {
+
+                if (!isItemSelected) {
+                    isMultipleItemSelected = true;
+                    menuList.get(position).setCount(menuList.get(position).getCount() + 1);
+                    holder.tv_quantity.setText(Integer.toString(menuList.get(position).getCount()));
+                    holder.lyt_add.setVisibility(View.GONE);
+                    holder.lyt_counter.setVisibility(View.VISIBLE);
+                    pushDataK9(menuList);
+                    mListener.onItemClicked(position);
+                } else {
+                    GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests");
+                }
             }else{
-                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests");
+                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
             }
 
         });
@@ -146,24 +153,31 @@ public class K9MenuAdapter extends RecyclerView.Adapter<K9MenuAdapter.ViewHolder
 
         holder.switch4.setOnClickListener(v -> {
 
+            if (GlobalClass.user_active_booking) {
+
                 if ((isItemSelected && !menuList.get(position).isItemSelected()) || isMultipleItemSelected) {
                     holder.switch4.setOn(true);
                     GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests");
-                } else if (isItemSelected && menuList.get(position).isItemSelected() ){
+                } else if (isItemSelected && menuList.get(position).isItemSelected()) {
                     holder.switch4.setEnabled(false);
                     isItemSelected = false;
                     menuList.get(position).setItemSelected(false);
-                    menuList.get(position).setCount( menuList.get(position).getCount()-1);
+                    menuList.get(position).setCount(menuList.get(position).getCount() - 1);
                     pushDataK9(menuList);
                     mListener.onItemClicked(position);
                 } else if ((!isItemSelected && !menuList.get(position).isItemSelected()) || !isMultipleItemSelected) {
                     holder.switch4.setEnabled(true);
                     isItemSelected = true;
                     menuList.get(position).setItemSelected(true);
-                    menuList.get(position).setCount( menuList.get(position).getCount()+1);
+                    menuList.get(position).setCount(menuList.get(position).getCount() + 1);
                     pushDataK9(menuList);
                     mListener.onItemClicked(position);
                 }
+            }else{
+                holder.switch4.setOn(true);
+                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
+            }
 
                 /*if (isMultipleItemSelected){
                     holder.switch4.setOn(true);

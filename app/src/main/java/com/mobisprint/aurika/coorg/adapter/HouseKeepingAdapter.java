@@ -71,16 +71,23 @@ public  class HouseKeepingAdapter extends RecyclerView.Adapter<HouseKeepingAdapt
         }
 
         holder.bt_add.setOnClickListener(v -> {
-            if (!isItemSelected){
-                isMultipleItemSelected = true;
-                houseKeepingList.get(position).setCount( houseKeepingList.get(position).getCount()+1);
-                holder.tv_quantity.setText(Integer.toString(houseKeepingList.get(position).getCount()));
-                holder.lyt_add.setVisibility(View.GONE);
-                holder.lyt_counter.setVisibility(View.VISIBLE);
-                pushData(houseKeepingList);
-                mListener.onItemClicked(position);
+
+            if (GlobalClass.user_active_booking) {
+
+                if (!isItemSelected) {
+                    isMultipleItemSelected = true;
+                    houseKeepingList.get(position).setCount(houseKeepingList.get(position).getCount() + 1);
+                    holder.tv_quantity.setText(Integer.toString(houseKeepingList.get(position).getCount()));
+                    holder.lyt_add.setVisibility(View.GONE);
+                    holder.lyt_counter.setVisibility(View.VISIBLE);
+                    pushData(houseKeepingList);
+                    mListener.onItemClicked(position);
+                } else {
+                    GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests  ");
+                }
             }else{
-                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests  ");
+                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
             }
 
         });
@@ -145,24 +152,33 @@ public  class HouseKeepingAdapter extends RecyclerView.Adapter<HouseKeepingAdapt
         });
 
 
+
         holder.switch4.setOnClickListener(v -> {
-            if ((isItemSelected && !houseKeepingList.get(position).isItemSelected()) || isMultipleItemSelected) {
+
+            if (GlobalClass.user_active_booking) {
+
+                if ((isItemSelected && !houseKeepingList.get(position).isItemSelected()) || isMultipleItemSelected) {
+                    holder.switch4.setOn(true);
+                    GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests  ");
+                } else if (isItemSelected && houseKeepingList.get(position).isItemSelected()) {
+                    holder.switch4.setEnabled(false);
+                    isItemSelected = false;
+                    houseKeepingList.get(position).setItemSelected(false);
+                    houseKeepingList.get(position).setCount(houseKeepingList.get(position).getCount() - 1);
+                    pushData(houseKeepingList);
+                    mListener.onItemClicked(position);
+                } else if ((!isItemSelected && !houseKeepingList.get(position).isItemSelected()) || !isMultipleItemSelected) {
+                    holder.switch4.setEnabled(true);
+                    isItemSelected = true;
+                    houseKeepingList.get(position).setItemSelected(true);
+                    houseKeepingList.get(position).setCount(houseKeepingList.get(position).getCount() + 1);
+                    pushData(houseKeepingList);
+                    mListener.onItemClicked(position);
+                }
+            }else{
                 holder.switch4.setOn(true);
-                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "Please place individual orders for individual requests  ");
-            } else if (isItemSelected && houseKeepingList.get(position).isItemSelected() ){
-                holder.switch4.setEnabled(false);
-                isItemSelected = false;
-                houseKeepingList.get(position).setItemSelected(false);
-                houseKeepingList.get(position).setCount( houseKeepingList.get(position).getCount()-1);
-                pushData(houseKeepingList);
-                mListener.onItemClicked(position);
-            } else if ((!isItemSelected && !houseKeepingList.get(position).isItemSelected()) || !isMultipleItemSelected) {
-                holder.switch4.setEnabled(true);
-                isItemSelected = true;
-                houseKeepingList.get(position).setItemSelected(true);
-                houseKeepingList.get(position).setCount( houseKeepingList.get(position).getCount()+1);
-                pushData(houseKeepingList);
-                mListener.onItemClicked(position);
+                GlobalClass.ShowAlert(holder.itemView.getContext(), "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
             }
         });
 

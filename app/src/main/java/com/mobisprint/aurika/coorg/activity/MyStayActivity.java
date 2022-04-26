@@ -2,6 +2,7 @@ package com.mobisprint.aurika.coorg.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +29,9 @@ import com.mobisprint.aurika.coorg.adapter.MyStayMainAdapter;
 import com.mobisprint.aurika.coorg.controller.MakePaymentController;
 import com.mobisprint.aurika.coorg.controller.MyStayController;
 import com.mobisprint.aurika.coorg.fragments.CoorgNotificationFragment;
+import com.mobisprint.aurika.coorg.fragments.OrderConfirmedFragment;
+import com.mobisprint.aurika.coorg.fragments.PaymentStatusFragment;
+import com.mobisprint.aurika.coorg.fragments.loginfragments.LoginFragment;
 import com.mobisprint.aurika.coorg.modle.PaymentModle;
 import com.mobisprint.aurika.coorg.pojo.General;
 import com.mobisprint.aurika.coorg.pojo.guestbooking.ActiveBooking;
@@ -35,6 +39,7 @@ import com.mobisprint.aurika.coorg.pojo.guestbooking.GuestBooking;
 import com.mobisprint.aurika.coorg.pojo.guestfoilos.GuestFoilos;
 import com.mobisprint.aurika.coorg.pojo.payment.Data;
 import com.mobisprint.aurika.coorg.pojo.payment.GenerateOrderId;
+import com.mobisprint.aurika.coorg.pojo.verifysignature.VerifyPaymentSignature;
 import com.mobisprint.aurika.helper.ApiListner;
 import com.mobisprint.aurika.helper.GlobalClass;
 import com.razorpay.Checkout;
@@ -79,7 +84,7 @@ public class MyStayActivity extends AppCompatActivity implements   ApiListner, P
         setContentView(R.layout.activity_my_stay);
 
         try {
-
+            
             mContext = getApplicationContext();
 
             bottomSheetDialog = new BottomSheetDialog(this);
@@ -208,10 +213,13 @@ public class MyStayActivity extends AppCompatActivity implements   ApiListner, P
 
 
             if (response.body() instanceof GuestBooking){
+
+
                 progressBar.setVisibility(View.GONE);
                 lyt.setVisibility(View.VISIBLE);
 
-                if (((GuestBooking) response.body()).getData().getActiveBooking().isEmpty()){
+
+                if(((GuestBooking) response.body()).getData().getActiveBooking().isEmpty() && ((GuestBooking) response.body()).getData().getUpcomingBookingSerializer().isEmpty() && ((GuestBooking) response.body()).getData().getBookingHistory().isEmpty()){
                     GlobalClass.ShowAlert(MyStayActivity.this,"Alert","You dont have active bookings");
                 }else{
                     GuestBooking guestBooking = (GuestBooking) response.body();
@@ -220,13 +228,17 @@ public class MyStayActivity extends AppCompatActivity implements   ApiListner, P
                     guestList.addAll(guestBooking.getData().getUpcomingBookingSerializer());
                     Log.d("guestList", String.valueOf(guestList.size()));
 
-                    user_name = guestList.get(0).getGuest().getFirstName() + " " +guestList.get(0).getGuest().getFirstName();
+                    if (!((GuestBooking) response.body()).getData().getActiveBooking().isEmpty()){
+                        user_name = guestList.get(0).getGuest().getFirstName() + " " +guestList.get(0).getGuest().getFirstName();
 
-                    email_id = guestList.get(0).getGuest().getEmail();
+                        email_id = guestList.get(0).getGuest().getEmail();
 
-                    ph_num = guestList.get(0).getGuest().getContactNumber();
+                        ph_num = guestList.get(0).getGuest().getContactNumber();
 
-                    desc = guestList.get(0).getBookingNumber();
+                        desc = guestList.get(0).getBookingNumber();
+                    }
+
+
                 /*MyStayExpandableListAdapter adapter = new MyStayExpandableListAdapter(myStayController,mContext,guestList,Amount -> {
                     showBottomSheetDialog(Amount);
                 });*/
@@ -239,6 +251,60 @@ public class MyStayActivity extends AppCompatActivity implements   ApiListner, P
                     mystay_expandable_listview.setLayoutManager(layoutManager);
                     mystay_expandable_listview.setAdapter(adapter);
                 }
+
+//                if (((GuestBooking) response.body()).getData().getActiveBooking().isEmpty() && ((GuestBooking) response.body()).getData().getUpcomingBookingSerializer().isEmpty() ){
+//                    GlobalClass.ShowAlert(MyStayActivity.this,"Alert","You dont have active bookings");
+//                }else if (!((GuestBooking) response.body()).getData().getActiveBooking().isEmpty()){
+//                    GuestBooking guestBooking = (GuestBooking) response.body();
+//                    guestList = guestBooking.getData().getActiveBooking();
+//                    guestList.addAll(guestBooking.getData().getBookingHistory());
+//                    guestList.addAll(guestBooking.getData().getUpcomingBookingSerializer());
+//                    Log.d("guestList", String.valueOf(guestList.size()));
+//
+//                    user_name = guestList.get(0).getGuest().getFirstName() + " " +guestList.get(0).getGuest().getFirstName();
+//
+//                    email_id = guestList.get(0).getGuest().getEmail();
+//
+//                    ph_num = guestList.get(0).getGuest().getContactNumber();
+//
+//                    desc = guestList.get(0).getBookingNumber();
+//                /*MyStayExpandableListAdapter adapter = new MyStayExpandableListAdapter(myStayController,mContext,guestList,Amount -> {
+//                    showBottomSheetDialog(Amount);
+//                });*/
+//
+//                    MyStayMainAdapter adapter = new MyStayMainAdapter(mContext,guestList,myStayController,(Amount,FolioId) -> {
+//                        folio_id = FolioId;
+//                        showBottomSheetDialog(Amount);
+//                    });
+//                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
+//                    mystay_expandable_listview.setLayoutManager(layoutManager);
+//                    mystay_expandable_listview.setAdapter(adapter);
+//                }else{
+//                    GuestBooking guestBooking = (GuestBooking) response.body();
+//                    guestList = guestBooking.getData().getActiveBooking();
+//                    guestList.addAll(guestBooking.getData().getBookingHistory());
+//                    guestList.addAll(guestBooking.getData().getUpcomingBookingSerializer());
+//                    Log.d("guestList", String.valueOf(guestList.size()));
+//
+//                    user_name = guestList.get(0).getGuest().getFirstName() + " " +guestList.get(0).getGuest().getFirstName();
+//
+//                    email_id = guestList.get(0).getGuest().getEmail();
+//
+//                    ph_num = guestList.get(0).getGuest().getContactNumber();
+//
+//                    desc = guestList.get(0).getBookingNumber();
+//                /*MyStayExpandableListAdapter adapter = new MyStayExpandableListAdapter(myStayController,mContext,guestList,Amount -> {
+//                    showBottomSheetDialog(Amount);
+//                });*/
+//
+//                    MyStayMainAdapter adapter = new MyStayMainAdapter(mContext,guestList,myStayController,(Amount,FolioId) -> {
+//                        folio_id = FolioId;
+//                        showBottomSheetDialog(Amount);
+//                    });
+//                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
+//                    mystay_expandable_listview.setLayoutManager(layoutManager);
+//                    mystay_expandable_listview.setAdapter(adapter);
+//                }
 
 
 
@@ -258,8 +324,22 @@ public class MyStayActivity extends AppCompatActivity implements   ApiListner, P
                 order_idd = data.getId();
 
 
-            }else if (response.body() instanceof General){
+            }else if (response.body() instanceof VerifyPaymentSignature){
                 dismissDialog();
+
+                VerifyPaymentSignature verifyPaymentSignature = (VerifyPaymentSignature) response.body();
+
+                com.mobisprint.aurika.coorg.pojo.verifysignature.Data data = verifyPaymentSignature.getData();
+
+                Fragment fragment1 = new PaymentStatusFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("Order_Id",data.getOrderReceipt());
+                bundle.putString("Amount",data.getOrderAmount());
+                bundle.putString("payment_status","success");
+                fragment1.setArguments(bundle);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container_mystay, fragment1).commit();
+
             }
         }
 
@@ -270,13 +350,19 @@ public class MyStayActivity extends AppCompatActivity implements   ApiListner, P
 
     @Override
     public void onFetchError(String error) {
+
+
+
         progressBar.setVisibility(View.GONE);
+        Log.d("Payment_error",error);
         GlobalClass.ShowAlert(MyStayActivity.this,"Alert",error);
 
     }
 
     @Override
     public void onPaymentSuccess(String s, PaymentData paymentData) {
+
+        Log.d("Payment_.Success",s);
 
         Double amount = paymentModle.getAmount()/100;
 
@@ -297,6 +383,7 @@ public class MyStayActivity extends AppCompatActivity implements   ApiListner, P
 
 
         }catch (Exception e){
+            Log.d("exceptionn", e.getMessage());
             e.printStackTrace();
         }
 
@@ -306,7 +393,18 @@ public class MyStayActivity extends AppCompatActivity implements   ApiListner, P
 
     @Override
     public void onPaymentError(int i, String s, PaymentData paymentData) {
-        Toast.makeText(this, "Payment failed: " + paymentData.getOrderId() + " " + paymentData.getSignature(), Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(this, "Payment failed: " + paymentData.getOrderId() + " " + paymentData.getSignature(), Toast.LENGTH_SHORT).show();
+
+            dismissDialog();
+
+
+            Fragment fragment1 = new PaymentStatusFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("payment_status","failure");
+            fragment1.setArguments(bundle);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container_mystay, fragment1).commit();
+
 
     }
 

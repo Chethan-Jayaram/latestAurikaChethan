@@ -34,10 +34,12 @@ import com.mobisprint.aurika.coorg.activity.HomeActivity;
 import com.mobisprint.aurika.coorg.adapter.DoorUnlockAdapter;
 import com.mobisprint.aurika.coorg.controller.DoorUnlockController;
 import com.mobisprint.aurika.coorg.controller.GuestReservationController;
+import com.mobisprint.aurika.coorg.controller.MyStayController;
 import com.mobisprint.aurika.coorg.pojo.General;
+import com.mobisprint.aurika.coorg.pojo.guestbooking.ActiveBooking;
+import com.mobisprint.aurika.coorg.pojo.guestbooking.GuestBooking;
 import com.mobisprint.aurika.coorg.pojo.invitationcode.InvitationCode;
 import com.mobisprint.aurika.coorg.pojo.mobilekey.MobileKey;
-import com.mobisprint.aurika.coorg.pojo.reservation.ActiveBooking;
 import com.mobisprint.aurika.coorg.pojo.reservation.Data;
 import com.mobisprint.aurika.coorg.pojo.reservation.GuestReservation;
 import com.mobisprint.aurika.coorg.services.APIMethods;
@@ -87,7 +89,7 @@ public class DoorUnlockBookings extends Fragment implements ApiListner, MobileKe
     private Context mContext;
     private TextView toolbar_title;
     private ImageView bt_bck;
-    private GuestReservationController guestReservationController;
+    private MyStayController myStayController;
     private ProgressBar progressBar;
     private RelativeLayout lyt_content;
 
@@ -100,7 +102,7 @@ public class DoorUnlockBookings extends Fragment implements ApiListner, MobileKe
 
         door_unlock_recyclerview = view.findViewById(R.id.door_unlock_recyclerview);
 
-        guestReservationController = new GuestReservationController(this);
+        myStayController = new MyStayController(this);
 
         controller = new DoorUnlockController(this);
         mContext = getContext();
@@ -137,7 +139,7 @@ public class DoorUnlockBookings extends Fragment implements ApiListner, MobileKe
     @Override
     public void onResume() {
         super.onResume();
-        guestReservationController.checkReservation(GlobalClass.user_token);
+        myStayController.getGuestBooking(GlobalClass.user_token);
     }
 
     @Override
@@ -148,14 +150,14 @@ public class DoorUnlockBookings extends Fragment implements ApiListner, MobileKe
             progressBar.setVisibility(View.GONE);
             lyt_content.setVisibility(View.VISIBLE);
 
-            if (response.body() instanceof GuestReservation) {
+            if (response.body() instanceof GuestBooking) {
 
 
-                GuestReservation guestReservation = (GuestReservation) response.body();
+                GuestBooking guestReservation = (GuestBooking) response.body();
 
-                    guestList = guestReservation.getData().getActiveBookings();
+                    guestList = guestReservation.getData().getActiveBooking();
 
-                    Log.d("sizeeee", String.valueOf(guestReservation.getData().getActiveBookings().size()));
+                    Log.d("sizeeee", String.valueOf(guestReservation.getData().getActiveBooking().size()));
 
                     if (!guestList.isEmpty()){
                         DoorUnlockAdapter adapter = new DoorUnlockAdapter(guestList,RoomNumber -> {
@@ -194,6 +196,11 @@ public class DoorUnlockBookings extends Fragment implements ApiListner, MobileKe
 
                         if (code.getStatus()) {
                             Keytoken = code.getData().getToken();
+                            Log.d("invitaionCode",code.getData().getInvitationCode());
+                            Log.d("keytoken",code.getData().getToken());
+                            Log.d("status",code.getStatus().toString());
+
+
                             submitInvitationCode(code.getData().getInvitationCode());
                         } else {
                             dismissDialog();
@@ -284,6 +291,7 @@ public class DoorUnlockBookings extends Fragment implements ApiListner, MobileKe
 
 
     private void submitInvitationCode(String invitation) {
+        Log.d("yes","Submit invitation method triggerred");
         mobileKeysApiFacade.getMobileKeys().endpointSetup(this, invitation, new EndpointSetupConfiguration.Builder().build());
         checkInvitionComplet();
 

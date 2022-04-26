@@ -12,7 +12,7 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobisprint.aurika.R;
-import com.mobisprint.aurika.coorg.pojo.reservation.ActiveBooking;
+import com.mobisprint.aurika.coorg.pojo.guestbooking.ActiveBooking;
 import com.mobisprint.aurika.helper.GlobalClass;
 
 import java.text.DateFormat;
@@ -27,11 +27,11 @@ import java.util.List;
 
 public class DoorUnlockAdapter extends RecyclerView.Adapter<DoorUnlockAdapter.ViewHolder> {
 
-    private List<ActiveBooking> guestList;
+    private List<com.mobisprint.aurika.coorg.pojo.guestbooking.ActiveBooking> guestList;
     private GlobalClass.RoomNumberListener roomNumberListener;
 
 
-    public DoorUnlockAdapter(List<ActiveBooking> guestList,GlobalClass.RoomNumberListener roomNumberListener) {
+    public DoorUnlockAdapter(List<ActiveBooking> guestList, GlobalClass.RoomNumberListener roomNumberListener) {
         this.guestList = guestList;
         this.roomNumberListener = roomNumberListener;
     }

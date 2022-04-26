@@ -55,10 +55,11 @@ public class Aurika extends Application implements MobileKeysApiFactory
         mInstance=this;
         context=getApplicationContext();
         initializeMobileKeysApi();
-
-
-        OneSignal.initWithContext(this);
-
+        OneSignal.startInit(this)
+                .setNotificationOpenedHandler(new AurikaNotificationHandler())
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
         try {
             // Google Play will install latest OpenSSL
             ProviderInstaller.installIfNeeded(getApplicationContext());
@@ -69,7 +70,7 @@ public class Aurika extends Application implements MobileKeysApiFactory
         } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException
                 | NoSuchAlgorithmException | KeyManagementException e) {
             e.printStackTrace();
-        }
+        } 
     }
 
     /**
@@ -90,8 +91,8 @@ public class Aurika extends Application implements MobileKeysApiFactory
                 .setApplicationId(BuildConfig.AAMK_APP_ID)
                 .setApplicationDescription(BuildConfig.AAMK_APP_ID_DESCRIPTION)
                 .setNfcParameters(new NfcConfiguration.Builder()
-                    .unsafe_setAttemptNfcWithScreenOff(false)
-                    .build())
+                        .unsafe_setAttemptNfcWithScreenOff(false)
+                        .build())
                 .build();
         OneSignal.sendTag("isCheckedIn", "false");
 

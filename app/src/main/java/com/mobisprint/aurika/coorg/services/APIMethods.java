@@ -28,6 +28,7 @@ import com.mobisprint.aurika.coorg.pojo.resortmap.ResortMap;
 import com.mobisprint.aurika.coorg.pojo.sightseeing.SightSeeing;
 import com.mobisprint.aurika.coorg.pojo.spa.Spa;
 import com.mobisprint.aurika.coorg.pojo.ticketing.Ticket;
+import com.mobisprint.aurika.coorg.pojo.verifysignature.VerifyPaymentSignature;
 import com.mobisprint.aurika.coorg.pojo.winedine.WineAndDine;
 import com.mobisprint.aurika.udaipur.pojo.doorunlock.OtpAutentication;
 import com.mobisprint.aurika.udaipur.pojo.doorunlock.TokenAutentication;
@@ -273,7 +274,7 @@ public interface APIMethods {
 
     @Headers({"Content-Type:application/json", "organization-key:80b2f8f25c554f9705bb216c8128ba4f05bb0cfd", "location:aurika-coorg"})
     @POST("aurika/guest/guest-booking/")
-    Call<GuestReservation> guest(@Body Map map);
+    Call<GuestBooking> guest(@Body Map map);
 
     @Headers({"Content-Type:application/json", "organization-key:80b2f8f25c554f9705bb216c8128ba4f05bb0cfd", "location:aurika-coorg"})
     @POST("aurika/guest/authenticate-mobile/")
@@ -294,7 +295,7 @@ public interface APIMethods {
 
     @Headers({"Content-Type:application/json", "organization-key:80b2f8f25c554f9705bb216c8128ba4f05bb0cfd", "location:aurika-coorg"})
     @POST("aurika/guest/razorpay/verifypaymentSignature/")
-    Call<General> verifySignature(@Body Map map);
+    Call<VerifyPaymentSignature> verifySignature(@Body Map map);
 
     //Mystay
     @Headers({"Content-Type:application/json", "organization-key:80b2f8f25c554f9705bb216c8128ba4f05bb0cfd", "location:aurika-coorg"})

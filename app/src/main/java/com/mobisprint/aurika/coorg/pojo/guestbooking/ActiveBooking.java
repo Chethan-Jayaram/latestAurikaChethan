@@ -53,7 +53,7 @@ public class ActiveBooking {
     private String bookingNumber;
     @SerializedName("guest_count")
     @Expose
-    private Object guestCount;
+    private Integer guestCount;
     @SerializedName("checkin_date_time")
     @Expose
     private String checkinDateTime;
@@ -113,11 +113,11 @@ public class ActiveBooking {
         this.bookingNumber = bookingNumber;
     }
 
-    public Object getGuestCount() {
+    public Integer getGuestCount() {
         return guestCount;
     }
 
-    public void setGuestCount(Object guestCount) {
+    public void setGuestCount(Integer guestCount) {
         this.guestCount = guestCount;
     }
 

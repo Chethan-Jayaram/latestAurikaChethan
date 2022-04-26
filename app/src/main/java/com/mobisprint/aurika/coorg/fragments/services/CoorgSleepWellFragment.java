@@ -110,66 +110,69 @@ public class CoorgSleepWellFragment extends Fragment implements ApiListner {
 
 
         view_order.setOnClickListener(v -> {
-            if (items_count>0)  {
 
-                if (GlobalClass.user_token.isEmpty()){
-                    alertBox();
+            if (GlobalClass.user_active_booking) {
 
-                }else if (GlobalClass.user_active_booking){
-                    /*showBottomSheetDialog();*/
-                    selectedList.clear();
-                    for (int i=0;i<sleepWellList.size();i++){
+                if (items_count > 0) {
 
-                        for (int j=0;j<sleepWellList.get(i).getSleepwellList().size();j++){
-                            if (sleepWellList.get(i).getSleepwellList().get(j).getCount()>0){
+                    if (GlobalClass.user_token.isEmpty()) {
+                        alertBox();
 
-                                if (sleepWellList.get(i).getTitle().equalsIgnoreCase("Deep Sleep Menu")){
-                                    housekeeping = true;
+                    } else if (GlobalClass.user_active_booking) {
+                        /*showBottomSheetDialog();*/
+                        selectedList.clear();
+                        for (int i = 0; i < sleepWellList.size(); i++) {
 
-                                } else if (sleepWellList.get(i).getTitle().equalsIgnoreCase("Pillow Menu")){
-                                    housekeeping = true;
+                            for (int j = 0; j < sleepWellList.get(i).getSleepwellList().size(); j++) {
+                                if (sleepWellList.get(i).getSleepwellList().get(j).getCount() > 0) {
 
-                                }else if(sleepWellList.get(i).getTitle().equalsIgnoreCase("Room Fragrance")){
-                                    housekeeping = true;
-                                }else if (sleepWellList.get(i).getTitle().equalsIgnoreCase("Nightcaps")){
-                                    dining = true;
+                                    if (sleepWellList.get(i).getTitle().equalsIgnoreCase("Deep Sleep Menu")) {
+                                        housekeeping = true;
+
+                                    } else if (sleepWellList.get(i).getTitle().equalsIgnoreCase("Pillow Menu")) {
+                                        housekeeping = true;
+
+                                    } else if (sleepWellList.get(i).getTitle().equalsIgnoreCase("Room Fragrance")) {
+                                        housekeeping = true;
+                                    } else if (sleepWellList.get(i).getTitle().equalsIgnoreCase("Nightcaps")) {
+                                        dining = true;
+                                    }
+                                    sleepWellList.get(i).getSleepwellList().get(j).setItem_id(sleepWellList.get(i).getSleepwellList().get(j).getId());
+                                    sleepWellList.get(i).getSleepwellList().get(j).setQuantity(sleepWellList.get(i).getSleepwellList().get(j).getCount());
+                                    selectedList.add(sleepWellList.get(i).getSleepwellList().get(j));
                                 }
-                                sleepWellList.get(i).getSleepwellList().get(j).setItem_id(sleepWellList.get(i).getSleepwellList().get(j).getId());
-                                sleepWellList.get(i).getSleepwellList().get(j).setQuantity(sleepWellList.get(i).getSleepwellList().get(j).getCount());
-                                selectedList.add(sleepWellList.get(i).getSleepwellList().get(j));
                             }
                         }
-                    }
 
 
-                    if (!(housekeeping && dining)){
-                        BottomDailogFragment fragment = new BottomDailogFragment();
-                        Bundle bundle1 = new Bundle();
+                        if (!(housekeeping && dining)) {
+                            BottomDailogFragment fragment = new BottomDailogFragment();
+                            Bundle bundle1 = new Bundle();
 
-                        if (housekeeping){
-                            bundle1.putString("ticketType","housekeeping");
-                        }else if (dining){
-                            bundle1.putString("ticketType","in-room-dining");
+                            if (housekeeping) {
+                                bundle1.putString("ticketType", "housekeeping");
+                            } else if (dining) {
+                                bundle1.putString("ticketType", "in-room-dining");
+                            }
+                            bundle1.putString("Category", "sleepwell");
+                            bundle1.putParcelableArrayList("List", (ArrayList<? extends Parcelable>) selectedList);
+                            Gson gson = new Gson();
+                            String json = gson.toJson(selectedList);
+                            Log.d("sleepwell slect items", json);
+                            fragment.setArguments(bundle1);
+                            /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
+                            fragment.show(getActivity().getSupportFragmentManager(),
+                                    "fragment_bottom_sheet_dailog");
+                        } else {
+                            housekeeping = false;
+                            dining = false;
+                            GlobalClass.ShowAlert(mContext, "Alert", "Nightcaps cannot be clubbed with other service");
+
                         }
-                        bundle1.putString("Category","sleepwell");
-                        bundle1.putParcelableArrayList("List", (ArrayList<? extends Parcelable>) selectedList);
-                        Gson gson = new Gson();
-                        String json = gson.toJson(selectedList);
-                        Log.d("sleepwell slect items",json);
-                        fragment.setArguments(bundle1);
-                        /*getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
-                        fragment.show(getActivity().getSupportFragmentManager(),
-                                "fragment_bottom_sheet_dailog");
-                    }else {
-                        housekeeping = false;
-                        dining = false;
-                        GlobalClass.ShowAlert(mContext,"Alert","Nightcaps cannot be clubbed with other service");
+                    } else {
 
+                        GlobalClass.ShowAlert(mContext, "Alert", "You don't have active booking to place order");
                     }
-                } else  {
-
-                    GlobalClass.ShowAlert(mContext,"Alert","You don't have active booking to place order");
-                }
 
                 /*Fragment fragment = new OrderSummary();
                 Bundle bundle1 = new Bundle();
@@ -181,9 +184,12 @@ public class CoorgSleepWellFragment extends Fragment implements ApiListner {
                 bundle1.putString("category",order_category);
                 fragment.setArguments(bundle1);
                 getFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();*/
-            }else
-            {
-                GlobalClass.ShowAlert(mContext,"Alert","Select atleast one item");
+                } else {
+                    GlobalClass.ShowAlert(mContext, "Alert", "Select atleast one item");
+                }
+            }else{
+                GlobalClass.ShowAlert(mContext, "Alert", "You don't have an active booking. You can place order only during the stay at property.");
+
             }
 
         });

@@ -86,10 +86,16 @@ public class MyStayMainAdapter extends RecyclerView.Adapter<MyStayMainAdapter.Vi
             e.printStackTrace();
         }
 
+        if(guestList.get(position).getReservationStatus().equalsIgnoreCase("Reserved")) {
+            holder.drop_img.setVisibility(View.GONE);
+        }
+
         //holder.btn_make_payment.setVisibility(View.GONE);
 
         if (guestList.get(position).getGuestCount() != null){
-            holder.tv_nymber_of_guests.setText((Integer) guestList.get(position).getGuestCount());
+            holder.tv_nymber_of_guests.setText(guestList.get(position).getGuestCount().toString());
+
+
             guest_count = String.valueOf(guestList.get(position).getGuestCount());
         }else{
             holder.tv_nymber_of_guests.setText("1");
@@ -114,12 +120,12 @@ public class MyStayMainAdapter extends RecyclerView.Adapter<MyStayMainAdapter.Vi
                     GetGuestFoliodetails(guestList,holder,position);
                 }else{
                     holder.lyt_payment.setVisibility(View.GONE);
+                    holder.mystay_inner_recyclerview.setVisibility(View.VISIBLE);
                     MyStayInnerAdapter adapter = new MyStayInnerAdapter(guestList.get(position).getBookingTickets(),guest_count);
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
                     holder.mystay_inner_recyclerview.setLayoutManager(layoutManager);
                     holder.mystay_inner_recyclerview.setAdapter(adapter);
                 }
-
             }
 
         });
@@ -127,7 +133,7 @@ public class MyStayMainAdapter extends RecyclerView.Adapter<MyStayMainAdapter.Vi
     }
 
     private void GetGuestFoliodetails(List<ActiveBooking> guestList, ViewHolder holder, int position) {
-        dialog.setMessage("please wait, while we are loading your tickets");
+        dialog.setMessage("please wait, while we are loading more information");
         dialog.setCancelable(false);
         dialog.show();
         APIMethods api = ClientServiceGenerator.getUrlClient(GlobalClass.COORG).create(APIMethods.class);
@@ -156,7 +162,6 @@ public class MyStayMainAdapter extends RecyclerView.Adapter<MyStayMainAdapter.Vi
                                 }
 
 
-
                                 /*for (int i = 0; i< response.body().getData().size(); i++){
                                     if (!response.body().getData().get(i).getGrossAmount().equalsIgnoreCase("0.00")){
                                         guestList.get(position).setGrossAmount(response.body().getData().get(i).getGrossAmount());
@@ -177,6 +182,7 @@ public class MyStayMainAdapter extends RecyclerView.Adapter<MyStayMainAdapter.Vi
                                 }else{
                                     holder.lyt_payment.setVisibility(View.GONE);
                                 }
+
 
                                 holder.btn_make_payment.setOnClickListener(v1 -> {
                                     mystayListener.onItemClicked(guestList.get(position).getGrossAmount(),guestList.get(position).getGuestFolioId());

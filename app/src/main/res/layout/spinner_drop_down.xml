@@ -8,5 +8,4 @@
     android:gravity="center"
     android:padding="@dimen/dimen_4"
     android:layout_height="wrap_content">
-
 </TextView>

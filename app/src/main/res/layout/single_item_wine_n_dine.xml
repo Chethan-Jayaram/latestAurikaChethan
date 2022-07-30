@@ -29,9 +29,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dimen_10"
                 android:layout_marginTop="160dp"
-                android:gravity="center"
                 android:background="@drawable/border_edges"
                 android:fontFamily="@font/notoseriftc_regular"
+                android:gravity="center"
                 android:includeFontPadding="false"
                 android:padding="@dimen/dimen_10"
                 android:textColor="@color/white" />

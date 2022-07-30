@@ -177,6 +177,7 @@ public class MyStayMainAdapter extends RecyclerView.Adapter<MyStayMainAdapter.Vi
 
                                 // Note :  Make Payment disabled
 
+
                                 if (!guestList.get(position).getGrossAmount().equalsIgnoreCase("0.00") || !guestList.get(position).getGrossAmount().equalsIgnoreCase("0")) {
                                     holder.lyt_payment.setVisibility(View.VISIBLE);
                                 }else{

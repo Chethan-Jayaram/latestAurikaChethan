@@ -59,7 +59,7 @@ try {
 
     gridView = view.findViewById(R.id.gridview);
     img_view = view.findViewById(R.id.img_view);
-    img_view.setImageResource(R.drawable.home_screen_coorg);
+    img_view.setImageResource(R.drawable.new_coorg_homepage_image);
     controller = new HomeFragmentController(this);
     lyt = view.findViewById(R.id.ll_conent);
     progressBar = view.findViewById(R.id.progress_bar);
@@ -105,16 +105,17 @@ try {
                     List<Data> homeList = home.getData();
                     HomeScreenAdapter homeAdapter = new HomeScreenAdapter(mContext, homeList, Position -> {
 
+                        if(homeList.get(Position).getMobileRoute().getRouteName().equalsIgnoreCase("assa-abloy-door-unlock")){
+                            if (GlobalClass.user_active_booking){
+                                try {
 
-                        try {
+                                    Class<?> className = Class.forName(RouteName.getHomeScreenRoutes(homeList.get(Position).getMobileRoute().getRouteName()));
+                                    Log.d("classname", className.getName());
+                                    Bundle bundle = new Bundle();
 
-                            Class<?> className = Class.forName(RouteName.getHomeScreenRoutes(homeList.get(Position).getMobileRoute().getRouteName()));
-                            Log.d("classname", className.getName());
-                            Bundle bundle = new Bundle();
-
-                            bundle.putString("title",homeList.get(Position).getTitle());
-                            Fragment fragment = (Fragment) className.newInstance();
-                            fragment.setArguments(bundle);
+                                    bundle.putString("title",homeList.get(Position).getTitle());
+                                    Fragment fragment = (Fragment) className.newInstance();
+                                    fragment.setArguments(bundle);
 
 
                         /*FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -122,9 +123,35 @@ try {
                         fragmentTransaction.replace(R.id.fragment_coorg_container, fragment).addToBackStack(null);
                         fragmentTransaction.commit();*/
 
-                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }else{
+                                GlobalClass.ShowAlert(mContext,"Alert","You don't have any active booking");
+                            }
+                        }else {
+
+                            try {
+
+                                Class<?> className = Class.forName(RouteName.getHomeScreenRoutes(homeList.get(Position).getMobileRoute().getRouteName()));
+                                Log.d("classname", className.getName());
+                                Bundle bundle = new Bundle();
+
+                                bundle.putString("title", homeList.get(Position).getTitle());
+                                Fragment fragment = (Fragment) className.newInstance();
+                                fragment.setArguments(bundle);
+
+
+                        /*FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+                        fragmentTransaction.replace(R.id.fragment_coorg_container, fragment).addToBackStack(null);
+                        fragmentTransaction.commit();*/
+
+                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
 
 

@@ -378,19 +378,43 @@ public class HomeActivity extends AppCompatActivity implements ApiListner, Mobil
                                 }
                             }
                             if (!route.isEmpty()) {
-                                Class<?> className = Class.forName(route);
-                                Bundle bundle = new Bundle();
-                                bundle.putString("title", navigationList.get(GroupPosition).getTitle());
-                                Fragment fragment = (Fragment) className.newInstance();
-                                fragment.setArguments(bundle);
+
+                                if(navigationList.get(GroupPosition).getMobileRoute().getRouteName().equalsIgnoreCase("assa-abloy-door-unlock")){
+                                    if(GlobalClass.user_active_booking){
+                                        Class<?> className = Class.forName(route);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("title", navigationList.get(GroupPosition).getTitle());
+                                        Fragment fragment = (Fragment) className.newInstance();
+                                        fragment.setArguments(bundle);
 //                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //                            fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
 //                            fragmentTransaction.replace(R.id.fragment_coorg_container, fragment).addToBackStack(null);
 //                            fragmentTransaction.commit();
-                                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
-                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                                imm.hideSoftInputFromWindow(bt_bck.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
-                                drawer.closeDrawers();
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
+                                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                        imm.hideSoftInputFromWindow(bt_bck.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+                                        drawer.closeDrawers();
+                                    }else{
+                                        drawer.closeDrawers();
+                                        GlobalClass.ShowAlert(HomeActivity.this,"Alert","You don't have any active booking");
+
+                                    }
+                                }else {
+
+                                    Class<?> className = Class.forName(route);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("title", navigationList.get(GroupPosition).getTitle());
+                                    Fragment fragment = (Fragment) className.newInstance();
+                                    fragment.setArguments(bundle);
+//                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                            fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+//                            fragmentTransaction.replace(R.id.fragment_coorg_container, fragment).addToBackStack(null);
+//                            fragmentTransaction.commit();
+                              getSupportFragmentManager().beginTransaction().replace(R.id.fragment_coorg_container, fragment).addToBackStack(null).commit();
+                                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    imm.hideSoftInputFromWindow(bt_bck.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+                                    drawer.closeDrawers();
+                                }
                             }
                         } catch (Exception e) {
                             e.printStackTrace();

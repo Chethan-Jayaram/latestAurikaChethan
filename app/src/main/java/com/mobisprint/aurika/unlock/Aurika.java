@@ -2,6 +2,7 @@ package com.mobisprint.aurika.unlock;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import com.assaabloy.mobilekeys.api.ApiConfiguration;
 import com.assaabloy.mobilekeys.api.MobileKeys;
@@ -19,6 +20,8 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.security.ProviderInstaller;
 import com.mobisprint.aurika.BuildConfig;
 import com.mobisprint.aurika.notification.AurikaNotificationHandler;
+import com.onesignal.OSSubscriptionObserver;
+import com.onesignal.OSSubscriptionStateChanges;
 import com.onesignal.OneSignal;
 
 import org.json.JSONException;
@@ -35,7 +38,7 @@ import javax.net.ssl.SSLContext;
 /**
  * Application class handling the initialization of the Mobile Keys API
  */
-public class Aurika extends Application implements MobileKeysApiFactory
+public class Aurika extends Application implements MobileKeysApiFactory, OSSubscriptionObserver
 {
     private static final int LOCK_SERVICE_CODE = BuildConfig.AAMK_LOCK_SERVICE_CODE;
 
@@ -55,11 +58,13 @@ public class Aurika extends Application implements MobileKeysApiFactory
         mInstance=this;
         context=getApplicationContext();
         initializeMobileKeysApi();
-        OneSignal.startInit(this)
-                .setNotificationOpenedHandler(new AurikaNotificationHandler())
+        OneSignal.initWithContext(this);
+        OneSignal.setAppId("cc328b3a-7b1f-414c-bd94-8dbee25a8bf0");
+        OneSignal.addSubscriptionObserver(this);
+               /* .setNotificationOpenedHandler(new AurikaNotificationHandler())
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
+                .init();*/
         try {
             // Google Play will install latest OpenSSL
             ProviderInstaller.installIfNeeded(getApplicationContext());
@@ -141,5 +146,12 @@ public class Aurika extends Application implements MobileKeysApiFactory
 
     public static Context getAppContext() {
         return context;
+    }
+
+    @Override
+    public void onOSSubscriptionChanged(OSSubscriptionStateChanges osSubscriptionStateChanges) {
+
+     //   Log.d("sub","yes");
+
     }
 }

@@ -176,7 +176,6 @@ public class MyStayActivity extends AppCompatActivity implements   ApiListner, P
 
         try {
             JSONObject options = new JSONObject();
-
             options.put("name", user_name);
             options.put("description", desc);
             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");

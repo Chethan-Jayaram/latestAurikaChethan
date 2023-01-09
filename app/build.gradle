@@ -30,7 +30,7 @@ android {
         applicationId "com.mobisprint.aurika"
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 30
+        versionCode 31
         versionName "2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -62,7 +62,7 @@ android {
         debug {
             minifyEnabled true
             shrinkResources true
-            debuggable false
+            debuggable true
             proguardFiles getDefaultProguardFile('proguard-android.txt'),  'proguard-rules.pro'
         }
 

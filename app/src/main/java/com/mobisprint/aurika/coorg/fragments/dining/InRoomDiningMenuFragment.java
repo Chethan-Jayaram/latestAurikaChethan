@@ -186,15 +186,22 @@ public class InRoomDiningMenuFragment extends Fragment implements ApiListner {
                                             for (int k = 0; k < dataList.get(i).getDiningList().get(j).getCustomisedList().size(); k++) {
                                                 Dining__1 selectedList = new Dining__1();
                                                 List<com.mobisprint.aurika.coorg.pojo.Services.Data> mydata = new ArrayList<>();
-                                                selectedList.setQuantity(1);
+                                                dataList.get(i).getDiningList().get(j).setQuantity(1);
+                                                selectedList.setQuantity(dataList.get(i).getDiningList().get(j).getQuantity());
                                                 selectedList.setItem_id(dataList.get(i).getDiningList().get(j).getId());
                                                 selectedList.setTitle(dataList.get(i).getDiningList().get(j).getTitle());
                                                 selectedList.setPrice(dataList.get(i).getDiningList().get(j).getPrice());
                                                 selectedList.setItem_Type(dataList.get(i).getDiningList().get(j).getItem_Type());
                                                 selectedList.setSubMenuCode(dataList.get(i).getDiningList().get(j).getSubMenuCode());
                                                 selectedList.setItemCode(dataList.get(i).getDiningList().get(j).getItemCode());
+                                                //selectedList.setQuantity(dataList.get(i).getDiningList().get(j).getQuantity());
                                                 if (dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().size() > 0) {
                                                     for (int l = 0; l < dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().size(); l++) {
+                                                        dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).setItemCode(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getItemCode());
+                                                        dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).setSubMenuCode(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getSubMenuCode());
+                                                        dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).setQuantity(1);
+                                                        dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).setItem_Type(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getItem_Type());
+                                                        dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).setQuantity(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l).getQuantity());
                                                         mydata.add(dataList.get(i).getDiningList().get(j).getCustomisedList().get(k).getDetails().get(l));
                                                     }
                                                 } else {

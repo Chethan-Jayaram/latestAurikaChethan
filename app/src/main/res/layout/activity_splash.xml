@@ -10,10 +10,10 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:padding="@dimen/dimen_80"
-        android:src="@drawable/aurika_logo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dimen_80"
+        android:src="@drawable/aurika_logo" />
 
    <TextView
        android:textColor="@color/white"

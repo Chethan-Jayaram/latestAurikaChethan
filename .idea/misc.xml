@@ -11,29 +11,45 @@
         <entry key="..\:/AndroidStudioProjects/Aurika/aurika-mobile-android/app/src/main/res/layout/single_item_main_screen.xml" value="0.27291666666666664" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/drawable/border_edges.xml" value="0.2890625" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/drawable/button_corner_radius.xml" value="0.2890625" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/drawable/et_border_layout.xml" value="0.2890625" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout-sw600dp/fragment_all_day_dining_menu.xml" value="0.51171875" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout-sw600dp/fragment_home_grid.xml" value="0.465" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout-sw600dp/fragment_in_room_dining.xml" value="0.51171875" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout-sw600dp/home_row.xml" value="0.51171875" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout-sw600dp/location_recyclerview.xml" value="0.44166666666666665" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout-sw600dp/num_of_item_selected.xml" value="0.51171875" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout-sw600dp/select_location.xml" value="0.51171875" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout-sw720dp/fragment_all_day_dining_menu.xml" value="0.2046875" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout-sw720dp/fragment_home_grid.xml" value="0.19375" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout-sw720dp/fragment_in_room_dining.xml" value="0.2046875" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout-sw720dp/location_recyclerview.xml" value="0.2046875" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout-sw720dp/select_location.xml" value="0.18680555555555556" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/activity_main.xml" value="0.27291666666666664" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/activity_my_stay.xml" value="0.27291666666666664" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/activity_splash.xml" value="0.27291666666666664" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/coorg_sleep_well_internal_list.xml" value="0.27291666666666664" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_all_day_dining_menu.xml" value="0.27291666666666664" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_amenities.xml" value="0.26871794871794874" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_beverage_menu.xml" value="0.27291666666666664" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_bottom_sheet_dailog.xml" value="0.26871794871794874" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_coorg_sleep_well.xml" value="0.27291666666666664" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_directory_of_services.xml" value="0.27291666666666664" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_door_unlocking.xml" value="0.23333333333333334" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_forgot_mpin.xml" value="0.27291666666666664" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_in_room_dining.xml" value="0.27291666666666664" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_in_room_dining_menu.xml" value="0.26871794871794874" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_otp_screen.xml" value="0.27291666666666664" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_payment_status.xml" value="0.26461538461538464" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_profile.xml" value="0.2657407407407407" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_registration.xml" value="0.26871794871794874" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_send_otp_screen.xml" value="0.27291666666666664" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/fragment_wine_and_dine.xml" value="0.2974976830398517" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/inner_single_item_mystay.xml" value="0.14270833333333333" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/item_selector.xml" value="0.27291666666666664" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/location_recyclerview.xml" value="0.27291666666666664" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/make_payment_bottom_sheet_dailog.xml" value="0.27291666666666664" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/num_of_item_selected.xml" value="0.27291666666666664" />
+        <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/select_location.xml" value="0.27291666666666664" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/single_item_mystay.xml" value="0.26871794871794874" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/single_item_wine_n_dine.xml" value="0.27291666666666664" />
         <entry key="..\:/AndroidStudioProjects/latestAurikaDeepak/app/src/main/res/layout/spinner_drop_down.xml" value="0.27291666666666664" />

@@ -75,7 +75,7 @@ public class DoorUnlockAdapter extends RecyclerView.Adapter<DoorUnlockAdapter.Vi
 
 /*
         holder.check_in.setText(odt.toString());
-*/
+*/ 
 
         /*holder.room_num.setText("102");*/
 

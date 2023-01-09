@@ -83,7 +83,6 @@ public class Aurika extends Application implements MobileKeysApiFactory, OSSubsc
      */
     private void initializeMobileKeysApi()
     {
-
         OpeningTrigger[] openingTriggers = {new TapOpeningTrigger(this)};
         ScanConfiguration scanConfiguration = new ScanConfiguration.Builder(openingTriggers, LOCK_SERVICE_CODE)
                 .setBluetoothModeIfSupported(BluetoothMode.DUAL)

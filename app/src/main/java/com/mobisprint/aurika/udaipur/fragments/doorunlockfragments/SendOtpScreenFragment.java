@@ -15,6 +15,7 @@ import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -180,7 +181,9 @@ public class SendOtpScreenFragment extends Fragment {
                 public void onResponse(Call<TokenAutentication> call, Response<TokenAutentication> response) {
                     try {
                         if (response.isSuccessful()) {
+                            Log.d("response",response.body().getStatus());
                             if (response.body().getStatus().equalsIgnoreCase("Success")) {
+                                Log.d("api success","yes");
                                 validation = new Validation();
                                 validation = response.body().getResult();
                                 GlobalClass.user_token = validation.getToken();
@@ -195,16 +198,19 @@ public class SendOtpScreenFragment extends Fragment {
                                 dismissDialog();
                             } else {
                                 dismissDialog();
+                                Log.d("api success","diff response");
                                 CustomMessageHelper showDialog = new CustomMessageHelper(context);
                                 showDialog.showCustomMessage((Activity) context, "Alert!!", response.body().getError(), false, false);
                             }
                         } else {
                             dismissDialog();
+                            Log.d("api success","api fail");
                             CustomMessageHelper showDialog = new CustomMessageHelper(context);
                             showDialog.showCustomMessage((Activity) context, "Alert!!", getString(R.string.ERROR), false, false);
                         }
                     } catch (Exception e) {
                         dismissDialog();
+                        Log.d("api success","exception");
                         CustomMessageHelper showDialog = new CustomMessageHelper(context);
                         showDialog.showCustomMessage((Activity) context, "Alert!!", response.body().getError(), false, false);
                         e.printStackTrace(

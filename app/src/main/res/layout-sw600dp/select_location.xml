@@ -82,10 +82,4 @@
 
     </LinearLayout>
 
-    <androidx.core.widget.ContentLoadingProgressBar
-        android:id="@+id/progressbar"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_centerInParent="true"/>
-
 </RelativeLayout>

@@ -167,7 +167,6 @@ public class CoorgSleepWellFragment extends Fragment implements ApiListner {
                             housekeeping = false;
                             dining = false;
                             GlobalClass.ShowAlert(mContext, "Alert", "Nightcaps cannot be clubbed with other service");
-
                         }
                     } else {
 

@@ -15,6 +15,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -491,13 +492,14 @@ public class OtpScreenFragment extends Fragment implements SMSReceiver.OTPReceiv
                                 sharedPreferences = context.getSharedPreferences("aurika", 0);
                                 edit = sharedPreferences.edit();
                                 edit.putBoolean("verifed_otp", true);
+                                Log.d("verifed_otp","true");
                                 edit.putString("UserName", GlobalClass.USER_NAME);
                                 edit.apply();
                                 Fragment fragment = new DoorUnlockingFragment();
                                 Bundle bundle = new Bundle();
                                 bundle.putString("Key","Udaipur");
                                 fragment.setArguments(bundle);
-                                Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
                             } else {
                                 CustomMessageHelper showDialog = new CustomMessageHelper(context);
                                 showDialog.showCustomMessage((Activity) context, "Alert!!", response.body().getError(), false, false);

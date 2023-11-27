@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_marginTop="@dimen/dimen_10"
-        android:layout_marginBottom="@dimen/dimen_10"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+<LinearLayout
+    android:layout_marginTop="@dimen/dimen_10"
+    android:layout_marginBottom="@dimen/dimen_10"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_category_title"
@@ -18,5 +18,5 @@
         android:fontFamily="@font/notosanstc_medium"
         android:textColor="@color/black"
         android:textSize="20sp" />
-    </LinearLayout>
+</LinearLayout>
 </RelativeLayout>

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class BreakFastMenuFragment extends Fragment {
             tv_break_menu_desc= view.findViewById(R.id.tv_break_menu_desc);
             backBtn.setVisibility(View.VISIBLE);
             parsejson();
+            Log.d("MenuList", mMenuList.toString());
             BreakfastMenuListnerAdapter adapter = new BreakfastMenuListnerAdapter(mMenuList);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
             breakfast_menu_recycler.setLayoutManager(mLayoutManager);

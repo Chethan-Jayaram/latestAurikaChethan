@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.provider.Settings;
@@ -17,8 +18,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.mobisprint.aurika.R;
 import com.mobisprint.aurika.coorg.modle.TicketModle;
@@ -342,13 +345,26 @@ public class GlobalClass {
             } );*/
 
             btn_enable.setOnClickListener(v -> {
-                try {
-                    ActivityCompat.requestPermissions(activity,
-                            getPermissions(),
-                            MY_PERMISSIONS_REQUEST_LOCATION);
-                    mLocationPermission.dismiss();
-                } catch (Exception e) {
-                    Log.d("permission exception", "exception");
+                boolean permissionGranted=true;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    permissionGranted &= ContextCompat.checkSelfPermission(activity.getApplicationContext(), Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED
+                            && ContextCompat.checkSelfPermission(activity.getApplicationContext(), Manifest.permission.BLUETOOTH_ADVERTISE) == PackageManager.PERMISSION_GRANTED
+                            && ContextCompat.checkSelfPermission(activity.getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
+
+                }
+
+                permissionGranted &= ContextCompat.checkSelfPermission(activity.getApplicationContext(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(activity.getApplicationContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
+                    try {
+                        ActivityCompat.requestPermissions(activity,
+                                getPermissions(),
+                                MY_PERMISSIONS_REQUEST_LOCATION);
+                        mLocationPermission.dismiss();
+                    } catch (Exception e) {
+                        Log.d("permission exception", "exception");
+                    }
                 }
 
             });
@@ -360,17 +376,24 @@ public class GlobalClass {
             e.getMessage();
         }
     }
+
+
     public static String[] getPermissions() {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            return new String[]{Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_ADVERTISE, Manifest.permission.BLUETOOTH_CONNECT};
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            return new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+        } else {
+            return new String[]{Manifest.permission.ACCESS_COARSE_LOCATION};
+        }
+
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
 
             return new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION};
         } else {
 
             return new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION};
-        }
+        }*/
     }
-
-
-
 }

@@ -2,6 +2,7 @@ package com.mobisprint.aurika.udaipur.fragments.doorunlockfragments;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Notification;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -15,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -165,6 +167,7 @@ public class DoorUnlockingFragment extends Fragment
             if (data.isEmpty()) {
                 stopScanning();
             } else {
+                Log.d("startScanning","yes");
                 startScanning();
             }
         }
@@ -174,23 +177,31 @@ public class DoorUnlockingFragment extends Fragment
      * Start BLE scanning or request permission
      */
     private void startScanning() {
-
-        if (hasLocationPermissions()) {
-            if (!mBluetoothAdapter.isEnabled()) {
-                mBluetoothAdapter.enable();
-                startReading();
-            } else {
-                startReading();
-            }
-        } else {
-            if (!sharedPreferences.getBoolean("requestedRuntimePermission", false)) {
-                GlobalClass.editor.putBoolean("requestedRuntimePermission", true);
-                GlobalClass.editor.apply();
-                GlobalClass.showPermissionDialoug(getActivity());
+        if (Build.VERSION.SDK_INT<=Build.VERSION_CODES.R){
+            if (hasLocationPermissions()) {
+                if (!mBluetoothAdapter.isEnabled()) {
+                    mBluetoothAdapter.enable();
+                    startReading();
+                } else {
+                    startReading();
+                }
             }else {
-                requestLocationPermission();
+                if (!sharedPreferences.getBoolean("requestedRuntimePermission", false)) {
+                    GlobalClass.editor.putBoolean("requestedRuntimePermission", true);
+                    GlobalClass.editor.apply();
+                    GlobalClass.showPermissionDialoug(getActivity());
+                }else {
+                    requestLocationPermission();
+                }
+            }
+        }else{
+            if (hasBluetoothSettings()){
+                startReading();
+            }else{
+                requestBlePermissions(getActivity(),100);
             }
         }
+
     }
 
     private void startReading() {
@@ -199,6 +210,28 @@ public class DoorUnlockingFragment extends Fragment
         Notification notification = UnlockNotification.create(requireContext());
         controller.startForegroundScanning(notification);
         setUiComponents();
+    }
+
+    boolean hasBluetoothSettings(){
+        boolean permissionGranted = ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_ADVERTISE) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED;
+
+        Log.d("bluetooth",String.valueOf(permissionGranted));
+        return permissionGranted;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.S)
+    private static final String[] ANDROID_12_BLE_PERMISSIONS = new String[]{
+            Manifest.permission.BLUETOOTH_SCAN,
+            Manifest.permission.BLUETOOTH_CONNECT,
+            Manifest.permission.BLUETOOTH_ADMIN,
+            Manifest.permission.BLUETOOTH_ADVERTISE
+    };
+
+    public static void requestBlePermissions(Activity activity, int requestCode) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+            ActivityCompat.requestPermissions(activity, ANDROID_12_BLE_PERMISSIONS, requestCode);
     }
 
     /**

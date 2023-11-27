@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,6 +85,7 @@ public class BreakfastMenuListnerAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
+        Log.d("item_type",String.valueOf(mMenuList.get(position).getType()));
         return mMenuList.get(position).getType();
     }
 

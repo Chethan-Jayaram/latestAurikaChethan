@@ -191,6 +191,7 @@ public class SendOtpScreenFragment extends Fragment {
                                 edit = sharedPreferences.edit();
                                 edit.putString("user_token", GlobalClass.user_token);
                                 edit.apply();
+                                Log.d("login_sucessful","yes");
                                 getActivity()
                                         .getSupportFragmentManager()
                                         .beginTransaction().replace(R.id.fragment_container,

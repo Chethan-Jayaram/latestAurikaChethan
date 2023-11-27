@@ -48,11 +48,11 @@ public class SplashActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        try { 
+        super.onCreate(savedInstanceState); 
             context = this;
             setContentView(R.layout.activity_splash);
 
+            try{
 
             Intent intent = getIntent();
             notification = intent.getIntExtra("notification", 0);
@@ -210,6 +210,7 @@ public class SplashActivity extends Activity {
 
 
                     } else {
+                        Log.d("error",t.getMessage());
                         GlobalClass.ShowAlert(context, "Alert", getString(R.string.NETWORK_ISSUE));
                     }
                 } catch (Exception e) {

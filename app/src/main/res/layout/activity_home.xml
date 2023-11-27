@@ -71,12 +71,15 @@
                 android:layout_alignParentBottom="true">
 
 
-                    <View
-                        android:id="@+id/lyt_top_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="1dp"
-                        android:layout_margin="2dp"
-                        android:background="@color/gray" />
+                <View
+                    android:id="@+id/lyt_top_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/gray" />
 
 
                 <RelativeLayout
@@ -88,26 +91,26 @@
 
 
                     <ImageView
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerInParent="true"
                         android:id="@+id/img_logout"
                         android:layout_width="@dimen/dimen_32"
                         android:layout_height="@dimen/dimen_32"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerInParent="true"
                         android:src="@drawable/ic_logout" />
 
                     <TextView
                         android:id="@+id/tv_logout"
-                        android:layout_centerInParent="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
-                        android:fontFamily="@font/notosanstc_light"
-                        android:textSize="18sp"
-                        android:layout_toRightOf="@+id/img_logout"
-                        android:includeFontPadding="false"
+                        android:layout_centerInParent="true"
                         android:layout_marginLeft="@dimen/dimen_10"
+                        android:layout_toRightOf="@+id/img_logout"
+                        android:fontFamily="@font/notosanstc_light"
+                        android:includeFontPadding="false"
+                        android:text=""
                         android:textColor="@color/black"
-                        android:textStyle="normal"/>
+                        android:textSize="18sp"
+                        android:textStyle="normal" />
 
                 </RelativeLayout>
 
